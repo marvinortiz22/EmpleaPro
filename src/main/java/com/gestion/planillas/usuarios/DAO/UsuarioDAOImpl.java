@@ -23,4 +23,10 @@ public class UsuarioDAOImpl implements usuarioDAO {
 	     return usuarios;
 	}
 
+	@Override
+	public void insertarCliente(Usuario usuario) {
+		Session session=sessionFactory.openSession();
+		session.save(usuario);
+	}
+
 }
