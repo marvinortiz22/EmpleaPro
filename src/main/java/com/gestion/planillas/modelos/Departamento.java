@@ -3,13 +3,11 @@ package com.gestion.planillas.modelos;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="DEPARTAMENTO")
 public class Departamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="IDDEPARTAMENTO")
     private int idDepartamento;
-    @Column(name="NOMBREDEPARTAMENTO")
+
     private String nombreDepartamento;
 
     public int getIdDepartamento() {

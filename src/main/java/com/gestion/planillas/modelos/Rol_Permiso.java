@@ -2,8 +2,7 @@ package com.gestion.planillas.modelos;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "ROL_PERMISO")
-public class RolPermiso {
+public class Rol_Permiso {
     @Id
     @ManyToOne
     @JoinColumn(name = "IDPERMISO")
@@ -14,11 +13,11 @@ public class RolPermiso {
     @JoinColumn(name = "IDROL")
     private Rol rol;
     
-	public RolPermiso() {
+	public Rol_Permiso() {
 		super();
 	}
 	
-	public RolPermiso(Permiso permiso, Rol rol) {
+	public Rol_Permiso(Permiso permiso, Rol rol) {
 		super();
 		this.permiso = permiso;
 		this.rol = rol;

@@ -2,14 +2,11 @@ package com.gestion.planillas.modelos;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="TIPOUNIDAD")
 public class TipoUnidad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="IDTIPOUNIDAD")
     private int idTipoUnidad;
 
-    @Column(name="NOMBRETIPOUNIDAD")
     private String nombreTipoUnidad;
 
     // Getters y Setters

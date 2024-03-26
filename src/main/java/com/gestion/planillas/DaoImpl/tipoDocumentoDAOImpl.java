@@ -1,7 +1,7 @@
-package com.gestion.planillas.usuarios.tipoDocumentoDAO;
+package com.gestion.planillas.DaoImpl;
 
+import com.gestion.planillas.DAO.tipoDocumentoDAO;
 import com.gestion.planillas.modelos.TipoDocumento;
-import com.gestion.planillas.modelos.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class tipoDocumentoDAOImpl implements tipoDocumentoDAO{
+public class tipoDocumentoDAOImpl implements tipoDocumentoDAO {
     @Autowired
     private SessionFactory sessionFactory;
 

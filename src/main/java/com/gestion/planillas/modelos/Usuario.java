@@ -15,8 +15,8 @@ public class Usuario {
     @ManyToOne
     @JoinColumn(name = "IDTIPODOC")
     private TipoDocumento tipoDocumento;
-
-    private String email;
+	private String username;
+	private String email;
     private String password;
     private String numeroDoc;
     private boolean estado;
@@ -25,13 +25,12 @@ public class Usuario {
 	public Usuario() {
 		super();
 	}
-	
-	public Usuario(int idUsuario, Rol rol, TipoDocumento tipoDocumento, String email, String password, String numeroDoc,
-			boolean estado, int intentosLogin) {
-		super();
+
+	public Usuario(int idUsuario, Rol rol, TipoDocumento tipoDocumento, String username, String email, String password, String numeroDoc, boolean estado, int intentosLogin) {
 		this.idUsuario = idUsuario;
 		this.rol = rol;
 		this.tipoDocumento = tipoDocumento;
+		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.numeroDoc = numeroDoc;
@@ -62,6 +61,13 @@ public class Usuario {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getPassword() {
 		return password;

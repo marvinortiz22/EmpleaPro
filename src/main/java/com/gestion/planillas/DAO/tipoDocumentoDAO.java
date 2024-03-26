@@ -1,4 +1,4 @@
-package com.gestion.planillas.usuarios.tipoDocumentoDAO;
+package com.gestion.planillas.DAO;
 
 import com.gestion.planillas.modelos.TipoDocumento;
 

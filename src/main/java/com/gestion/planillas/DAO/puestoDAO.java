@@ -1,4 +1,4 @@
-package com.gestion.planillas.puestos.DAO;
+package com.gestion.planillas.DAO;
 
 import java.util.List;
 
