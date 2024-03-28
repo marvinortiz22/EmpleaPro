@@ -1,9 +1,14 @@
 package com.gestion.planillas.modelos;
 import jakarta.persistence.*;
 
+import java.util.List;
+import com.gestion.planillas.DAO.usuarioDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 @Entity
 public class Usuario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUsuario;
@@ -37,7 +42,6 @@ public class Usuario {
 		this.estado = estado;
 		this.intentosLogin = intentosLogin;
 	}
-
 	public int getIdUsuario() {
 		return idUsuario;
 	}
@@ -93,6 +97,9 @@ public class Usuario {
 	public void setIntentosLogin(int intentosLogin) {
 		this.intentosLogin = intentosLogin;
 	}
+
+
+
     
 
     

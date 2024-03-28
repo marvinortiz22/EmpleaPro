@@ -56,7 +56,7 @@ public class UsuarioDAOImpl implements usuarioDAO {
 		return usuario;
 	}
 	public List<Permiso> getPermisosDeUsuario(int idUsuario) {
-		Session session = sessionFactory.getCurrentSession();
+		Session session = sessionFactory.openSession();
 
 		// Obtener el usuario por su ID
 		Usuario usuario = session.get(Usuario.class, idUsuario);

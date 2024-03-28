@@ -1,8 +1,10 @@
 package com.gestion.planillas.Controllers;
 
+import com.gestion.planillas.modelos.Permiso;
 import com.gestion.planillas.modelos.TipoDocumento;
 import com.gestion.planillas.modelos.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,11 +64,10 @@ public class UsuarioController {
     }
 
     @GetMapping("/email")
-    @ResponseBody
-    public String email(@RequestParam("email")String email){
+    public String email(@RequestParam("email")String email,Model model){
         Usuario usuario=usuarioDAO.getUsuarioPorUsername(email);
-        usuarioDAO.getPermisosDeUsuario(usuario.getIdUsuario());
-        System.out.print(usuarioDAO.getPermisosDeUsuario(usuario.getIdUsuario()).toString());
-        return usuarioDAO.getPermisosDeUsuario(usuario.getIdUsuario()).toString();
+        List<Permiso> permisos=usuarioDAO.getPermisosDeUsuario(usuario.getIdUsuario());
+        model.addAttribute("permisos",permisos);
+        return "permisos";
     }
 }

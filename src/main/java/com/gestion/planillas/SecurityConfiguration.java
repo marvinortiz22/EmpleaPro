@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -43,13 +44,13 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManagerBuilder auth) throws Exception {
 
         http.authorizeHttpRequests(request -> request
-                        /*.requestMatchers("/personas", "/personas/nuevaPersona", "/personas/registrarUsuario","personasRest/nuevaPersona","/error").permitAll()*/
-                        //.requestMatchers("/personas/roles").hasRole("administrador")
+                        .requestMatchers("/images/**", "/css/**", "/js/**", "/WEB-INF/jsp/**","/usuario/agregar").permitAll()
+                        /*.requestMatchers("/usuario/editar").hasRole("USER")*/
                         .anyRequest().authenticated())
                 .formLogin(form->form
-                        .loginPage("/login")
-                        .permitAll()
-                        .defaultSuccessUrl("/usuario/listar"))
+                .loginPage("/login")
+                .permitAll()
+                .defaultSuccessUrl("/usuario/listar"))
                 .logout(logout->logout
                         .permitAll()
                         .logoutUrl("/logout"));
@@ -61,6 +62,7 @@ public class SecurityConfiguration {
         return  http.build();
 
     }
+
 
 
     @Bean

@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<%@ include file="header.jsp" %>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+
+    <title>Document</title>
+</head>
+<body>
+<%@ include file="base/header.jsp" %>
 <table>
     <tr>
         <th>id</th>
@@ -34,5 +42,6 @@
 </c:forEach>
 </table>
 <a href="/usuario/agregar"><button>agregar usuario</button></a>
-<%@ include file="footer.jsp" %>
+<%@ include file="base/footer.jsp" %>
+</body>
 </html>

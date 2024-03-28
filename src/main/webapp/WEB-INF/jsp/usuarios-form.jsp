@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<%@ include file="header.jsp" %>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+    <title>Document</title>
+</head>
+<body>
+<%@ include file="base/header.jsp" %>
 <form:form modelAttribute="usuario" method="POST" action="/usuario/agregar">
     <form:hidden path="idUsuario"/>
     <label for="">username: </label>
@@ -17,5 +25,6 @@
     <form:input path="password" value=""/>
     <button type="submit">enviar</button>
 </form:form>
-<%@ include file="footer.jsp" %>
+<%@ include file="base/footer.jsp" %>
+</body>
 </html>
