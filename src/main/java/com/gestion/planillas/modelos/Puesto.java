@@ -17,7 +17,7 @@ public class Puesto {
 
     private BigDecimal salarioMin;
     private BigDecimal salarioMax;
-    private boolean estado;
+    private boolean estado=true;
 
     // Getters y Setters
 

@@ -3,6 +3,7 @@ package com.gestion.planillas.DAO;
 import java.util.List;
 
 
+import com.gestion.planillas.UsuarioPermisos;
 import com.gestion.planillas.modelos.Permiso;
 import com.gestion.planillas.modelos.Usuario;
 import org.hibernate.SessionFactory;
@@ -15,6 +16,7 @@ public interface usuarioDAO {
 	public void borrarUsuario(int id);
 	public Usuario getUsuarioPorUsername(String username);
 
-	public List<Permiso> getPermisosDeUsuario(int idUsuario);
+	public List<Permiso> getPermisosDeUsuario(String username);
+	public UsuarioPermisos getUsuarioActual();
 
 }

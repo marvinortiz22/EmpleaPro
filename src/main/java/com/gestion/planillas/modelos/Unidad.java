@@ -18,7 +18,7 @@ public class Unidad {
     private Unidad unidadPadre;
 
     private String nombreUnidad;
-    private boolean estado;
+    private boolean estado=true;
 
     // Getters y Setters
 

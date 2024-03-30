@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gestion.planillas.DAO.usuarioDAO;
+import com.gestion.planillas.UsuarioPermisos;
 import com.gestion.planillas.modelos.Permiso;
 import com.gestion.planillas.modelos.Rol;
 import jakarta.transaction.Transactional;
@@ -13,6 +14,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.gestion.planillas.modelos.Usuario;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -55,11 +59,13 @@ public class UsuarioDAOImpl implements usuarioDAO {
 		Usuario usuario = (Usuario) query.uniqueResult();
 		return usuario;
 	}
-	public List<Permiso> getPermisosDeUsuario(int idUsuario) {
+	public List<Permiso> getPermisosDeUsuario(String username) {
 		Session session = sessionFactory.openSession();
 
 		// Obtener el usuario por su ID
-		Usuario usuario = session.get(Usuario.class, idUsuario);
+        Query query = session.createQuery("FROM Usuario WHERE username = :username");
+        query.setParameter("username", username);
+        Usuario usuario = (Usuario) query.uniqueResult();
 
 		// Verificar si el usuario existe
 		if (usuario == null) {
@@ -75,11 +81,23 @@ public class UsuarioDAOImpl implements usuarioDAO {
 		}
 
 		// Obtener todos los permisos asociados al rol del usuario
-		Query<Permiso> query = session.createQuery("SELECT rp.permiso FROM Rol_Permiso rp WHERE rp.rol = :rol", Permiso.class);
-		query.setParameter("rol", rol);
-		List<Permiso> permisos = query.list();
+		Query<Permiso> query2 = session.createQuery("SELECT rp.permiso FROM Rol_Permiso rp WHERE rp.rol = :rol", Permiso.class);
+		query2.setParameter("rol", rol);
+		List<Permiso> permisos = query2.list();
 		return permisos;
 	}
+    public UsuarioPermisos getUsuarioActual() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails=(UserDetails) authentication.getPrincipal();
+            String username=userDetails.getUsername();
+            List<Permiso> permisos=getPermisosDeUsuario(username);
+            UsuarioPermisos usuarioPermisos=new UsuarioPermisos(username,permisos);
+            return usuarioPermisos;
+        }
+        // En este punto, podría devolver null o lanzar una excepción según tus requisitos.
+        return null;
+    }
 
 
 

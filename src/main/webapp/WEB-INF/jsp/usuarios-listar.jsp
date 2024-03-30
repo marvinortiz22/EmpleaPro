@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">
     <title>Document</title>
 </head>
 <body>
@@ -14,10 +14,7 @@
         <th>id</th>
         <th>username</th>
         <th>rol</th>
-        <th>tipo de documento</th>
-        <th>numero documento</th>
         <th>email</th>
-        <th>password</th>
         <th>estado</th>
         <th>intentosLogin</th>
         <th>acciones</th>
@@ -27,16 +24,12 @@
 <td>${usuario.idUsuario}</td>
 <td>${usuario.username}</td>
 <td>${usuario.rol.nombreRol}</td>
-<td>${usuario.tipoDocumento.nombreDoc}</td>
-<td>${usuario.numeroDoc}</td>
 <td>${usuario.email}</td>
-<td>${usuario.password}</td>
 <td>${usuario.estado}</td>
 <td>${usuario.intentosLogin}</td>
 <td>
     <a href="/usuario/editar?id=${usuario.idUsuario}"><button>modificar</button></a>
     <a href="/usuario/borrar?id=${usuario.idUsuario}"><button>borrar</button></a>
-    <a href="/usuario/email?email=${usuario.username}"><button>username</button></a>
  </td>
 </tr>
 </c:forEach>

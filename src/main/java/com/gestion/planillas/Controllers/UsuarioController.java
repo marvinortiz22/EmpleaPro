@@ -1,5 +1,6 @@
 package com.gestion.planillas.Controllers;
 
+import com.gestion.planillas.UsuarioPermisos;
 import com.gestion.planillas.modelos.Permiso;
 import com.gestion.planillas.modelos.TipoDocumento;
 import com.gestion.planillas.modelos.Usuario;
@@ -26,16 +27,22 @@ public class UsuarioController {
     private tipoDocumentoDAO tipoDocumentoDAO;
     @GetMapping("/listar")
     public String jsp(Model model){
+        //pegar en todos los controladores para obtener el username y los permiso del user actual
+        model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
+
         List<Usuario> puestos= usuarioDAO.getUsuarios();
         model.addAttribute("puestos",puestos);
         return "usuarios-listar";
     }
     @GetMapping("/agregar")
     public String agregar(Model model){
+        model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
+
         List<TipoDocumento> tipoDocumentoList=tipoDocumentoDAO.getTipoDocumentos();
         Usuario usuario=new Usuario();
         model.addAttribute("usuario",usuario);
-        model.addAttribute("tiposDeDocumento",tipoDocumentoList);
+        /*para los select de las llaves foraneas
+        model.addAttribute("tiposDeDocumento",tipoDocumentoList);*/
         return "usuarios-form";
     }
     @PostMapping("/agregar")
@@ -46,10 +53,13 @@ public class UsuarioController {
     }
     @GetMapping("/editar")
     public String editar(Model model, @RequestParam("id")int id){
+        model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
+
         List<TipoDocumento> tipoDocumentoList=tipoDocumentoDAO.getTipoDocumentos();
         Usuario usuario= usuarioDAO.getUsuario(id);
         model.addAttribute("usuario",usuario);
-        model.addAttribute("tiposDeDocumento",tipoDocumentoList);
+        /*para los select de las llaves foraneas
+        model.addAttribute("tiposDeDocumento",tipoDocumentoList);*/
         return "usuarios-form";
     }
     @PostMapping("/editar")
@@ -61,13 +71,5 @@ public class UsuarioController {
     public String borrar(@RequestParam("id")int id){
         usuarioDAO.borrarUsuario(id);
         return "redirect:/usuario/listar";
-    }
-
-    @GetMapping("/email")
-    public String email(@RequestParam("email")String email,Model model){
-        Usuario usuario=usuarioDAO.getUsuarioPorUsername(email);
-        List<Permiso> permisos=usuarioDAO.getPermisosDeUsuario(usuario.getIdUsuario());
-        model.addAttribute("permisos",permisos);
-        return "permisos";
     }
 }

@@ -30,7 +30,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
             builder.disabled(false);
             builder.password(usuario.getPassword());
             //builder.authorities(new SimpleGrantedAuthority("ROLE_USER"));
-            builder.authorities(mapearRoles(usuarioDAO.getPermisosDeUsuario(usuario.getIdUsuario())));
+            builder.authorities(mapearRoles(usuarioDAO.getPermisosDeUsuario(usuario.getUsername())));
         }else{
             throw new UsernameNotFoundException("usuario no encontrado");
         }

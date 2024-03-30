@@ -17,28 +17,25 @@ public class Usuario {
     @JoinColumn(name = "IDROL")
     private Rol rol;
 
-    @ManyToOne
-    @JoinColumn(name = "IDTIPODOC")
-    private TipoDocumento tipoDocumento;
 	private String username;
 	private String email;
     private String password;
-    private String numeroDoc;
-    private boolean estado;
+
+    private boolean estado=true;
     private int intentosLogin;
     
 	public Usuario() {
 		super();
 	}
 
-	public Usuario(int idUsuario, Rol rol, TipoDocumento tipoDocumento, String username, String email, String password, String numeroDoc, boolean estado, int intentosLogin) {
+	public Usuario(int idUsuario, Rol rol,String username, String email, String password, boolean estado, int intentosLogin) {
 		this.idUsuario = idUsuario;
 		this.rol = rol;
-		this.tipoDocumento = tipoDocumento;
+
 		this.username = username;
 		this.email = email;
 		this.password = password;
-		this.numeroDoc = numeroDoc;
+
 		this.estado = estado;
 		this.intentosLogin = intentosLogin;
 	}
@@ -54,12 +51,7 @@ public class Usuario {
 	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
-	public TipoDocumento getTipoDocumento() {
-		return tipoDocumento;
-	}
-	public void setTipoDocumento(TipoDocumento tipoDocumento) {
-		this.tipoDocumento = tipoDocumento;
-	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -79,12 +71,7 @@ public class Usuario {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getNumeroDoc() {
-		return numeroDoc;
-	}
-	public void setNumeroDoc(String numeroDoc) {
-		this.numeroDoc = numeroDoc;
-	}
+
 	public boolean isEstado() {
 		return estado;
 	}
