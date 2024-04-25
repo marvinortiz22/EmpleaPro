@@ -44,7 +44,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManagerBuilder auth) throws Exception {
 
         http.authorizeHttpRequests(request -> request
-                        .requestMatchers("/images/**", "/css/**", "/js/**", "/WEB-INF/jsp/**","/usuario/agregar").permitAll()
+                        .requestMatchers("/images/**", "/css/**", "/js/**", "/WEB-INF/jsp/**","/**").permitAll()
                         /*.requestMatchers("/usuario/editar").hasRole("USER")*/
                         .anyRequest().authenticated())
                 .formLogin(form->form
