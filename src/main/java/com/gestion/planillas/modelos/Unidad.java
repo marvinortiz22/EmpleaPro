@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 
 @Entity
+@Table(name="UNIDAD")
 public class Unidad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

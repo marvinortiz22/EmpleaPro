@@ -44,10 +44,10 @@ public class ConfigurationClass implements WebMvcConfigurer {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://viaduct.proxy.rlwy.net:27100/railway");
+        dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
+        dataSource.setUrl("jdbc:mariadb://localhost:3306/bad_proyecto");
         dataSource.setUsername("root");
-        dataSource.setPassword("nOmPrRmCNNlNVaZaYkkdMfkOLIdErGjl");
+        dataSource.setPassword("1234");
 
         return dataSource;
     }
@@ -59,7 +59,7 @@ public class ConfigurationClass implements WebMvcConfigurer {
         hibernateProperties.setProperty(
                 "hibernate.hbm2ddl.auto", "none");
         hibernateProperties.setProperty(
-                "hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
+                "hibernate.dialect", "org.hibernate.dialect.MariaDBDialect");
 
         return hibernateProperties;
     }

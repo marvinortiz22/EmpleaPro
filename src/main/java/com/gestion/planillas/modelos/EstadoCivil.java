@@ -2,6 +2,7 @@ package com.gestion.planillas.modelos;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name="ESTADOCIVIL")
 public class EstadoCivil {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

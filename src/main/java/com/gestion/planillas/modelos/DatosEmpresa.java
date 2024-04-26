@@ -2,6 +2,7 @@ package com.gestion.planillas.modelos;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name="DATOSEMPRESA")
 public class DatosEmpresa {
     @Id
     private int idEmpresa;

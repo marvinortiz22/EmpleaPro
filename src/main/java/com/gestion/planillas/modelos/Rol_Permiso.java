@@ -2,6 +2,7 @@ package com.gestion.planillas.modelos;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name="ROL_PERMISO")
 public class Rol_Permiso {
     @Id
     @ManyToOne
