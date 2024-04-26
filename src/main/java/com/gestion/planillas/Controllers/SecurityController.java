@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class SecurityController {
 
+    @GetMapping("")
+    public String principal(){
+        return "redirect:/usuario/listar";
+    }
+
     @GetMapping("login")
     public String login(){
         return "login";
@@ -24,12 +29,12 @@ public class SecurityController {
         return "redirect:/usuario/listar";
     }
 
-    @GetMapping("/logout")
+    @GetMapping("logout")
     public String logout(){
         logout();
         return "redirect:/personas";
     }
-    @GetMapping("/error")
+    @GetMapping("error")
     @ResponseBody
     public String errorUrl() {
         return "error de acceso";

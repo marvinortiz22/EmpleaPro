@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 @Entity
+@Table(name = "USUARIO")
 public class Usuario {
 
     @Id

@@ -37,11 +37,10 @@ public class UsuarioController {
     @GetMapping("/agregar")
     public String agregar(Model model){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
-
-        List<TipoDocumento> tipoDocumentoList=tipoDocumentoDAO.getTipoDocumentos();
         Usuario usuario=new Usuario();
         model.addAttribute("usuario",usuario);
         /*para los select de las llaves foraneas
+        List<TipoDocumento> tipoDocumentoList=tipoDocumentoDAO.getTipoDocumentos();
         model.addAttribute("tiposDeDocumento",tipoDocumentoList);*/
         return "usuarios-form";
     }
@@ -55,10 +54,10 @@ public class UsuarioController {
     public String editar(Model model, @RequestParam("id")int id){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
 
-        List<TipoDocumento> tipoDocumentoList=tipoDocumentoDAO.getTipoDocumentos();
         Usuario usuario= usuarioDAO.getUsuario(id);
         model.addAttribute("usuario",usuario);
         /*para los select de las llaves foraneas
+        List<TipoDocumento> tipoDocumentoList=tipoDocumentoDAO.getTipoDocumentos();
         model.addAttribute("tiposDeDocumento",tipoDocumentoList);*/
         return "usuarios-form";
     }
