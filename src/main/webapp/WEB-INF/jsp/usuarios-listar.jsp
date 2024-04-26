@@ -1,4 +1,5 @@
 <%@ include file="base/header.jsp" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <title>Usuarios</title>
 
     <div class="container-fluid px-4">
@@ -32,11 +33,23 @@
                         <td>${usuario.username}</td>
                         <td>${usuario.rol.nombreRol}</td>
                         <td>${usuario.email}</td>
-                        <td>${usuario.estado}</td>
+                        <td>
+                            <c:if test="${usuario.estado}">
+                                Activo
+                            </c:if>
+                            <c:if test="${!usuario.estado}">
+                                Inactivo
+                            </c:if>
+                        </td>
                         <td>${usuario.intentosLogin}</td>
                         <td>
-                            <a href="/usuario/editar?id=${usuario.idUsuario}"><button title="Editar" class="btn btn-success"><i class="fa-solid fa-pen-to-square"></i></button></a>
-                            <a href="/usuario/borrar?id=${usuario.idUsuario}"><button title="Bloquear" class="btn btn-danger"><i class="fa-solid fa-x"></i></button></a>
+                            <a href="/usuario/editar?id=${usuario.idUsuario}"><button title="Editar" class="btn btn-warning"><i class="fas fa-pen-to-square"></i></button></a>
+                            <c:if test="${usuario.estado}">
+                                <a href="/usuario/borrar?id=${usuario.idUsuario}"><button id="x" title="Inhabilitar" class="btn btn-danger"><i class="fas fa-lock"></i></button></a>
+                            </c:if>
+                            <c:if test="${!usuario.estado}">
+                                <a href="#"><button title="Habilitar" id="check" class="btn btn-success"><i class="fas fa-lock"></i></button></a>
+                            </c:if>
                         </td>
                         </tr>
                         </c:forEach>

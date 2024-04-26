@@ -82,10 +82,7 @@
                                     <a class="nav-link" href="#">Roles</a>
                                 </nav>
                             </div>
-                            <a class="nav-link" href="/usuario/listar">
-                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
-                                Usuarios
-                            </a>
+                            
                             
                         </div>
                     </div>

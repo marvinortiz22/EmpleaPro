@@ -1,6 +1,6 @@
 <%@ include file="base/header.jsp" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
-<title>Usuario</title>
+<title>Datos de usuario</title>
 
 <div class="d-flex justify-content-center">
     <h1 class="mt-4">Datos de usuario</h1>
@@ -11,17 +11,17 @@
         <form:hidden path="idUsuario"/>
         <div class="col-md-6">
             <label class="form-label">Nombre de usuario</label>
-            <form:input path="username" class="form-control" value=""/>
+            <form:input path="username" class="form-control" value="" required="true"/>
         </div>
         <div class="col-md-6">
             <label class="form-label">Correo electrónico </label>
-            <form:input path="email" class="form-control" value=""/>
+            <form:input path="email" class="form-control" value="" required="true"/>
         </div>
     </div>
     <div class="row mb-3">
         <div class="col-md-6">
             <label class="form-label">Contraseña </label>
-            <form:input path="password" class="form-control" type="password" value=""/>
+            <form:input path="password" class="form-control" type="password" value="" required="true"/>
         </div>
     </div>
     <div class="d-flex justify-content-center">
