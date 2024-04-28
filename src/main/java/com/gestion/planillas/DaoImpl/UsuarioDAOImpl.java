@@ -57,6 +57,7 @@ public class UsuarioDAOImpl implements usuarioDAO {
 		Query query = session.createQuery("FROM Usuario WHERE username = :username");
 		query.setParameter("username", username);
 		Usuario usuario = (Usuario) query.uniqueResult();
+		session.close();
 		return usuario;
 	}
 	public List<Permiso> getPermisosDeUsuario(String username) {
@@ -84,6 +85,7 @@ public class UsuarioDAOImpl implements usuarioDAO {
 		Query<Permiso> query2 = session.createQuery("SELECT rp.permiso FROM Rol_Permiso rp WHERE rp.rol = :rol", Permiso.class);
 		query2.setParameter("rol", rol);
 		List<Permiso> permisos = query2.list();
+		session.close();
 		return permisos;
 	}
     public UsuarioPermisos getUsuarioActual() {

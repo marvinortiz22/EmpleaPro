@@ -1,26 +1,22 @@
 package com.gestion.planillas.DaoImpl;
-
-import com.gestion.planillas.DAO.puestoDAO;
+import com.gestion.planillas.DAO.rolDAO;
+import com.gestion.planillas.modelos.Rol;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
 import org.springframework.stereotype.Repository;
 
-import com.gestion.planillas.modelos.Puesto;
-
-import java.util.List;
-
 @Repository
-public class puestoDAOImpl implements puestoDAO {
+public class rolDAOImpl implements rolDAO {
     @Autowired
     private SessionFactory sessionFactory;
     @Override
-    public List<Puesto> getPuestos() {
+    public List<Rol> getRoles() {
         Session session=sessionFactory.getCurrentSession();
-        Query<Puesto> query=session.createQuery("from Puesto",Puesto.class);
-        List<Puesto> puestos= query.getResultList();
+        Query<Rol> query=session.createQuery("from Rol",Rol.class);
+        List<Rol> puestos= query.getResultList();
         return puestos;
-
     }
 }

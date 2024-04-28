@@ -17,16 +17,15 @@ public class tipoDocumentoDAOImpl implements tipoDocumentoDAO {
 
     @Override
     public List<TipoDocumento> getTipoDocumentos() {
-        Session session=sessionFactory.openSession();
+        Session session=sessionFactory.getCurrentSession();
         Query<TipoDocumento> query=session.createQuery("from TipoDocumento",TipoDocumento.class);
         List<TipoDocumento> tipoDocumentos= query.getResultList();
-        session.close();
         return tipoDocumentos;
     }
 
     @Override
     public TipoDocumento getTipoDocumento(int idTipoDoc) {
-        Session session=sessionFactory.openSession();
+        Session session=sessionFactory.getCurrentSession();
         TipoDocumento tipoDocumento=session.get(TipoDocumento.class,idTipoDoc);
         return tipoDocumento;
     }

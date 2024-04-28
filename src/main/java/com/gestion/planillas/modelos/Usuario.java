@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.util.List;
 import com.gestion.planillas.DAO.usuarioDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.gestion.planillas.modelos.Rol;
 
 
 @Entity
@@ -16,7 +17,7 @@ public class Usuario {
 
     @ManyToOne
     @JoinColumn(name = "IDROL")
-    private Rol rol;
+    private Rol rol=new Rol(1,"usuario",true);
 
 	private String username;
 	private String email;

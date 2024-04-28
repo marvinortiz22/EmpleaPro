@@ -1,7 +1,7 @@
-<%@ include file="base/header.jsp" %>
+<%@ include file="base/head.jsp" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <title>Usuarios</title>
-
+<%@ include file="base/navbar.jsp" %>
     <div class="container-fluid px-4">
         <div class="d-flex justify-content-center">
             <h1 class="mt-4">Usuarios</h1>
@@ -9,27 +9,23 @@
         <div class="d-flex justify-content-end mb-4">
             <a href="/usuario/agregar"><button title="Agregar" class="btn btn-primary m"><i class="fa-solid fa-plus"></i></button></a>
         </div>
-        
         <div class="card mb-4">
             
             <div class="card-body">
                 <table id="datatablesSimple" class="table">
                     <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>username</th>
-                            <th>rol</th>
-                            <th>email</th>
-                            <th>estado</th>
-                            <th>intentosLogin</th>
-                            <th>acciones</th>
+                        <tr>                          
+                            <th>Username</th>
+                            <th>Rol</th>
+                            <th>Email</th>
+                            <th>Estado</th>                           
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     
                     <tbody>
-                        <c:forEach var="usuario" items="${puestos}">
-                        <tr>
-                        <td>${usuario.idUsuario}</td>
+                        <c:forEach var="usuario" items="${usuarios}">
+                        <tr>                        
                         <td>${usuario.username}</td>
                         <td>${usuario.rol.nombreRol}</td>
                         <td>${usuario.email}</td>
@@ -41,7 +37,6 @@
                                 Inactivo
                             </c:if>
                         </td>
-                        <td>${usuario.intentosLogin}</td>
                         <td>
                             <a href="/usuario/editar?id=${usuario.idUsuario}"><button title="Editar" class="btn btn-warning"><i class="fas fa-pen-to-square"></i></button></a>
                             <c:if test="${usuario.estado}">

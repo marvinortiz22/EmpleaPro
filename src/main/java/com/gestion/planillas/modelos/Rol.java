@@ -10,6 +10,8 @@ public class Rol {
     
     private String nombreRol;
 
+    private boolean estado=true;
+
     // Getters y Setters
 
     public Rol() {
@@ -31,9 +33,17 @@ public class Rol {
         this.nombreRol = nombreRol;
     }
 
-    public Rol(int idRol, String nombreRol) {
+    public boolean isEstado() {
+		return estado;
+	}
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+
+    public Rol(int idRol, String nombreRol,boolean estado) {
 
         this.idRol = idRol;
         this.nombreRol = nombreRol;
+        this.estado=estado;
     }
 }

@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     27/3/2024 10:17:05 p. m.                     */
+/* Created on:     27/3/2024 10:17:05 p.ï¿½m.                     */
 /*==============================================================*/
 
 
@@ -120,7 +120,7 @@ create table MUNICIPIO
 create table PERMISO
 (
    IDPERMISO            int not null auto_increment,
-   NOMBREPERMISO        varchar(25) not null,
+   NOMBREPERMISO        varchar(50) not null,
    primary key (IDPERMISO)
 );
 
@@ -177,6 +177,7 @@ create table ROL
 (
    IDROL                int not null auto_increment,
    NOMBREROL            varchar(25) not null,
+   ESTADO               bool default true,
    primary key (IDROL)
 );
 
@@ -294,4 +295,29 @@ ALTER TABLE USUARIO
 ADD CONSTRAINT UNIQUE_USERNAME UNIQUE (USERNAME),
 ADD CONSTRAINT UNIQUE_EMAIL UNIQUE (EMAIL);
 
+INSERT INTO permiso VALUES (1,"ROLE_Ver_empleados");
+INSERT INTO permiso VALUES (2,"ROLE_Ver_puestos");
+INSERT INTO permiso VALUES (3,"ROLE_Ver_profesiones_y_oficios");
+INSERT INTO permiso VALUES (4,"ROLE_Ver_unidades");
+INSERT INTO permiso VALUES (5,"ROLE_Ver_demografÃ­a_y_estado_civil");
+INSERT INTO permiso VALUES (6,"ROLE_Ver_departamentos");
+INSERT INTO permiso VALUES (7,"ROLE_Ver_municipios");
+INSERT INTO permiso VALUES (8,"ROLE_Ver_estados_civiles");
+INSERT INTO permiso VALUES (9,"ROLE_Ver_seguridad");
+INSERT INTO permiso VALUES (10,"ROLE_Ver_usuarios");
+INSERT INTO permiso VALUES (11,"ROLE_Ver_roles");
+
+INSERT INTO rol VALUES (1,"usuario",1);
+
+INSERT INTO rol_permiso VALUES (1,1);
+INSERT INTO rol_permiso VALUES (2,1);
+INSERT INTO rol_permiso VALUES (3,1);
+INSERT INTO rol_permiso VALUES (4,1);
+INSERT INTO rol_permiso VALUES (5,1);
+INSERT INTO rol_permiso VALUES (6,1);
+INSERT INTO rol_permiso VALUES (7,1);
+INSERT INTO rol_permiso VALUES (8,1);
+INSERT INTO rol_permiso VALUES (9,1);
+INSERT INTO rol_permiso VALUES (10,1);
+INSERT INTO rol_permiso VALUES (11,1);
 

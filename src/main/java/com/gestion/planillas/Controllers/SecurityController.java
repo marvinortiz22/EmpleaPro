@@ -32,7 +32,7 @@ public class SecurityController {
     @GetMapping("logout")
     public String logout(){
         logout();
-        return "redirect:/personas";
+        return "redirect:/usuario/listar";
     }
     @GetMapping("error")
     @ResponseBody

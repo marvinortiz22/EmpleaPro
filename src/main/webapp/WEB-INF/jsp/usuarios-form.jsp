@@ -1,9 +1,13 @@
-<%@ include file="base/header.jsp" %>
+<%@ include file="base/head.jsp" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <title>Datos de usuario</title>
-
+<%@ include file="base/navbar.jsp" %>
 <div class="d-flex justify-content-center">
     <h1 class="mt-4">Datos de usuario</h1>
+</div>
+
+<div class="d-flex justify-content-center">
+    <p class="my-2">Nota: de momento no editen los usuarios o ya no podran hacer login con ellos</p>
 </div>
 
 <form:form modelAttribute="usuario" method="POST" action="/usuario/agregar" class="container mx-2 mt-4">
@@ -22,6 +26,12 @@
         <div class="col-md-6">
             <label class="form-label">Contraseña </label>
             <form:input path="password" class="form-control" type="password" value="" required="true"/>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Rol </label>
+            <form:select class="form-select" path="Rol.idRol">
+                <form:options items="${roles}" itemValue="idRol" itemLabel="nombreRol" />
+            </form:select>
         </div>
     </div>
     <div class="d-flex justify-content-center">

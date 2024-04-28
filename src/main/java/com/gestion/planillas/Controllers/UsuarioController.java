@@ -2,6 +2,7 @@ package com.gestion.planillas.Controllers;
 
 import com.gestion.planillas.UsuarioPermisos;
 import com.gestion.planillas.modelos.Permiso;
+import com.gestion.planillas.modelos.Rol;
 import com.gestion.planillas.modelos.TipoDocumento;
 import com.gestion.planillas.modelos.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.gestion.planillas.DAO.usuarioDAO;
+import com.gestion.planillas.DAO.rolDAO;
 import com.gestion.planillas.DAO.tipoDocumentoDAO;
 
 import java.util.List;
@@ -25,13 +27,15 @@ public class UsuarioController {
     private usuarioDAO usuarioDAO;
     @Autowired
     private tipoDocumentoDAO tipoDocumentoDAO;
+    @Autowired
+    private rolDAO rolDAO;
     @GetMapping("/listar")
-    public String jsp(Model model){
+    public String listar(Model model) {
         //pegar en todos los controladores para obtener el username y los permiso del user actual
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
 
-        List<Usuario> puestos= usuarioDAO.getUsuarios();
-        model.addAttribute("puestos",puestos);
+        List<Usuario> usuarios = usuarioDAO.getUsuarios();
+        model.addAttribute("usuarios", usuarios);
         return "usuarios-listar";
     }
     @GetMapping("/agregar")
@@ -39,9 +43,10 @@ public class UsuarioController {
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         Usuario usuario=new Usuario();
         model.addAttribute("usuario",usuario);
-        /*para los select de las llaves foraneas
-        List<TipoDocumento> tipoDocumentoList=tipoDocumentoDAO.getTipoDocumentos();
-        model.addAttribute("tiposDeDocumento",tipoDocumentoList);*/
+
+        //para los select de las llaves foraneas
+        List<Rol> roles=rolDAO.getRoles();
+        model.addAttribute("roles",roles);
         return "usuarios-form";
     }
     @PostMapping("/agregar")
@@ -56,9 +61,10 @@ public class UsuarioController {
 
         Usuario usuario= usuarioDAO.getUsuario(id);
         model.addAttribute("usuario",usuario);
-        /*para los select de las llaves foraneas
-        List<TipoDocumento> tipoDocumentoList=tipoDocumentoDAO.getTipoDocumentos();
-        model.addAttribute("tiposDeDocumento",tipoDocumentoList);*/
+
+        //para los select de las llaves foraneas
+        List<Rol> roles=rolDAO.getRoles();
+        model.addAttribute("roles",roles);
         return "usuarios-form";
     }
     @PostMapping("/editar")
