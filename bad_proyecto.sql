@@ -320,6 +320,3 @@ INSERT INTO rol_permiso VALUES (8,1);
 INSERT INTO rol_permiso VALUES (9,1);
 INSERT INTO rol_permiso VALUES (10,1);
 INSERT INTO rol_permiso VALUES (11,1);
-
-/*username: usuario password:1234*/
-insert into usuario values (null,1,'usuario','usuario@gmail.com','$2a$10$XsUZ.NSqJUYY1PsgYzzIq.cSnn95IleR2KUeSE86o7/BaqXY/qpxW',1,0);
