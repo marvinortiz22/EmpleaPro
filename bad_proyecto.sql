@@ -87,8 +87,8 @@ create table EMPLEADO
    ISSS                 varchar(25) not null,
    NUP                  varchar(25),
    SALARIO              decimal not null,
-   CORREOINSTITUCIONAL  varchar(30) not null,
-   CORREOPERSONAL       varchar(30) not null,
+   CORREOINSTITUCIONAL  varchar(50) not null,
+   CORREOPERSONAL       varchar(50) not null,
    ESTADO               bool default true,
    primary key (IDEMPLEADO)
 );

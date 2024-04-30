@@ -16,7 +16,7 @@ public class permisoDAOImpl implements permisoDAO{
     public List<Permiso> getPermisosPorRol(int idRol) {
 
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("FROM Permiso WHERE idRol = :idRol");
+        Query query = session.createQuery("FROM Permiso WHERE idRol = :idRol",Permiso.class);
         query.setParameter("idRol", idRol);
         List<Permiso> permisos = query.list();
         return permisos;

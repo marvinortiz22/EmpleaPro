@@ -27,7 +27,7 @@ public class UsuarioDAOImpl implements usuarioDAO {
 	@Override
 	public List<Usuario> getUsuarios() {
 		 Session session=sessionFactory.getCurrentSession();
-	     Query<Usuario> query=session.createQuery("from Usuario",Usuario.class);
+	     Query<Usuario> query=session.createQuery("FROM Usuario ORDER BY estado desc",Usuario.class);
 	     List<Usuario> usuarios= query.getResultList();
 	     return usuarios;
 	}
@@ -54,7 +54,7 @@ public class UsuarioDAOImpl implements usuarioDAO {
 	}
 	public Usuario getUsuarioPorUsername(String username) {
 		Session session = sessionFactory.openSession();
-		Query query = session.createQuery("FROM Usuario WHERE username = :username");
+		Query query = session.createQuery("FROM Usuario WHERE username = :username",Usuario.class);
 		query.setParameter("username", username);
 		Usuario usuario = (Usuario) query.uniqueResult();
 		session.close();
@@ -64,7 +64,7 @@ public class UsuarioDAOImpl implements usuarioDAO {
 		Session session = sessionFactory.openSession();
 
 		// Obtener el usuario por su ID
-        Query query = session.createQuery("FROM Usuario WHERE username = :username");
+        Query query = session.createQuery("FROM Usuario WHERE username = :username",Usuario.class);
         query.setParameter("username", username);
         Usuario usuario = (Usuario) query.uniqueResult();
 

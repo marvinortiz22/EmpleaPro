@@ -6,6 +6,7 @@ import com.gestion.planillas.modelos.Rol;
 import com.gestion.planillas.modelos.TipoDocumento;
 import com.gestion.planillas.modelos.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import com.gestion.planillas.DAO.usuarioDAO;
 import com.gestion.planillas.DAO.rolDAO;
 import com.gestion.planillas.DAO.tipoDocumentoDAO;
+import java.lang.System;
 
 import java.util.List;
 
@@ -45,7 +47,7 @@ public class UsuarioController {
         model.addAttribute("usuario",usuario);
 
         //para los select de las llaves foraneas
-        List<Rol> roles=rolDAO.getRoles();
+        List<Rol> roles=rolDAO.getRolesValidos();
         model.addAttribute("roles",roles);
         return "usuarios-form";
     }
@@ -63,7 +65,7 @@ public class UsuarioController {
         model.addAttribute("usuario",usuario);
 
         //para los select de las llaves foraneas
-        List<Rol> roles=rolDAO.getRoles();
+        List<Rol> roles=rolDAO.getRolesValidos();
         model.addAttribute("roles",roles);
         return "usuarios-form";
     }
@@ -76,5 +78,19 @@ public class UsuarioController {
     public String borrar(@RequestParam("id")int id){
         usuarioDAO.borrarUsuario(id);
         return "redirect:/usuario/listar";
+    }
+
+    //pruebas
+    @GetMapping("/ver")
+    public String ver(Model model){
+        model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
+        return "datosEmpresa-ver";
+    }
+    @GetMapping("/probarJoin")
+    public String probarJoin(Model model){
+        List<Object[]> roles= rolDAO.getRolConJoin();
+        model.addAttribute("roles",roles);
+        System.out.print(roles);
+        return "probarJoin";
     }
 }
