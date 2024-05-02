@@ -1,6 +1,8 @@
 package com.gestion.planillas.modelos;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="PERMISO")
 public class Permiso {
@@ -9,8 +11,11 @@ public class Permiso {
     private int idPermiso;
     
     private String nombrePermiso;
+    @ManyToMany(mappedBy = "permisos")
+    private List<Rol> roles;
 
     // Getters y Setters
+
 
     public Permiso() {
     }
@@ -18,6 +23,14 @@ public class Permiso {
     public Permiso(int idPermiso, String nombrePermiso) {
         this.idPermiso = idPermiso;
         this.nombrePermiso = nombrePermiso;
+    }
+
+    public List<Rol> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Rol> roles) {
+        this.roles = roles;
     }
 
     public int getIdPermiso() {

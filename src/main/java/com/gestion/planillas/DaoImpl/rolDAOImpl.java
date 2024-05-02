@@ -3,6 +3,7 @@ import com.gestion.planillas.DAO.rolDAO;
 import com.gestion.planillas.modelos.Rol;
 import com.gestion.planillas.modelos.Usuario;
 
+import jakarta.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -27,5 +28,12 @@ public class rolDAOImpl implements rolDAO {
         Query<Object[]> query = session.createQuery("SELECT nombreRol, COUNT(idUsuario) FROM Rol r JOIN Usuario u ON u.rol.idRol=r.idRol GROUP BY nombreRol", Object[].class);
         List<Object[]> resultados = query.getResultList();
         return resultados;
+    }
+
+    @Override
+    @Transactional
+    public void guardarRol(Rol rol) {
+        Session session=sessionFactory.getCurrentSession();
+        session.saveOrUpdate(rol);
     }
 }

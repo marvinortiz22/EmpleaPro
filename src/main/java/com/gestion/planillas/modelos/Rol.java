@@ -1,6 +1,8 @@
 package com.gestion.planillas.modelos;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="ROL")
 public class Rol {
@@ -12,9 +14,24 @@ public class Rol {
 
     private boolean estado=true;
 
+    @ManyToMany
+    @JoinTable(
+            name="ROL_PERMISO",
+            joinColumns =@JoinColumn(name="idRol"),
+            inverseJoinColumns = @JoinColumn(name="idPermiso")
+    )
+    private List<Permiso> permisos;
+
     // Getters y Setters
 
     public Rol() {
+    }
+    public List<Permiso> getPermisos() {
+        return permisos;
+    }
+
+    public void setPermisos(List<Permiso> permisos) {
+        this.permisos = permisos;
     }
 
     public int getIdRol() {

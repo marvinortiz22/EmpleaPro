@@ -14,9 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.gestion.planillas.DAO.usuarioDAO;
 import com.gestion.planillas.DAO.rolDAO;
+import com.gestion.planillas.DAO.permisoDAO;
 import com.gestion.planillas.DAO.tipoDocumentoDAO;
 import java.lang.System;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -29,6 +31,8 @@ public class UsuarioController {
     private usuarioDAO usuarioDAO;
     @Autowired
     private tipoDocumentoDAO tipoDocumentoDAO;
+    @Autowired
+    private permisoDAO permisoDAO;
     @Autowired
     private rolDAO rolDAO;
     @GetMapping("/listar")
@@ -86,11 +90,38 @@ public class UsuarioController {
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         return "datosEmpresa-ver";
     }
-    @GetMapping("/probarJoin")
+    @GetMapping("/probarjoin")
     public String probarJoin(Model model){
         List<Object[]> roles= rolDAO.getRolConJoin();
         model.addAttribute("roles",roles);
         System.out.print(roles);
         return "probarJoin";
+    }
+    @GetMapping("/permisos")
+    public String permisos(Model model){
+        List<Rol> roles=rolDAO.getRolesValidos();
+        model.addAttribute("roles",roles);
+        return "permisos";
+    }
+    @GetMapping("/agregarrol")
+    public String agregarrol(Model model){
+        model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
+        Rol rol=new Rol();
+        model.addAttribute("rol",rol);
+
+        //para los select de las llaves foraneas
+        List<Permiso> permisos=permisoDAO.getPermisos();
+        model.addAttribute("permisos",permisos);
+        return "rol-form";
+    }
+    @PostMapping("/agregarrol")
+    public String agregarrolPost(@ModelAttribute("rol")Rol rol,@RequestParam("permisosl")List<Integer> ids){
+        List<Permiso> permisos=new ArrayList<>();
+        for (int id:ids){
+            permisos.add(permisoDAO.getPermiso(id));
+        }
+        rol.setPermisos(permisos);
+        rolDAO.guardarRol(rol);
+        return "redirect:/usuario/listar";
     }
 }

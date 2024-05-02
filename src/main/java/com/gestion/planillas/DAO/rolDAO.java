@@ -6,4 +6,5 @@ import com.gestion.planillas.modelos.*;
 public interface rolDAO {
     public List<Rol> getRolesValidos();
     public List<Object[]> getRolConJoin();
+    public void guardarRol(Rol rol);
 }
