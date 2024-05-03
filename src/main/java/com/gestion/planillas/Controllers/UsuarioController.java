@@ -80,7 +80,9 @@ public class UsuarioController {
     }
     @GetMapping("/borrar")
     public String borrar(@RequestParam("id")int id){
-        usuarioDAO.borrarUsuario(id);
+        Usuario usuario=usuarioDAO.getUsuario(id);
+        usuario.setEstado(!usuario.isEstado());
+        usuarioDAO.guardarUsuario(usuario);
         return "redirect:/usuario/listar";
     }
 
@@ -90,7 +92,7 @@ public class UsuarioController {
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         return "datosEmpresa-ver";
     }
-    @GetMapping("/probarjoin")
+    @GetMapping("/probarJoin")
     public String probarJoin(Model model){
         List<Object[]> roles= rolDAO.getRolConJoin();
         model.addAttribute("roles",roles);

@@ -29,9 +29,7 @@
         </div>
         <div class="col-md-6">
             <label class="form-label">Rol </label>
-            <form:select class="form-select" path="Rol.idRol">
-                <form:options items="${roles}" itemValue="idRol" itemLabel="nombreRol" />
-            </form:select>
+            <form:select class="form-select" path="Rol.idRol" items="${roles}" itemValue="idRol" itemLabel="nombreRol"/>
         </div>
     </div>
     <div class="d-flex justify-content-center">

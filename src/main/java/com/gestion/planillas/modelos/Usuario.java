@@ -41,6 +41,7 @@ public class Usuario {
 		this.estado = estado;
 		this.intentosLogin = intentosLogin;
 	}
+
 	public int getIdUsuario() {
 		return idUsuario;
 	}
