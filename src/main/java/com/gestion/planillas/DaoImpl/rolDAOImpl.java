@@ -22,6 +22,14 @@ public class rolDAOImpl implements rolDAO {
         List<Rol> puestos= query.getResultList();
         return puestos;
     }
+
+    @Override
+    public Rol getRol(int id) {
+        Session session=sessionFactory.getCurrentSession();
+        Rol rol=session.get(Rol.class,id);
+        return rol;
+    }
+
     @Override
     public List<Object[]> getRolConJoin() {
         Session session = sessionFactory.getCurrentSession();

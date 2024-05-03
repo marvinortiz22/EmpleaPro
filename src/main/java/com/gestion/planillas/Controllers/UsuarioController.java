@@ -5,6 +5,7 @@ import com.gestion.planillas.modelos.Permiso;
 import com.gestion.planillas.modelos.Rol;
 import com.gestion.planillas.modelos.TipoDocumento;
 import com.gestion.planillas.modelos.Usuario;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -53,11 +54,13 @@ public class UsuarioController {
         //para los select de las llaves foraneas
         List<Rol> roles=rolDAO.getRolesValidos();
         model.addAttribute("roles",roles);
-        return "usuarios-form";
+        return "usuarios-agregar";
     }
     @PostMapping("/agregar")
     public String agregarPost(@ModelAttribute("usuario")Usuario usuario){
+        //esto ignorenlo, es para encriptar la contra del usuario
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+
         usuarioDAO.guardarUsuario(usuario);
         return "redirect:/usuario/listar";
     }
@@ -71,22 +74,31 @@ public class UsuarioController {
         //para los select de las llaves foraneas
         List<Rol> roles=rolDAO.getRolesValidos();
         model.addAttribute("roles",roles);
-        return "usuarios-form";
+        return "usuarios-editar";
     }
+
+    //¡Ustedes no usaran esto, con el @PostMapping("/agregar") vasta si usan un solo form!
     @PostMapping("/editar")
-    public String editarPost(@ModelAttribute("usuario")Usuario usuario){
+    public String editarPost(HttpServletRequest request){
+
+        Usuario usuario=usuarioDAO.getUsuario(Integer.parseInt(request.getParameter("idUsuario")));
+        Rol rol=rolDAO.getRol(Integer.parseInt(request.getParameter("Rol.idRol")));
+
+        usuario.setUsername(request.getParameter("username"));
+        usuario.setEmail(request.getParameter("email"));
+        usuario.setRol(rol);
         usuarioDAO.guardarUsuario(usuario);
         return "redirect:/usuario/listar";
     }
-    @GetMapping("/borrar")
-    public String borrar(@RequestParam("id")int id){
+    @GetMapping("/cambiarEstado")
+    public String cambiarEstado(@RequestParam("id")int id){
         Usuario usuario=usuarioDAO.getUsuario(id);
         usuario.setEstado(!usuario.isEstado());
         usuarioDAO.guardarUsuario(usuario);
         return "redirect:/usuario/listar";
     }
 
-    //pruebas
+    //pruebas---------------------------------------------------
     @GetMapping("/ver")
     public String ver(Model model){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
@@ -117,7 +129,7 @@ public class UsuarioController {
         return "rol-form";
     }
     @PostMapping("/agregarrol")
-    public String agregarrolPost(@ModelAttribute("rol")Rol rol,@RequestParam("permisosl")List<Integer> ids){
+    public String agregarrolPost(@ModelAttribute("rol")Rol rol,@RequestParam("permisosList")List<Integer> ids){
         List<Permiso> permisos=new ArrayList<>();
         for (int id:ids){
             permisos.add(permisoDAO.getPermiso(id));

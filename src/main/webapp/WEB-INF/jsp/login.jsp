@@ -1,16 +1,33 @@
-<!DOCTYPE html>
-
-<head>
-    <title>Spring Security Example </title>
-    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ include file="base/head.jsp" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<title>Iniciar sesión</title>
 </head>
-<body>
+<div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-5">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Iniciar sesión</h3></div>
+                                    <div class="card-body">
+                                        <form:form action="/login" method="post">
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" id="username" name="username" required/>
+                                                <label for="username">Nombre de usuario</label>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" id="inputPassword" type="password" name="password" required/>
+                                                <label for="inputPassword">Contraseña</label>
+                                            </div>
 
-<form:form action="/login" method="post">
-    <div><label> User Name : </label><input type="text" name="username" value=""/> </div>
-    <div><label> Password:</label> <input type="password" name="password" value=""/> </div>
-    <div><input type="submit" value="Sign In"/></div>
-</form:form>
-<a href="/usuario/agregar">No tienes un usuario? crealo</a>
-</body>
-</html>
+                                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                                <input type="submit" value="Ingresar" class="btn btn-primary"/>
+                                            </div>
+                                        </form:form>
+                                    </div>
+                                    <div class="card-footer text-center py-3">
+                                        <div class="small"><a href="/usuario/agregar">Registrarse</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<%@ include file="base/footer.jsp" %>

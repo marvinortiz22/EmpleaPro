@@ -6,10 +6,6 @@
     <h1 class="mt-4">Datos de usuario</h1>
 </div>
 
-<div class="d-flex justify-content-center">
-    <p class="my-2">Nota: de momento no editen los usuarios o ya no podran hacer login con ellos</p>
-</div>
-
 <form:form modelAttribute="usuario" method="POST" action="/usuario/agregar" class="container mx-2 mt-4">
     <div class="row mb-3">
         <form:hidden path="idUsuario"/>

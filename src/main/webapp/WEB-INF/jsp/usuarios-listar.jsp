@@ -42,10 +42,10 @@
                             <a href="/usuario/ver"><button title="Ver detalles" class="btn btn-primary"><i class="fas fa-eye"></i></button></a>
                             <a href="/usuario/editar?id=${usuario.idUsuario}"><button title="Editar" class="btn btn-warning"><i class="fas fa-pen-to-square"></i></button></a>
                             <c:if test="${usuario.estado}">
-                                <a href="/usuario/borrar?id=${usuario.idUsuario}"><button id="x" title="Inhabilitar" class="btn btn-danger"><i class="fas fa-lock"></i></button></a>
+                                <a href="/usuario/cambiarEstado?id=${usuario.idUsuario}"><button id="x" title="Inhabilitar" class="btn btn-danger"><i class="fas fa-lock"></i></button></a>
                             </c:if>
                             <c:if test="${!usuario.estado}">
-                                <a href="/usuario/borrar?id=${usuario.idUsuario}"><button title="Habilitar" id="check" class="btn btn-success"><i class="fas fa-lock"></i></button></a>
+                                <a href="/usuario/cambiarEstado?id=${usuario.idUsuario}"><button title="Habilitar" id="check" class="btn btn-success"><i class="fas fa-lock"></i></button></a>
                             </c:if>
                         </td>
                         </tr>
