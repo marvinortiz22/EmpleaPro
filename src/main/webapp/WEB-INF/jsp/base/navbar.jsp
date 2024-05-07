@@ -74,10 +74,7 @@
                                         data-bs-parent="#sidenavAccordion">
                                         <nav class="sb-sidenav-menu-nested nav">
                                             <c:if test="${permiso.nombrePermiso=='ROLE_Ver_departamentos'}">
-                                                <a class="nav-link" href="#">Departamentos</a>
-                                            </c:if>
-                                            <c:if test="${permiso.nombrePermiso=='ROLE_Ver_municipios'}">
-                                                <a class="nav-link" href="#">Municipios</a>
+                                                <a class="nav-link" href="/demografia/listar">Departamento y Municipio</a>
                                             </c:if>
                                             <c:if test="${permiso.nombrePermiso=='ROLE_Ver_estados_civiles'}">
                                                 <a class="nav-link" href="#">Estados civiles</a>
