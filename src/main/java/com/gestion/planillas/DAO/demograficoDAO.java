@@ -9,6 +9,7 @@ public interface demograficoDAO {
     public List<Object> countEmpleadosPorDep();
     public List<Object> countEmpleadosPorMun(int idDepartamento);
     public String depSeleccionado(int idDepartamento);
+    public long getNumEmpleados();
 
     /*public List<Departamento> getDepartamentos();
 

@@ -11,6 +11,10 @@
            <a href="#"><button title="Imprimir" class="btn btn-success me-1"><i class="fa-solid fa-print"></i></button></a>
 
         </div>
+        <div class="d-flex justify-content-center">
+            <p class="mt-4">Total de empleados: ${nDeEmpleados}</p>
+
+        </div>
 
         <div class="card mb-4">
 

@@ -4,6 +4,7 @@ import com.gestion.planillas.DAO.usuarioDAO;
 import com.gestion.planillas.DAO.demograficoDAO;
 import com.gestion.planillas.modelos.Departamento;
 import com.gestion.planillas.modelos.Municipio;
+import com.gestion.planillas.modelos.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,6 +63,8 @@ public class DemograficoController {
     public String departamentos(Model model){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         List<Object> departamentos=demograficoDAO.countEmpleadosPorDep();
+        long nDeEmpleados=demograficoDAO.getNumEmpleados();
+        model.addAttribute("nDeEmpleados",nDeEmpleados);
         model.addAttribute("departamentos",departamentos);
         return "demografico-departamentos";
     }
@@ -70,6 +73,7 @@ public class DemograficoController {
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         List<Object> municipios=demograficoDAO.countEmpleadosPorMun(id);
         String nombreDepartamento=demograficoDAO.depSeleccionado(id);
+        List<Usuario> usuario=usuarioDAO.getUsuarios();
         model.addAttribute("municipios",municipios);
         model.addAttribute("nombreDepartamento",nombreDepartamento);
         return "demografico-municipios";

@@ -24,7 +24,7 @@ public class demograficoDAOImpl implements demograficoDAO{
         Query<Object[]> query = session.createQuery(
                 "SELECT nombreDepartamento, COUNT(idEmpleado),idDepartamento FROM Departamento d " +
                         "JOIN Municipio m ON m.departamento.idDepartamento=d.idDepartamento " +
-                        "JOIN Empleado e ON e.municipio.idMunicipio=m.idMunicipio " +
+                        "LEFT JOIN Empleado e ON e.municipio.idMunicipio=m.idMunicipio " +
                         "GROUP BY idDepartamento", Object[].class
         );
 
@@ -72,6 +72,19 @@ public class demograficoDAOImpl implements demograficoDAO{
             nombreDep = resultados.get(0);
         }
         return nombreDep;
+    }
+
+    @Override
+    public long getNumEmpleados(){
+        long nDeEmpleados = 0;
+        Session session = sessionFactory.getCurrentSession();
+        Query<Long> query = session.createQuery("SELECT COUNT(idEmpleado) FROM Empleado", Long.class);
+
+        List<Long> resultados = query.getResultList();
+        if (!resultados.isEmpty()) {
+            nDeEmpleados = resultados.get(0);
+        }
+        return nDeEmpleados;
     }
     /*@Override
     public List<Departamento> getDepartamentos() {
