@@ -15,7 +15,8 @@
             <div class="card-body">
                 <table id="datatablesSimple" class="table">
                     <thead>
-                        <tr>                          
+                        <tr>
+                            <th>#</th>
                             <th>Username</th>
                             <th>Rol</th>
                             <th>Email</th>
@@ -25,8 +26,9 @@
                     </thead>
                     
                     <tbody>
-                        <c:forEach var="usuario" items="${usuarios}">
-                        <tr>                        
+                        <c:forEach var="usuario" items="${usuarios}" varStatus="i">
+                        <tr>
+                        <td>${i.count}</td>
                         <td>${usuario.username}</td>
                         <td>${usuario.rol.nombreRol}</td>
                         <td>${usuario.email}</td>

@@ -6,8 +6,12 @@ import com.gestion.planillas.modelos.Municipio;
 import java.util.List;
 
 public interface demograficoDAO {
-    public List<Departamento> getDepartamentos();
-    public String depSeleccionado(int idDepartamento);
+    public List<Object> countEmpleadosPorDep();
     public List<Object> countEmpleadosPorMun(int idDepartamento);
-    public List<Municipio> getMunicipiosPorDepartamento(int idDepartamento);
+    public String depSeleccionado(int idDepartamento);
+    public long getNumEmpleados();
+
+    /*public List<Departamento> getDepartamentos();
+
+    public List<Municipio> getMunicipiosPorDepartamento(int idDepartamento);*/
 }
