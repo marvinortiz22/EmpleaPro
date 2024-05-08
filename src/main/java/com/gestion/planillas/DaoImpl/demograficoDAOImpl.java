@@ -19,22 +19,26 @@ public class demograficoDAOImpl implements demograficoDAO{
     @Autowired
     private SessionFactory sessionFactory;
     @Override
-    public List<Departamento> getDepartamentos() {
-        Session session=sessionFactory.getCurrentSession();
-        Query<Departamento> query=session.createQuery("FROM Departamento ORDER BY nombreDepartamento",Departamento.class);
-        List<Departamento> departamentos = query.getResultList();
-        return departamentos;
-    }
-
-    @Override
-    public List<Municipio> getMunicipiosPorDepartamento(int idDepartamento) {
+    public List<Object> countEmpleadosPorDep() {
         Session session = sessionFactory.getCurrentSession();
-        Query<Municipio> query = session.createQuery("FROM Municipio WHERE departamento.idDepartamento = :idDepartamento", Municipio.class);
-        query.setParameter("idDepartamento", idDepartamento);
-        List<Municipio> municipios = query.getResultList();
-        return municipios;
-    }
+        Query<Object[]> query = session.createQuery(
+                "SELECT nombreDepartamento, COUNT(idEmpleado),idDepartamento FROM Departamento d " +
+                        "JOIN Municipio m ON m.departamento.idDepartamento=d.idDepartamento " +
+                        "JOIN Empleado e ON e.municipio.idMunicipio=m.idMunicipio " +
+                        "GROUP BY idDepartamento", Object[].class
+        );
 
+        List<Object[]> resultList = query.getResultList();
+        List<Object> result = new ArrayList<>();
+        for (Object[] row : resultList) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("nombreDepartamento", row[0]);
+            map.put("cantidad_empleados", row[1]);
+            map.put("idDepartamento", row[2]);
+            result.add(map);
+        }
+        return result;
+    }
     @Override
     public List<Object> countEmpleadosPorMun(int idDepartamento) {
         Session session = sessionFactory.getCurrentSession();
@@ -69,4 +73,25 @@ public class demograficoDAOImpl implements demograficoDAO{
         }
         return nombreDep;
     }
+    /*@Override
+    public List<Departamento> getDepartamentos() {
+        Session session=sessionFactory.getCurrentSession();
+        Query<Departamento> query=session.createQuery("FROM Departamento ORDER BY nombreDepartamento",Departamento.class);
+        List<Departamento> departamentos = query.getResultList();
+        return departamentos;
+    }
+
+
+
+    @Override
+    public List<Municipio> getMunicipiosPorDepartamento(int idDepartamento) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<Municipio> query = session.createQuery("FROM Municipio WHERE departamento.idDepartamento = :idDepartamento", Municipio.class);
+        query.setParameter("idDepartamento", idDepartamento);
+        List<Municipio> municipios = query.getResultList();
+        return municipios;
+    }*/
+
+
+
 }

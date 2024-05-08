@@ -21,7 +21,7 @@ public class DemograficoController {
     @Autowired
     private demograficoDAO demograficoDAO;
 
-    @GetMapping("/listar")
+    /*@GetMapping("/listar")
     public String listar(@RequestParam(name = "idDepartamento", required = false) Integer idDepartamento, Model model) {
 
         //pegar en todos los controladores para obtener el username y los permiso del user actual
@@ -56,6 +56,23 @@ public class DemograficoController {
         model.addAttribute("departamentos", departamentos);
         model.addAttribute("municipios", municipios);
         return "demografico-listar";
+    }*/
+
+    @GetMapping("/departamentos")
+    public String departamentos(Model model){
+        model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
+        List<Object> departamentos=demograficoDAO.countEmpleadosPorDep();
+        model.addAttribute("departamentos",departamentos);
+        return "demografico-departamentos";
+    }
+    @GetMapping("/municipios")
+    public String municipios(Model model,@RequestParam("id")int id){
+        model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
+        List<Object> municipios=demograficoDAO.countEmpleadosPorMun(id);
+        String nombreDepartamento=demograficoDAO.depSeleccionado(id);
+        model.addAttribute("municipios",municipios);
+        model.addAttribute("nombreDepartamento",nombreDepartamento);
+        return "demografico-municipios";
     }
 
 }
