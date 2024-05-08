@@ -48,8 +48,6 @@ public class DemograficoController {
 
             model.addAttribute("nombresMunicipios", nombresMunicipios );
             model.addAttribute("cantidadEmpleados", cantidadEmpleados);
-            System.out.println(nombresMunicipios);
-            System.out.println(cantidadEmpleados);
         }
 
         List<Municipio> municipios = demograficoDAO.getMunicipiosPorDepartamento(idDepartamento);
