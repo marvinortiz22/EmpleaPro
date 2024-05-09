@@ -2,6 +2,7 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <title>Datos de usuario</title>
 <%@ include file="base/navbar.jsp" %>
+<a href="/usuario/listar"><button title="Lista principal" class="btn btn-none">←</button></a>
 <div class="d-flex justify-content-center">
     <h1 class="mt-4">Datos de usuario</h1>
 </div>

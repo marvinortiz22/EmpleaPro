@@ -18,7 +18,7 @@
                                                 <label for="inputPassword">Contraseña</label>
                                             </div>
 
-                                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                            <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
                                                 <input type="submit" value="Ingresar" class="btn btn-primary"/>
                                             </div>
                                         </form:form>

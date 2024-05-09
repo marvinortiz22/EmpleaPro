@@ -98,7 +98,7 @@
                                                 <a class="nav-link" href="/usuario/listar">Usuarios</a>
                                             </c:if>
                                             <c:if test="${permiso.nombrePermiso=='ROLE_Ver_roles'}">
-                                                <a class="nav-link" href="#">Roles</a>
+                                                <a class="nav-link" href="/rol/listar">Roles</a>
                                             </c:if>
                                         </nav>
                                     </div>
