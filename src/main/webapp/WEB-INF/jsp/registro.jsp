@@ -1,5 +1,11 @@
 <%@ include file="base/head.jsp" %>
     <%@ page contentType="text/html" pageEncoding="UTF-8" %>
+    <style>
+                span{
+                    color:red;
+                }
+
+            </style>
         <title>Registro</title>
         </head>
         <div class="container">
@@ -10,19 +16,22 @@
                             <h3 class="text-center font-weight-light my-4">Registrarse</h3>
                         </div>
                         <div class="card-body">
-                            <form:form modelAttribute="usuario" action="/usuario/agregar" method="post">
+                            <form:form modelAttribute="usuario" action="/registro" method="post">
                                 <div class="form-floating mb-3">
                                     <form:input class="form-control" path="username" required="true" />
                                     <label for="username">Nombre de usuario</label>
+                                    <form:errors path="username"/>
                                 </div>
                                 <div class="form-floating mb-3">
                                     <form:input class="form-control" path="email" required="true" />
                                     <label for="email">Correo electrónico</label>
+                                    <form:errors path="email"/>
                                 </div>
                                 <div class="form-floating mb-3">
                                     <input class="form-control" path="password" type="password" name="password"
                                         required />
                                     <label for="inputPassword">Contraseña</label>
+                                    <form:errors path="password"/>
                                 </div>
 
                                 <div class="d-flex align-items-center justify-content-center mt-4 mb-0">

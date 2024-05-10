@@ -95,7 +95,10 @@
                                         data-bs-parent="#sidenavAccordion">
                                         <nav class="sb-sidenav-menu-nested nav">
                                             <c:if test="${permiso.nombrePermiso=='ROLE_Ver_usuarios'}">
-                                                <a class="nav-link" href="/usuario/listar">Usuarios</a>
+                                                <a class="nav-link" href="/usuarioEjemplo/listar">Usuarios Ejemplo</a>
+                                            </c:if>
+                                            <c:if test="${permiso.nombrePermiso=='ROLE_Ver_usuarios'}">
+                                                <a class="nav-link" href="/usuario/listar">Usuarios Final</a>
                                             </c:if>
                                             <c:if test="${permiso.nombrePermiso=='ROLE_Ver_roles'}">
                                                 <a class="nav-link" href="/rol/listar">Roles</a>

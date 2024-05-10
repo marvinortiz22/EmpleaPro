@@ -1,12 +1,6 @@
 <%@ include file="base/head.jsp" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <title>Datos de usuario</title>
-<style>
-            span{
-                color:red;
-            }
-
-        </style>
 <%@ include file="base/navbar.jsp" %>
 <div class="d-flex justify-content-center">
     <h1 class="mt-4">Datos de usuario</h1>
@@ -15,25 +9,25 @@
     <p class="mt-4">Nota: de momento no editen los usuarios o ya no podran hacer login con ellos</p>
 </div>
 
-<form:form modelAttribute="usuario" method="POST" action="/usuario/guardar" class="container mx-2 mt-4">
+<form:form modelAttribute="usuario" method="POST" action="/usuarioEjemplo/guardar" class="container mx-2 mt-4">
     <div class="row mb-3">
         <form:hidden path="idUsuario"/>
         <div class="col-md-6">
             <label class="form-label">Nombre de usuario</label>
             <form:input path="username" class="form-control" value="" required="true"/>
-            <form:errors path="username"/>
+
         </div>
         <div class="col-md-6">
             <label class="form-label">Correo electrónico </label>
             <form:input path="email" class="form-control" value="" required="true"/>
-            <form:errors path="email"/>
+
         </div>
     </div>
     <div class="row mb-3">
         <div class="col-md-6">
             <label class="form-label">Contraseña </label>
             <form:input path="password" class="form-control" type="password" required="true"/>
-            <form:errors path="password"/>
+
         </div>
         <div class="col-md-6">
             <label class="form-label">Rol </label>

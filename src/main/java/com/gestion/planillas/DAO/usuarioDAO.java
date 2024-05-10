@@ -14,6 +14,9 @@ public interface usuarioDAO {
 	public void guardarUsuario(Usuario usuario);
 	public Usuario getUsuario(Integer id);
 	public void borrarUsuario(int id);
+
+	public Usuario getUsuarioPorCampo(String nombreCampo,String valorCampo);
+	public Usuario getUsuarioPorCampoAjeno(String nombreCampo,String valorCampo,int id);
 	public Usuario getUsuarioPorUsername(String username);
 
 	public List<Permiso> getPermisosDeUsuario(String username);

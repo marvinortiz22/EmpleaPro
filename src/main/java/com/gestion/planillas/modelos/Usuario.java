@@ -5,6 +5,7 @@ import java.util.List;
 import com.gestion.planillas.DAO.usuarioDAO;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.gestion.planillas.modelos.Rol;
 
@@ -20,16 +21,15 @@ public class Usuario {
     @ManyToOne
     @JoinColumn(name = "IDROL")
     private Rol rol=new Rol(1,"usuario",true);
-
 	private String username;
 	private String email;
 
-	/*@Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres")
+	/*Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres")
 	@Pattern.List({
 			@Pattern(regexp = "(?=.*[0-9]).+", message = "La contraseña debe contener al menos un número"),
 			@Pattern(regexp = "(?=.*[a-z]).+", message = "La contraseña debe contener al menos una letra minúscula"),
-			@Pattern(regexp = "(?=.*[A-Z]).+", message = "La contraseña debe contener al menos una letra mayúscula"),
-			@Pattern(regexp = "(?=.*[@#$%^&+=]).+", message = "La contraseña debe contener al menos un símbolo especial"),
+			//@Pattern(regexp = "(?=.*[A-Z]).+", message = "La contraseña debe contener al menos una letra mayúscula"),
+			@Pattern(regexp = "(?=.*[@#$%^&+=*_/]).+", message = "La contraseña debe contener al menos un símbolo especial"),
 		}
 	)*/
     private String password;

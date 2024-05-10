@@ -44,13 +44,13 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManagerBuilder auth) throws Exception {
 
         http.authorizeHttpRequests(request -> request
-                        .requestMatchers("/images/**", "/css/**", "/js/**", "/WEB-INF/jsp/**","/usuario/agregar").permitAll()
-                        /*.requestMatchers("/usuario/editar").hasRole("USER")*/
+                        .requestMatchers("/images/**", "/css/**", "/js/**", "/WEB-INF/jsp/**","/registro").permitAll()
+                        .requestMatchers("/usuarioEjemplo/rolusuario").hasRole("VER_USUARIOS")
                         .anyRequest().authenticated())
                 .formLogin(form->form
                 .loginPage("/login")
                 .permitAll()
-                .defaultSuccessUrl("/usuario/listar"))
+                .defaultSuccessUrl("/usuarioEjemplo/listar"))
                 .logout(logout->logout
                         .permitAll()
                         .logoutUrl("/logout"));

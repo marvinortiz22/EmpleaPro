@@ -52,6 +52,26 @@ public class UsuarioDAOImpl implements usuarioDAO {
 		Session session=sessionFactory.getCurrentSession();
 		session.saveOrUpdate(usuario);
 	}
+	@Override
+	public Usuario getUsuarioPorCampo(String nombreCampo,String valorCampo) {
+		Session session = sessionFactory.openSession();
+		Query query = session.createQuery("FROM Usuario WHERE "+nombreCampo+" = :valorCampo",Usuario.class);
+		query.setParameter("valorCampo", valorCampo);
+		Usuario usuario = (Usuario) query.uniqueResult();
+		session.close();
+		return usuario;
+	}
+	@Override
+	public Usuario getUsuarioPorCampoAjeno(String nombreCampo,String valorCampo,int id) {
+		Session session = sessionFactory.openSession();
+		Query query = session.createQuery("FROM Usuario WHERE "+nombreCampo+" = :valorCampo AND idUsuario!=:id",Usuario.class);
+		query.setParameter("valorCampo", valorCampo);
+		query.setParameter("id", id);
+		Usuario usuario = (Usuario) query.uniqueResult();
+		session.close();
+		return usuario;
+	}
+	@Override
 	public Usuario getUsuarioPorUsername(String username) {
 		Session session = sessionFactory.openSession();
 		Query query = session.createQuery("FROM Usuario WHERE username = :username",Usuario.class);
@@ -60,6 +80,7 @@ public class UsuarioDAOImpl implements usuarioDAO {
 		session.close();
 		return usuario;
 	}
+	@Override
 	public List<Permiso> getPermisosDeUsuario(String username) {
 		Session session = sessionFactory.openSession();
 
@@ -88,6 +109,7 @@ public class UsuarioDAOImpl implements usuarioDAO {
 		session.close();
 		return permisos;
 	}
+	@Override
     public UsuarioPermisos getUsuarioActual() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
