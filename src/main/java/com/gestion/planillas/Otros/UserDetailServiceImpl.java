@@ -1,4 +1,4 @@
-package com.gestion.planillas.DaoImpl;
+package com.gestion.planillas.Otros;
 
 import com.gestion.planillas.modelos.Permiso;
 import com.gestion.planillas.modelos.Usuario;

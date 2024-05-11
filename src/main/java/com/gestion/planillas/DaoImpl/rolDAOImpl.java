@@ -1,7 +1,6 @@
 package com.gestion.planillas.DaoImpl;
 import com.gestion.planillas.DAO.rolDAO;
 import com.gestion.planillas.modelos.Rol;
-import com.gestion.planillas.modelos.Usuario;
 
 import jakarta.transaction.Transactional;
 import org.hibernate.Session;

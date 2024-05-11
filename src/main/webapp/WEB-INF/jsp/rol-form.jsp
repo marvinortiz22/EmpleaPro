@@ -2,34 +2,23 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <title>Datos de rol</title>
 <%@ include file="base/navbar.jsp" %>
+<a href="/rol/listar"><button title="Lista principal" class="btn btn-none">←</button></a>
 <div class="d-flex justify-content-center">
     <h1 class="mt-4">Datos de rol</h1>
 </div>
-
-<form:form modelAttribute="rol" method="POST" action="/usuario/agregarrol" class="container mx-2 mt-4">
+<form:form modelAttribute="rol" method="POST" action="/rol/guardar" class="container mx-2 mt-4">
     <div class="row mb-3">
         <form:hidden path="idRol"/>
         <div class="col-md-6">
             <label class="form-label">Nombre de rol</label>
-            <form:input path="nombreRol" class="form-control" value="a" required="true"/>
+            <form:input path="nombreRol" class="form-control"  required="true"/>
         </div>
         <div class="col-md-6">
-
-        </div>
-    </div>
-    <div class="row mb-3">
-            <form:hidden path="estado"/>
-            <div class="col-md-6">
-                <label class="form-label">Permisos </label>
-                <select class="form-select" multiple name="permisosList">
-                    <c:forEach var="permiso" items="${permisos}">
-                         <option value="${permiso.idPermiso}">${permiso.nombrePermiso}</option>
-                    </c:forEach>
-                </select>
-            </div>
+             <label class="form-label">Permisos </label>
+             <form:select class="form-select" path="permisos" items="${permisos}" itemValue="idPermiso" itemLabel="nombrePermiso"/>
         </div>
     <div class="d-flex justify-content-center">
-        <button class="btn btn-primary me-0">Guardar</button>
+        <button class="btn btn-primary mt-3">Guardar</button>
     </div>
 
 </form:form>

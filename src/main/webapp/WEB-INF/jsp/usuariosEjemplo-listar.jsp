@@ -6,8 +6,9 @@
         <div class="d-flex justify-content-center">
             <h1 class="mt-4">Usuarios</h1>
         </div>
-        <div class="d-flex justify-content-center">
-            <p class="mt-4">No usen este de ejemplo, usen el otro</p>
+        <div class="d-flex justify-content-end mb-4">
+            <a href="#"><button title="Imprimir" class="btn btn-success me-1"><i class="fa-solid fa-print"></i></button></a>
+            <a href="/usuarioEjemplo/agregar"><button title="Agregar" class="btn btn-primary"><i class="fa-solid fa-plus"></i></button></a>
         </div>
         <div class="card mb-4">
             
@@ -40,13 +41,13 @@
                             </c:if>
                         </td>
                         <td>
-
-                            <a href="/usuario/editar?id=${usuario.idUsuario}"><button title="Editar" class="btn btn-warning"><i class="fas fa-pen-to-square"></i></button></a>
+                            <a href="/usuarioEjemplo/ver"><button title="Ver detalles" class="btn btn-primary"><i class="fas fa-eye"></i></button></a>
+                            <a href="/usuarioEjemplo/editar?id=${usuario.idUsuario}"><button title="Editar" class="btn btn-warning"><i class="fas fa-pen-to-square"></i></button></a>
                             <c:if test="${usuario.estado}">
-                                <a href="/usuario/cambiarEstado?id=${usuario.idUsuario}"><button id="x" title="Inhabilitar" class="btn btn-danger"><i class="fas fa-lock"></i></button></a>
+                                <a href="/usuarioEjemplo/cambiarEstado?id=${usuario.idUsuario}"><button id="x" title="Inhabilitar" class="btn btn-danger"><i class="fas fa-lock"></i></button></a>
                             </c:if>
                             <c:if test="${!usuario.estado}">
-                                <a href="/usuario/cambiarEstado?id=${usuario.idUsuario}"><button title="Habilitar" id="check" class="btn btn-success"><i class="fas fa-lock"></i></button></a>
+                                <a href="/usuarioEjemplo/cambiarEstado?id=${usuario.idUsuario}"><button title="Habilitar" id="check" class="btn btn-success"><i class="fas fa-lock"></i></button></a>
                             </c:if>
                         </td>
                         </tr>

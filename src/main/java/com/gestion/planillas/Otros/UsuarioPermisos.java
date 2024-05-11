@@ -1,12 +1,7 @@
-package com.gestion.planillas;
+package com.gestion.planillas.Otros;
 
 import com.gestion.planillas.modelos.Permiso;
-import com.gestion.planillas.modelos.Usuario;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import com.gestion.planillas.DAO.usuarioDAO;
+
 import java.util.List;
 
 

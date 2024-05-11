@@ -1,7 +1,14 @@
 <%@ include file="base/head.jsp" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<style>
+                span{
+                    color:red;
+                }
+
+            </style>
 <title>Datos de usuario</title>
 <%@ include file="base/navbar.jsp" %>
+<a href="/usuario/listar"><button title="Lista principal" class="btn btn-none">←</button></a>
 <div class="d-flex justify-content-center">
     <h1 class="mt-4">Datos de usuario</h1>
 </div>
@@ -13,10 +20,12 @@
         <div class="col-md-6">
             <label class="form-label">Nombre de usuario</label>
             <form:input path="username" class="form-control" value="" required="true"/>
+            <form:errors path="username"/>
         </div>
         <div class="col-md-6">
             <label class="form-label">Correo electrónico </label>
             <form:input path="email" class="form-control" value="" required="true"/>
+            <form:errors path="email"/>
         </div>
     </div>
     <div class="row mb-3">

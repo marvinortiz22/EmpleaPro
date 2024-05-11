@@ -1,14 +1,10 @@
 package com.gestion.planillas.Controllers;
 
-import com.gestion.planillas.UsuarioPermisos;
-import com.gestion.planillas.modelos.Permiso;
+import com.gestion.planillas.Otros.AccessControl;
 import com.gestion.planillas.modelos.Rol;
-import com.gestion.planillas.modelos.TipoDocumento;
 import com.gestion.planillas.modelos.Usuario;
-import jakarta.servlet.http.HttpServletRequest;
+import com.gestion.planillas.Otros.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,12 +15,11 @@ import com.gestion.planillas.DAO.permisoDAO;
 import com.gestion.planillas.DAO.tipoDocumentoDAO;
 import java.lang.System;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/usuario")
-public class UsuarioController {
+@RequestMapping("/usuarioEjemplo")
+public class UsuarioControllerEjemplo {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -36,6 +31,8 @@ public class UsuarioController {
     private permisoDAO permisoDAO;
     @Autowired
     private rolDAO rolDAO;
+    @Autowired
+    private EmailService emailService;
     @GetMapping("/listar")
     public String listar(Model model) {
         //pegar en todos los controladores para obtener el username y los permiso del user actual
@@ -43,7 +40,7 @@ public class UsuarioController {
 
         List<Usuario> usuarios = usuarioDAO.getUsuarios();
         model.addAttribute("usuarios", usuarios);
-        return "usuarios-listar";
+        return "usuariosEjemplo-listar";
     }
     @GetMapping("/agregar")
     public String agregar(Model model){
@@ -54,15 +51,7 @@ public class UsuarioController {
         //para los select de las llaves foraneas
         List<Rol> roles=rolDAO.getRolesValidos();
         model.addAttribute("roles",roles);
-        return "usuarios-agregar";
-    }
-    @PostMapping("/agregar")
-    public String agregarPost(@ModelAttribute("usuario")Usuario usuario){
-        //esto ignorenlo, es para encriptar la contra del usuario
-        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-
-        usuarioDAO.guardarUsuario(usuario);
-        return "redirect:/usuario/listar";
+        return "usuariosEjemplo-form";
     }
     @GetMapping("/editar")
     public String editar(Model model, @RequestParam("id")int id){
@@ -74,28 +63,24 @@ public class UsuarioController {
         //para los select de las llaves foraneas
         List<Rol> roles=rolDAO.getRolesValidos();
         model.addAttribute("roles",roles);
-        return "usuarios-editar";
+        return "usuariosEjemplo-form";
     }
 
-    //¡Ustedes no usaran esto, con el @PostMapping("/agregar") vasta si usan un solo form!
-    @PostMapping("/editar")
-    public String editarPost(HttpServletRequest request){
+    //sirve tanto para editar como para crear siempre y cuando usen un solo form
+    @PostMapping("/guardar")
+    public String guardar(@ModelAttribute("usuario")Usuario usuario){
 
-        Usuario usuario=usuarioDAO.getUsuario(Integer.parseInt(request.getParameter("idUsuario")));
-        Rol rol=rolDAO.getRol(Integer.parseInt(request.getParameter("Rol.idRol")));
-
-        usuario.setUsername(request.getParameter("username"));
-        usuario.setEmail(request.getParameter("email"));
-        usuario.setRol(rol);
+        //esto es para encriptar la contra, ignorenlo
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         usuarioDAO.guardarUsuario(usuario);
-        return "redirect:/usuario/listar";
+        return "redirect:/usuarioEjemplo/listar";
     }
     @GetMapping("/cambiarEstado")
     public String cambiarEstado(@RequestParam("id")int id){
         Usuario usuario=usuarioDAO.getUsuario(id);
         usuario.setEstado(!usuario.isEstado());
         usuarioDAO.guardarUsuario(usuario);
-        return "redirect:/usuario/listar";
+        return "redirect:/usuarioEjemplo/listar";
     }
 
     //pruebas---------------------------------------------------
@@ -117,25 +102,19 @@ public class UsuarioController {
         model.addAttribute("roles",roles);
         return "permisos";
     }
-    @GetMapping("/agregarrol")
-    public String agregarrol(Model model){
-        model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
-        Rol rol=new Rol();
-        model.addAttribute("rol",rol);
+    @GetMapping("/rolusuario")
+    @ResponseBody
+    @AccessControl(roles={"ROLE_Ver_usuarios"})
+    public String rolusuario(){
+        return "hola";
+    }
+    @GetMapping("/mail")
+    public String mail(){
+        String to = "";
+        String subject = "Asunto del correo";
+        String text = "a\ngoogle.com";
+        emailService.sendEmail(to, subject, text);
+        return "redirect:/usuarioEjemplo/listar";
+    }
 
-        //para los select de las llaves foraneas
-        List<Permiso> permisos=permisoDAO.getPermisos();
-        model.addAttribute("permisos",permisos);
-        return "rol-form";
-    }
-    @PostMapping("/agregarrol")
-    public String agregarrolPost(@ModelAttribute("rol")Rol rol,@RequestParam("permisosList")List<Integer> ids){
-        List<Permiso> permisos=new ArrayList<>();
-        for (int id:ids){
-            permisos.add(permisoDAO.getPermiso(id));
-        }
-        rol.setPermisos(permisos);
-        rolDAO.guardarRol(rol);
-        return "redirect:/usuario/listar";
-    }
 }
