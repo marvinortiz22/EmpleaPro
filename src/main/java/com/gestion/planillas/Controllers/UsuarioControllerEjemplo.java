@@ -1,8 +1,9 @@
 package com.gestion.planillas.Controllers;
 
-import com.gestion.planillas.modelos.Rol;
-import com.gestion.planillas.modelos.Usuario;
-import com.gestion.planillas.otros.EmailService;
+import com.gestion.planillas.Otros.AccessControl;
+import com.gestion.planillas.Modelos.Rol;
+import com.gestion.planillas.Modelos.Usuario;
+import com.gestion.planillas.Otros.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -103,6 +104,7 @@ public class UsuarioControllerEjemplo {
     }
     @GetMapping("/rolusuario")
     @ResponseBody
+    @AccessControl(roles={"ROLE_Ver_usuarios"})
     public String rolusuario(){
         return "hola";
     }

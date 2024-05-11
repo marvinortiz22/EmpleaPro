@@ -1,19 +1,18 @@
 package com.gestion.planillas.DaoImpl;
 
-import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.gestion.planillas.DAO.usuarioDAO;
-import com.gestion.planillas.UsuarioPermisos;
-import com.gestion.planillas.modelos.Permiso;
-import com.gestion.planillas.modelos.Rol;
+import com.gestion.planillas.Otros.UsuarioPermisos;
+import com.gestion.planillas.Modelos.Permiso;
+import com.gestion.planillas.Modelos.Rol;
 import jakarta.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.gestion.planillas.modelos.Usuario;
+import com.gestion.planillas.Modelos.Usuario;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -122,6 +121,17 @@ public class UsuarioDAOImpl implements usuarioDAO {
         // En este punto, podría devolver null o lanzar una excepción según tus requisitos.
         return null;
     }
+
+	@Override
+	public List<String> getAdminsEmails(){
+		Session session = sessionFactory.getCurrentSession();
+		Query<String> query = session.createQuery("SELECT email FROM Usuario u " +
+				"JOIN Rol_Permiso rp ON rp.rol.idRol=u.rol.idRol " +
+				"JOIN Permiso p ON p.idPermiso=rp.permiso.idPermiso " +
+				"WHERE p.nombrePermiso='ROLE_Administrador'", String.class);
+		List<String> resultados = query.getResultList();
+		return resultados;
+	}
 
 
 

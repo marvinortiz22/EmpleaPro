@@ -1,7 +1,5 @@
-package com.gestion.planillas.modelos;
+package com.gestion.planillas.Modelos;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
 
 @Entity
 @Table(name="UNIDAD")

@@ -5,9 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.gestion.planillas.modelos.Departamento;
 import com.gestion.planillas.DAO.demograficoDAO;
-import com.gestion.planillas.modelos.Municipio;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

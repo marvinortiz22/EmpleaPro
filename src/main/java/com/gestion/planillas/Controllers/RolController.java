@@ -1,8 +1,9 @@
 package com.gestion.planillas.Controllers;
 
-import com.gestion.planillas.modelos.Permiso;
-import com.gestion.planillas.modelos.Rol;
+import com.gestion.planillas.Modelos.Permiso;
+import com.gestion.planillas.Modelos.Rol;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,10 +55,10 @@ public class RolController {
         return "rol-form";
     }
     @PostMapping("/guardar")
-    public String guardar(HttpServletRequest request, @RequestParam("permisos")List<Integer> ids){
-        Rol rol =new Rol();
-        List<Permiso> permisos=new ArrayList<>();
-        for (int id:ids){
+    public String guardar(HttpServletRequest request, @RequestParam("permisos") List<Integer> ids, HttpSession session) {
+        Rol rol = new Rol();
+        List<Permiso> permisos = new ArrayList<>();
+        for (int id : ids) {
             permisos.add(permisoDAO.getPermiso(id));
         }
         rol.setIdRol(Integer.parseInt(request.getParameter("idRol")));

@@ -1,13 +1,5 @@
-package com.gestion.planillas.modelos;
+package com.gestion.planillas.Modelos;
 import jakarta.persistence.*;
-
-import java.util.List;
-import com.gestion.planillas.DAO.usuarioDAO;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
-import org.hibernate.validator.constraints.UniqueElements;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.gestion.planillas.modelos.Rol;
 
 
 @Entity
