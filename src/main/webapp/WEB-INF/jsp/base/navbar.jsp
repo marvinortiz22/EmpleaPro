@@ -49,7 +49,7 @@
                                         </a>
                                     </c:if>
                                     <c:if test="${permiso.nombrePermiso=='ROLE_Ver_profesiones_y_oficios'}">
-                                        <a class="nav-link" href="#">
+                                        <a class="nav-link" href="/oficios/listar">
                                             <div class="sb-nav-link-icon"><i class="fas fa-briefcase"></i></div>
                                             Profesiones y oficios
                                         </a>

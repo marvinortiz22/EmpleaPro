@@ -64,6 +64,24 @@ public class DemograficoController {
         long nDeEmpleados=demograficoDAO.getNumEmpleados();
         model.addAttribute("nDeEmpleados",nDeEmpleados);
         model.addAttribute("departamentos",departamentos);
+
+        // Crear listas para almacenar los nombres de los departamentos y la cantidad de empleados
+        List<String> nombresDepartamentos = new ArrayList<>();
+        List<Long> cantidadEmpleados = new ArrayList<>();
+
+        // Iterar sobre la lista de departamentos
+        for (Object obj : departamentos) {
+            Map<String, Object> map = (Map<String, Object>) obj;
+            nombresDepartamentos.add((String) map.get("nombreDepartamento"));
+            cantidadEmpleados.add((Long) map.get("cantidad_empleados"));
+        }
+
+        // Pasar los nombres de los departamentos y la cantidad de empleados por departamento a la vista
+        model.addAttribute("nombresDepartamentos", nombresDepartamentos);
+        model.addAttribute("cantidadEmpleados", cantidadEmpleados);
+
+        System.out.print("departamentos"+nombresDepartamentos);
+        System.out.println("cantidad de emp"+cantidadEmpleados);
         return "demografico-departamentos";
     }
     @GetMapping("/municipios")

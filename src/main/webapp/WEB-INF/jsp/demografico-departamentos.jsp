@@ -42,5 +42,67 @@
                 </table>
             </div>
         </div>
+        <div class="row">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-bar me-1"></i>
+                    Grafico Empleados por Departamento
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <canvas id="myBarChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script>
+        var nombresDep = '${nombresDepartamentos}'.split('[').join('').split(']').join('').split(',');
+        var cantidadEmpleados = '${cantidadEmpleados}'.split('[').join('').split(']').join('').split(',').map(Number);
+        console.log(nombresDep);
+        console.log(cantidadEmpleados);
+        // Bar Chart Example
+        var ctx = document.getElementById("myBarChart");
+        var myLineChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: nombresDep,
+                datasets: [{
+                    label: "Cantidad de empleados",
+                    backgroundColor: "rgba(2,117,216,1)",
+                    borderColor: "rgba(2,117,216,1)",
+          data: cantidadEmpleados,
+        }],
+      },
+      options: {
+        scales: {
+          xAxes: [{
+            time: {
+              unit: 'month'
+            },
+            gridLines: {
+              display: false
+            },
+            ticks: {
+              maxTicksLimit: 6
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              min: 0,
+              max: 15000,
+              maxTicksLimit: 5
+            },
+            gridLines: {
+              display: true
+            }
+          }],
+        },
+        legend: {
+          display: false
+        }
+      }
+    });
+    </script>
 <%@ include file="base/footer.jsp" %>
