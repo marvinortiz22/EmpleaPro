@@ -1,6 +1,6 @@
 package com.gestion.planillas.Otros;
 
-import com.gestion.planillas.Modelos.Permiso;
+import com.gestion.planillas.modelos.Permiso;
 
 import java.util.List;
 

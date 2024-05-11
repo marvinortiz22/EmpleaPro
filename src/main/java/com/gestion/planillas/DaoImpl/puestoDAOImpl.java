@@ -7,7 +7,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.gestion.planillas.Modelos.Puesto;
+import com.gestion.planillas.modelos.Puesto;
 
 import java.util.List;
 

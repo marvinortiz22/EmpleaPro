@@ -1,6 +1,6 @@
 package com.gestion.planillas.DAO;
 
-import com.gestion.planillas.Modelos.TipoDocumento;
+import com.gestion.planillas.modelos.TipoDocumento;
 
 import java.util.List;
 

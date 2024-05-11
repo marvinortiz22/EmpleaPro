@@ -1,6 +1,6 @@
 package com.gestion.planillas.Otros;
 
-import com.gestion.planillas.Modelos.Usuario;
+import com.gestion.planillas.modelos.Usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -5,14 +5,14 @@ import java.util.List;
 
 import com.gestion.planillas.DAO.usuarioDAO;
 import com.gestion.planillas.Otros.UsuarioPermisos;
-import com.gestion.planillas.Modelos.Permiso;
-import com.gestion.planillas.Modelos.Rol;
+import com.gestion.planillas.modelos.Permiso;
+import com.gestion.planillas.modelos.Rol;
 import jakarta.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.gestion.planillas.Modelos.Usuario;
+import com.gestion.planillas.modelos.Usuario;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

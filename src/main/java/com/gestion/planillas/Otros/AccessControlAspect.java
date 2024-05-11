@@ -1,5 +1,5 @@
 package com.gestion.planillas.Otros;
-import com.gestion.planillas.Modelos.Permiso;
+import com.gestion.planillas.modelos.Permiso;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;

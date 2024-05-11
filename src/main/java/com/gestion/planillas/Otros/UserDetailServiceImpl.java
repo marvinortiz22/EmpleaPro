@@ -1,7 +1,7 @@
 package com.gestion.planillas.Otros;
 
-import com.gestion.planillas.Modelos.Permiso;
-import com.gestion.planillas.Modelos.Usuario;
+import com.gestion.planillas.modelos.Permiso;
+import com.gestion.planillas.modelos.Usuario;
 import com.gestion.planillas.DAO.usuarioDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

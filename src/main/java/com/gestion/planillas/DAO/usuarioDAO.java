@@ -4,8 +4,8 @@ import java.util.List;
 
 
 import com.gestion.planillas.Otros.UsuarioPermisos;
-import com.gestion.planillas.Modelos.Permiso;
-import com.gestion.planillas.Modelos.Usuario;
+import com.gestion.planillas.modelos.Permiso;
+import com.gestion.planillas.modelos.Usuario;
 
 public interface usuarioDAO {
 	public List<Usuario> getUsuarios();

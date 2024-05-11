@@ -1,4 +1,4 @@
-package com.gestion.planillas.Modelos;
+package com.gestion.planillas.modelos;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

@@ -2,8 +2,7 @@ package com.gestion.planillas.Controllers;
 
 import com.gestion.planillas.DAO.usuarioDAO;
 import com.gestion.planillas.Otros.EmailService;
-import com.gestion.planillas.Modelos.Usuario;
-import jakarta.servlet.http.HttpServletRequest;
+import com.gestion.planillas.modelos.Usuario;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

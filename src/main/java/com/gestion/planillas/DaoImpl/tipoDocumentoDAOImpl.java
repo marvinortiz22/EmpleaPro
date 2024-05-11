@@ -1,7 +1,7 @@
 package com.gestion.planillas.DaoImpl;
 
 import com.gestion.planillas.DAO.tipoDocumentoDAO;
-import com.gestion.planillas.Modelos.TipoDocumento;
+import com.gestion.planillas.modelos.TipoDocumento;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

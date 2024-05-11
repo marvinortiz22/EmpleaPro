@@ -25,7 +25,7 @@ public class ConfigurationClass implements WebMvcConfigurer {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan(
-                "com.gestion.planillas.Modelos" );
+                "com.gestion.planillas.modelos" );
         sessionFactory.setHibernateProperties(hibernateProperties());
 
         return sessionFactory;

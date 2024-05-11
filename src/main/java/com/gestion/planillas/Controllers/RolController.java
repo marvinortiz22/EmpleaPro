@@ -1,7 +1,7 @@
 package com.gestion.planillas.Controllers;
 
-import com.gestion.planillas.Modelos.Permiso;
-import com.gestion.planillas.Modelos.Rol;
+import com.gestion.planillas.modelos.Permiso;
+import com.gestion.planillas.modelos.Rol;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
