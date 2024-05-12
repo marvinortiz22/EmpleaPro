@@ -14,3 +14,8 @@
         <link href="${pageContext.request.contextPath}/css/base.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <style>
+           td,th{
+              text-align: center !important;
+           }
+        </style>

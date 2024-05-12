@@ -25,7 +25,7 @@ public class OficioController {
     @GetMapping("/listar")
     public String listarOficios(Model model){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
-        List<ProfesionOficio> profyOficios = oficioDAO.getProfyOficios();
+        List<Object[]> profyOficios = oficioDAO.getProfConJoin();
         model.addAttribute("profyOficios",profyOficios);
         return "oficios";
     }

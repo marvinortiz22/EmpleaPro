@@ -3,6 +3,8 @@
     <style>
                 span{
                     color:red;
+                    display:flex;
+                    justify-content:center;
                 }
 
             </style>
@@ -28,10 +30,15 @@
                                     <form:errors path="email"/>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input class="form-control" path="password" type="password" name="password"
-                                        required />
+                                    <form:input class="form-control" path="password" type="password"
+                                        required="true"/>
                                     <label for="inputPassword">Contraseña</label>
                                     <form:errors path="password"/>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <form:input class="form-control" type="password" path="password2" required="true" />
+                                    <label for="inputPassword">Confirmar contraseña</label>
+                                    <form:errors path="password2"/>
                                 </div>
 
                                 <div class="d-flex align-items-center justify-content-center mt-4 mb-0">

@@ -1,11 +1,5 @@
 <%@ include file="base/head.jsp" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
-<style>
-            td,th{
-                text-align: center !important;
-            }
-
-        </style>
 <title>Roles</title>
 
 <%@ include file="base/navbar.jsp" %>

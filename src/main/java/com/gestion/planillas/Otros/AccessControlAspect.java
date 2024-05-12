@@ -1,13 +1,18 @@
 package com.gestion.planillas.Otros;
 import com.gestion.planillas.modelos.Permiso;
+import com.gestion.planillas.modelos.Usuario;
+import jakarta.servlet.http.HttpServletResponse;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.*;
 import com.gestion.planillas.DAO.usuarioDAO;
 
-import java.util.List;
+import java.io.IOException;
+import java.util.*;
 
 @Aspect
 @Component
@@ -26,18 +31,21 @@ public class AccessControlAspect {
         // Verificar si el usuario tiene los roles requeridos
         String[] requiredRoles = accessControl.roles();
         UsuarioPermisos usuarioPermisos=usuarioDAO.getUsuarioActual();
+
+        Usuario usuario=usuarioDAO.getUsuarioPorUsername(usuarioPermisos.getUsername());
+        if(!usuario.isEstado()){
+            throw new AccessDeniedException("El usuario está inhabilitado");
+        }
+
         List<Permiso> permisos=usuarioPermisos.getPermisos();
         if (requiredRoles.length > 0) {
-            boolean hasRequiredRole = false;
-            for (String role : requiredRoles) {
-                if (permisos.stream()
-                        .anyMatch(a -> a.getNombrePermiso().equals(role))) {
-                    hasRequiredRole = true;
-                    break;
-                }
-            }
+            List<String> requiredRolesList = Arrays.asList(requiredRoles);
+            boolean hasRequiredRole = requiredRolesList.stream()
+                    .allMatch(role -> permisos.stream()
+                            .anyMatch(permiso -> permiso.getNombrePermiso().equals(role)));
             if (!hasRequiredRole) {
-                throw new IllegalAccessException("El usuario no tiene los permisos requeridos");
+
+                throw new IllegalAccessException("El usuario tiene los permisos necesarios");
             }
         }
 

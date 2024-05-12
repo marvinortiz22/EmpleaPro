@@ -22,11 +22,13 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
     private BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
         String username = request.getParameter("username");
         Usuario usuario = usuarioDAO.getUsuarioPorUsername(username);
         if (usuario != null) {
             usuario.setIntentosLogin(usuario.getIntentosLogin() + 1);
+            if(usuario.getIntentosLogin()>=3)
+                usuario.setEstado(false);
             usuarioDAO.guardarUsuario(usuario);
         }
         response.sendRedirect("/login?user="+username);

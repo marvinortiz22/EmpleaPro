@@ -1,6 +1,7 @@
 package com.gestion.planillas.Controllers;
 
 import com.gestion.planillas.DAO.usuarioDAO;
+import com.gestion.planillas.Otros.AccessControl;
 import com.gestion.planillas.Otros.EmailService;
 import com.gestion.planillas.modelos.Usuario;
 import jakarta.validation.Valid;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/")
 @Controller
@@ -32,6 +35,8 @@ public class SecurityController {
         String errorMessage=null;
         if(username!=null){
             Usuario usuario=usuarioDAO.getUsuarioPorUsername(username);
+            if(!usuario.isEstado())
+                return "redirect:/error";
             if(usuario!=null){
                 int intentosRestantes=3-usuario.getIntentosLogin();
                 errorMessage="Contraseña incorrecta, le quedan "+intentosRestantes+" intentos";
@@ -54,6 +59,8 @@ public class SecurityController {
             result.rejectValue("username","error.username","Ya existe un usuario con este nombre de usuario");
         if(usuarioDAO.getUsuarioPorCampo("email",usuario.getEmail())!=null)
             result.rejectValue("email","error.email","Ya existe un usuario con este correo electrónico");
+        if(!usuario.getPassword().equals(usuario.getPassword2()))
+            result.rejectValue("password2","password2.error","Las contraseñas no coinciden");
         if (result.hasErrors())
             return "registro";
         else{
@@ -61,10 +68,14 @@ public class SecurityController {
             usuarioDAO.guardarUsuario(usuario);
 
             /*List<String> emails=usuarioDAO.getAdminsEmails();
-            String subject = "Asunto del correo";
+            String subject = "Nuevo usuario";
             for(String email:emails){
-                String text = "nuevo usuario\n\nhttp://localhost:8080/usuario/editar?id="+usuario.getIdUsuario();
-                emailService.sendEmail(email, subject, text);
+                try{
+                    String text = "nuevo usuario\n\nhttp://localhost:8080/usuario/editar?id="+usuario.getIdUsuario();
+                    emailService.sendEmail(email, subject, text);
+                }catch (Exception e){
+
+                }
             }*/
 
             return "redirect:/usuarioEjemplo/listar";
@@ -78,5 +89,9 @@ public class SecurityController {
     @GetMapping("error")
     public String errorUrl() {
         return "error";
+    }
+    @GetMapping("error/permisos")
+    public String errorUrl2() {
+        return "errorPermisos";
     }
 }
