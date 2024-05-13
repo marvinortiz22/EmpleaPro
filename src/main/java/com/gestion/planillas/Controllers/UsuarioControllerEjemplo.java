@@ -104,9 +104,15 @@ public class UsuarioControllerEjemplo {
     }
     @GetMapping("/rolusuario")
     @ResponseBody
-    @AccessControl(roles={"ROLE_Ver_usuarios"})
+    @AccessControl(roles={"ROLE_Ver_empleados","ROLE_Ver_puestos"})
     public String rolusuario(){
         return "hola";
+    }
+    @GetMapping("/rolusuario2")
+    @ResponseBody
+    @AccessControl(roles = {})
+    public String rolusuario2(){
+        return "hola2";
     }
     @GetMapping("/mail")
     public String mail(){

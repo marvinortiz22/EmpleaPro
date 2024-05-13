@@ -18,6 +18,7 @@
                         <tr>
                             <th>#</th>
                             <th>Nombre Profesion/Oficio</th>
+                            <th>N de empleados</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -26,9 +27,10 @@
                         <c:forEach var="oficio" items="${profyOficios}" varStatus="i">
                             <tr>
                                 <td>${i.count}</td>
-                                <td>${oficio.nombreProfOfc}</td>
+                                <td>${oficio[1]}</td>
+                                <td>${oficio[2]}</td>
                                 <td class="text-nowrap">
-                                    <a href="/oficios/editar?id=${oficio.idProfOfc}"><button title="Editar" class="btn btn-warning"><i class="fas fa-pen-to-square"></i></button></a>
+                                    <a href="/oficios/editar?id=${oficio[0]}"><button title="Editar" class="btn btn-warning"><i class="fas fa-pen-to-square"></i></button></a>
                                 </td>
                             </tr>
                         </c:forEach>

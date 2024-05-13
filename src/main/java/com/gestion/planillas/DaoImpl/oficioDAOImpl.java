@@ -36,4 +36,15 @@ public class oficioDAOImpl implements oficioDAO {
         session.saveOrUpdate(oficio);
     }
 
+    @Override
+    public List<Object[]> getProfConJoin() {
+        Session session = sessionFactory.getCurrentSession();
+        Query<Object[]> query = session.createQuery("SELECT po.idProfOfc, nombreProfOfc, COUNT(e.idEmpleado) FROM ProfesionOficio po " +
+                "JOIN ProfOfc_Empleado poe ON poe.profesionOficio.idProfOfc=po.idProfOfc " +
+                "JOIN Empleado e ON e.idEmpleado=poe.empleado.idEmpleado " +
+                "GROUP BY po.idProfOfc", Object[].class);
+        List<Object[]> resultados = query.getResultList();
+        return resultados;
+    }
+
 }

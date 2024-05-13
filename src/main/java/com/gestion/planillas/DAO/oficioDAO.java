@@ -6,4 +6,5 @@ public interface oficioDAO {
     public List<ProfesionOficio> getProfyOficios();
     public ProfesionOficio getOficio(int id);
     public void guardarOficio(ProfesionOficio oficio);
+    public List<Object[]> getProfConJoin();
 }
