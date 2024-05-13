@@ -1,6 +1,6 @@
 <%@ include file="base/head.jsp" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
-<title>Datos de usuario</title>
+<title>Agregar Profesion/Oficio</title>
 <%@ include file="base/navbar.jsp" %>
 <div class="d-flex justify-content-center">
     <h1 class="mt-5 mb-5">Agregar Profesiones u Oficios al catalogo</h1>

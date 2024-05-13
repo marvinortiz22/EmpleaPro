@@ -1,6 +1,6 @@
 <%@ include file="base/head.jsp" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
-<title>Datos de usuario</title>
+<title>Editar Profesion/Oficio</title>
 <%@ include file="base/navbar.jsp" %>
 <div class="d-flex justify-content-center">
     <h1 class="mt-5 mb-5">Editar Profesion u Oficio</h1>

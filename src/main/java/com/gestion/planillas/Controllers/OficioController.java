@@ -1,13 +1,8 @@
 package com.gestion.planillas.Controllers;
 
-
 import com.gestion.planillas.DAO.usuarioDAO;
 import com.gestion.planillas.modelos.ProfesionOficio;
-import com.gestion.planillas.modelos.Rol;
-import com.gestion.planillas.modelos.Usuario;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.transaction.Transactional;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
