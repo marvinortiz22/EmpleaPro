@@ -62,7 +62,6 @@
         var cantidadEmpleados = '${cantidadEmpleados}'.split('[').join('').split(']').join('').split(',').map(Number);
         console.log(nombresDep);
         console.log(cantidadEmpleados);
-        // Bar Chart Example
         var ctx = document.getElementById("myBarChart");
         var myLineChart = new Chart(ctx, {
             type: 'bar',

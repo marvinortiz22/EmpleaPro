@@ -84,25 +84,4 @@ public class demograficoDAOImpl implements demograficoDAO{
         }
         return nDeEmpleados;
     }
-    /*@Override
-    public List<Departamento> getDepartamentos() {
-        Session session=sessionFactory.getCurrentSession();
-        Query<Departamento> query=session.createQuery("FROM Departamento ORDER BY nombreDepartamento",Departamento.class);
-        List<Departamento> departamentos = query.getResultList();
-        return departamentos;
-    }
-
-
-
-    @Override
-    public List<Municipio> getMunicipiosPorDepartamento(int idDepartamento) {
-        Session session = sessionFactory.getCurrentSession();
-        Query<Municipio> query = session.createQuery("FROM Municipio WHERE departamento.idDepartamento = :idDepartamento", Municipio.class);
-        query.setParameter("idDepartamento", idDepartamento);
-        List<Municipio> municipios = query.getResultList();
-        return municipios;
-    }*/
-
-
-
 }

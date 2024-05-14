@@ -37,13 +37,9 @@ public class DemograficoController {
             nombresDepartamentos.add((String) map.get("nombreDepartamento"));
             cantidadEmpleados.add((Long) map.get("cantidad_empleados"));
         }
-
-        // Pasar los nombres de los departamentos y la cantidad de empleados por departamento a la vista
         model.addAttribute("nombresDepartamentos", nombresDepartamentos);
         model.addAttribute("cantidadEmpleados", cantidadEmpleados);
 
-        System.out.print("departamentos"+nombresDepartamentos);
-        System.out.println("cantidad de emp"+cantidadEmpleados);
         return "demografico-departamentos";
     }
     @GetMapping("/municipios")
