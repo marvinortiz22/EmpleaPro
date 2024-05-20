@@ -36,22 +36,25 @@ public class SecurityController {
         if(username!=null){
             Usuario usuario=usuarioDAO.getUsuarioPorUsername(username);
             if(!usuario.isEstado())
-                return "redirect:/error";
+                return "redirect:/error/estado?user="+usuario.getUsername();
             if(usuario!=null){
                 int intentosRestantes=3-usuario.getIntentosLogin();
-                errorMessage="Contraseña incorrecta, le quedan "+intentosRestantes+" intentos";
+                if(intentosRestantes==1)
+                    errorMessage="Contraseña incorrecta, le queda 1 intento";
+                else
+                    errorMessage="Contraseña incorrecta, le quedan "+intentosRestantes+" intentos";
             }else{
                 errorMessage="Usuario no encontrado";
             }
         }
         model.addAttribute("errorMessage",errorMessage);
-        return "login";
+        return "login/login";
     }
     @GetMapping("registro")
     public String registro(Model model){
         Usuario usuario=new Usuario();
         model.addAttribute("usuario",usuario);
-        return "registro";
+        return "login/registro";
     }
     @PostMapping("registro")
     public String registroPost(@Valid @ModelAttribute("usuario")Usuario usuario, BindingResult result){
@@ -62,7 +65,7 @@ public class SecurityController {
         if(!usuario.getPassword().equals(usuario.getPassword2()))
             result.rejectValue("password2","password2.error","Las contraseñas no coinciden");
         if (result.hasErrors())
-            return "registro";
+            return "login/registro";
         else{
             usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
             usuarioDAO.guardarUsuario(usuario);
@@ -90,8 +93,29 @@ public class SecurityController {
     public String errorUrl() {
         return "error";
     }
-    @GetMapping("error/permisos")
-    public String errorUrl2() {
-        return "errorPermisos";
+    @GetMapping("error/estado")
+    public String errorUrl2(@RequestParam(value="user",required = false)String username,Model model) {
+        Usuario usuario=usuarioDAO.getUsuarioPorUsername(username);
+        model.addAttribute("usuario",usuario);
+        return "error/errorEstado";
+    }
+    @GetMapping("solicitarDesbloqueo")
+    public String solicitarDesbloqueo(@RequestParam(value="id",required = false) int id){
+        Usuario usuario=usuarioDAO.getUsuario(id);
+        usuario.setSolicitoDesbloqueo(true);
+        usuarioDAO.guardarUsuario(usuario);
+
+        /*List<String> emails=usuarioDAO.getAdminsEmails();
+            String subject = "Solicitud de desbloqueo";
+            for(String email:emails){
+                try{
+                    String text = "El usuario '"+usuario.getUsername()+"' ha realizado una solicitud de desbloqueo, si desea desbloquearlo haga click en el siguiente enlace:\n\nhttp://localhost:8080/usuario/cambiarEstado?id="+usuario.getIdUsuario();
+                    emailService.sendEmail(email, subject, text);
+                }catch (Exception e){
+
+                }
+            }*/
+
+        return "error/errorEstado";
     }
 }

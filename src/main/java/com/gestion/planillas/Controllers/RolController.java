@@ -36,7 +36,7 @@ public class RolController {
         List<Rol> roles=rolDAO.getRolesValidos();
         model.addAttribute("roles",roles);
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
-        return "rol-listar";
+        return "rol/rol-listar";
     }
 
     @GetMapping("/agregar")
@@ -52,7 +52,7 @@ public class RolController {
             permiso.setNombrePermiso(permiso.getNombrePermiso().replace("_"," "));
         }
         model.addAttribute("permisos",permisos);
-        return "rol-form";
+        return "rol/rol-form";
     }
     @PostMapping("/guardar")
     public String guardar(HttpServletRequest request, @RequestParam("permisos") List<Integer> ids, HttpSession session) {
@@ -80,7 +80,7 @@ public class RolController {
             permiso.setNombrePermiso(permiso.getNombrePermiso().replace("_"," "));
         }
         model.addAttribute("permisos",permisos);
-        return "rol-form";
+        return "rol/rol-form";
     }
     @GetMapping("/detalles")
     public String detalles(Model model,@RequestParam("id")int id){
@@ -95,6 +95,6 @@ public class RolController {
             permiso.setNombrePermiso(permiso.getNombrePermiso().replace("_"," "));
         }
         rol.setPermisos(permisos);
-        return "rol-detalles";
+        return "rol/rol-detalles";
     }
 }

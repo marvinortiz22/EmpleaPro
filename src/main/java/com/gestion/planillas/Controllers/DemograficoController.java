@@ -40,7 +40,7 @@ public class DemograficoController {
         model.addAttribute("nombresDepartamentos", nombresDepartamentos);
         model.addAttribute("cantidadEmpleados", cantidadEmpleados);
 
-        return "demografico-departamentos";
+        return "demografico/demografico-departamentos";
     }
     @GetMapping("/municipios")
     public String municipios(Model model,@RequestParam("id")int id){
@@ -50,7 +50,7 @@ public class DemograficoController {
         List<Usuario> usuario=usuarioDAO.getUsuarios();
         model.addAttribute("municipios",municipios);
         model.addAttribute("nombreDepartamento",nombreDepartamento);
-        return "demografico-municipios";
+        return "demografico/demografico-municipios";
     }
 
 }

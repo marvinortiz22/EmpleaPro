@@ -37,7 +37,7 @@ public class UsuarioControllerFinal {
 
         List<Usuario> usuarios = usuarioDAO.getUsuarios();
         model.addAttribute("usuarios", usuarios);
-        return "usuarios-listar";
+        return "usuario/usuarios-listar";
     }
 
     @GetMapping("/editar")
@@ -49,7 +49,7 @@ public class UsuarioControllerFinal {
 
         List<Rol> roles=rolDAO.getRolesValidos();
         model.addAttribute("roles",roles);
-        return "usuarios-editar";
+        return "usuario/usuarios-editar";
     }
     @PostMapping("/editar")
     public String editarPost(@ModelAttribute("usuario")Usuario usuario, BindingResult result,Model model){
@@ -67,7 +67,7 @@ public class UsuarioControllerFinal {
             model.addAttribute("usuario",usuario);
             List<Rol> roles=rolDAO.getRolesValidos();
             model.addAttribute("roles",roles);
-            return "usuarios-editar";
+            return "usuario/usuarios-editar";
         }else{
             Usuario usuarioOriginal=usuarioDAO.getUsuario(usuario.getIdUsuario());
             usuario.setPassword(usuarioOriginal.getPassword());

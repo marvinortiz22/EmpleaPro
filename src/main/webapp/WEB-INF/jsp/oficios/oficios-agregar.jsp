@@ -1,7 +1,7 @@
-<%@ include file="base/head.jsp" %>
+<%@ include file="../base/head.jsp" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <title>Agregar Profesion/Oficio</title>
-<%@ include file="base/navbar.jsp" %>
+<%@ include file="../base/navbar.jsp" %>
 <div class="d-flex justify-content-center">
     <h1 class="mt-5 mb-5">Agregar Profesiones u Oficios al catalogo</h1>
 </div>
@@ -27,4 +27,4 @@
 
 
 
-<%@ include file="base/footer.jsp" %>
+<%@ include file="../base/footer.jsp" %>

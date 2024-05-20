@@ -1,7 +1,7 @@
-<%@ include file="base/head.jsp" %>
+<%@ include file="../base/head.jsp" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <title>Datos de rol</title>
-<%@ include file="base/navbar.jsp" %>
+<%@ include file="../base/navbar.jsp" %>
 <a href="/rol/listar"><button title="Lista principal" class="btn btn-none">←</button></a>
 <div class="d-flex justify-content-center">
     <h1 class="mt-4">Datos de rol</h1>
@@ -23,4 +23,4 @@
 
 </form:form>
 
-<%@ include file="base/footer.jsp" %>
+<%@ include file="../base/footer.jsp" %>

@@ -40,7 +40,7 @@ public class UsuarioControllerEjemplo {
 
         List<Usuario> usuarios = usuarioDAO.getUsuarios();
         model.addAttribute("usuarios", usuarios);
-        return "usuariosEjemplo-listar";
+        return "usuario/usuariosEjemplo-listar";
     }
     @GetMapping("/agregar")
     public String agregar(Model model){
@@ -51,7 +51,7 @@ public class UsuarioControllerEjemplo {
         //para los select de las llaves foraneas
         List<Rol> roles=rolDAO.getRolesValidos();
         model.addAttribute("roles",roles);
-        return "usuariosEjemplo-form";
+        return "usuario/usuariosEjemplo-form";
     }
     @GetMapping("/editar")
     public String editar(Model model, @RequestParam("id")int id){
@@ -63,7 +63,7 @@ public class UsuarioControllerEjemplo {
         //para los select de las llaves foraneas
         List<Rol> roles=rolDAO.getRolesValidos();
         model.addAttribute("roles",roles);
-        return "usuariosEjemplo-form";
+        return "usuario/usuariosEjemplo-form";
     }
 
     //sirve tanto para editar como para crear siempre y cuando usen un solo form
@@ -87,20 +87,20 @@ public class UsuarioControllerEjemplo {
     @GetMapping("/ver")
     public String ver(Model model){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
-        return "datosEmpresa-ver";
+        return "datosEmpresa/datosEmpresa-ver";
     }
     @GetMapping("/probarJoin")
     public String probarJoin(Model model){
         List<Object[]> roles= rolDAO.getRolConJoin();
         model.addAttribute("roles",roles);
         System.out.print(roles);
-        return "probarJoin";
+        return "pruebas/probarJoin";
     }
     @GetMapping("/permisos")
     public String permisos(Model model){
         List<Rol> roles=rolDAO.getRolesValidos();
         model.addAttribute("roles",roles);
-        return "permisos";
+        return "pruebas/permisos";
     }
     @GetMapping("/rolusuario")
     @ResponseBody

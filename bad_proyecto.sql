@@ -1,10 +1,19 @@
+create database if not exists bad_proyecto;
+use bad_proyecto;
+
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     27/3/2024 10:17:05 p.�m.                     */
+/* Created on:     18/5/2024 06:57:13 p. m.                     */
 /*==============================================================*/
 
 
 drop table if exists DATOSEMPRESA;
+
+drop table if exists DEDUCCIONBENEFICIO;
+
+drop table if exists DEDUCCIONBENEFICIOGLOBAL;
+
+drop table if exists DEDUCCIONBENEFICIO_EMPLEADO;
 
 drop table if exists DEPARTAMENTO;
 
@@ -12,9 +21,15 @@ drop table if exists EMPLEADO;
 
 drop table if exists ESTADOCIVIL;
 
+drop table if exists HORASEMPLEADO;
+
 drop table if exists MUNICIPIO;
 
+drop table if exists PERLIC_EMPLEADO;
+
 drop table if exists PERMISO;
+
+drop table if exists PERMISOLICENCIA;
 
 drop table if exists PRESUPUESTOANUAL;
 
@@ -36,6 +51,8 @@ drop table if exists UNIDAD;
 
 drop table if exists USUARIO;
 
+drop table if exists VACACION;
+
 /*==============================================================*/
 /* Table: DATOSEMPRESA                                          */
 /*==============================================================*/
@@ -51,6 +68,42 @@ create table DATOSEMPRESA
    PAGINAWEB            varchar(100),
    EMAIL                varchar(50) not null,
    primary key (IDEMPRESA)
+);
+
+/*==============================================================*/
+/* Table: DEDUCCIONBENEFICIO                                    */
+/*==============================================================*/
+create table DEDUCCIONBENEFICIO
+(
+   IDDEDUCBENEF         int not null auto_increment,
+   NOMBREDEDUCBENEF     varchar(75) not null,
+   TIPO                 char(1) not null,
+   primary key (IDDEDUCBENEF)
+);
+
+/*==============================================================*/
+/* Table: DEDUCCIONBENEFICIOGLOBAL                              */
+/*==============================================================*/
+create table DEDUCCIONBENEFICIOGLOBAL
+(
+   IDDEDUCBENEF         int not null,
+   PROPORCIONALALSUELDO bool not null,
+   MONTOOPORCENTAJE     decimal not null,
+   ESTADO               bool not null default true,
+   primary key (IDDEDUCBENEF)
+);
+
+/*==============================================================*/
+/* Table: DEDUCCIONBENEFICIO_EMPLEADO                           */
+/*==============================================================*/
+create table DEDUCCIONBENEFICIO_EMPLEADO
+(
+   IDDEDUCBENEF_EMP     int not null auto_increment,
+   IDEMPLEADO           int,
+   IDDEDUCBENEF         int,
+   PROPORCIONALALSUELDO bool not null,
+   MONTOOPORCENTAJE     decimal not null,
+   primary key (IDDEDUCBENEF_EMP)
 );
 
 /*==============================================================*/
@@ -87,9 +140,10 @@ create table EMPLEADO
    ISSS                 varchar(25) not null,
    NUP                  varchar(25),
    SALARIO              decimal not null,
-   CORREOINSTITUCIONAL  varchar(50) not null,
-   CORREOPERSONAL       varchar(50) not null,
-   ESTADO               bool default true,
+   CORREOINSTITUCIONAL  varchar(30) not null,
+   CORREOPERSONAL       varchar(30) not null,
+   ESTADO               bool not null default true,
+   SOLICITODESBLOQUEO   bool not null default false,
    primary key (IDEMPLEADO)
 );
 
@@ -104,6 +158,19 @@ create table ESTADOCIVIL
 );
 
 /*==============================================================*/
+/* Table: HORASEMPLEADO                                         */
+/*==============================================================*/
+create table HORASEMPLEADO
+(
+   IDHORASEMPLEADO      int not null auto_increment,
+   IDEMPLEADO           int,
+   FECHA                date,
+   HORAINGRESO          time,
+   HORASALIDA           time,
+   primary key (IDHORASEMPLEADO)
+);
+
+/*==============================================================*/
 /* Table: MUNICIPIO                                             */
 /*==============================================================*/
 create table MUNICIPIO
@@ -115,6 +182,22 @@ create table MUNICIPIO
 );
 
 /*==============================================================*/
+/* Table: PERLIC_EMPLEADO                                       */
+/*==============================================================*/
+create table PERLIC_EMPLEADO
+(
+   IDPERLIC_EMP         int not null auto_increment,
+   IDEMPLEADO           int,
+   IDPERMISOLICENCIA    int,
+   APROBADA             bool not null,
+   DESCONTABLE          bool not null,
+   FECHAINICIO          date not null,
+   FECHAFIN             date not null,
+   DIRECCIONARCHIVO     varchar(100),
+   primary key (IDPERLIC_EMP)
+);
+
+/*==============================================================*/
 /* Table: PERMISO                                               */
 /*==============================================================*/
 create table PERMISO
@@ -122,6 +205,17 @@ create table PERMISO
    IDPERMISO            int not null auto_increment,
    NOMBREPERMISO        varchar(50) not null,
    primary key (IDPERMISO)
+);
+
+/*==============================================================*/
+/* Table: PERMISOLICENCIA                                       */
+/*==============================================================*/
+create table PERMISOLICENCIA
+(
+   IDPERMISOLICENCIA    int not null auto_increment,
+   TIPO                 char(1) not null,
+   CAUSA                varchar(75) not null,
+   primary key (IDPERMISOLICENCIA)
 );
 
 /*==============================================================*/
@@ -166,7 +260,7 @@ create table PUESTO
    NOMBREPUESTO         varchar(50) not null,
    SALARIOMIN           decimal not null,
    SALARIOMAX           decimal not null,
-   ESTADO               bool default true,
+   ESTADO               bool not null default true,
    primary key (IDPUESTO)
 );
 
@@ -177,7 +271,7 @@ create table ROL
 (
    IDROL                int not null auto_increment,
    NOMBREROL            varchar(25) not null,
-   ESTADO               bool default true,
+   ESTADO               bool not null default true,
    primary key (IDROL)
 );
 
@@ -220,7 +314,7 @@ create table UNIDAD
    IDTIPOUNIDAD         int,
    UNI_IDUNIDAD         int,
    NOMBREUNIDAD         varchar(50) not null,
-   ESTADO               bool default true,
+   ESTADO               bool not null default true,
    primary key (IDUNIDAD)
 );
 
@@ -233,11 +327,33 @@ create table USUARIO
    IDROL                int,
    USERNAME             varchar(50),
    EMAIL                varchar(50) not null,
-   PASSWORD             varchar(255) not null,
-   ESTADO               bool default true,
+   PASSWORD             varchar(255),
+   ESTADO               bool not null default true,
    INTENTOSLOGIN        int default 0,
    primary key (IDUSUARIO)
 );
+
+/*==============================================================*/
+/* Table: VACACION                                              */
+/*==============================================================*/
+create table VACACION
+(
+   IDVACACION           int not null auto_increment,
+   IDEMPLEADO           int,
+   FECHAINICIO          date,
+   FECHAFIN             date,
+   PENDIENTE            bool not null default true,
+   primary key (IDVACACION)
+);
+
+alter table DEDUCCIONBENEFICIOGLOBAL add constraint FK_REFERENCE_23 foreign key (IDDEDUCBENEF)
+      references DEDUCCIONBENEFICIO (IDDEDUCBENEF) on delete restrict on update restrict;
+
+alter table DEDUCCIONBENEFICIO_EMPLEADO add constraint FK_REFERENCE_21 foreign key (IDEMPLEADO)
+      references EMPLEADO (IDEMPLEADO) on delete restrict on update restrict;
+
+alter table DEDUCCIONBENEFICIO_EMPLEADO add constraint FK_REFERENCE_22 foreign key (IDDEDUCBENEF)
+      references DEDUCCIONBENEFICIO (IDDEDUCBENEF) on delete restrict on update restrict;
 
 alter table EMPLEADO add constraint FK_EMPLEADO_TIENE_TIPODOC foreign key (IDTIPODOC)
       references TIPODOCUMENTO (IDTIPODOC) on delete restrict on update restrict;
@@ -254,8 +370,17 @@ alter table EMPLEADO add constraint FK_TIENE_ESTADOCIVIL foreign key (IDESTADOCI
 alter table EMPLEADO add constraint FK_VIVE_EN foreign key (IDMUNICIPIO)
       references MUNICIPIO (IDMUNICIPIO) on delete restrict on update restrict;
 
+alter table HORASEMPLEADO add constraint FK_REFERENCE_17 foreign key (IDEMPLEADO)
+      references EMPLEADO (IDEMPLEADO) on delete restrict on update restrict;
+
 alter table MUNICIPIO add constraint FK_PERTENECE_A_DEPARTAMENTO foreign key (IDDEPARTAMENTO)
       references DEPARTAMENTO (IDDEPARTAMENTO) on delete restrict on update restrict;
+
+alter table PERLIC_EMPLEADO add constraint FK_REFERENCE_18 foreign key (IDEMPLEADO)
+      references EMPLEADO (IDEMPLEADO) on delete restrict on update restrict;
+
+alter table PERLIC_EMPLEADO add constraint FK_REFERENCE_19 foreign key (IDPERMISOLICENCIA)
+      references PERMISOLICENCIA (IDPERMISOLICENCIA) on delete restrict on update restrict;
 
 alter table PRESUPUESTOANUAL add constraint FK_REFERENCE_16 foreign key (IDUNIDAD)
       references UNIDAD (IDUNIDAD) on delete restrict on update restrict;
@@ -283,6 +408,12 @@ alter table UNIDAD add constraint FK_TIENE_TIPOUNIDAD foreign key (IDTIPOUNIDAD)
 
 alter table USUARIO add constraint FK_SE_LE_ASIGNA foreign key (IDROL)
       references ROL (IDROL) on delete restrict on update restrict;
+
+alter table VACACION add constraint FK_REFERENCE_20 foreign key (IDEMPLEADO)
+      references EMPLEADO (IDEMPLEADO) on delete restrict on update restrict;
+
+
+
 
 ALTER TABLE EMPLEADO
 ADD CONSTRAINT UNIQUE_NUMERODOC UNIQUE (NUMERODOC),

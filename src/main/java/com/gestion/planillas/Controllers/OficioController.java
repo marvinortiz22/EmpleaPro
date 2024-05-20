@@ -22,7 +22,7 @@ public class OficioController {
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         List<Object[]> profyOficios = oficioDAO.getProfConJoin();
         model.addAttribute("profyOficios",profyOficios);
-        return "oficios";
+        return "oficios/oficios";
     }
 
     @GetMapping("/agregar")
@@ -30,7 +30,7 @@ public class OficioController {
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         ProfesionOficio oficio = new ProfesionOficio();
         model.addAttribute("oficio", oficio);
-        return "oficios-agregar";
+        return "oficios/oficios-agregar";
     }
     @PostMapping("/agregar")
     public String addProfOf(@ModelAttribute("oficio")ProfesionOficio proyOf){
@@ -42,7 +42,7 @@ public class OficioController {
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         ProfesionOficio oficio = oficioDAO.getOficio(id);
         model.addAttribute("oficio", oficio);
-        return "oficios-editar";
+        return "oficios/oficios-editar";
     }
     @PostMapping("/editar")
     public String editarPost(HttpServletRequest request){

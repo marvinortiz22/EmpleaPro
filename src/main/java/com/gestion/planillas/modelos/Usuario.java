@@ -30,12 +30,14 @@ public class Usuario {
 
     private boolean estado=true;
     private int intentosLogin;
+
+	private boolean solicitoDesbloqueo=false;
     
 	public Usuario() {
 		super();
 	}
 
-	public Usuario(int idUsuario, Rol rol,String username, String email, String password, boolean estado, int intentosLogin) {
+	public Usuario(int idUsuario, Rol rol,String username, String email, String password, boolean estado, int intentosLogin,boolean solicitoDesbloqueo) {
 		this.idUsuario = idUsuario;
 		this.rol = rol;
 
@@ -45,6 +47,7 @@ public class Usuario {
 
 		this.estado = estado;
 		this.intentosLogin = intentosLogin;
+		this.solicitoDesbloqueo=solicitoDesbloqueo;
 	}
 
 	public int getIdUsuario() {
@@ -101,9 +104,11 @@ public class Usuario {
 		this.intentosLogin = intentosLogin;
 	}
 
+	public boolean isSolicitoDesbloqueo() {
+		return solicitoDesbloqueo;
+	}
 
-
-    
-
-    
+	public void setSolicitoDesbloqueo(boolean solicitoDesbloqueo) {
+		this.solicitoDesbloqueo = solicitoDesbloqueo;
+	}
 }

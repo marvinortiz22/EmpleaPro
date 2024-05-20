@@ -26,10 +26,14 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
         String username = request.getParameter("username");
         Usuario usuario = usuarioDAO.getUsuarioPorUsername(username);
         if (usuario != null) {
-            usuario.setIntentosLogin(usuario.getIntentosLogin() + 1);
-            if(usuario.getIntentosLogin()>=3)
+            if(usuario.getIntentosLogin()<3){
+                usuario.setIntentosLogin(usuario.getIntentosLogin() + 1);
+                usuarioDAO.guardarUsuario(usuario);
+            }
+            if(usuario.getIntentosLogin()==3){
                 usuario.setEstado(false);
-            usuarioDAO.guardarUsuario(usuario);
+                usuarioDAO.guardarUsuario(usuario);
+            }
         }
         response.sendRedirect("/login?user="+username);
     }

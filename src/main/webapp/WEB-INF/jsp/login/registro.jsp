@@ -1,4 +1,4 @@
-<%@ include file="base/head.jsp" %>
+<%@ include file="../base/head.jsp" %>
     <%@ page contentType="text/html" pageEncoding="UTF-8" %>
     <style>
                 span{
@@ -53,4 +53,4 @@
                 </div>
             </div>
         </div>
-        <%@ include file="base/footer.jsp" %>
+        <%@ include file="../base/footer.jsp" %>

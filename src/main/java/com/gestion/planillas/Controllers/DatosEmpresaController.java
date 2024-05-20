@@ -39,7 +39,7 @@ public class DatosEmpresaController {
         else
             model.addAttribute("datosEmpresa",dataEmp);
 
-        return "datosEmpresa-ver";
+        return "datosEmpresa/datosEmpresa-ver";
     }
     @GetMapping("/editar")
     public String editar(Model model){
@@ -60,7 +60,7 @@ public class DatosEmpresaController {
         }
         else
             model.addAttribute("datosEmpresa",dataEmp);
-        return "datosEmpresa-editar";
+        return "datosEmpresa/datosEmpresa-editar";
     }
     @PostMapping("/editar")
     public String editarPost(HttpServletRequest request){

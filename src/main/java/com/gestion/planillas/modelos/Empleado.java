@@ -36,7 +36,13 @@ public class Empleado {
     private String apellido1;
     private String apellido2;
     private String apellidoCasada;
-    private char sexo;
+    @Enumerated(EnumType.STRING)
+    private Tipo sexo;
+
+    // Enum for TIPO column
+    public enum Tipo {
+        M, F
+    }
     private LocalDate fechaNacimiento;
     private LocalDateTime fechaIngreso;
     private String numeroDoc;
@@ -136,11 +142,11 @@ public class Empleado {
         this.apellidoCasada = apellidoCasada;
     }
 
-    public char getSexo() {
+    public Tipo getSexo() {
         return sexo;
     }
 
-    public void setSexo(char sexo) {
+    public void setSexo(Tipo sexo) {
         this.sexo = sexo;
     }
 
@@ -224,7 +230,7 @@ public class Empleado {
         this.estado = estado;
     }
 
-    public Empleado(int idEmpleado, Puesto puesto, Municipio municipio, EstadoCivil estadoCivil, Empleado supervisor, TipoDocumento tipoDocumento, String nombre1, String nombre2, String apellido1, String apellido2, String apellidoCasada, char sexo, LocalDate fechaNacimiento, LocalDateTime fechaIngreso, String numeroDoc, String nit, String isss, String nup, BigDecimal salario, String correoInstitucional, String correoPersonal, boolean estado) {
+    public Empleado(int idEmpleado, Puesto puesto, Municipio municipio, EstadoCivil estadoCivil, Empleado supervisor, TipoDocumento tipoDocumento, String nombre1, String nombre2, String apellido1, String apellido2, String apellidoCasada, Tipo sexo, LocalDate fechaNacimiento, LocalDateTime fechaIngreso, String numeroDoc, String nit, String isss, String nup, BigDecimal salario, String correoInstitucional, String correoPersonal, boolean estado) {
         this.idEmpleado = idEmpleado;
         this.puesto = puesto;
         this.municipio = municipio;
