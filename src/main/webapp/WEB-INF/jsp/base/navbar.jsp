@@ -68,7 +68,7 @@
                                     data-bs-parent="#sidenavAccordion">
                                     <nav class="sb-sidenav-menu-nested nav">
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_empleados'}">
-                                            <a class="nav-link" href="#">Ver empleados</a>
+                                            <a class="nav-link" href="/empleado/listar">Ver empleados</a>
                                         </c:if>
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_horas_trabajadas'}">
                                             <a class="nav-link" href="#">Horas trabajadas</a>
