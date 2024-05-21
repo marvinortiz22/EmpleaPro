@@ -21,5 +21,4 @@ public interface usuarioDAO {
 	public List<Permiso> getPermisosDeUsuario(String username);
 	public UsuarioPermisos getUsuarioActual();
 	public List<String> getAdminsEmails();
-
 }

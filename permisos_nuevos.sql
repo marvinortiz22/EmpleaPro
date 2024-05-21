@@ -24,48 +24,48 @@ INSERT INTO permiso VALUES (NULL,"ROLE_Ver_puestos");
 INSERT INTO permiso VALUES (NULL,"ROLE_Ver_profesiones_y_oficios");
 INSERT INTO permiso VALUES (NULL,"ROLE_Ver_unidades");
 INSERT INTO permiso VALUES (NULL,"ROLE_Ver_empleados");
+insert into permiso values (null, 'ROLE_Ver_horas_trabajadas');
+insert into permiso values (null, 'ROLE_Ver_permisos_y_licencias');
+insert into permiso values (null, 'ROLE_Ver_vacaciones');
+insert into permiso values (null, 'ROLE_Ver_contabilidad');
+insert into permiso values (null, 'ROLE_Ver_planilla');
+insert into permiso values (null, 'ROLE_Ver_boletas_de_pago');
+insert into permiso values (null, 'ROLE_Ver_deducciones_y_beneficios_globales');
+insert into permiso values (null, 'ROLE_Ver_deducciones_y_beneficios_de_empleados');
 INSERT INTO permiso VALUES (NULL,"ROLE_Ver_demografía_y_estado_civil");
 INSERT INTO permiso VALUES (NULL,"ROLE_Ver_demografía");
 INSERT INTO permiso VALUES (NULL,"ROLE_Ver_estados_civiles");
+INSERT INTO permiso VALUES (NULL,"ROLE_Ver_auditoria");
+insert into permiso values (null, 'ROLE_Ver_auditoria_de_empleados');
+insert into permiso values (null, 'ROLE_Ver_auditoria_de_deducciones_y_beneficios_globales');
+insert into permiso values (null, 'ROLE_Ver_auditoria_de_deducciones_y_beneficios_de_empleados');
 insert into permiso VALUES (NULL,"ROLE_Administrador");
+
+--Editar,agregar,etc
+
 -- Deducciones y Beneficios Globales
-insert into permiso values (null, 'ROLE_Ver_deducciones_y_beneficios_globales');
+
 insert into permiso values (null, 'ROLE_Agregar_deducciones_y_beneficios_globales');
 insert into permiso values (null, 'ROLE_Editar_deducciones_y_beneficios_globales');
 
 -- Deducciones y Beneficios de Empleados
-insert into permiso values (null, 'ROLE_Ver_deducciones_y_beneficios_de_empleados');
+
 insert into permiso values (null, 'ROLE_Editar_deducciones_y_beneficios_de_empleados');
 
 -- Horas Trabajadas
-insert into permiso values (null, 'ROLE_Ver_horas_trabajadas');
 insert into permiso values (null, 'ROLE_Editar_horas_trabajadas');
 
 -- Vacaciones
-insert into permiso values (null, 'ROLE_Ver_vacaciones');
+
 insert into permiso values (null, 'ROLE_Editar_vacaciones');
 
 -- Permisos y Licencias
-insert into permiso values (null, 'ROLE_Ver_permisos_y_licencias');
+
 insert into permiso values (null, 'ROLE_Agregar_permisos_y_licencias');
 insert into permiso values (null, 'ROLE_Editar_permisos_y_licencias');
 
--- Boleta de Pago
-insert into permiso values (null, 'ROLE_Ver_boletas_de_pago');
-
--- Auditoría de Empleados
-insert into permiso values (null, 'ROLE_Ver_auditoria_de_empleados');
-
--- Auditoría de Deducciones y Beneficios Globales
-insert into permiso values (null, 'ROLE_Ver_auditoria_de_deducciones_y_beneficios_globales');
-
--- Auditoría de Deducciones y Beneficios de Empleados
-insert into permiso values (null, 'ROLE_Ver_auditoria_de_deducciones_y_beneficios_de_empleados');
-
--- Planilla
-insert into permiso values (null, 'ROLE_Ver_planilla');
-
 -- Empleados
+
 insert into permiso values (null, 'ROLE_Agregar_empleados');
 insert into permiso values (null, 'ROLE_Editar_empleados');
 insert into permiso values (null, 'ROLE_Cambiar_estado_empleados');
@@ -133,3 +133,5 @@ insert into rol_permiso values (37, 1);
 insert into rol_permiso values (38, 1);
 insert into rol_permiso values (39, 1);
 insert into rol_permiso values (40, 1);
+insert into rol_permiso values (41, 1);
+insert into rol_permiso values (42, 1);

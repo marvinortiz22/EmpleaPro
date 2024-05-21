@@ -11,13 +11,8 @@ public class DeduccionBeneficio {
 
     private String nombreDeducBenef;
 
-    @Enumerated(EnumType.STRING)
-    private Tipo tipo;
 
-    // Enum for TIPO column
-    public enum Tipo {
-        D, B
-    }
+    private String tipo;
 
     // Getters and Setters
     public int getIdDeducBenef() {
@@ -36,11 +31,11 @@ public class DeduccionBeneficio {
         this.nombreDeducBenef = nombreDeducBenef;
     }
 
-    public Tipo getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(Tipo tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 }

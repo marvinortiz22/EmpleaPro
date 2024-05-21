@@ -10,7 +10,7 @@
         </style>
 <title>Detalles Rol</title>
 <%@ include file="../base/navbar.jsp" %>
-<a href="/rol/listar"><button title="Lista principal" class="btn btn-none">←</button></a>
+<a href="/rol/listar"><button title="Lista principal" class="btn btn-primary ms-4 mt-1">←</button></a>
 <div class="d-flex justify-content-center">
     <h1 class="mt-4">Datos de rol</h1>
 </div>

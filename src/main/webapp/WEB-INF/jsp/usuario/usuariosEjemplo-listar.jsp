@@ -41,7 +41,7 @@
                             </c:if>
                         </td>
                         <td>
-                            <a href="/usuarioEjemplo/ver"><button title="Ver detalles" class="btn btn-primary"><i class="fas fa-eye"></i></button></a>
+                            <a href="/usuarioEjemplo/detalles"><button title="Ver detalles" class="btn btn-primary"><i class="fas fa-eye"></i></button></a>
                             <a href="/usuarioEjemplo/editar?id=${usuario.idUsuario}"><button title="Editar" class="btn btn-warning"><i class="fas fa-pen-to-square"></i></button></a>
                             <c:if test="${usuario.estado}">
                                 <a href="/usuarioEjemplo/cambiarEstado?id=${usuario.idUsuario}"><button id="x" title="Inhabilitar" class="btn btn-danger"><i class="fas fa-lock"></i></button></a>

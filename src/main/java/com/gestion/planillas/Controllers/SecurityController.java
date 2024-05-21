@@ -4,7 +4,9 @@ import com.gestion.planillas.DAO.usuarioDAO;
 import com.gestion.planillas.Otros.AccessControl;
 import com.gestion.planillas.Otros.EmailService;
 import com.gestion.planillas.modelos.Usuario;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import org.eclipse.tags.shaded.org.apache.xpath.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -35,9 +37,9 @@ public class SecurityController {
         String errorMessage=null;
         if(username!=null){
             Usuario usuario=usuarioDAO.getUsuarioPorUsername(username);
-            if(!usuario.isEstado())
-                return "redirect:/error/estado?user="+usuario.getUsername();
             if(usuario!=null){
+                if(!usuario.isEstado())
+                    return "redirect:/error/estado?user="+usuario.getUsername();
                 int intentosRestantes=3-usuario.getIntentosLogin();
                 if(intentosRestantes==1)
                     errorMessage="Contraseña incorrecta, le queda 1 intento";

@@ -1,5 +1,6 @@
 package com.gestion.planillas.Controllers;
 
+import com.gestion.planillas.modelos.Otros.Alert;
 import com.gestion.planillas.modelos.Permiso;
 import com.gestion.planillas.modelos.Rol;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import com.gestion.planillas.DAO.rolDAO;
 import com.gestion.planillas.DAO.usuarioDAO;
 import com.gestion.planillas.DAO.permisoDAO;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,10 @@ public class RolController {
         List<Rol> roles=rolDAO.getRolesValidos();
         model.addAttribute("roles",roles);
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
+        if (model.containsAttribute("alert")) {
+            Alert alert = (Alert) model.getAttribute("alert");
+            model.addAttribute("alert",alert);
+        }
         return "rol/rol-listar";
     }
 
@@ -52,10 +58,10 @@ public class RolController {
             permiso.setNombrePermiso(permiso.getNombrePermiso().replace("_"," "));
         }
         model.addAttribute("permisos",permisos);
-        return "rol/rol-form";
+        return "rol/rol-agregar";
     }
-    @PostMapping("/guardar")
-    public String guardar(HttpServletRequest request, @RequestParam("permisos") List<Integer> ids, HttpSession session) {
+    @PostMapping("/agregar")
+    public String agregarPost(HttpServletRequest request, @RequestParam("permisos") List<Integer> ids, RedirectAttributes redirectAttributes) {
         Rol rol = new Rol();
         List<Permiso> permisos = new ArrayList<>();
         for (int id : ids) {
@@ -65,6 +71,23 @@ public class RolController {
         rol.setNombreRol(request.getParameter("nombreRol"));
         rol.setPermisos(permisos);
         rolDAO.guardarRol(rol);
+        Alert alert=new Alert("success","Se ha editado el rol exitosamente");
+        redirectAttributes.addFlashAttribute("alert",alert);
+        return "redirect:/rol/listar";
+    }
+    @PostMapping("/editar")
+    public String editarPost(HttpServletRequest request, @RequestParam("permisos") List<Integer> ids, RedirectAttributes redirectAttributes) {
+        Rol rol = new Rol();
+        List<Permiso> permisos = new ArrayList<>();
+        for (int id : ids) {
+            permisos.add(permisoDAO.getPermiso(id));
+        }
+        rol.setIdRol(Integer.parseInt(request.getParameter("idRol")));
+        rol.setNombreRol(request.getParameter("nombreRol"));
+        rol.setPermisos(permisos);
+        rolDAO.guardarRol(rol);
+        Alert alert=new Alert("success","Se ha editado el rol exitosamente");
+        redirectAttributes.addFlashAttribute("alert",alert);
         return "redirect:/rol/listar";
     }
     @GetMapping("/editar")
@@ -80,7 +103,7 @@ public class RolController {
             permiso.setNombrePermiso(permiso.getNombrePermiso().replace("_"," "));
         }
         model.addAttribute("permisos",permisos);
-        return "rol/rol-form";
+        return "rol/rol-editar";
     }
     @GetMapping("/detalles")
     public String detalles(Model model,@RequestParam("id")int id){

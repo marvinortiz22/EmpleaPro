@@ -498,6 +498,8 @@ insert into permiso values (null, 'ROLE_Cambiar_estado_unidades');
 insert into permiso values (null, 'ROLE_Ver_presupuesto_de_unidades');
 insert into permiso values (null, 'ROLE_Editar_presupuesto_de_unidades');
 
+insert into rol values (1,"usuario",1);
+
 insert into rol_permiso VALUES (1, 1);
 insert into rol_permiso VALUES (2, 1);
 insert into rol_permiso values (3, 1);
