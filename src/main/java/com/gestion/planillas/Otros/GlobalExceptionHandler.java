@@ -23,4 +23,10 @@ public class GlobalExceptionHandler {
         String username=usuarioDAO.getUsuarioActual().getUsername();
         response.sendRedirect("/error/estado?user="+username);
     }
+    //IllegalAccessException
+    @ExceptionHandler(IllegalAccessException.class)
+    public void handleIllegalAccessException(IllegalAccessException ex, HttpServletResponse response) throws IOException {
+        String username=usuarioDAO.getUsuarioActual().getUsername();
+        response.sendRedirect("/error/permisos");
+    }
 }

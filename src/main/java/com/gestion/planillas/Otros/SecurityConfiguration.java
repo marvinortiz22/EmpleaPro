@@ -29,8 +29,8 @@ public class SecurityConfiguration {
                 .logout(logout->logout
                         .permitAll()
                         .logoutUrl("/logout"));
-        http.exceptionHandling(exception->exception
-                .accessDeniedPage("/error"));
+        /*http.exceptionHandling(exception->exception
+                .accessDeniedPage("/error"));*/
 
 
 

@@ -89,9 +89,13 @@ public class SecurityController {
     public String logout(){
         return "redirect:/usuario/listar";
     }
-    @GetMapping("error")
+    /*@GetMapping("error")
     public String errorUrl() {
         return "error";
+    }*/
+    @GetMapping("error/permisos")
+    public String errorUrl() {
+        return "error/errorPermisos";
     }
     @GetMapping("error/estado")
     public String errorUrl2(@RequestParam(value="user",required = false)String username,Model model) {

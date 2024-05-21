@@ -34,6 +34,7 @@ public class UsuarioControllerEjemplo {
     @Autowired
     private EmailService emailService;
     @GetMapping("/listar")
+    @AccessControl(roles="ROLE_Administrador")
     public String listar(Model model) {
         //pegar en todos los controladores para obtener el username y los permiso del user actual
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
@@ -43,6 +44,7 @@ public class UsuarioControllerEjemplo {
         return "usuario/usuariosEjemplo-listar";
     }
     @GetMapping("/agregar")
+    @AccessControl(roles="ROLE_Administrador")
     public String agregar(Model model){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         Usuario usuario=new Usuario();
@@ -54,6 +56,7 @@ public class UsuarioControllerEjemplo {
         return "usuario/usuariosEjemplo-form";
     }
     @GetMapping("/editar")
+    @AccessControl(roles="ROLE_Administrador")
     public String editar(Model model, @RequestParam("id")int id){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
 
@@ -69,13 +72,13 @@ public class UsuarioControllerEjemplo {
     //sirve tanto para editar como para crear siempre y cuando usen un solo form
     @PostMapping("/guardar")
     public String guardar(@ModelAttribute("usuario")Usuario usuario){
-
         //esto es para encriptar la contra, ignorenlo
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         usuarioDAO.guardarUsuario(usuario);
-        return "redirect:/usuarioEjemplo/listar";
+        return "redirect:/usuarioEjemplo/listar?m=add";
     }
     @GetMapping("/cambiarEstado")
+    @AccessControl(roles="ROLE_Administrador")
     public String cambiarEstado(@RequestParam("id")int id){
         Usuario usuario=usuarioDAO.getUsuario(id);
         usuario.setEstado(!usuario.isEstado());

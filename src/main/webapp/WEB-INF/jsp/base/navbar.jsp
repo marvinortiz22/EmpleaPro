@@ -73,7 +73,7 @@
                                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
                                         data-bs-parent="#sidenavAccordion">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <c:if test="${permiso.nombrePermiso=='ROLE_Ver_departamentos'}">
+                                            <c:if test="${permiso.nombrePermiso=='ROLE_Ver_demografía'}">
                                                 <a class="nav-link" href="/demografia/departamentos">Departamentos y Municipios</a>
                                             </c:if>
                                             <c:if test="${permiso.nombrePermiso=='ROLE_Ver_estados_civiles'}">
@@ -81,7 +81,7 @@
                                             </c:if>
                                         </nav>
                                     </div>
-                                    <c:if test="${permiso.nombrePermiso=='ROLE_Ver_seguridad'}">
+                                    <c:if test="${permiso.nombrePermiso=='ROLE_Administrador'}">
                                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                                             data-bs-target="#collapsePages" aria-expanded="false"
                                             aria-controls="collapsePages">
@@ -94,13 +94,13 @@
                                     <div class="collapse" id="collapsePages" aria-labelledby="headingOne"
                                         data-bs-parent="#sidenavAccordion">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <c:if test="${permiso.nombrePermiso=='ROLE_Ver_usuarios'}">
+                                            <c:if test="${permiso.nombrePermiso=='ROLE_Administrador'}">
                                                 <a class="nav-link" href="/usuarioEjemplo/listar">Usuarios Ejemplo</a>
                                             </c:if>
-                                            <c:if test="${permiso.nombrePermiso=='ROLE_Ver_usuarios'}">
+                                            <c:if test="${permiso.nombrePermiso=='ROLE_Administrador'}">
                                                 <a class="nav-link" href="/usuario/listar">Usuarios Final</a>
                                             </c:if>
-                                            <c:if test="${permiso.nombrePermiso=='ROLE_Ver_roles'}">
+                                            <c:if test="${permiso.nombrePermiso=='ROLE_Administrador'}">
                                                 <a class="nav-link" href="/rol/listar">Roles</a>
                                             </c:if>
                                         </nav>
@@ -115,3 +115,8 @@
                 </div>
                 <div id="layoutSidenav_content">
                     <main>
+                    <c:if test="${alertMessage}">
+                    <div class="alert alert-${alertType} mt-4 mx-4" role="alert">
+                      ${alertMessage}
+                    </div>
+                    </c:if>
