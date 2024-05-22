@@ -1,6 +1,8 @@
 package com.gestion.planillas.modelos;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="PROFESIONOFICIO")
 public class ProfesionOficio {
@@ -9,6 +11,8 @@ public class ProfesionOficio {
     private int idProfOfc;
 
     private String nombreProfOfc;
+    @ManyToMany(mappedBy = "profesionOficios")
+    private List<Empleado> empleados;
 
     public int getIdProfOfc() {
         return idProfOfc;

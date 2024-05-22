@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface deduccionGlobalDAO {
     public List<DeduccionBeneficio> getDeduccionesGlobales();
-    public DeduccionBeneficio getDeduccionBeneficio(Integer id);
+    public DeduccionBeneficioGlobal getDeduccionBeneficio(Integer id);
     public void guardar(DeduccionBeneficio deduccionBeneficio);
+    public void guardar(DeduccionBeneficioGlobal deduccionBeneficioGlobal);
 }

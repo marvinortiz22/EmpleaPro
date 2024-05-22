@@ -18,12 +18,7 @@ public class DeduccionBeneficioGlobal {
     private BigDecimal montoOPorcentaje;
 
 
-    private boolean estado;
-
-    // Enum for TIPO column
-    public enum Tipo {
-        D, B
-    }
+    private boolean estado=true;
 
     // Getters and Setters
 

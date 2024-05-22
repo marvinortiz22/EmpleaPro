@@ -28,9 +28,9 @@ public class deduccionGlobalDAOImpl implements deduccionGlobalDAO{
     }
 
     @Override
-    public DeduccionBeneficio getDeduccionBeneficio(Integer id) {
+    public DeduccionBeneficioGlobal getDeduccionBeneficio(Integer id) {
         Session session=sessionFactory.getCurrentSession();
-        DeduccionBeneficio deduccionBeneficio=session.get(DeduccionBeneficio.class,id);
+        DeduccionBeneficioGlobal deduccionBeneficio=session.get(DeduccionBeneficioGlobal.class,id);
         return deduccionBeneficio;
     }
 
@@ -39,5 +39,12 @@ public class deduccionGlobalDAOImpl implements deduccionGlobalDAO{
     public void guardar(DeduccionBeneficio deduccionBeneficio) {
         Session session= sessionFactory.getCurrentSession();
         session.saveOrUpdate(deduccionBeneficio);
+    }
+
+    @Override
+    @Transactional
+    public void guardar(DeduccionBeneficioGlobal deduccionBeneficioGlobal) {
+        Session session= sessionFactory.getCurrentSession();
+        session.saveOrUpdate(deduccionBeneficioGlobal);
     }
 }
