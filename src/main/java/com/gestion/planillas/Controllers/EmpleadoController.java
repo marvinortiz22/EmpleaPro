@@ -3,6 +3,7 @@ package com.gestion.planillas.Controllers;
 import com.gestion.planillas.DAO.empleadoDAO;
 import com.gestion.planillas.Otros.AccessControl;
 import com.gestion.planillas.modelos.Empleado;
+import com.gestion.planillas.modelos.ProfOfc_Empleado;
 import com.gestion.planillas.modelos.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,10 @@ public class EmpleadoController {
 
         List<Empleado> empleados = empleadoDAO.getEmpleados();
         model.addAttribute("empleados", empleados);
+
+        //List<ProfOfc_Empleado> profOfcEmpleados = empleadoDAO.getEmpleados();
+        //model.addAttribute("profOfcEmpleados", profOfcEmpleados);
+
         return "empleado/empleados-listar";
     }
 

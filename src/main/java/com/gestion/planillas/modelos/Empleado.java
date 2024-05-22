@@ -3,6 +3,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name="EMPLEADO")
@@ -38,7 +39,7 @@ public class Empleado {
     private String apellidoCasada;
     private String sexo;
     private LocalDate fechaNacimiento;
-    private LocalDateTime fechaIngreso;
+    private Date fechaIngreso;
     private String numeroDoc;
     private String nit;
     private String isss;
@@ -152,11 +153,11 @@ public class Empleado {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public LocalDateTime getFechaIngreso() {
+    public Date getFechaIngreso() {
         return fechaIngreso;
     }
 
-    public void setFechaIngreso(LocalDateTime fechaIngreso) {
+    public void setFechaIngreso(Date fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
     }
 
@@ -224,7 +225,7 @@ public class Empleado {
         this.estado = estado;
     }
 
-    public Empleado(int idEmpleado, Puesto puesto, Municipio municipio, EstadoCivil estadoCivil, Empleado supervisor, TipoDocumento tipoDocumento, String nombre1, String nombre2, String apellido1, String apellido2, String apellidoCasada, String sexo, LocalDate fechaNacimiento, LocalDateTime fechaIngreso, String numeroDoc, String nit, String isss, String nup, BigDecimal salario, String correoInstitucional, String correoPersonal, boolean estado) {
+    public Empleado(int idEmpleado, Puesto puesto, Municipio municipio, EstadoCivil estadoCivil, Empleado supervisor, TipoDocumento tipoDocumento, String nombre1, String nombre2, String apellido1, String apellido2, String apellidoCasada, String sexo, LocalDate fechaNacimiento, Date fechaIngreso, String numeroDoc, String nit, String isss, String nup, BigDecimal salario, String correoInstitucional, String correoPersonal, boolean estado) {
         this.idEmpleado = idEmpleado;
         this.puesto = puesto;
         this.municipio = municipio;

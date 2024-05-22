@@ -9,6 +9,7 @@
         <meta charset="UTF-8" />
         <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
         <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link href="${pageContext.request.contextPath}/css/base.css" rel="stylesheet" />
