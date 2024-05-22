@@ -17,16 +17,11 @@
                     <thead>
                         <tr>
                             <th >#</th>
-                            <th>Ingreso</th>
                             <th>Puesto</th>
-                            <th>Salario</th>
-                            <th>Nombres</th>
-                            <th>Apellidos</th>
-                            <th>Documentos</th>
-                            <th>Correos</th>
-                            <th>Direccion</th>
-                            <th>Profesiones</th>
+                            <th>Nombre</th>
+                            <th>Documento</th>
                             <th>Estado</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     
@@ -35,44 +30,23 @@
                         <tr>
                         <td>${i.count}</td>
                         <td>
-                            <fmt:formatDate value="${empleado.fechaIngreso}" pattern="dd/MM/yyyy" />
-                        </td>
-                        <td>
                             ${empleado.puesto.nombrePuesto}
                         </td>
                         <td>
-                            <fmt:formatNumber value="${empleado.salario}" pattern="$#,##0" />
-                        </td>
-                        <td>
-                            ${empleado.nombre1}<br>
-                            ${empleado.nombre2}
-                        </td>
-                        <td>
-                            ${empleado.apellido1}<br>
-                            ${empleado.apellido2}
+                            ${empleado.nombre1} ${empleado.nombre2}, ${empleado.apellido1} ${empleado.apellido2}
                         </td>
                         <td>
                             <c:if test="${empleado.tipoDocumento != null}">
                             ${empleado.tipoDocumento.nombreDoc} - ${empleado.numeroDoc}<br>
                             </c:if>
-                            <c:if test="${empleado.nit != null}">
-                            NIT - ${empleado.nit}<br>
+                        </td>
+                        <td>
+                            <c:if test="${empleado.estado}">
+                                Activo
                             </c:if>
-                            ISSS - ${empleado.isss}<br>
-                            <c:if test="${empleado.nup != null}">
-                                NUP - ${empleado.nup}
+                            <c:if test="${!empleado.estado}">
+                                Inactivo
                             </c:if>
-                        </td>
-                        <td>
-                            ${empleado.correoInstitucional}<br>
-                            ${empleado.correoPersonal}
-                        </td>
-                        <td>
-                            ${empleado.municipio.nombreMunicipio}<br>
-                            ${empleado.municipio.departamento.nombreDepartamento}
-                        </td>
-                        <td>
-                        ${empleado.nombre1}
                         </td>
                         <td>
                             <a href="/usuarioEjemplo/detalles">
