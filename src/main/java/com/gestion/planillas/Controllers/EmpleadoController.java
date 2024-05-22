@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -29,10 +30,22 @@ public class EmpleadoController {
         List<Empleado> empleados = empleadoDAO.getEmpleados();
         model.addAttribute("empleados", empleados);
 
+        return "empleado/empleados-listar";
+    }
+
+    @GetMapping("/detalles")
+    @AccessControl(roles="ROLE_Administrador")
+    public String detalles(Model model, @RequestParam("id") int id){
+        model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
+
+        Empleado empleado = empleadoDAO.getEmpleado(id);
+
+        model.addAttribute("empleado", empleado);
+
         //List<ProfOfc_Empleado> profOfcEmpleados = empleadoDAO.getEmpleados();
         //model.addAttribute("profOfcEmpleados", profOfcEmpleados);
 
-        return "empleado/empleados-listar";
+        return "empleado/empleado-detalle";
     }
 
 }

@@ -49,7 +49,7 @@
                             </c:if>
                         </td>
                         <td>
-                            <a href="/usuarioEjemplo/detalles">
+                            <a href="/empleado/detalles?id=${empleado.idEmpleado}">
                                 <button title="Ver detalles" class="btn btn-primary btn-sm">
                                     <i class="fas fa-eye"></i>
                                 </button>

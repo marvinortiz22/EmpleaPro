@@ -24,4 +24,11 @@ public class empleadoDAOImpl implements empleadoDAO {
         List<Empleado> empleados= query.getResultList();
         return empleados;
     }
+
+    @Override
+    public Empleado getEmpleado(Integer id) {
+        Session session=sessionFactory.getCurrentSession();
+        Empleado empleado = session.get(Empleado.class,id);
+        return empleado;
+    }
 }
