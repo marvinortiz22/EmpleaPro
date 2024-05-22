@@ -3,15 +3,15 @@ package com.gestion.planillas.Controllers;
 import com.gestion.planillas.DAO.empleadoDAO;
 import com.gestion.planillas.Otros.AccessControl;
 import com.gestion.planillas.modelos.Empleado;
+import com.gestion.planillas.modelos.Otros.Alert;
 import com.gestion.planillas.modelos.ProfOfc_Empleado;
 import com.gestion.planillas.modelos.ProfesionOficio;
 import com.gestion.planillas.modelos.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -46,6 +46,20 @@ public class EmpleadoController {
         model.addAttribute("profesionesOficios", profesionOficios);
 
         return "empleado/empleado-detalle";
+    }
+
+    @GetMapping("/agregar")
+    public String agregar(Model model) {
+        model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
+
+        model.addAttribute("empleado", new Empleado());
+        return "empleado/empleado-agregar";
+    }
+
+    @PostMapping("/guardar")
+    public String guardar(@ModelAttribute("empleado") Empleado empleado) {
+        //empleadoService.addEmpleado(empleado);
+        return "redirect:/empleado/detalles";
     }
 
 }

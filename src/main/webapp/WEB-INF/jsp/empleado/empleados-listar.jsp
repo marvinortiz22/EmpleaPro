@@ -8,7 +8,7 @@
         </div>
         <div class="d-flex justify-content-end mb-4">
             <a href="#"><button title="Imprimir" class="btn btn-success me-1"><i class="fa-solid fa-print"></i></button></a>
-            <a href="/usuarioEjemplo/agregar"><button title="Agregar" class="btn btn-primary"><i class="fa-solid fa-plus"></i></button></a>
+            <a href="/empleado/agregar"><button title="Agregar" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Nuevo empleado </button></a>
         </div>
         <div class="card mb-4">
             

@@ -1,6 +1,7 @@
 package com.gestion.planillas.modelos;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class Empleado {
     private String apellidoCasada;
     private String sexo;
     private Date fechaNacimiento;
-    private Date fechaIngreso;
+    private Date fechaIngreso = new Date();
     private String numeroDoc;
     private String nit;
     private String isss;
@@ -237,6 +238,12 @@ public class Empleado {
 
     public void setProfesionOficios(List<ProfesionOficio> profesionOficios) {
         this.profesionOficios = profesionOficios;
+    }
+
+    // Método para obtener la fecha de ingreso formateada como "yyyy-MM-dd"
+    public String getFechaIngresoFormateada() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(this.fechaIngreso);
     }
 
     public Empleado(int idEmpleado, Puesto puesto, Municipio municipio, EstadoCivil estadoCivil, Empleado supervisor, TipoDocumento tipoDocumento, String nombre1, String nombre2, String apellido1, String apellido2, String apellidoCasada, String sexo, Date fechaNacimiento, Date fechaIngreso, String numeroDoc, String nit, String isss, String nup, BigDecimal salario, String correoInstitucional, String correoPersonal, boolean estado) {
