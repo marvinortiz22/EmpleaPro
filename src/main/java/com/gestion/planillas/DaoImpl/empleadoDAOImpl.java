@@ -3,6 +3,7 @@ package com.gestion.planillas.DaoImpl;
 import com.gestion.planillas.DAO.empleadoDAO;
 import com.gestion.planillas.DAO.usuarioDAO;
 import com.gestion.planillas.modelos.Empleado;
+import com.gestion.planillas.modelos.ProfesionOficio;
 import com.gestion.planillas.modelos.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,6 +11,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -30,5 +32,11 @@ public class empleadoDAOImpl implements empleadoDAO {
         Session session=sessionFactory.getCurrentSession();
         Empleado empleado = session.get(Empleado.class,id);
         return empleado;
+    }
+
+    @Override
+    public List<ProfesionOficio> getProfesionesOficios(Integer id) {
+        Empleado empleado = getEmpleado(id);
+        return new ArrayList<>(empleado.getProfesionOficios());
     }
 }

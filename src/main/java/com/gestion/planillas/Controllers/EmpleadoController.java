@@ -4,6 +4,7 @@ import com.gestion.planillas.DAO.empleadoDAO;
 import com.gestion.planillas.Otros.AccessControl;
 import com.gestion.planillas.modelos.Empleado;
 import com.gestion.planillas.modelos.ProfOfc_Empleado;
+import com.gestion.planillas.modelos.ProfesionOficio;
 import com.gestion.planillas.modelos.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,11 +40,10 @@ public class EmpleadoController {
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
 
         Empleado empleado = empleadoDAO.getEmpleado(id);
-
         model.addAttribute("empleado", empleado);
 
-        //List<ProfOfc_Empleado> profOfcEmpleados = empleadoDAO.getEmpleados();
-        //model.addAttribute("profOfcEmpleados", profOfcEmpleados);
+        List<ProfesionOficio> profesionOficios = empleadoDAO.getProfesionesOficios(id);
+        model.addAttribute("profesionesOficios", profesionOficios);
 
         return "empleado/empleado-detalle";
     }
