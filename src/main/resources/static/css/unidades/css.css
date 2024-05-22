@@ -1,0 +1,97 @@
+#contenedorPrincipal {
+    padding: 15px;
+    & h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    & > div {
+        display: flex;
+        justify-content: start;
+    }
+}
+
+#btnAgregar {
+    border: 1px solid #212529;
+    border-radius: 5px;
+    padding: 5px 10px;
+    background-color: #f8f9fa;
+    color: #212529;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+#btnAgregar:hover {
+    background-color: #e9ecef;
+}
+
+#contenedorTabla {
+    margin: 10px 0;
+    width: 100%;
+    & form {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        & input {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+        }
+        & button {
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        & button:hover {
+            background-color: #0056b3;
+        }
+        & select {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+        }
+    }
+    & table {
+        width: 100%;
+        border-collapse: collapse;
+        & th, td {
+            border: 1px solid #ced4da;
+            padding: 5px;
+        }
+        & th {
+            background-color: #f8f9fa;
+        }
+        & tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        & tr:hover {
+            background-color: #e5e6e7;
+        }
+    }
+    & button {
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: 1px solid #a8a6a6;
+        color: #212529;
+        cursor: pointer;
+    }
+    & button:hover {
+        background-color: #f8f9fa;
+    }
+    & button:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+    & footer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: end;
+        margin-top: 10px;
+    }
+}

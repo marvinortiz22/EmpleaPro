@@ -133,10 +133,18 @@ public class UsuarioDAOImpl implements usuarioDAO {
 		return resultados;
 	}
 
-
-
-
-
-
-
+	@Override
+	public boolean tienePermiso(String permiso) {
+		UsuarioPermisos usuarioPermisos = getUsuarioActual();
+		if (usuarioPermisos == null) {
+			return false;
+		}
+		List<Permiso> permisos = usuarioPermisos.getPermisos();
+		for (Permiso p : permisos) {
+			if (p.getNombrePermiso().equals(permiso)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

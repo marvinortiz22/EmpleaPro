@@ -49,7 +49,7 @@
                                     </a>
                                 </c:if>
                                 <c:if test="${permiso.nombrePermiso=='ROLE_Ver_unidades'}">
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="/unidad/listar">
                                         <div class="sb-nav-link-icon"><i class="fas fa-sitemap"></i></div>
                                         Unidades
                                     </a>
