@@ -6,20 +6,33 @@
 <div class="d-flex justify-content-center">
     <h1 class="mt-4">Datos de rol</h1>
 </div>
-<form:form modelAttribute="deduccionBeneficio" method="POST" action="/usuarioEjemplo/guardarDeduc" class="container mx-2 mt-4">
+<form:form modelAttribute="deduccionBeneficio" method="POST" action="/deduccionesBeneficios/agregar" class="container mx-2 mt-4">
     <div class="row mb-3">
-        <form:hidden path="idDeducBenef"/>
+        <form:hidden path="deduccionBeneficio.idDeducBenef"/>
         <div class="col-md-6">
             <label class="form-label">Nombre</label>
-            <form:input path="nombreDeducBenef" class="form-control"  required="true"/>
+            <form:input path="deduccionBeneficio.nombreDeducBenef" class="form-control"  required="true"/>
         </div>
         <div class="col-md-6">
-             <label class="form-label">Permisos </label>
-             <form:select class="form-select" path="tipo">
+             <label class="form-label">Tipo </label>
+             <form:select class="form-select" path="deduccionBeneficio.tipo">
              <form:option value="B">beneficio</form:option>
              <form:option value="D">deduccion</form:option>
              </form:select>
         </div>
+        <div class="row mb-3">
+                <form:hidden path="deduccionBeneficio.idDeducBenef"/>
+                <div class="col-md-6">
+                    <label class="form-label">monto o porcentaje</label>
+                    <form:input path="montoOPorcentaje" class="form-control"  required="true"/>
+                </div>
+                <div class="col-md-6">
+                     <label class="form-label">proporcional al sueldo </label>
+                     <form:select class="form-select" path="proporcionalAlSueldo">
+                     <form:option value="true">si</form:option>
+                     <form:option value="false">no</form:option>
+                     </form:select>
+                </div>
     <div class="d-flex justify-content-center">
         <button class="btn btn-primary mt-3">Guardar</button>
     </div>

@@ -6,9 +6,9 @@
 <div class="d-flex justify-content-center">
     <h1 class="mt-4">Datos de rol</h1>
 </div>
-<form:form modelAttribute="rol" method="POST" action="/rol/agregar" class="container mx-2 mt-4">
+<form:form modelAttribute="permisoLicencia" method="POST" action="/rol/agregar" class="container mx-2 mt-4">
     <div class="row mb-3">
-        <form:hidden path="idRol"/>
+        <form:hidden path="idPerLic_Emp"/>
         <div class="col-md-6">
             <label class="form-label">Nombre de rol</label>
             <form:input path="nombreRol" class="form-control"  required="true"/>

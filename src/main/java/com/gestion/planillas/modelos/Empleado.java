@@ -1,9 +1,8 @@
 package com.gestion.planillas.modelos;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="EMPLEADO")
@@ -48,6 +47,13 @@ public class Empleado {
     private String correoInstitucional;
     private String correoPersonal;
     private boolean estado = true;
+    @ManyToMany
+    @JoinTable(
+            name="PROFOFC_EMPLEADO",
+            joinColumns =@JoinColumn(name="idEmpleado"),
+            inverseJoinColumns = @JoinColumn(name="idProfOfc")
+    )
+    private List<ProfesionOficio> profesionOficios;
 
     public int getIdEmpleado() {
         return idEmpleado;
@@ -223,6 +229,14 @@ public class Empleado {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    public List<ProfesionOficio> getProfesionOficios() {
+        return profesionOficios;
+    }
+
+    public void setProfesionOficios(List<ProfesionOficio> profesionOficios) {
+        this.profesionOficios = profesionOficios;
     }
 
     public Empleado(int idEmpleado, Puesto puesto, Municipio municipio, EstadoCivil estadoCivil, Empleado supervisor, TipoDocumento tipoDocumento, String nombre1, String nombre2, String apellido1, String apellido2, String apellidoCasada, String sexo, Date fechaNacimiento, Date fechaIngreso, String numeroDoc, String nit, String isss, String nup, BigDecimal salario, String correoInstitucional, String correoPersonal, boolean estado) {

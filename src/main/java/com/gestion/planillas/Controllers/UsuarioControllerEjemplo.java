@@ -39,8 +39,6 @@ public class UsuarioControllerEjemplo {
     private rolDAO rolDAO;
     @Autowired
     private EmailService emailService;
-    @Autowired
-    private deduccionGlobalDAO deduccionGlobalDAO;
     @GetMapping("/listar")
     //@AccessControl(roles="ROLE_Ver_usuarios")
     @AccessControl(roles="ROLE_Administrador")
@@ -160,23 +158,6 @@ public class UsuarioControllerEjemplo {
         String subject = "Asunto del correo";
         String text = "a\ngoogle.com";
         emailService.sendEmail(to, subject, text);
-        return "redirect:/usuarioEjemplo/listar";
-    }
-    @GetMapping("/d")
-    public String insertarDeduccion(Model model){
-        DeduccionBeneficio deduccionBeneficio=deduccionGlobalDAO.getDeduccionBeneficio(1);
-        model.addAttribute("deduccionBeneficio",deduccionBeneficio);
-        return "deduccionBeneficio/deduccionBeneficio-editar";
-    }
-    @GetMapping("/d2")
-    public String insertarDeduccion2(Model model){
-        deduccionGlobalDAO.getDeduccionesGlobales();
-        return "deduccionBeneficio/deduccionBeneficio-editar";
-    }
-    //
-    @PostMapping("/guardarDeduc")
-    public String insertarDeduccion22(@ModelAttribute("deduccionBeneficio")DeduccionBeneficio deduccionBeneficio){
-        deduccionGlobalDAO.guardar(deduccionBeneficio);
         return "redirect:/usuarioEjemplo/listar";
     }
 }
