@@ -5,6 +5,7 @@ import com.gestion.planillas.DAO.usuarioDAO;
 import com.gestion.planillas.modelos.Empleado;
 import com.gestion.planillas.modelos.ProfesionOficio;
 import com.gestion.planillas.modelos.Usuario;
+import jakarta.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -32,6 +33,13 @@ public class empleadoDAOImpl implements empleadoDAO {
         Session session=sessionFactory.getCurrentSession();
         Empleado empleado = session.get(Empleado.class,id);
         return empleado;
+    }
+
+    @Override
+    @Transactional
+    public void guardarEmpleado(Empleado empleado) {
+        Session session=sessionFactory.getCurrentSession();
+        session.saveOrUpdate(empleado);
     }
 
     @Override

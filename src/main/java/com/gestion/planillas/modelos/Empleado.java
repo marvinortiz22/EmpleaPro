@@ -1,5 +1,7 @@
 package com.gestion.planillas.modelos;
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -38,7 +40,9 @@ public class Empleado {
     private String apellido2;
     private String apellidoCasada;
     private String sexo;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaNacimiento;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaIngreso = new Date();
     private String numeroDoc;
     private String nit;

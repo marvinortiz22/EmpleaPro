@@ -82,8 +82,8 @@ public class EmpleadoController {
 
     @PostMapping("/guardar")
     public String guardar(@ModelAttribute("empleado") Empleado empleado) {
-        //empleadoService.addEmpleado(empleado);
-        return "redirect:/empleado/detalles";
+        empleadoDAO.guardarEmpleado(empleado);
+        return "redirect:/empleado/listar";
     }
 
 }

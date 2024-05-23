@@ -25,10 +25,10 @@
                         ${empleado.nombre1}
                         ${empleado.nombre2},
                         ${empleado.apellido1}
-                        <c:if test="${empleado.apellidoCasada == null}">
+                        <c:if test="${empty empleado.apellidoCasada}">
                             ${empleado.apellido2}
                         </c:if>
-                        <c:if test="${empleado.apellidoCasada != null}">
+                        <c:if test="${!empty empleado.apellidoCasada}">
                             De ${empleado.apellidoCasada}
                         </c:if>
                     </div>
@@ -41,7 +41,7 @@
                             Femenino
                         </c:if>
                     </div>
-                    <c:if test="${empleado.estadoCivil != null}">
+                    <c:if test="${!empty empleado.estadoCivil}">
                         <div class="p-2">
                             <strong>Estado Civil:</strong>
                             ${empleado.estadoCivil.nombreEstado}
@@ -51,7 +51,7 @@
                         <strong>Fecha de nacimiento:</strong>
                         <fmt:formatDate value="${empleado.fechaNacimiento}" pattern="dd/MM/yyyy" />
                     </div>
-                    <c:if test="${not empty profesionesOficios}">
+                    <c:if test="${!empty profesionesOficios}">
                         <div class="p-2">
                             <strong>Profesion/Oficio:</strong>
                             <c:forEach var="profesionOficio" items="${profesionesOficios}" varStatus="status">
@@ -63,7 +63,7 @@
                             .
                         </div>
                     </c:if>
-                    <c:if test="${empleado.municipio != null}">
+                    <c:if test="${!empty empleado.municipio}">
                         <div class="p-2">
                             <strong>Direccion:</strong>
                             ${empleado.municipio.nombreMunicipio},
@@ -78,21 +78,21 @@
                 <hr>
                 <h5 class="card-title">Documentos</h5>
                 <div class="d-flex flex-wrap justify-content-around mb-4">
-                    <c:if test="${empleado.tipoDocumento != null}">
+                    <c:if test="${!empty empleado.tipoDocumento}">
                         <div class="p-2"><strong>${empleado.tipoDocumento.nombreDoc}: </strong>${empleado.numeroDoc}</div>
                     </c:if>
-                    <c:if test="${empleado.nit != null}">
+                    <c:if test="${!empty empleado.nit}">
                         <div class="p-2"><strong>NIT: </strong>${empleado.nit}</div>
                     </c:if>
                     <div class="p-2"><strong>ISSS: </strong>${empleado.isss}</div>
-                    <c:if test="${empleado.nup != null}">
+                    <c:if test="${!empty empleado.nup}">
                         <div class="p-2"><strong>NUP: </strong>${empleado.nup}</div>
                     </c:if>
                 </div>
                 <hr>
                 <h5 class="card-title">Datos empresariales</h5>
                 <div class="d-flex flex-wrap justify-content-around mb-4">
-                    <c:if test="${empleado.puesto != null}">
+                    <c:if test="${!empty empleado.puesto}">
                         <div class="p-2"><strong>Puesto: </strong>${empleado.puesto.nombrePuesto}</div>
                     </c:if>
                     <div class="p-2">
@@ -109,21 +109,21 @@
                     </div>
                     <div class="p-2">
                         <strong>Jefe inmediato: </strong>
-                        <c:if test="${empleado.supervisor != null}">
+                        <c:if test="${!empty empleado.supervisor}">
                             ${empleado.supervisor.nombre1}
                             ${empleado.supervisor.nombre2},
                             ${empleado.supervisor.apellido1}
-                            <c:if test="${empleado.supervisor.apellidoCasada == null}">
+                            <c:if test="${empty empleado.supervisor.apellidoCasada}">
                                 ${empleado.supervisor.apellido2}
                             </c:if>
-                            <c:if test="${empleado.supervisor.apellidoCasada != null}">
+                            <c:if test="${!empty empleado.supervisor.apellidoCasada}">
                                 De ${empleado.supervisor.apellidoCasada}
                             </c:if>
-                            <c:if test="${empleado.supervisor.tipoDocumento != null}">
+                            <c:if test="${!empty empleado.supervisor.tipoDocumento}">
                                 (${empleado.supervisor.tipoDocumento.nombreDoc}: ${empleado.supervisor.numeroDoc})
                             </c:if>
                         </c:if>
-                        <c:if test="${empleado.supervisor == null}">
+                        <c:if test="${empty empleado.supervisor}">
                             No posee
                         </c:if>
                     </div>

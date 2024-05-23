@@ -12,6 +12,7 @@ import java.util.List;
 public interface empleadoDAO {
 	public List<Empleado> getEmpleados();
 	public Empleado getEmpleado(Integer id);
+	public void guardarEmpleado(Empleado empleado);
 	public List<ProfesionOficio> getProfesionesOficios(Integer id);
 
 }
