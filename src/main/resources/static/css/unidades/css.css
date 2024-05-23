@@ -10,7 +10,7 @@
     }
 }
 
-#btnAgregar {
+.btnAgregar {
     border: 1px solid #212529;
     border-radius: 5px;
     padding: 5px 10px;
@@ -20,9 +20,11 @@
     align-items: center;
     justify-content: center;
     gap: 5px;
+    max-width: 150px;
+    text-decoration: none;
 }
 
-#btnAgregar:hover {
+.btnAgregar:hover {
     background-color: #e9ecef;
 }
 
