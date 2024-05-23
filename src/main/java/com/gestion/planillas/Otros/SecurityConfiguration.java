@@ -47,4 +47,12 @@ public class SecurityConfiguration {
     public AuthenticationFailureHandler authenticationFailureHandler() {
         return new CustomAuthenticationFailureHandler();
     }
+    @Bean
+    StringToPermisoConverter stringToPersonConverter() {
+        return new StringToPermisoConverter();
+    }
+    @Bean
+    StringToProfesionConverter stringToProfesionConverterConverter() {
+        return new StringToProfesionConverter();
+    }
 }

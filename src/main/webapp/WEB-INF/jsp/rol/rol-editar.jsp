@@ -6,7 +6,7 @@
 <div class="d-flex justify-content-center">
     <h1 class="mt-4">Datos de rol</h1>
 </div>
-<form:form modelAttribute="rol" method="POST" action="/rol/guardar" class="container mx-2 mt-4">
+<form:form modelAttribute="rol" method="POST" action="/rol/editar" class="container mx-2 mt-4">
     <div class="row mb-3">
         <form:hidden path="idRol"/>
         <div class="col-md-6">
