@@ -8,13 +8,10 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import com.gestion.planillas.DAO.rolDAO;
 import com.gestion.planillas.DAO.usuarioDAO;
 import com.gestion.planillas.DAO.permisoDAO;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
@@ -76,8 +73,8 @@ public class RolController {
         return "redirect:/rol/listar";
     }
     @PostMapping("/editar")
-    public String editarPost(HttpServletRequest request, @RequestParam("permisos") List<Integer> ids, RedirectAttributes redirectAttributes) {
-        Rol rol = new Rol();
+    public String editarPost(@ModelAttribute("rol")Rol rol, HttpServletRequest request, @RequestParam("permisos") List<Integer> ids, RedirectAttributes redirectAttributes) {
+        rol = new Rol();
         List<Permiso> permisos = new ArrayList<>();
         for (int id : ids) {
             permisos.add(permisoDAO.getPermiso(id));
