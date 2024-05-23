@@ -59,15 +59,15 @@
                                     <i class="fas fa-pen-to-square"></i>
                                 </button>
                             </a>
-                            <c:if test="${usuario.estado}">
-                                <a href="/usuarioEjemplo/cambiarEstado?id=${usuario.idUsuario}">
+                            <c:if test="${empleado.estado}">
+                                <a href="/empleado/cambiarEstado?id=${empleado.idEmpleado}">
                                     <button id="x" title="Inhabilitar" class="btn btn-danger btn-sm">
                                         <i class="fas fa-lock"></i>
                                     </button>
                                 </a>
                             </c:if>
-                            <c:if test="${!usuario.estado}">
-                                <a href="/usuarioEjemplo/cambiarEstado?id=${usuario.idUsuario}">
+                            <c:if test="${!empleado.estado}">
+                                <a href="/empleado/cambiarEstado?id=${empleado.idEmpleado}">
                                     <button title="Habilitar" id="check" class="btn btn-success btn-sm">
                                         <i class="fas fa-lock"></i>
                                     </button>

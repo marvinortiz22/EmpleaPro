@@ -55,6 +55,25 @@ public class EmpleadoController {
         return "empleado/empleado-detalle";
     }
 
+    @GetMapping("/cambiarEstado")
+    public String cambiarEstado(@RequestParam("id")int id, RedirectAttributes redirectAttributes){
+        Empleado empleado = empleadoDAO.getEmpleado(id);
+
+        Alert alert;
+
+        if(empleado.isEstado())
+            alert=new Alert("danger","Se ha desactivado el empleado "+empleado.getNombre1()+", "+empleado.getApellido1());
+        else
+            alert=new Alert("success","Se ha activado el empleado "+empleado.getNombre1()+", "+empleado.getApellido1());
+
+        redirectAttributes.addFlashAttribute("alert",alert);
+
+        empleado.setEstado(!empleado.isEstado());
+        empleadoDAO.guardarEmpleado(empleado);
+
+        return "redirect:/empleado/listar";
+    }
+
     @GetMapping("/agregar")
     public String agregar(Model model) {
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
@@ -81,8 +100,12 @@ public class EmpleadoController {
     }
 
     @PostMapping("/guardar")
-    public String guardar(@ModelAttribute("empleado") Empleado empleado) {
+    public String guardar(@ModelAttribute("empleado") Empleado empleado, RedirectAttributes redirectAttributes) {
         empleadoDAO.guardarEmpleado(empleado);
+
+        Alert alert=new Alert("success","Se ha añadido el empleado exitosamente");
+        redirectAttributes.addFlashAttribute("alert",alert);
+
         return "redirect:/empleado/listar";
     }
 
