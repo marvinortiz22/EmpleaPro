@@ -8,6 +8,7 @@ public class Auditoria_Empleado {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "IDAUDITORIA_EMPLEADO")
     private int idAuditoriaEmpleado;
 
     @ManyToOne
@@ -263,5 +264,10 @@ public class Auditoria_Empleado {
 
     public void setUsuarioRegistra(Usuario usuarioRegistra) {
         this.usuarioRegistra = usuarioRegistra;
+    }
+
+    @Override
+    public String toString() {
+        return STR."Auditoria_Empleado{idAuditoriaEmpleado=\{idAuditoriaEmpleado}, empleado=\{empleado}, puesto=\{puesto}, municipio=\{municipio}, estadoCivil=\{estadoCivil}, empIdEmpleado=\{empIdEmpleado}, tipoDocumento=\{tipoDocumento}, nombre1='\{nombre1}\{'\''}, nombre2='\{nombre2}\{'\''}, apellido1='\{apellido1}\{'\''}, apellido2='\{apellido2}\{'\''}, apellidoCasada='\{apellidoCasada}\{'\''}, sexo=\{sexo}, fechaNacimiento=\{fechaNacimiento}, fechaIngreso=\{fechaIngreso}, numeroDoc='\{numeroDoc}\{'\''}, nit='\{nit}\{'\''}, isss='\{isss}\{'\''}, nup='\{nup}\{'\''}, salario=\{salario}, correoInstitucional='\{correoInstitucional}\{'\''}, correoPersonal='\{correoPersonal}\{'\''}, estado=\{estado}, fechaModificacion=\{fechaModificacion}, tipoDeOperacion='\{tipoDeOperacion}\{'\''}, usuarioRegistra=\{usuarioRegistra}\{'}'}";
     }
 }
