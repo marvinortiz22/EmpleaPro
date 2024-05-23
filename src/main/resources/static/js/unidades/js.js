@@ -1,17 +1,22 @@
 const manejarTabla = new ManejoTabla({ 
-    datosString: datos, 
-    idContenedorTabla: 'contenedorTabla', 
-    paginacion: 2,
-    
+    datos: datos, 
+    idContenedorTabla: 'contenedorTabla',
     acciones: (permisoEditar !== 'true' && permisoEliminar !== 'true') ? false : true,
     html: `
-        <button class="btnEditar" onclick="editarUnidad([[id]])" ${permisoEditar !== 'true' ? 'hidden' : ''}>
-            Editar
-        </button>
-        <button class="btnEliminar" onclick="desactivarUnidad([[id]])" ${cambiarEstado !== 'true' ? 'hidden' : ''}>
-            Desactivar
-        </button>
-    `
+        <td>
+            <button class="btnEditar" onclick="editarUnidad([[id]])" ${permisoEditar !== 'true' ? 'hidden' : ''}>
+                Editar
+            </button>
+            <button class="btnEliminar" onclick="desactivarUnidad([[id]])" ${cambiarEstado !== 'true' ? 'hidden' : ''}>
+                Desactivar
+            </button>
+        </td>
+        <td>
+            Hola mundo
+        </td>
+    `,
+    ocultarCampos: ['id'],
+    tituloColAcciones: ['Acciones', 'hola']
 });
 
 

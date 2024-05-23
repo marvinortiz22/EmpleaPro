@@ -31,7 +31,7 @@
     width: 100%;
     & form {
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         gap: 10px;
         margin-bottom: 10px;
         & input {
