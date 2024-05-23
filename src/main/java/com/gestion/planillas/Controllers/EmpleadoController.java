@@ -2,11 +2,8 @@ package com.gestion.planillas.Controllers;
 
 import com.gestion.planillas.DAO.empleadoDAO;
 import com.gestion.planillas.Otros.AccessControl;
-import com.gestion.planillas.modelos.Empleado;
+import com.gestion.planillas.modelos.*;
 import com.gestion.planillas.modelos.Otros.Alert;
-import com.gestion.planillas.modelos.ProfOfc_Empleado;
-import com.gestion.planillas.modelos.ProfesionOficio;
-import com.gestion.planillas.modelos.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +19,16 @@ public class EmpleadoController {
     private com.gestion.planillas.DAO.usuarioDAO usuarioDAO;
     @Autowired
     private  com.gestion.planillas.DAO.empleadoDAO empleadoDAO;
+    @Autowired
+    private  com.gestion.planillas.DAO.puestoDAO puestoDAO;
+    @Autowired
+    private  com.gestion.planillas.DAO.estadoCivilDAO estadoCivilDAO;
+    @Autowired
+    private  com.gestion.planillas.DAO.tipoDocumentoDAO tipoDocumentoDAO;
+    @Autowired
+    private  com.gestion.planillas.DAO.departamentoDAO departamentoDAO;
+    @Autowired
+    private  com.gestion.planillas.DAO.municipioDAO municipioDAO;
 
     @GetMapping("/listar")
     @AccessControl(roles="ROLE_Administrador")
@@ -53,6 +60,26 @@ public class EmpleadoController {
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
 
         model.addAttribute("empleado", new Empleado());
+
+        //para los select de las llaves foraneas
+        List<Puesto> puestos =puestoDAO.getPuestos();
+        model.addAttribute("puestos", puestos);
+
+        List<EstadoCivil> estadosCiviles = estadoCivilDAO.getEstadosCiviles();
+        model.addAttribute("estadosCiviles", estadosCiviles);
+
+        List<Departamento> departamentos = departamentoDAO.getDepartamentos();
+        model.addAttribute("departamentos", departamentos);
+
+        List<Municipio> municipios = municipioDAO.getMunicipiosXDepartamento(1);
+        model.addAttribute("municipios", municipios);
+
+        List<TipoDocumento> tiposDocumentos = tipoDocumentoDAO.getTipoDocumentos();
+        model.addAttribute("tiposDocumentos", tiposDocumentos);
+
+        List<Empleado> empleados = empleadoDAO.getEmpleados();
+        model.addAttribute("empleados", empleados);
+
         return "empleado/empleado-agregar";
     }
 

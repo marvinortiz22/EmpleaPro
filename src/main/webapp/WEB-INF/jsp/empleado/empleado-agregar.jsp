@@ -45,11 +45,33 @@
                     </div>
                     <div class="p-2">
                         <label for="sexo">Sexo*</label>
-                        <form:input path="sexo" class="form-control"/>
+                        <form:select path="sexo" class="form-select">
+                            <form:option value="M">Masculino</form:option>
+                            <form:option value="F">Femenino</form:option>
+                        </form:select>
                     </div>
                     <div class="p-2">
-                        <label for="fechaNacimiento">Fecha de nacimiento*</label>
+                        <label for="estadoCivil">Estado Civil*</label>
+                        <form:select path="estadoCivil.idEstadoCivil" class="form-select">
+                            <form:options items="${estadosCiviles}" itemValue="idEstadoCivil" itemLabel="nombreEstado" />
+                        </form:select>
+                    </div>
+                    <div class="p-2">
+                        <label for="fechaNacimiento">Fecha de Nacimiento*</label>
                         <form:input path="fechaNacimiento" type="date" class="form-control"/>
+                    </div>
+                    <div class="p-2">
+                        <label for="departamento">Departamento*</label>
+                        <form:select path="municipio.departamento.idDepartamento" id="departamento" class="form-select">
+                            <option value="0">Seleccione un Departamento</option>
+                            <form:options items="${departamentos}" itemValue="idDepartamento" itemLabel="nombreDepartamento" />
+                        </form:select>
+                    </div>
+                    <div class="p-2">
+                        <label for="municipio">Municipio*</label>
+                        <form:select path="municipio.idMunicipio" id="municipio" class="form-select">
+                            <option value="0">Seleccione un Municipio</option>
+                        </form:select>
                     </div>
                     <div class="p-2">
                         <label for="correoPersonal">Correo Personal*</label>
@@ -59,6 +81,12 @@
                 <hr>
                 <h5 class="card-title">Documentos</h5>
                 <div class="d-flex flex-wrap justify-content-around mb-4">
+                    <div class="p-2">
+                        <label for="tipoDocumento">Tipo de Documento*</label>
+                        <form:select class="form-select" path="tipoDocumento.idTipoDoc">
+                            <form:options items="${tiposDocumentos}" itemValue="idTipoDoc" itemLabel="nombreDoc" />
+                        </form:select>
+                    </div>
                     <div class="p-2">
                         <label for="numeroDoc">Número de Documento*</label>
                         <form:input path="numeroDoc" class="form-control"/>
@@ -80,16 +108,44 @@
                 <h5 class="card-title">Datos empresariales</h5>
                 <div class="d-flex flex-wrap justify-content-around mb-4">
                     <div class="p-2">
-                        <label for="fechaIngreso">Fecha de Ingreso*</label>
-                        <form:input path="fechaIngreso" type="date" value="${empleado.getFechaIngresoFormateada()}" class="form-control"/>
+                        <label for="puesto">Puesto*</label>
+                        <form:select class="form-select" path="puesto.idPuesto">
+                            <form:options items="${puestos}" itemValue="idPuesto" itemLabel="nombrePuesto" />
+                        </form:select>
                     </div>
                     <div class="p-2">
                         <label for="salario">Salario*</label>
                         <form:input path="salario" class="form-control"/>
                     </div>
                     <div class="p-2">
+                        <label for="fechaIngreso">Fecha de Ingreso*</label>
+                        <form:input path="fechaIngreso" type="date" value="${empleado.getFechaIngresoFormateada()}" class="form-control"/>
+                    </div>
+                    <div class="p-2">
                         <label for="correoInstitucional">Correo Institucional*</label>
                         <form:input path="correoInstitucional" class="form-control"/>
+                    </div>
+                    <div class="p-2">
+                        <label for="supervisor">Jefe Inmediato</label>
+                        <form:select class="form-select" path="supervisor.idEmpleado">
+                            <form:option value="0">Sin Jefe Inmediato</form:option>
+                            <c:forEach var="empleado" items="${empleados}">
+                                <option value="${empleado.idEmpleado}">
+                                    ${empleado.nombre1}
+                                    ${empleado.nombre2},
+                                    ${empleado.apellido1}
+                                    <c:if test="${empleado.apellidoCasada == null}">
+                                        ${empleado.supervisor.apellido2}
+                                    </c:if>
+                                    <c:if test="${empleado.apellidoCasada != null}">
+                                        De ${empleado.apellidoCasada}
+                                    </c:if>
+                                    <c:if test="${empleado.tipoDocumento != null}">
+                                        (${empleado.tipoDocumento.nombreDoc}: ${empleado.numeroDoc})
+                                    </c:if>
+                                </option>
+                            </c:forEach>
+                        </form:select>
                     </div>
                 </div>
             </div>
@@ -108,3 +164,29 @@
     </div>
 </div>
 <%@ include file="../base/footer.jsp" %>
+<script>
+$(document).ready(function() {
+    $('#departamento').change(function() {
+        var departamentoId = $(this).val();
+        if(departamentoId) {
+            $.ajax({
+                url: '/departamentos/' + departamentoId + '/municipios',
+                type: 'GET',
+                success: function(data) {
+                    $('#municipio').empty();
+                    $('#municipio').append('<option value="0">Seleccione un municipio</option>');
+                    $.each(data, function(index, municipio) {
+                        $('#municipio').append('<option value="' + municipio.idMunicipio + '">' + municipio.nombreMunicipio + '</option>');
+                    });
+                },
+                error: function() {
+                    alert('Error al obtener municipios');
+                }
+            });
+        } else {
+            $('#municipio').empty();
+            $('#municipio').append('<option value="">Seleccione un municipio</option>');
+        }
+    });
+});
+</script>

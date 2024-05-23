@@ -104,6 +104,10 @@
                         <fmt:formatDate value="${empleado.fechaIngreso}" pattern="dd/MM/yyyy" />
                     </div>
                     <div class="p-2">
+                        <strong>Correo institucional:</strong>
+                        ${empleado.correoInstitucional}
+                    </div>
+                    <div class="p-2">
                         <strong>Jefe inmediato: </strong>
                         <c:if test="${empleado.supervisor != null}">
                             ${empleado.supervisor.nombre1}
@@ -124,11 +128,7 @@
                         </c:if>
                     </div>
                     <div class="p-2">
-                    <strong>Correo institucional:</strong>
-                        ${empleado.correoInstitucional}
-                    </div>
-                    <div class="p-2">
-                    <strong>Estado:</strong>
+                        <strong>Estado:</strong>
                         <c:if test="${empleado.estado}">
                             Activo
                         </c:if>
