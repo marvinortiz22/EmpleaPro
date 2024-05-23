@@ -29,11 +29,18 @@ class ManejoTabla {
         * contendrá la información de la paginación (este div puede estar vacío)
         * 
         * AUTOR: ALDO 0303
-        * FECHA DE LANZAMIENTO: 22/09/2024
-        * VERSIÓN: 1.0
+        * FECHA DE LANZAMIENTO: 22/05/2024
+        * VERSIÓN: 1.2
     */
-    constructor({ datos = [], idContenedorTabla = '', paginacion = 5, acciones = false, tituloColAcciones = [], html = '', ocultarCampos = []}) {
+    constructor({ datos = [], idContenedorTabla = '', paginacion = 5, acciones = false, tituloColAcciones = [], html = '', ocultarCampos = [], ordenColumnas = [] }) {
         this.datos = (typeof datos === 'string') ? JSON.parse(datos) : datos;
+        this.datos = this.datos.map(dato => {
+            let newDato = {};
+            ordenColumnas.forEach(col => {
+                newDato[col] = dato[col];
+            });
+            return newDato;
+        });
         this.contenedorTabla = document.getElementById(idContenedorTabla);
         if (!this.contenedorTabla) {
             console.error('No se encontró el contenedor de la tabla');
@@ -60,7 +67,10 @@ class ManejoTabla {
             return;
         }
         this.formBusqueda.addEventListener('submit', this.buscar);
-        this.formBusqueda.querySelector('#filtro').innerHTML = Object.keys(this.datos[0]).map(key => `<option value="${key}">${key.toUpperCase()}</option>`).join('');
+        this.formBusqueda.querySelector('#filtro').innerHTML = Object.keys(this.datos[0]).map(key => {
+            if (this.ocultarCampos.includes(key)) return '';
+            return `<option value="${key}">${key.toUpperCase()}</option>`
+        }).join('');
         this.formBusqueda.querySelector('#buscar').addEventListener('keyup', this.buscar);
         this.formBusqueda.querySelector('#mostrar').value = this.paginacion; this.formBusqueda.querySelector('#mostrar').addEventListener('change', e => {
             this.paginacion = parseInt(e.target.value);
@@ -124,10 +134,10 @@ class ManejoTabla {
                     let coincidencias = [], match;
                     while ((match = newregex.exec(this.html)) !== null) coincidencias.push(match[1]);
                     if (coincidencias.length > 0) {
-                        let columna = '';
+                        let columna = this.html;
                         coincidencias.forEach(campo => {
                             const rgex = new RegExp(`\\[\\[${campo}\\]\\]`, 'g');
-                            columna = this.html.replace(rgex, dato[campo]);
+                            columna = columna.replace(rgex, dato[campo]);
                         });
                         return `<td>${valo1}</td>${columna}`
                     } else return `<td>${valo1}</td>${this.html}`

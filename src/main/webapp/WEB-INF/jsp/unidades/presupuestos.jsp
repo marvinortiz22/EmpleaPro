@@ -1,6 +1,6 @@
 <%@ include file="../base/head.jsp" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
-<title>Unidades</title>
+<title>Presupuestos de unidades</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/unidades/css.css">
 <%@ include file="../base/navbar.jsp" %>
     <div id="contenedorPrincipal">
@@ -8,12 +8,13 @@
             <button class="btnAgregar" onclick="window.history.back()">
                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
             </button>
-            <h1>Unidades</h1>
+            <h3 style="text-align: center;">Presupuestos de</h3>
+            <h1>${unidad.nombreUnidad}</h1>
         </header>
         <div>
-            <a href="/unidad/agregar" class="btnAgregar" <% if(!Boolean.parseBoolean(request.getAttribute("permisoCrear").toString())){ %> hidden <% } %> >
+            <a href="/unidad/presupuesto/nuevo" class="btnAgregar">
                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
-                Nueva unidad
+                Nuevo presupuesto
             </a>
         </div>
         <section id="contenedorTabla">
@@ -72,12 +73,9 @@
     </div>
 
     <script>
-        let datos = '<%= request.getAttribute("unidades") %>';
+        let datos = '<%= request.getAttribute("presupuestos") %>';
         let permisoEditar = '<%= request.getAttribute("permisoEditar") %>';
-        let permisoCrear = '<%= request.getAttribute("permisoCrear") %>';
-        let cambiarEstado = '<%= request.getAttribute("cambiarEstado") %>';
-        let verPresupuestos = '<%= request.getAttribute("verPresupuestos") %>';
     </script>
     <script src="${pageContext.request.contextPath}/js/ManejoTablas.js"></script>
-    <script src="${pageContext.request.contextPath}/js/unidades/js.js"></script>
+    <script src="${pageContext.request.contextPath}/js/unidades/presupuestos.js"></script>
 <%@ include file="../base/footer.jsp" %>

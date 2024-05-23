@@ -6,5 +6,8 @@ import java.util.Map;
 import com.gestion.planillas.modelos.Unidad;
 
 public interface unidadesDAO {
-    public String getUnidades();
+    public List<Unidad> getUnidades();
+    public List<Unidad> getUnidadesList();
+    public void agregarEditarUnidad(Unidad unidad);
+    public Unidad getUnidad(int idUnidad);
 }
