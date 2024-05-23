@@ -116,21 +116,20 @@ class ManejoTabla {
         }
         let htmlInsertar = ''
         rpaginaActual.forEach(dato => {
-            if (this.ocultarCampos.length > 0) {
-                this.ocultarCampos.forEach(campo => delete dato[campo]);
-            }
-            htmlInsertar += `<tr>${Object.values(dato).map((valor, i, arr) => {
-                let valo1 = !valor ? '' : valor;
+            htmlInsertar += `<tr>${Object.entries(dato).map((valor, i, arr) => {
+                if (this.ocultarCampos.includes(valor[0])) return '';
+                let valo1 = !valor[1] ? '' : valor[1];
                 if (this.acciones && i === arr.length - 1) {
                     const newregex = /\[\[(.*?)\]\]/g;
                     let coincidencias = [], match;
                     while ((match = newregex.exec(this.html)) !== null) coincidencias.push(match[1]);
                     if (coincidencias.length > 0) {
+                        let columna = '';
                         coincidencias.forEach(campo => {
                             const rgex = new RegExp(`\\[\\[${campo}\\]\\]`, 'g');
-                            this.html = this.html.replace(rgex, dato[campo]);
+                            columna = this.html.replace(rgex, dato[campo]);
                         });
-                        return `<td>${valo1}</td>${this.html}`
+                        return `<td>${valo1}</td>${columna}`
                     } else return `<td>${valo1}</td>${this.html}`
                 } else return `<td>${valo1}</td>`
             }).join('')}</tr>`;
