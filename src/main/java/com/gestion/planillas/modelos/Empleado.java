@@ -1,5 +1,14 @@
 package com.gestion.planillas.modelos;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
@@ -34,23 +43,55 @@ public class Empleado {
     @JoinColumn(name = "IDTIPODOC")
     private TipoDocumento tipoDocumento;
 
+    @NotBlank(message = "El campo es obligatorio")
+    @Size(max = 20, message = "El campo no puede tener más de 20 caracteres")
     private String nombre1;
+
+    @Size(max = 20, message = "El campo no puede tener más de 20 caracteres")
     private String nombre2;
+
+    @NotBlank(message = "El campo es obligatorio")
+    @Size(max = 20, message = "El campo no puede tener más de 20 caracteres")
     private String apellido1;
+
+    @Size(max = 20, message = "El campo no puede tener más de 20 caracteres")
     private String apellido2;
+
+    @Size(max = 20, message = "El campo no puede tener más de 20 caracteres")
     private String apellidoCasada;
+
     private String sexo;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaNacimiento;
+
+    @NotNull(message = "La fecha de nacimiento es obligatoria")
+    @Past(message = "La fecha no debe ser a futuro")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaIngreso = new Date();
+
+    @NotBlank(message = "El campo es obligatorio")
+    @Size(max = 20, message = "El campo no puede tener más de 20 caracteres")
     private String numeroDoc;
+
     private String nit;
+
+    @NotBlank(message = "El campo es obligatorio")
+    @Size(max = 20, message = "El campo no puede tener más de 20 caracteres")
     private String isss;
+
     private String nup;
+
     private BigDecimal salario;
+
+    @NotBlank(message = "El campo es obligatorio")
+    @Email(message = "El correo debe tener un formato válido")
     private String correoInstitucional;
+
+    @NotBlank(message = "El campo es obligatorio")
+    @Email(message = "El correo debe tener un formato válido")
     private String correoPersonal;
+
     private boolean estado = true;
     @ManyToMany
     @JoinTable(

@@ -26,46 +26,54 @@
                     <div class="p-2">
                         <label for="nombre1">Primer Nombre*</label>
                         <form:input path="nombre1" class="form-control"/>
+                        <form:errors path="nombre1" class="text-danger small"/>
                     </div>
                     <div class="p-2">
                         <label for="nombre2">Segundo Nombre</label>
                         <form:input path="nombre2" class="form-control"/>
+                        <form:errors path="nombre2" class="text-danger small"/>
                     </div>
                     <div class="p-2">
                         <label for="apellido1">Primer Apellido*</label>
                         <form:input path="apellido1" class="form-control"/>
+                        <form:errors path="apellido1" class="text-danger small"/>
                     </div>
                     <div class="p-2">
                         <label for="apellido2">Segundo Apellido</label>
                         <form:input path="apellido2" class="form-control"/>
+                        <form:errors path="apellido2" class="text-danger small"/>
                     </div>
                     <div class="p-2" id="apellidoCasada">
                         <label for="apellidoCasada">Apellido de Casada</label>
                         <form:input path="apellidoCasada" class="form-control"/>
+                        <form:errors path="apellidoCasada" class="text-danger small"/>
                     </div>
                     <div class="p-2">
                         <label for="sexo">Sexo*</label>
                         <form:select path="sexo" id="sexo" class="form-select">
-                            <option value="0">Seleccione el Sexo</option>
+                            <option value="X">Seleccione el Sexo</option>
                             <form:option value="M">Masculino</form:option>
                             <form:option value="F">Femenino</form:option>
                         </form:select>
+                        <form:errors path="sexo" class="text-danger small"/>
                     </div>
                     <div class="p-2">
                         <label for="estadoCivil">Estado Civil*</label>
                         <form:select path="estadoCivil.idEstadoCivil" id="estadoCivil" class="form-select">
                             <option value="0">Seleccione un Estado Civil</option>
-
                             <form:options items="${estadosCiviles}" itemValue="idEstadoCivil" itemLabel="nombreEstado" />
                         </form:select>
+                        <form:errors path="estadoCivil" class="text-danger small"/>
                     </div>
                     <div class="p-2">
                         <label for="fechaNacimiento">Fecha de Nacimiento*</label>
                         <form:input path="fechaNacimiento" type="date" class="form-control"/>
+                        <form:errors path="fechaNacimiento" class="text-danger small"/>
                     </div>
                     <div class="p-2">
                         <label for="correoPersonal">Correo Personal*</label>
                         <form:input path="correoPersonal" class="form-control"/>
+                        <form:errors path="correoPersonal" class="text-danger small"/>
                     </div>
                     <div class="p-2">
                         <label for="departamento">Departamento*</label>
@@ -73,12 +81,14 @@
                             <option value="0">Seleccione un Departamento</option>
                             <form:options items="${departamentos}" itemValue="idDepartamento" itemLabel="nombreDepartamento" />
                         </form:select>
+                        <form:errors path="municipio.departamento" class="text-danger small"/>
                     </div>
                     <div class="p-2">
                         <label for="municipio">Municipio*</label>
                         <form:select path="municipio.idMunicipio" id="municipio" class="form-select">
                             <option value="0">Seleccione un Municipio</option>
                         </form:select>
+                        <form:errors path="municipio" class="text-danger small"/>
                     </div>
                 </div>
                 <hr>
@@ -93,6 +103,7 @@
                     <div class="p-2">
                         <label for="numeroDoc">Número de Documento*</label>
                         <form:input path="numeroDoc" class="form-control"/>
+                        <form:errors path="numeroDoc" class="text-danger small"/>
                     </div>
                     <div class="p-2">
                         <label for="nit">NIT</label>
@@ -101,6 +112,7 @@
                     <div class="p-2">
                         <label for="isss">ISSS*</label>
                         <form:input path="isss" class="form-control"/>
+                        <form:errors path="isss" class="text-danger small"/>
                     </div>
                     <div class="p-2">
                         <label for="nup">NUP</label>
@@ -118,15 +130,18 @@
                     </div>
                     <div class="p-2">
                         <label for="salario">Salario*</label>
-                        <form:input path="salario" class="form-control"/>
+                        <form:input path="salario" class="form-control" type="number" step="0.01"/>
+                        <form:errors path="salario" class="text-danger small"/>
                     </div>
                     <div class="p-2">
                         <label for="fechaIngreso">Fecha de Ingreso*</label>
                         <form:input path="fechaIngreso" type="date" value="${empleado.getFechaIngresoFormateada()}" class="form-control"/>
+                        <form:errors path="fechaIngreso" class="text-danger small"/>
                     </div>
                     <div class="p-2">
                         <label for="correoInstitucional">Correo Institucional*</label>
                         <form:input path="correoInstitucional" class="form-control"/>
+                        <form:errors path="correoInstitucional" class="text-danger small"/>
                     </div>
                     <div class="p-2">
                         <label for="supervisor">Jefe Inmediato</label>
