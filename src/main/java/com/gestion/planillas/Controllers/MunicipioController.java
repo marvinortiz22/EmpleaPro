@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/departamentos/{idDepartamento}/municipios")
+@RequestMapping("/municipio")
 public class MunicipioController {
     @Autowired
     private  com.gestion.planillas.DAO.municipioDAO municipioDAO;
 
-    @GetMapping
+    @GetMapping("/{idDepartamento}")
     @ResponseBody
     public List<Municipio> obtenerMunicipios(@PathVariable int idDepartamento) {
         return municipioDAO.getMunicipiosXDepartamento(idDepartamento);

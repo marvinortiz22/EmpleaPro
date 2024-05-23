@@ -71,9 +71,6 @@ public class EmpleadoController {
         List<Departamento> departamentos = departamentoDAO.getDepartamentos();
         model.addAttribute("departamentos", departamentos);
 
-        List<Municipio> municipios = municipioDAO.getMunicipiosXDepartamento(1);
-        model.addAttribute("municipios", municipios);
-
         List<TipoDocumento> tiposDocumentos = tipoDocumentoDAO.getTipoDocumentos();
         model.addAttribute("tiposDocumentos", tiposDocumentos);
 

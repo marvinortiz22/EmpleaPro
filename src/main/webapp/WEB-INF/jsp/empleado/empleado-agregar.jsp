@@ -39,26 +39,33 @@
                         <label for="apellido2">Segundo Apellido</label>
                         <form:input path="apellido2" class="form-control"/>
                     </div>
-                    <div class="p-2">
+                    <div class="p-2" id="apellidoCasada">
                         <label for="apellidoCasada">Apellido de Casada</label>
                         <form:input path="apellidoCasada" class="form-control"/>
                     </div>
                     <div class="p-2">
                         <label for="sexo">Sexo*</label>
-                        <form:select path="sexo" class="form-select">
+                        <form:select path="sexo" id="sexo" class="form-select">
+                            <option value="0">Seleccione el Sexo</option>
                             <form:option value="M">Masculino</form:option>
                             <form:option value="F">Femenino</form:option>
                         </form:select>
                     </div>
                     <div class="p-2">
                         <label for="estadoCivil">Estado Civil*</label>
-                        <form:select path="estadoCivil.idEstadoCivil" class="form-select">
+                        <form:select path="estadoCivil.idEstadoCivil" id="estadoCivil" class="form-select">
+                            <option value="0">Seleccione un Estado Civil</option>
+
                             <form:options items="${estadosCiviles}" itemValue="idEstadoCivil" itemLabel="nombreEstado" />
                         </form:select>
                     </div>
                     <div class="p-2">
                         <label for="fechaNacimiento">Fecha de Nacimiento*</label>
                         <form:input path="fechaNacimiento" type="date" class="form-control"/>
+                    </div>
+                    <div class="p-2">
+                        <label for="correoPersonal">Correo Personal*</label>
+                        <form:input path="correoPersonal" class="form-control"/>
                     </div>
                     <div class="p-2">
                         <label for="departamento">Departamento*</label>
@@ -72,10 +79,6 @@
                         <form:select path="municipio.idMunicipio" id="municipio" class="form-select">
                             <option value="0">Seleccione un Municipio</option>
                         </form:select>
-                    </div>
-                    <div class="p-2">
-                        <label for="correoPersonal">Correo Personal*</label>
-                        <form:input path="correoPersonal" class="form-control"/>
                     </div>
                 </div>
                 <hr>
@@ -166,15 +169,34 @@
 <%@ include file="../base/footer.jsp" %>
 <script>
 $(document).ready(function() {
+    function toggleApellidoCasada() {
+        var sexo = $('#sexo').val();
+        var estadoCivil = $('#estadoCivil').val();
+        if(sexo === 'F' && estadoCivil === '2') {
+            $('#apellidoCasada').show();
+        } else {
+            $('#apellidoCasada').hide();
+        }
+    }
+
+    $('#sexo, #estadoCivil').change(toggleApellidoCasada);
+
+    // Llamada inicial
+    toggleApellidoCasada();
+});
+</script>
+
+<script>
+$(document).ready(function() {
     $('#departamento').change(function() {
         var departamentoId = $(this).val();
         if(departamentoId) {
             $.ajax({
-                url: '/departamentos/' + departamentoId + '/municipios',
+                url: '/municipio/' + departamentoId,
                 type: 'GET',
                 success: function(data) {
                     $('#municipio').empty();
-                    $('#municipio').append('<option value="0">Seleccione un municipio</option>');
+                    $('#municipio').append('<option value="0">Seleccione un Municipio</option>');
                     $.each(data, function(index, municipio) {
                         $('#municipio').append('<option value="' + municipio.idMunicipio + '">' + municipio.nombreMunicipio + '</option>');
                     });
