@@ -195,6 +195,7 @@ END $$
 
 DELIMITER ;
 
+delimiter $$
 CREATE FUNCTION verificarVacacion(
     empleado_id INT,
     fecha_inicio DATE,
