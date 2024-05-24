@@ -1,5 +1,10 @@
 const manejarTabla = new ManejoTabla({
-    datos: datos,
+    datos: JSON.parse(datos).map(dato => {
+        return {
+            ...dato,
+            Presupuesto: dato.Presupuesto == 'No hay presupuestos' ? dato.Presupuesto : '$' + parseFloat(dato.Presupuesto).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
+        }
+    }),
     idContenedorTabla: 'contenedorTabla',
     acciones: (permisoEditar !== 'true' && cambiarEstado !== 'true') ? false : true,
     html: `

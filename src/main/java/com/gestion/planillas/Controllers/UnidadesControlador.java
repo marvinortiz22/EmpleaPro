@@ -105,6 +105,7 @@ public class UnidadesControlador {
     }
 
     @GetMapping("/presupuestos")
+    @AccessControl(roles="ROLE_Ver_presupuesto_de_unidades")
     public String presupuestos(Model model, @RequestParam("id") int id) {
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         Unidad unidad = unidadesDAO.getUnidad(id);
@@ -125,9 +126,40 @@ public class UnidadesControlador {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        model.addAttribute("presupuestos", jsonString);
+        model.addAttribute("presupuestos", jsonString); model.addAttribute("idUnidad", id);
         boolean permisoEditar = usuarioDAO.tienePermiso("ROLE_Editar_presupuesto_de_unidades");
         model.addAttribute("permisoEditar", permisoEditar);
         return "unidades/presupuestos";
+    }
+
+    @GetMapping("/presupuestos/agregar")
+    public String agregarP(Model model, @RequestParam("idUnidad") int idUnidad){
+        model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
+        Unidad unidad = unidadesDAO.getUnidad(idUnidad);
+        PresupuestoAnual presupuesto = new PresupuestoAnual();
+        presupuesto.setUnidad(unidad);
+        model.addAttribute("presupuesto", presupuesto);
+        model.addAttribute("editar", false);
+        return "unidades/infoPresupuesto";
+    }
+
+    @GetMapping("/presupuestos/editar")
+    public String editarP(Model model, @RequestParam("id") int id){
+        model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
+        PresupuestoAnual presupuest = presupuesto.getPresupuesto(id);
+        model.addAttribute("presupuesto", presupuest); model.addAttribute("editar", true);
+        return "unidades/infoPresupuesto";
+    }
+
+    @PostMapping("/presupuestos/agregar")
+    public String agregarPresupuesto(@ModelAttribute("presupuesto") PresupuestoAnual presupuest, RedirectAttributes redirectAttributes) {
+        presupuesto.agregarEditarPresupuesto(presupuest);
+        return "redirect:/unidad/presupuestos?id=" + presupuest.getUnidad().getIdUnidad();
+    }
+
+    @PostMapping("/presupuestos/editar")
+    public String editarPresupuesto(@ModelAttribute("presupuesto") PresupuestoAnual presupuest, RedirectAttributes redirectAttributes) {
+        presupuesto.agregarEditarPresupuesto(presupuest);
+        return "redirect:/unidad/presupuestos?id=" + presupuest.getUnidad().getIdUnidad();
     }
 }

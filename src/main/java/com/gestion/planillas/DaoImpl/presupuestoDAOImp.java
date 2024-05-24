@@ -33,4 +33,11 @@ public class presupuestoDAOImp implements presupuestoDAO {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(presupuesto);
     }
+
+    @Override
+    public PresupuestoAnual getPresupuesto(int idPresupuesto) {
+        Session session = sessionFactory.getCurrentSession();
+        PresupuestoAnual presupuesto = session.get(PresupuestoAnual.class, idPresupuesto);
+        return presupuesto;
+    }
 }

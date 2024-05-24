@@ -40,6 +40,8 @@ form {
         color: white;
         border: none;
         cursor: pointer;
+        width: max-content;
+        margin: auto;
     }
     & button:hover {
         background-color: #0056b3;

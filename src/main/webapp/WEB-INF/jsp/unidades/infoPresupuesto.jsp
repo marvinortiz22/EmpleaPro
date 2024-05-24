@@ -11,14 +11,14 @@
 <%@ include file="../base/navbar.jsp" %>
     <div id="contenedorPrincipal">
         <header>
-            <a href="/unidad/listar">
+            <button onclick="window.history.back()">
                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
-            </a>
+            </button>
             <h1>
                 <% if(!Boolean.parseBoolean(request.getAttribute("editar").toString())){ %>
-                    Nueva Unidad
+                    Nueva Presupuesto
                 <% } else { %>
-                    Editar Unidad
+                    Editar Presupuesto
                 <% } %>
             </h1>
             <div></div>
@@ -26,36 +26,21 @@
         <%
         String action;
         if (!Boolean.parseBoolean(request.getAttribute("editar").toString())) {
-            action = "/unidad/agregar";
+            action = "/unidad/presupuesto/agregar";
         } else {
-            action = "/unidad/editar";
+            action = "/unidad/presupuesto/editar";
         }
         %>
-        <form:form modelAttribute="unidad" method="POST" action="${action}">
-            <form:input path="idUnidad" hidden="true"/>
+        <form:form modelAttribute="presupuesto" method="POST" action="${action}">
+            <form:input path="idPresupuesto" hidden="true"/>
+            <form:input path="unidad.idUnidad" hidden="true"/>
             <div>
-                <label for="nombre">Nombre</label>
-                <form:input path="nombreUnidad" id="nombre" name="nombre" required="true"/>
+                <label for="nombre">Monto</label>
+                <form:input path="monto" name="monto" required="true" type="number" step="0.01" min="0"/>
             </div>
             <div>
-                <label for="tipo">Tipo de unidad</label>
-                <form:select path="tipoUnidad.idTipoUnidad" items="${tiposUnidades}" itemValue="idTipoUnidad" itemLabel="nombreTipoUnidad" required="true"/>
-            </div>
-            <div>
-                <label for="unidadPadre">Unidad Padre</label>
-                <form:select path="unidadPadre.idUnidad">
-                    <form:option value="0" label="No tiene unidad padre"/>
-                    <form:options items="${unidades}" itemValue="idUnidad" itemLabel="nombreUnidad"/>
-                </form:select>
-            </div>
-            <div>
-                <label for="estado">Estado</label>
-                <label for="estado">
-                    <div id="estadoDiv">
-                        <form:checkbox path="estado" id="estado" checked="true"/>
-                        <p>Activado</p>
-                    </div>
-                </label>
+                <label for="nombre">Año</label>
+                <form:input path="ano" name="ano" required="true" type="number" min="0" />
             </div>
             <div style="grid-column: span 2;">
                 <button type="submit">Guardar</button>

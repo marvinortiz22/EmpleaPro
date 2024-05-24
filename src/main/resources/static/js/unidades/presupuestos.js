@@ -1,5 +1,10 @@
 const manejarTabla = new ManejoTabla({ 
-    datos: datos, 
+    datos: JSON.parse(datos).map(dato => {
+        return {
+            ...dato,
+            Monto: '$' + dato.Monto.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
+        }
+    }),
     idContenedorTabla: 'contenedorTabla',
     acciones: true,
     html: `
@@ -17,5 +22,5 @@ const manejarTabla = new ManejoTabla({
 
 
 function editarPresupuesto(id) {
-    console.log(id);
+    window.location.href = `/unidad/presupuestos/editar?id=${id}`;
 }
