@@ -58,30 +58,14 @@ public class RolController {
         return "rol/rol-agregar";
     }
     @PostMapping("/agregar")
-    public String agregarPost(HttpServletRequest request, @RequestParam("permisos") List<Integer> ids, RedirectAttributes redirectAttributes) {
-        Rol rol = new Rol();
-        List<Permiso> permisos = new ArrayList<>();
-        for (int id : ids) {
-            permisos.add(permisoDAO.getPermiso(id));
-        }
-        rol.setIdRol(Integer.parseInt(request.getParameter("idRol")));
-        rol.setNombreRol(request.getParameter("nombreRol"));
-        rol.setPermisos(permisos);
+    public String agregarPost(@ModelAttribute("rol")Rol rol, RedirectAttributes redirectAttributes) {
         rolDAO.guardarRol(rol);
         Alert alert=new Alert("success","Se ha editado el rol exitosamente");
         redirectAttributes.addFlashAttribute("alert",alert);
         return "redirect:/rol/listar";
     }
     @PostMapping("/editar")
-    public String editarPost(@ModelAttribute("rol")Rol rol, HttpServletRequest request, @RequestParam("permisos") List<Integer> ids, RedirectAttributes redirectAttributes) {
-        rol = new Rol();
-        List<Permiso> permisos = new ArrayList<>();
-        for (int id : ids) {
-            permisos.add(permisoDAO.getPermiso(id));
-        }
-        rol.setIdRol(Integer.parseInt(request.getParameter("idRol")));
-        rol.setNombreRol(request.getParameter("nombreRol"));
-        rol.setPermisos(permisos);
+    public String editarPost(@ModelAttribute("rol")Rol rol, RedirectAttributes redirectAttributes) {
         rolDAO.guardarRol(rol);
         Alert alert=new Alert("success","Se ha editado el rol exitosamente");
         redirectAttributes.addFlashAttribute("alert",alert);

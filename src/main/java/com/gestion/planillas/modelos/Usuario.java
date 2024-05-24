@@ -111,8 +111,5 @@ public class Usuario {
 	public void setSolicitoDesbloqueo(boolean solicitoDesbloqueo) {
 		this.solicitoDesbloqueo = solicitoDesbloqueo;
 	}
-	@Override
-	public String toString() {
-		return STR."Usuario{idUsuario=\{idUsuario}, username='\{username}\{'\''}\{'}'}";
-	}
+
 }

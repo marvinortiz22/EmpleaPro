@@ -20,8 +20,9 @@ const manejarTabla = new ManejoTabla({
             </button>
         </td>
     `,
-    ocultarCampos: ['id', 'Presupuesto'],
-    ordenColumnas: ['id', 'Presupuesto', 'Nombre', 'Tipo Unidad', 'Unidad Padre', 'Estado'],
+    ocultarCampos: [],
+    //ordenColumnas: ['Número de documento','Nombre'],
+    ordenColumnas: ['Número de documento', 'Nombre', 'Cargo', 'Salario/hora', 'Horas normales', 'Salario*horas normales', 'Vacaciones', 'Horas extra', 'Permisos remunerables', 'Otros beneficios', 'Salario+beneficios', 'ISSS', 'AFP', 'ISR', 'Otras deducciones', 'Total deducciones', 'Salario neto'],
     tituloColAcciones: ['Presupuesto', 'Acciones']
 });
 

@@ -46,8 +46,5 @@ public class Municipio {
 
     public Municipio() {
     }
-    @Override
-    public String toString() {
-        return STR."Municipio{idMunicipio=\{idMunicipio}, nombre='\{nombreMunicipio}\{'\''}\{'}'}";
-    }
+
 }

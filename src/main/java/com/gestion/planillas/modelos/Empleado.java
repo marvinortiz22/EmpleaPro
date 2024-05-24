@@ -319,8 +319,5 @@ public class Empleado {
     public Empleado() {
     }
 
-    @Override
-    public String toString() {
-        return STR."Empleado{idEmpleado=\{idEmpleado}, nombre1='\{nombre1}\{'\''}, nombre2='\{nombre2}\{'\''}, apellido1='\{apellido1}\{'\''}, apellido2='\{apellido2}\{'\''}, apellidoCasada='\{apellidoCasada}\{'\''}, sexo=\{sexo}, fechaNacimiento=\{fechaNacimiento}, fechaIngreso=\{fechaIngreso}, numeroDoc='\{numeroDoc}\{'\''}, nit='\{nit}\{'\''}, isss='\{isss}\{'\''}, nup='\{nup}\{'\''}, salario=\{salario}, correoInstitucional='\{correoInstitucional}\{'\''}, correoPersonal='\{correoPersonal}\{'\''}, estado=\{estado}\{'}'}";
-    }
+
 }

@@ -95,7 +95,7 @@
                                     data-bs-parent="#sidenavAccordion">
                                     <nav class="sb-sidenav-menu-nested nav">
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_planilla'}">
-                                            <a class="nav-link" href="#">Planilla</a>
+                                            <a class="nav-link" href="/contaduria/planilla">Planilla</a>
                                         </c:if>
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_boletas_de_pago'}">
                                             <a class="nav-link" href="#">Boletas de pago</a>
