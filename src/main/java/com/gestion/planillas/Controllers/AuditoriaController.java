@@ -23,9 +23,6 @@ public class AuditoriaController {
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         List<Auditoria_Empleado> auditEmp = auditoria_empleado.getAuditoriaEmp();
         model.addAttribute("empleado",auditEmp);
-        for (Auditoria_Empleado ae : auditEmp) {
-            System.out.println(" Datos de la consulta " + ae);
-        }
         return "auditoria/empleados";
     }
 
