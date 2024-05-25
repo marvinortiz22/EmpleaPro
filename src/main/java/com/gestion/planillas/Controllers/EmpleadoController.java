@@ -40,6 +40,8 @@ public class EmpleadoController {
     private  com.gestion.planillas.DAO.municipioDAO municipioDAO;
     @Autowired
     private com.gestion.planillas.DAO.empleadoRepository empleadoRepository;
+    @Autowired
+    private com.gestion.planillas.DAO.oficioDAO oficioDAO;
 
     @GetMapping("/listar")
     @AccessControl(roles="ROLE_Administrador")
@@ -120,6 +122,10 @@ public class EmpleadoController {
         }
         if (empleado.getTipoDocumento().getIdTipoDoc() == 0) {
             result.rejectValue("tipoDocumento", "error.empleado", "Debe seleccionar un tipo válido.");
+        }
+        // Validar que se haya seleccionado al menos una profesión u oficio
+        if (empleado.getProfesionOficios() == null || empleado.getProfesionOficios().isEmpty()) {
+            result.rejectValue("profesionOficios", "error.empleado", "Debe seleccionar al menos una.");
         }
 
         //validar nulls
@@ -238,5 +244,8 @@ public class EmpleadoController {
 
         List<Empleado> empleados = empleadoDAO.getEmpleados();
         model.addAttribute("empleados", empleados);
+
+        List<ProfesionOficio> profesionesOficios = oficioDAO.getProfyOficios();
+        model.addAttribute("profesionesOficios", profesionesOficios);
     }
 }

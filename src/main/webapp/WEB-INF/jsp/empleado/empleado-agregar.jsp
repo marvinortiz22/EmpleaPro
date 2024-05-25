@@ -90,6 +90,24 @@
                         </form:select>
                         <form:errors path="municipio" class="text-danger small"/>
                     </div>
+
+                    <div class="p-2">
+                        <label for="profesionOficios" class="form-label">Profesiones*</label>
+                        <form:select path="profesionOficios" multiple="true" class="form-select" required="true">
+                            <c:forEach var="proOfc" items="${profesionesOficios}">
+                                <option value="${proOfc.idProfOfc}"
+                                    <c:forEach var="proOfcEmpl" items="${empleado.profesionOficios}">
+                                        <c:if test="${proOfc.idProfOfc == proOfcEmpl.idProfOfc}">
+                                            selected
+                                        </c:if>
+                                    </c:forEach>
+                                >
+                                    ${proOfc.nombreProfOfc}
+                                </option>
+                            </c:forEach>
+                        </form:select>
+                        <form:errors path="profesionOficios" class="text-danger small"/>
+                    </div>
                 </div>
                 <hr>
                 <h5 class="card-title">Documentos</h5>
