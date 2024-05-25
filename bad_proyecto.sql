@@ -139,7 +139,7 @@ create table EMPLEADO
    NIT                  varchar(25),
    ISSS                 varchar(25) not null,
    NUP                  varchar(25),
-   SALARIO              decimal not null,
+   SALARIO              decimal(10,2) not null,
    CORREOINSTITUCIONAL  varchar(30) not null,
    CORREOPERSONAL       varchar(30) not null,
    ESTADO               bool not null default true,

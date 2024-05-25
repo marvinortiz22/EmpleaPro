@@ -97,6 +97,11 @@ public class EmpleadoController {
         //validar fechanac
         validarFechaNacimiento(empleado.getFechaNacimiento(), result);
 
+        //validar apellido casada
+        if (!(empleado.getEstadoCivil().getIdEstadoCivil() == 2 && empleado.getSexo().equals("F"))){
+            empleado.setApellidoCasada(null);
+        }
+
         // Validaciones de selects
         if (empleado.getSexo().equals("X")) {
             result.rejectValue("sexo", "error.sexo", "Debe seleccionar un sexo válido.");
@@ -110,6 +115,9 @@ public class EmpleadoController {
         if (empleado.getMunicipio().getIdMunicipio() == 0) {
             result.rejectValue("municipio", "error.empleado", "Debe seleccionar un municipio válido.");
         }
+        if (empleado.getTipoDocumento().getIdTipoDoc() == 0) {
+            result.rejectValue("tipoDocumento", "error.empleado", "Debe seleccionar un tipo válido.");
+        }
 
         //validar nulls
         if (empleado.getSupervisor().getIdEmpleado() == 0) {
@@ -121,8 +129,21 @@ public class EmpleadoController {
         if (empleado.getNup() == "") {
             empleado.setNup(null);
         }
-        if (empleado.getNup() == "") {
-            empleado.setNup(null);
+
+        // Validar numero de documento
+        if (empleado.getTipoDocumento().getIdTipoDoc() != 0) {
+
+            TipoDocumento tipoDocumento = tipoDocumentoDAO.getTipoDocumento(empleado.getTipoDocumento().getIdTipoDoc());
+
+            if (empleado.getNumeroDoc() == "") {
+                result.rejectValue("numeroDoc", "error.empleado", "El campo es obligatorio.");
+            }
+            if (tipoDocumento.getNombreDoc().equals("DUI") && !empleado.getNumeroDoc().matches("\\d{8}-\\d")) {
+                result.rejectValue("numeroDoc", "error.empleado", "Debe ser en formato XXXXXXXX-X");
+            }
+            if (!tipoDocumento.getNombreDoc().equals("DUI") && !empleado.getNumeroDoc().matches("^[a-zA-Z0-9]{20}$")){
+                result.rejectValue("numeroDoc", "error.empleado", "Deben ser maximo 20 caracteres");
+            }
         }
 
         // Validar sueldo

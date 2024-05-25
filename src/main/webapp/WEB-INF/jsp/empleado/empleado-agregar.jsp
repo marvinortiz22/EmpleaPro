@@ -18,38 +18,38 @@
             </div>
             <hr>
 
-            <form:form modelAttribute="empleado" action="guardar" method="post">
+            <form:form modelAttribute="empleado" method="post" action="guardar">
 
             <div class="d-flex flex-column mt-4 mb-4">
                 <h5 class="card-title">Datos personales</h5>
                 <div class="d-flex flex-wrap justify-content-around mb-4">
                     <div class="p-2">
-                        <label for="nombre1">Primer Nombre*</label>
-                        <form:input path="nombre1" class="form-control"/>
+                        <label for="nombre1" class="form-label">Primer Nombre*</label>
+                        <form:input path="nombre1" class="form-control" maxlength="20" pattern="^[a-zA-Z\s]*$" title="Solo se permiten letras" required="true"/>
                         <form:errors path="nombre1" class="text-danger small"/>
                     </div>
                     <div class="p-2">
-                        <label for="nombre2">Segundo Nombre</label>
-                        <form:input path="nombre2" class="form-control"/>
+                        <label for="nombre2" class="form-label">Segundo Nombre</label>
+                        <form:input path="nombre2" class="form-control" maxlength="20" pattern="^[a-zA-Z\s]*$" title="Solo se permiten letras"/>
                         <form:errors path="nombre2" class="text-danger small"/>
                     </div>
                     <div class="p-2">
-                        <label for="apellido1">Primer Apellido*</label>
-                        <form:input path="apellido1" class="form-control"/>
+                        <label for="apellido1" class="form-label">Primer Apellido*</label>
+                        <form:input path="apellido1" class="form-control" maxlength="20" pattern="^[a-zA-Z\s]*$" title="Solo se permiten letras" required="true"/>
                         <form:errors path="apellido1" class="text-danger small"/>
                     </div>
                     <div class="p-2">
-                        <label for="apellido2">Segundo Apellido</label>
-                        <form:input path="apellido2" class="form-control"/>
+                        <label for="apellido2" class="form-label">Segundo Apellido</label>
+                        <form:input path="apellido2" class="form-control" maxlength="20" pattern="^[a-zA-Z\s]*$" title="Solo se permiten letras"/>
                         <form:errors path="apellido2" class="text-danger small"/>
                     </div>
                     <div class="p-2" id="apellidoCasada">
-                        <label for="apellidoCasada">Apellido de Casada</label>
-                        <form:input path="apellidoCasada" class="form-control"/>
+                        <label for="apellidoCasada" class="form-label">Apellido de Casada</label>
+                        <form:input path="apellidoCasada" class="form-control" maxlength="25" pattern="^[a-zA-Z\s]*$" title="Solo se permiten letras"/>
                         <form:errors path="apellidoCasada" class="text-danger small"/>
                     </div>
                     <div class="p-2">
-                        <label for="sexo">Sexo*</label>
+                        <label for="sexo" class="form-label">Sexo*</label>
                         <form:select path="sexo" id="sexo" class="form-select">
                             <option value="X">Seleccione el Sexo</option>
                             <form:option value="M">Masculino</form:option>
@@ -58,7 +58,7 @@
                         <form:errors path="sexo" class="text-danger small"/>
                     </div>
                     <div class="p-2">
-                        <label for="estadoCivil">Estado Civil*</label>
+                        <label for="estadoCivil" class="form-label">Estado Civil*</label>
                         <form:select path="estadoCivil.idEstadoCivil" id="estadoCivil" class="form-select">
                             <option value="0">Seleccione un Estado Civil</option>
                             <form:options items="${estadosCiviles}" itemValue="idEstadoCivil" itemLabel="nombreEstado" />
@@ -66,17 +66,17 @@
                         <form:errors path="estadoCivil" class="text-danger small"/>
                     </div>
                     <div class="p-2">
-                        <label for="fechaNacimiento">Fecha de Nacimiento*</label>
+                        <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento*</label>
                         <form:input path="fechaNacimiento" type="date" class="form-control"/>
                         <form:errors path="fechaNacimiento" class="text-danger small"/>
                     </div>
                     <div class="p-2">
-                        <label for="correoPersonal">Correo Personal*</label>
-                        <form:input path="correoPersonal" class="form-control"/>
+                        <label for="correoPersonal" class="form-label">Correo Personal*</label>
+                        <form:input path="correoPersonal" class="form-control" type="email" maxlength="30" required="true"/>
                         <form:errors path="correoPersonal" class="text-danger small"/>
                     </div>
                     <div class="p-2">
-                        <label for="departamento">Departamento*</label>
+                        <label for="departamento" class="form-label">Departamento*</label>
                         <form:select path="municipio.departamento.idDepartamento" id="departamento" class="form-select">
                             <option value="0">Seleccione un Departamento</option>
                             <form:options items="${departamentos}" itemValue="idDepartamento" itemLabel="nombreDepartamento" />
@@ -84,9 +84,9 @@
                         <form:errors path="municipio.departamento" class="text-danger small"/>
                     </div>
                     <div class="p-2">
-                        <label for="municipio">Municipio*</label>
+                        <label for="municipio" class="form-label">Municipio*</label>
                         <form:select path="municipio.idMunicipio" id="municipio" class="form-select">
-                            <option value="0">Seleccione un Municipio</option>
+                            <option value="0">Seleccione un Departamento</option>
                         </form:select>
                         <form:errors path="municipio" class="text-danger small"/>
                     </div>
@@ -95,56 +95,60 @@
                 <h5 class="card-title">Documentos</h5>
                 <div class="d-flex flex-wrap justify-content-around mb-4">
                     <div class="p-2">
-                        <label for="tipoDocumento">Tipo de Documento*</label>
-                        <form:select class="form-select" path="tipoDocumento.idTipoDoc">
+                        <label for="tipoDocumento" class="form-label">Tipo de Documento*</label>
+                        <form:select class="form-select" path="tipoDocumento.idTipoDoc" id="tipoDocumento">
+                            <option value="0">Seleccione un Tipo</option>
                             <form:options items="${tiposDocumentos}" itemValue="idTipoDoc" itemLabel="nombreDoc" />
                         </form:select>
+                        <form:errors path="tipoDocumento" class="text-danger small"/>
                     </div>
                     <div class="p-2">
-                        <label for="numeroDoc">Número de Documento*</label>
-                        <form:input path="numeroDoc" class="form-control"/>
+                        <label for="numeroDoc" class="form-label">Número de Documento*</label>
+                        <form:input path="numeroDoc" class="form-control" id="numeroDoc" pattern="^[a-zA-Z0-9]{20}$" title="Deben ser maximo 20 caracteres" maxlength="20" required="true"/>
                         <form:errors path="numeroDoc" class="text-danger small"/>
                     </div>
                     <div class="p-2">
-                        <label for="nit">NIT</label>
-                        <form:input path="nit" class="form-control"/>
+                        <label for="nit" class="form-label">NIT</label>
+                        <form:input path="nit" class="form-control" id="nit" pattern="\d{4}-\d{6}-\d{3}-\d" title="Debe ser en formato XXXX-XXXXXX-XXX-X"/>
+                        <form:errors path="nit" class="text-danger small"/>
                     </div>
                     <div class="p-2">
-                        <label for="isss">ISSS*</label>
-                        <form:input path="isss" class="form-control"/>
+                        <label for="isss" class="form-label">ISSS*</label>
+                        <form:input path="isss" class="form-control" id="isss" pattern="\d{9}" title="Debe ser un número de 9 dígitos" required="true"/>
                         <form:errors path="isss" class="text-danger small"/>
                     </div>
                     <div class="p-2">
-                        <label for="nup">NUP</label>
-                        <form:input path="nup" class="form-control"/>
+                        <label for="nup" class="form-label">NUP</label>
+                        <form:input path="nup" class="form-control" id="nup" pattern="\d{12}" title="Debe ser un número de 12 dígitos"/>
+                        <form:errors path="nup" class="text-danger small"/>
                     </div>
                 </div>
                 <hr>
                 <h5 class="card-title">Datos empresariales</h5>
                 <div class="d-flex flex-wrap justify-content-around mb-4">
                     <div class="p-2">
-                        <label for="puesto">Puesto*</label>
+                        <label for="puesto" class="form-label">Puesto*</label>
                         <form:select class="form-select" path="puesto.idPuesto">
                             <form:options items="${puestos}" itemValue="idPuesto" itemLabel="nombrePuesto" />
                         </form:select>
                     </div>
                     <div class="p-2">
-                        <label for="salario">Salario*</label>
-                        <form:input path="salario" class="form-control" type="number" step="0.01"/>
+                        <label for="salario" class="form-label">Salario*</label>
+                        <form:input path="salario" class="form-control" id="salario" pattern="^\d{1,8}(\.\d{0,2})?$" title="Debe ser un número de 10 dígitos, ejemplo: 12345678.99" required="true"/>
                         <form:errors path="salario" class="text-danger small"/>
                     </div>
                     <div class="p-2">
-                        <label for="fechaIngreso">Fecha de Ingreso*</label>
+                        <label for="fechaIngreso" class="form-label">Fecha de Ingreso*</label>
                         <form:input path="fechaIngreso" type="date" value="${empleado.getFechaIngresoFormateada()}" class="form-control"/>
                         <form:errors path="fechaIngreso" class="text-danger small"/>
                     </div>
                     <div class="p-2">
-                        <label for="correoInstitucional">Correo Institucional*</label>
-                        <form:input path="correoInstitucional" class="form-control"/>
+                        <label for="correoInstitucional" class="form-label">Correo Institucional*</label>
+                        <form:input path="correoInstitucional" class="form-control" type="email" maxlength="30" required="true"/>
                         <form:errors path="correoInstitucional" class="text-danger small"/>
                     </div>
                     <div class="p-2">
-                        <label for="supervisor">Jefe Inmediato</label>
+                        <label for="supervisor" class="form-label">Jefe Inmediato</label>
                         <form:select class="form-select" path="supervisor.idEmpleado">
                             <form:option value="0">Sin Jefe Inmediato</form:option>
                             <c:forEach var="empleado" items="${empleados}">
@@ -169,19 +173,17 @@
             </div>
 
             <div class="d-flex flex-row justify-content-center">
-                <a href="/datosEmpresa/editar">
-                    <button class="btn btn-success">
-                        <i class="bi bi-floppy"></i>
-                        Guardar
-                    </button>
-                </a>
+                <button class="btn btn-success">
+                    <i class="bi bi-floppy"></i>
+                    Guardar
+                </button>
             </div>
 
             </form:form>
         </div>
     </div>
 </div>
-<%@ include file="../base/footer.jsp" %>
+
 <script>
 $(document).ready(function() {
     function toggleApellidoCasada() {
@@ -227,3 +229,71 @@ $(document).ready(function() {
     });
 });
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        function applyMasking() {
+            var numeroDocInput = document.getElementById('numeroDoc');
+            var tipoDocumentoSelect = document.getElementById('tipoDocumento');
+            var tipoDocumentoIndex = tipoDocumentoSelect.selectedIndex;
+            var tipoDocumentoText = tipoDocumentoSelect.options[tipoDocumentoIndex].text;
+
+            // Remover evento previo para evitar duplicados
+            numeroDocInput.removeEventListener('input', duiMask);
+
+            if (tipoDocumentoText === 'DUI') {
+                numeroDocInput.pattern = "\\d{8}-\\d";
+                numeroDocInput.title = "Debe ser en formato XXXXXXXX-X";
+                numeroDocInput.maxLength = 10;
+                numeroDocInput.addEventListener('input', duiMask);
+                // Aplicar máscara inmediatamente
+                numeroDocInput.dispatchEvent(new Event('input'));
+            } else {
+                numeroDocInput.pattern = '^[a-zA-Z0-9]{20}$';
+                numeroDocInput.title = "Deben ser máximo 20 caracteres";
+                numeroDocInput.maxLength = 20;
+            }
+        }
+
+        function duiMask(e) {
+            var x = e.target.value.replace(/\D/g, '').match(/(\d{0,8})(\d{0,1})/);
+            e.target.value = !x[2] ? x[1] : x[1] + '-' + x[2];
+        }
+
+        // Aplicar la máscara cuando se cambia el tipo de documento
+        document.getElementById('tipoDocumento').addEventListener('change', function () {
+            var numeroDocInput = document.getElementById('numeroDoc');
+            numeroDocInput.value = ''; // Limpiar el valor del campo
+            applyMasking();
+        });
+
+        // Aplicar la máscara al cargar la página
+        applyMasking();
+    });
+</script>
+
+
+
+<script>
+    document.getElementById('isss').addEventListener('input', function (e) {
+        e.target.value = e.target.value.replace(/\D/g, '').slice(0, 9);
+    });
+
+    document.getElementById('nup').addEventListener('input', function (e) {
+        e.target.value = e.target.value.replace(/\D/g, '').slice(0, 12);
+    });
+
+    document.getElementById('nit').addEventListener('input', function (e) {
+        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,4})(\d{0,6})(\d{0,3})(\d{0,1})/);
+        e.target.value = !x[2] ? x[1] : x[1] + '-' + x[2] + (x[3] ? '-' + x[3] : '') + (x[4] ? '-' + x[4] : '');
+    });
+
+    document.getElementById('salario').addEventListener('input', function (e) {
+        e.target.value = e.target.value.replace(/[^\d.]/g, '').slice(0, 11);
+    });
+
+    </script>
+
+
+<%@ include file="../base/footer.jsp" %>
+

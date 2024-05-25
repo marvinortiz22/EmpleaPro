@@ -97,7 +97,7 @@
                     </c:if>
                     <div class="p-2">
                         <strong>Salario: </strong>
-                        <fmt:formatNumber value="${empleado.salario}" pattern="$#,##0" />
+                        <fmt:formatNumber value="${empleado.salario}" pattern="$##,###,##0.00" />
                     </div>
                     <div class="p-2">
                         <strong>Fecha ingreso: </strong>

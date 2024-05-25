@@ -45,6 +45,7 @@ public class Empleado {
 
     @NotBlank(message = "El campo es obligatorio")
     @Size(max = 20, message = "El campo no puede tener más de 20 caracteres")
+    @Pattern(regexp = "^[a-zA-Z\\s]*$", message = "Solo letras!!!")
     private String nombre1;
 
     @Size(max = 20, message = "El campo no puede tener más de 20 caracteres")
@@ -57,7 +58,7 @@ public class Empleado {
     @Size(max = 20, message = "El campo no puede tener más de 20 caracteres")
     private String apellido2;
 
-    @Size(max = 20, message = "El campo no puede tener más de 20 caracteres")
+    @Size(max = 25, message = "El campo no puede tener más de 25 caracteres")
     private String apellidoCasada;
 
     private String sexo;
@@ -70,26 +71,29 @@ public class Empleado {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaIngreso = new Date();
 
-    @NotBlank(message = "El campo es obligatorio")
-    @Size(max = 20, message = "El campo no puede tener más de 20 caracteres")
     private String numeroDoc;
 
+    @Pattern(regexp = "^$|^\\d{4}-\\d{6}-\\d{3}-\\d$", message = "Debe ser en formato XXXX-XXXXXX-XXX-X")
     private String nit;
 
+
     @NotBlank(message = "El campo es obligatorio")
-    @Size(max = 20, message = "El campo no puede tener más de 20 caracteres")
+    @Pattern(regexp = "\\d{9}", message = "El campo debe contener exactamente 9 dígitos")
     private String isss;
 
+    @Pattern(regexp = "^$|^\\d{12}$", message = "El campo debe contener exactamente 12 dígitos")
     private String nup;
 
     private BigDecimal salario;
 
     @NotBlank(message = "El campo es obligatorio")
     @Email(message = "El correo debe tener un formato válido")
+    @Size(max = 30, message = "El campo no puede tener más de 30 caracteres")
     private String correoInstitucional;
 
     @NotBlank(message = "El campo es obligatorio")
     @Email(message = "El correo debe tener un formato válido")
+    @Size(max = 30, message = "El campo no puede tener más de 30 caracteres")
     private String correoPersonal;
 
     private boolean estado = true;
