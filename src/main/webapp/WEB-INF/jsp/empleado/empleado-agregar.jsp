@@ -2,12 +2,26 @@
 <%@ include file="../base/navbar.jsp" %>
 
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
-<title>Agregar empleado</title>
+<title>
+    <c:if test="${empty empleado.idEmpleado}">
+        Agregar empleado
+    </c:if>
+    <c:if test="${!empty empleado.idEmpleado}">
+        Editar empleado
+    </c:if>
+</title>
 
 <div class="container-fluid">
     <div class="card bg-light mx-3 my-4">
         <div class="card-header d-flex justify-content-center">
-            <h1 class="mt-1 mb-2">Agregar empleado</h1>
+            <h1 class="mt-1 mb-2">
+                <c:if test="${empty empleado.idEmpleado}">
+                    Agregar empleado
+                </c:if>
+                <c:if test="${!empty empleado.idEmpleado}">
+                    Editar empleado
+                </c:if>
+            </h1>
         </div>
 
         <div class="card-body">
@@ -19,6 +33,9 @@
             <hr>
 
             <form:form modelAttribute="empleado" method="post" action="guardar">
+            <c:if test="${!empty empleado.idEmpleado}">
+                <form:hidden path="idEmpleado"/>
+            </c:if>
 
             <div class="d-flex flex-column mt-4 mb-4">
                 <h5 class="card-title">Datos personales</h5>

@@ -54,7 +54,7 @@
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </a>
-                            <a href="/usuarioEjemplo/editar?id=${usuario.idUsuario}">
+                            <a href="/empleado/editar?id=${empleado.idEmpleado}">
                                 <button title="Editar" class="btn btn-warning btn-sm">
                                     <i class="fas fa-pen-to-square"></i>
                                 </button>

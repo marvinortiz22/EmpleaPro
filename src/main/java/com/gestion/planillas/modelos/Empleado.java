@@ -21,7 +21,7 @@ import java.util.List;
 public class Empleado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idEmpleado;
+    private Integer idEmpleado;
 
     @ManyToOne
     @JoinColumn(name = "IDPUESTO")
@@ -105,11 +105,11 @@ public class Empleado {
     )
     private List<ProfesionOficio> profesionOficios;
 
-    public int getIdEmpleado() {
+    public Integer getIdEmpleado() {
         return idEmpleado;
     }
 
-    public void setIdEmpleado(int idEmpleado) {
+    public void setIdEmpleado(Integer idEmpleado) {
         this.idEmpleado = idEmpleado;
     }
 

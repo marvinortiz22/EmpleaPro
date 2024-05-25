@@ -9,6 +9,9 @@ import com.gestion.planillas.modelos.*;
 import com.gestion.planillas.modelos.Otros.Alert;
 import jakarta.validation.Valid;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +45,8 @@ public class EmpleadoController {
     private com.gestion.planillas.DAO.empleadoRepository empleadoRepository;
     @Autowired
     private com.gestion.planillas.DAO.oficioDAO oficioDAO;
+    @Autowired
+    private SessionFactory sessionFactory2;
 
     @GetMapping("/listar")
     @AccessControl(roles="ROLE_Administrador")
@@ -90,6 +95,14 @@ public class EmpleadoController {
     @GetMapping("/agregar")
     public String agregar(Model model) {
         model.addAttribute("empleado", new Empleado());
+        agregarListasModelo(model);
+        return "empleado/empleado-agregar";
+    }
+
+    @GetMapping("/editar")
+    public String editar(Model model, @RequestParam("id") int id) {
+        Empleado empleado = empleadoDAO.getEmpleado(id);
+        model.addAttribute("empleado", empleado);
         agregarListasModelo(model);
         return "empleado/empleado-agregar";
     }
@@ -190,23 +203,54 @@ public class EmpleadoController {
     }
 
     public void validarUnicidadEmpleado(Empleado empleado, BindingResult result) {
-        if (empleadoRepository.existsByNumeroDoc(empleado.getNumeroDoc())) {
-            result.rejectValue("numeroDoc", "error.empleado", "El número de documento ya está en uso.");
-        }
-        if (empleadoRepository.existsByNit(empleado.getNit())) {
-            result.rejectValue("nit", "error.empleado", "El NIT ya está en uso.");
-        }
-        if (empleadoRepository.existsByIsss(empleado.getIsss())) {
-            result.rejectValue("isss", "error.empleado", "El ISSS ya está en uso.");
-        }
-        if (empleadoRepository.existsByNup(empleado.getNup())) {
-            result.rejectValue("nup", "error.empleado", "El NUP ya está en uso.");
-        }
-        if (empleadoRepository.existsByCorreoInstitucional(empleado.getCorreoInstitucional())) {
-            result.rejectValue("correoInstitucional", "error.empleado", "El correo institucional ya está en uso.");
-        }
-        if (empleadoRepository.existsByCorreoPersonal(empleado.getCorreoPersonal())) {
-            result.rejectValue("correoPersonal", "error.empleado", "El correo personal ya está en uso.");
+        if (empleado.getIdEmpleado() != null) {
+
+            Empleado existente = null;
+
+            try (Session session = sessionFactory2.openSession()) {
+                existente = session.get(Empleado.class, empleado.getIdEmpleado());
+                // Resto del código de validación aquí
+            } catch (Exception e) {
+                // Manejar excepciones si es necesario
+            }
+
+            if (!empleado.getNumeroDoc().equals(existente.getNumeroDoc()) && empleadoRepository.existsByNumeroDoc(empleado.getNumeroDoc())) {
+                result.rejectValue("numeroDoc", "error.empleado", "El número de documento ya está en uso.");
+            }
+            if (!empleado.getNit().equals(existente.getNit()) && empleadoRepository.existsByNit(empleado.getNit())) {
+                result.rejectValue("nit", "error.empleado", "El NIT ya está en uso.");
+            }
+            if (!empleado.getIsss().equals(existente.getIsss()) && empleadoRepository.existsByIsss(empleado.getIsss())) {
+                result.rejectValue("isss", "error.empleado", "El ISSS ya está en uso.");
+            }
+            if (!empleado.getNup().equals(existente.getNup()) && empleadoRepository.existsByNup(empleado.getNup())) {
+                result.rejectValue("nup", "error.empleado", "El NUP ya está en uso.");
+            }
+            if (!empleado.getCorreoInstitucional().equals(existente.getCorreoInstitucional()) && empleadoRepository.existsByCorreoInstitucional(empleado.getCorreoInstitucional())) {
+                result.rejectValue("correoInstitucional", "error.empleado", "El correo institucional ya está en uso.");
+            }
+            if (!empleado.getCorreoPersonal().equals(existente.getCorreoPersonal()) && empleadoRepository.existsByCorreoPersonal(empleado.getCorreoPersonal())) {
+                result.rejectValue("correoPersonal", "error.empleado", "El correo personal ya está en uso.");
+            }
+        } else {
+            if (empleadoRepository.existsByNumeroDoc(empleado.getNumeroDoc())) {
+                result.rejectValue("numeroDoc", "error.empleado", "El número de documento ya está en uso.");
+            }
+            if (empleadoRepository.existsByNit(empleado.getNit())) {
+                result.rejectValue("nit", "error.empleado", "El NIT ya está en uso.");
+            }
+            if (empleadoRepository.existsByIsss(empleado.getIsss())) {
+                result.rejectValue("isss", "error.empleado", "El ISSS ya está en uso.");
+            }
+            if (empleadoRepository.existsByNup(empleado.getNup())) {
+                result.rejectValue("nup", "error.empleado", "El NUP ya está en uso.");
+            }
+            if (empleadoRepository.existsByCorreoInstitucional(empleado.getCorreoInstitucional())) {
+                result.rejectValue("correoInstitucional", "error.empleado", "El correo institucional ya está en uso.");
+            }
+            if (empleadoRepository.existsByCorreoPersonal(empleado.getCorreoPersonal())) {
+                result.rejectValue("correoPersonal", "error.empleado", "El correo personal ya está en uso.");
+            }
         }
     }
 

@@ -140,7 +140,7 @@
             </div>
 
             <div class="d-flex flex-row justify-content-center">
-                <a href="/datosEmpresa/editar">
+                <a href="/empleado/editar?id=${empleado.idEmpleado}">
                     <button title="Editar" class="btn btn-warning">
                         Editar <i class="fas fa-pen-to-square"></i>
                     </button>
