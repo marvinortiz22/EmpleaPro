@@ -14,11 +14,11 @@
                         <th>#</th>
                         <th>Puesto</th>
                         <th>Nombre</th>
-                        <th>Documento</th>
                         <th>Estado</th>
-                        <th>Fecha Modificación</th>
+                        <th>Fecha y Hora de Modificación</th>
                         <th>Tipo de Modificación</th>
                         <th>Modificado Por</th>
+                        <th>Ver Detalles</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,16 +37,6 @@
                             </td>
                             <td>
                                 ${empleado.nombre1} <c:if test="${empleado.nombre2 != null}">${empleado.nombre2}</c:if>, ${empleado.apellido1} <c:if test="${empleado.apellido2 != null}">${empleado.apellido2}</c:if>
-                            </td>
-                            <td>
-                                <c:choose>
-                                    <c:when test="${empleado.tipoDocumento != null}">
-                                        ${empleado.tipoDocumento.nombreDoc} - ${empleado.numeroDoc}
-                                    </c:when>
-                                    <c:otherwise>
-                                        N/A
-                                    </c:otherwise>
-                                </c:choose>
                             </td>
                             <td>
                                 <c:choose>
@@ -73,6 +63,13 @@
                                         N/A
                                     </c:otherwise>
                                 </c:choose>
+                            </td>
+                            <td>
+                                <a href="/auditoria/detalles?id=${empleado.idAuditoriaEmpleado}">
+                                    <button title="Ver detalles" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </a>
                             </td>
                         </tr>
                     </c:forEach>

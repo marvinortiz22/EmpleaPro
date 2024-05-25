@@ -3,9 +3,12 @@
 <title>Datos de la empresa</title>
 <%@ include file="../base/navbar.jsp" %>
 <div class="container-fluid px-4">
-    <div class="d-flex justify-content-center">
-        <h1 class="mt-4 mb-5">Detalles de la empresa</h1>
+    <div class="card bg-light mx-3 my-4">
+        <div class="card-header d-flex justify-content-center">
+            <h1 class="mt-1 mb-2">Detalles de la empresa</h1>
+        </div>
     </div>
+    
     <div class="row">
         <div class="col-8"></div>
         <div class="col-3">
