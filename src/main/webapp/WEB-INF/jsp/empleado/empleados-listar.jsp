@@ -37,7 +37,7 @@
                         </td>
                         <td>
                             <c:if test="${empleado.tipoDocumento != null}">
-                            ${empleado.tipoDocumento.nombreDoc} - ${empleado.numeroDoc}<br>
+                            ${empleado.tipoDocumento.nombreDoc}: ${empleado.numeroDoc}<br>
                             </c:if>
                         </td>
                         <td>

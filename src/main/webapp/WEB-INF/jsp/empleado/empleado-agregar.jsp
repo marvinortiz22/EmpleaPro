@@ -104,7 +104,7 @@
                     </div>
                     <div class="p-2">
                         <label for="numeroDoc" class="form-label">Número de Documento*</label>
-                        <form:input path="numeroDoc" class="form-control" id="numeroDoc" pattern="^[a-zA-Z0-9]{20}$" title="Deben ser maximo 20 caracteres" maxlength="20" required="true"/>
+                        <form:input path="numeroDoc" class="form-control" id="numeroDoc" pattern="^[a-zA-Z0-9]{20}$" disabled="true" title="Deben ser maximo 20 caracteres" maxlength="20" required="true"/>
                         <form:errors path="numeroDoc" class="text-danger small"/>
                     </div>
                     <div class="p-2">
@@ -151,19 +151,23 @@
                         <label for="supervisor" class="form-label">Jefe Inmediato</label>
                         <form:select class="form-select" path="supervisor.idEmpleado">
                             <form:option value="0">Sin Jefe Inmediato</form:option>
-                            <c:forEach var="empleado" items="${empleados}">
-                                <option value="${empleado.idEmpleado}">
-                                    ${empleado.nombre1}
-                                    ${empleado.nombre2},
-                                    ${empleado.apellido1}
-                                    <c:if test="${empleado.apellidoCasada == null}">
-                                        ${empleado.supervisor.apellido2}
+                            <c:forEach var="empleadoSup" items="${empleados}">
+                                <option value="${empleadoSup.idEmpleado}"
+                                    <c:if test="${empleadoSup.idEmpleado == empleado.supervisor.idEmpleado}">
+                                        selected
                                     </c:if>
-                                    <c:if test="${empleado.apellidoCasada != null}">
-                                        De ${empleado.apellidoCasada}
+                                >
+                                    ${empleadoSup.nombre1}
+                                    ${empleadoSup.nombre2},
+                                    ${empleadoSup.apellido1}
+                                    <c:if test="${empleadoSup.apellidoCasada == null}">
+                                        ${empleadoSup.apellido2}
                                     </c:if>
-                                    <c:if test="${empleado.tipoDocumento != null}">
-                                        (${empleado.tipoDocumento.nombreDoc}: ${empleado.numeroDoc})
+                                    <c:if test="${empleadoSup.apellidoCasada != null}">
+                                        De ${empleadoSup.apellidoCasada}
+                                    </c:if>
+                                    <c:if test="${empleadoSup.tipoDocumento != null}">
+                                        (${empleadoSup.tipoDocumento.nombreDoc}: ${empleadoSup.numeroDoc})
                                     </c:if>
                                 </option>
                             </c:forEach>
@@ -205,9 +209,12 @@ $(document).ready(function() {
 
 <script>
 $(document).ready(function() {
+    var selectedDepartamentoId = "${empleado.municipio.departamento.idDepartamento}";
+    var selectedMunicipioId = "${empleado.municipio.idMunicipio}";
+
     $('#departamento').change(function() {
         var departamentoId = $(this).val();
-        if(departamentoId) {
+        if (departamentoId) {
             $.ajax({
                 url: '/municipio/' + departamentoId,
                 type: 'GET',
@@ -217,6 +224,11 @@ $(document).ready(function() {
                     $.each(data, function(index, municipio) {
                         $('#municipio').append('<option value="' + municipio.idMunicipio + '">' + municipio.nombreMunicipio + '</option>');
                     });
+
+                    // Preseleccionar el municipio si es necesario
+                    if (departamentoId == selectedDepartamentoId) {
+                        $('#municipio').val(selectedMunicipioId);
+                    }
                 },
                 error: function() {
                     alert('Error al obtener municipios');
@@ -227,6 +239,32 @@ $(document).ready(function() {
             $('#municipio').append('<option value="">Seleccione un municipio</option>');
         }
     });
+
+    // Trigger change event to load municipios on page load if a department is selected
+    if (selectedDepartamentoId) {
+        $('#departamento').val(selectedDepartamentoId).change();
+    }
+});
+</script>
+
+<script>
+$(document).ready(function() {
+    function toggleNumeroDoc() {
+        var tipoDocumento = $('#tipoDocumento').val();
+        var numeroDocInput = $('#numeroDoc');
+
+        if (tipoDocumento !== '0') {
+            numeroDocInput.prop('disabled', false);
+        } else {
+            numeroDocInput.prop('disabled', true);
+            numeroDocInput.val('');
+        }
+    }
+
+    $('#tipoDocumento').change(toggleNumeroDoc);
+
+    // Llamada inicial para manejar el caso de que la página se recargue con un valor seleccionado
+    toggleNumeroDoc();
 });
 </script>
 
