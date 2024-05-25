@@ -1,6 +1,7 @@
 package com.gestion.planillas.Controllers;
 
 import com.gestion.planillas.DAO.usuarioDAO;
+import com.gestion.planillas.Otros.AccessControl;
 import com.gestion.planillas.modelos.ProfesionOficio;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ public class OficioController {
     @Autowired
     private oficioDAO oficioDAO;
     @GetMapping("/listar")
+    @AccessControl(roles="ROLE_Ver_profesiones_y_oficios")
     public String listarOficios(Model model){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         List<Object[]> profyOficios = oficioDAO.getProfConJoin();

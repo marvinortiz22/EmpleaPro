@@ -15,9 +15,16 @@ public class auditoriaDAOImpl implements auditoriaDAO{
     private SessionFactory sessionFactory;
 
     @Override
-    public List<Auditoria_Empleado> getAuditoriaEmp() {
+    public List<Auditoria_Empleado> getAuditoriaEmps() {
         Session session=sessionFactory.getCurrentSession();
         Query<Auditoria_Empleado> query = session.createQuery("FROM Auditoria_Empleado", Auditoria_Empleado.class);
         return query.getResultList();
     }
+
+    @Override
+    public Auditoria_Empleado getAuditoriaEmp(Integer id) {
+        Session session=sessionFactory.getCurrentSession();
+        return session.get(Auditoria_Empleado.class,id);
+    }
+
 }

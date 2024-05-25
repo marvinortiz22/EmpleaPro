@@ -144,7 +144,7 @@
                                     data-bs-parent="#sidenavAccordion">
                                     <nav class="sb-sidenav-menu-nested nav">
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_auditoria_de_empleados'}">
-                                            <a class="nav-link" href="#">Empleados</a>
+                                            <a class="nav-link" href="/auditoria/empleados">Empleados</a>
                                         </c:if>
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_auditoria_de_deducciones_y_beneficios_globales'}">
                                             <a class="nav-link" href="#">Deducciones y beneficios globales</a>

@@ -2,11 +2,20 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <title>Editar datos empresa</title>
 <%@ include file="../base/navbar.jsp" %>
-<div class="d-flex justify-content-center">
-    <h1 class="mt-5 mb-3">Editar Detalles de la empresa</h1>
+<div class="card bg-light mx-3 my-4">
+    <div class="card-header d-flex justify-content-center">
+        <h1 class="mt-1 mb-2">Editar Detalles de la empresa</h1>
+    </div>
 </div>
-
-
+<div class="d-flex flex-row">
+    <div class="col-1"></div>
+    <div class="col-3">
+        <a href="/datosEmpresa/listar">
+            <button title="Lista principal" class="btn btn-primary"> ← Regresar </button>
+        </a>
+    </div>
+    <div class="col-8"></div>
+</div>
 <form:form modelAttribute="datosEmpresa" method="POST" action="/datosEmpresa/editar" class="container mx-2 mt-4">
     <div class="row mt-5 mb-2">
         <form:hidden path="idEmpresa"/>
