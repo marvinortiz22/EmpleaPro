@@ -70,6 +70,9 @@
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_empleados'}">
                                             <a class="nav-link" href="/empleado/listar">Ver empleados</a>
                                         </c:if>
+                                        <c:if test="${permiso.nombrePermiso=='ROLE_Ver_permisos_y_licencias'}">
+                                            <a class="nav-link" href="/permiso/listar">Permisos</a>
+                                        </c:if>
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_horas_trabajadas'}">
                                             <a class="nav-link" href="#">Horas trabajadas</a>
                                         </c:if>

@@ -323,5 +323,12 @@ public class Empleado {
     public Empleado() {
     }
 
+    public String getNombreCompleto() {
+        String nombre1 = this.nombre1 != null ? this.nombre1 : "";
+        String nombre2 = this.nombre2 != null ? this.nombre2 : "";
+        String apellido1 = this.apellido1 != null ? this.apellido1 : "";
+        String apellido2 = this.apellido2 != null ? this.apellido2 : "";
+        return String.format("%s %s %s %s", nombre1, nombre2, apellido1, apellido2).trim().replaceAll(" +", " ");
+    }
 
 }
