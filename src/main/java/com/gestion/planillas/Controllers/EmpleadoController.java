@@ -9,13 +9,14 @@ import com.gestion.planillas.modelos.*;
 import com.gestion.planillas.modelos.Otros.Alert;
 import jakarta.validation.Valid;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -40,6 +41,12 @@ public class EmpleadoController {
     private  com.gestion.planillas.DAO.departamentoDAO departamentoDAO;
     @Autowired
     private  com.gestion.planillas.DAO.municipioDAO municipioDAO;
+    @Autowired
+    private com.gestion.planillas.DAO.empleadoRepository empleadoRepository;
+    @Autowired
+    private com.gestion.planillas.DAO.oficioDAO oficioDAO;
+    @Autowired
+    private SessionFactory sessionFactory2;
 
     @GetMapping("/listar")
     @AccessControl(roles="ROLE_Administrador")
@@ -92,10 +99,21 @@ public class EmpleadoController {
         return "empleado/empleado-agregar";
     }
 
+    @GetMapping("/editar")
+    public String editar(Model model, @RequestParam("id") int id) {
+        Empleado empleado = empleadoDAO.getEmpleado(id);
+        model.addAttribute("empleado", empleado);
+        agregarListasModelo(model);
+        return "empleado/empleado-agregar";
+    }
+
     @PostMapping("/guardar")
     public String guardar(@Valid @ModelAttribute("empleado") Empleado empleado, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         //validar fechanac
         validarFechaNacimiento(empleado.getFechaNacimiento(), result);
+
+        // Validar unicidad
+        validarUnicidadEmpleado(empleado, result);
 
         //validar apellido casada
         if (!(empleado.getEstadoCivil().getIdEstadoCivil() == 2 && empleado.getSexo().equals("F"))){
@@ -117,6 +135,10 @@ public class EmpleadoController {
         }
         if (empleado.getTipoDocumento().getIdTipoDoc() == 0) {
             result.rejectValue("tipoDocumento", "error.empleado", "Debe seleccionar un tipo válido.");
+        }
+        // Validar que se haya seleccionado al menos una profesión u oficio
+        if (empleado.getProfesionOficios() == null || empleado.getProfesionOficios().isEmpty()) {
+            result.rejectValue("profesionOficios", "error.empleado", "Debe seleccionar al menos una.");
         }
 
         //validar nulls
@@ -180,6 +202,58 @@ public class EmpleadoController {
         return "redirect:/empleado/listar";
     }
 
+    public void validarUnicidadEmpleado(Empleado empleado, BindingResult result) {
+        if (empleado.getIdEmpleado() != null) {
+
+            Empleado existente = null;
+
+            try (Session session = sessionFactory2.openSession()) {
+                existente = session.get(Empleado.class, empleado.getIdEmpleado());
+                // Resto del código de validación aquí
+            } catch (Exception e) {
+                // Manejar excepciones si es necesario
+            }
+
+            if (!empleado.getNumeroDoc().equals(existente.getNumeroDoc()) && empleadoRepository.existsByNumeroDoc(empleado.getNumeroDoc())) {
+                result.rejectValue("numeroDoc", "error.empleado", "El número de documento ya está en uso.");
+            }
+            if (!empleado.getNit().equals(existente.getNit()) && empleadoRepository.existsByNit(empleado.getNit())) {
+                result.rejectValue("nit", "error.empleado", "El NIT ya está en uso.");
+            }
+            if (!empleado.getIsss().equals(existente.getIsss()) && empleadoRepository.existsByIsss(empleado.getIsss())) {
+                result.rejectValue("isss", "error.empleado", "El ISSS ya está en uso.");
+            }
+            if (!empleado.getNup().equals(existente.getNup()) && empleadoRepository.existsByNup(empleado.getNup())) {
+                result.rejectValue("nup", "error.empleado", "El NUP ya está en uso.");
+            }
+            if (!empleado.getCorreoInstitucional().equals(existente.getCorreoInstitucional()) && empleadoRepository.existsByCorreoInstitucional(empleado.getCorreoInstitucional())) {
+                result.rejectValue("correoInstitucional", "error.empleado", "El correo institucional ya está en uso.");
+            }
+            if (!empleado.getCorreoPersonal().equals(existente.getCorreoPersonal()) && empleadoRepository.existsByCorreoPersonal(empleado.getCorreoPersonal())) {
+                result.rejectValue("correoPersonal", "error.empleado", "El correo personal ya está en uso.");
+            }
+        } else {
+            if (empleadoRepository.existsByNumeroDoc(empleado.getNumeroDoc())) {
+                result.rejectValue("numeroDoc", "error.empleado", "El número de documento ya está en uso.");
+            }
+            if (empleadoRepository.existsByNit(empleado.getNit())) {
+                result.rejectValue("nit", "error.empleado", "El NIT ya está en uso.");
+            }
+            if (empleadoRepository.existsByIsss(empleado.getIsss())) {
+                result.rejectValue("isss", "error.empleado", "El ISSS ya está en uso.");
+            }
+            if (empleadoRepository.existsByNup(empleado.getNup())) {
+                result.rejectValue("nup", "error.empleado", "El NUP ya está en uso.");
+            }
+            if (empleadoRepository.existsByCorreoInstitucional(empleado.getCorreoInstitucional())) {
+                result.rejectValue("correoInstitucional", "error.empleado", "El correo institucional ya está en uso.");
+            }
+            if (empleadoRepository.existsByCorreoPersonal(empleado.getCorreoPersonal())) {
+                result.rejectValue("correoPersonal", "error.empleado", "El correo personal ya está en uso.");
+            }
+        }
+    }
+
     private void validarFechaNacimiento(Date fechaNacimiento, BindingResult result) {
         if (fechaNacimiento == null) {
             result.rejectValue("fechaNacimiento", "error.empleado", "La fecha de nacimiento es obligatoria");
@@ -214,5 +288,8 @@ public class EmpleadoController {
 
         List<Empleado> empleados = empleadoDAO.getEmpleados();
         model.addAttribute("empleados", empleados);
+
+        List<ProfesionOficio> profesionesOficios = oficioDAO.getProfyOficios();
+        model.addAttribute("profesionesOficios", profesionesOficios);
     }
 }
