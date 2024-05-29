@@ -10,13 +10,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.gestion.planillas.DAO.contaduriaDAO;
 import com.gestion.planillas.DAO.usuarioDAO;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/contaduria")
+@RequestMapping("/contabilidad")
 public class contaduriaController {
     @Autowired
     private contaduriaDAO contaduriaDAO;
@@ -27,11 +29,6 @@ public class contaduriaController {
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         List<Object[]> planillaList = contaduriaDAO.planilla("2024-05-21","2024-05-23");
         List<Map<String, Object>> resultados = new ArrayList<>();
-        for (Object[] planilla : planillaList) {
-            for(Object campo:planilla){
-                System.out.print(campo.toString());
-            }
-        }
         for (Object[] planilla : planillaList) {
             Map<String, Object> resultado = new HashMap<>();
             resultado.put("Número de documento", planilla[0]);

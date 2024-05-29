@@ -87,7 +87,7 @@ public class SecurityController {
         }
     }
 
-    @GetMapping("logout")
+    /*@GetMapping("logout")
     public String logout(){
         return "redirect:/usuario/listar";
     }
