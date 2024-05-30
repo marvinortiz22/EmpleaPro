@@ -151,7 +151,6 @@ public class boletasController {
         }
 
         model.addAttribute("json",jsonString);
-        model.addAttribute("boleta2",resultados);
 
         return "contaduria/boleta";
     }

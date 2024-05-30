@@ -71,14 +71,12 @@
                                             <a class="nav-link" href="/empleado/listar">Ver empleados</a>
                                         </c:if>
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_permisos_y_licencias'}">
-                                            <a class="nav-link" href="/permiso/listar">Permisos</a>
+                                            <a class="nav-link" href="/permiso/listar">Permisos y Licencias</a>
                                         </c:if>
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_horas_trabajadas'}">
                                             <a class="nav-link" href="#">Horas trabajadas</a>
                                         </c:if>
-                                        <c:if test="${permiso.nombrePermiso=='ROLE_Ver_permisos_y_licencias'}">
-                                            <a class="nav-link" href="#">Permisos y licencias</a>
-                                        </c:if>
+
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_vacaciones'}">
                                             <a class="nav-link" href="#">Vacaciones</a>
                                         </c:if>

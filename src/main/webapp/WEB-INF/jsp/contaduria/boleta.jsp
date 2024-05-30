@@ -37,15 +37,17 @@
 
 <body>
     <div class="container-fluid px-4">
-        <div class="d-flex justify-content-center">
-            <h1 class="mt-4">Boleta de depósito</h1>
-        </div>
-        <div class="d-flex justify-content-center">
-            <h2>Beneficios</h2>
+        <div class="d-flex flex-column align-items-center">
+            <h3 class="mt-4 mb-2">Nombre de la empresa</h3>
+            <h3 class="mb-2">Boleta de depósito</h3>
+            <h4>Empleado: nombre</h4>
+            <h4>Número de documento: 1</h4>
         </div>
         <div class="d-flex justify-content-end mb-4">
             <a href="#"><button title="Imprimir" class="btn btn-success me-1"><i class="fa-solid fa-print"></i></button></a>
-            
+        </div>
+        <div class="d-flex justify-content-center">
+            <h5 class="mt-4">Beneficios</h5>
         </div>
         <div class="row d-flex justify-content-center">
             <table id="benefits-table" class="col-md-8" style="text-align: start;">
@@ -106,8 +108,8 @@
 
             <table class="col-md-8 mt-4" style="text-align: start;">
                 <tr>
-                    <td>Salario neto</td>
-                    <td class="td2" id="salario-neto"></td>
+                    <th>Salario neto</th>
+                    <th class="td2" id="salario-neto"></th>
                 </tr>
             </table>
         </div>
