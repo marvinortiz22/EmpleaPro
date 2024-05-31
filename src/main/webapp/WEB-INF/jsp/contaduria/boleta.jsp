@@ -37,11 +37,13 @@
 
 <body>
     <div class="container-fluid px-4">
+        <a href="/contabilidad/listarEmpleados"><button title="Lista principal" class="btn btn-primary ms-4 mt-1">←</button></a>
         <div class="d-flex flex-column align-items-center">
-            <h3 class="mt-4 mb-2">Nombre de la empresa</h3>
-            <h3 class="mb-2">Boleta de depósito</h3>
-            <h4>Empleado: nombre</h4>
-            <h4>Número de documento: 1</h4>
+            <h5 id="nombreEmpresa" class="mt-4 mb-2">Nombre de la empresa</h5>
+            <h5 class="mb-2" style="text-align: center;">Boleta de pago correspondiente al período</h5>
+            <h5 id="rangoFechas" class="mb-2">del: al: </h5>
+            <h5 id="nombreEmpleado">Empleado: nombre</h5>
+            <h5 id="numeroDoc">Número de documento: 1 </h5>
         </div>
         <div class="d-flex justify-content-end mb-4">
             <a href="#"><button title="Imprimir" class="btn btn-success me-1"><i class="fa-solid fa-print"></i></button></a>
@@ -83,7 +85,7 @@
             </table>
 
             <div class="d-flex justify-content-center">
-                <h2>Deducciones</h2>
+                <h5>Deducciones</h5>
             </div>
 
             <table id="deductions-table" class="col-md-8" style="text-align: start;">
@@ -124,6 +126,10 @@
             let data = jsonData[0];
 
             // Beneficios
+            document.getElementById("nombreEmpresa").textContent=data["Empresa"];
+            document.getElementById("nombreEmpleado").textContent="Empleado: "+data["Nombre"];
+            document.getElementById("numeroDoc").textContent="Número de documento: "+data["Número de documento"];
+            document.getElementById("rangoFechas").textContent="del: "+data["fecha1"]+" al: "+data["fecha2"]
             document.getElementById("salario-hora").textContent = data["Salario/hora"];
             document.getElementById("horas-normales").textContent = data["Horas normales"];
             document.getElementById("salario-base").textContent = data["Salario*horas normales"];

@@ -3,10 +3,22 @@
 <title>Empleados</title>
 <%@ include file="../base/navbar.jsp" %>
     <div class="container-fluid px-4">
-        <div class="d-flex justify-content-center mb-5">
-            <h1 class="mt-4">Empleados</h1>
+        
+        <div class="d-flex flex-column align-items-center">
+            <h1 class="mt-4 mb-5">Empleados</h1>
+            <p class="mb-2">Seleccione un rango de fechas:</p>
         </div>
-    
+        <form:form method="post" id="miFormulario">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="">Desde:</label>
+                    <input type="date" class="form-control" name="fecha1" id="fecha1" value="2024-05-21"/>
+                </div>
+                <div class="col-md-6">
+                    <label for="">Hasta:</label>
+                    <input type="date" class="form-control" name="fecha2" id="fecha2" value="2024-05-23"/>
+                </div>
+            </div>
         <div class="card mb-4">
             
             <div class="card-body">
@@ -46,11 +58,11 @@
                             </c:if>
                         </td>
                         <td>
-                            <a href="/contabilidad/boleta?id=${empleado.idEmpleado}">
-                                <button title="Ver boleta de pago" class="btn btn-success">
+                            
+                                <button onclick="enviarFormulario(${empleado.idEmpleado})" title="Ver boleta de pago" class="btn btn-success">
                                     <i class="fas fa-dollar-sign"></i>
                                 </button>
-                            </a>
+                            
 
                         </td>
                         </tr>
@@ -59,5 +71,22 @@
                 </table>
             </div>
         </div>
+        </form:form>
     </div>
+    <script>
+        function enviarFormulario(idEmpleado) {
+            
+            // Actualiza la acción del formulario con el ID del empleado
+            document.getElementById("miFormulario").action = "/contabilidad/boleta?id=" + idEmpleado;
+            
+            let fecha1 = document.getElementById("fecha1").value;
+            let fecha2 = document.getElementById("fecha2").value;
+
+            if (fecha2 <= fecha1) {
+                alert("La fecha de fin debe ser mayor que la fecha de inicio.");
+                event.preventDefault(); 
+            }else
+                document.getElementById("miFormulario").submit();
+        }
+    </script>
 <%@ include file="../base/footer.jsp" %>
