@@ -1,6 +1,6 @@
 package com.gestion.planillas.Controllers;
 
-import com.gestion.planillas.DAO.deduccionGlobalDAO;
+import com.gestion.planillas.DAO.deduccionBeneficio;
 import com.gestion.planillas.modelos.DeduccionBeneficio;
 import com.gestion.planillas.modelos.DeduccionBeneficioGlobal;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.gestion.planillas.DAO.deduccionGlobalDAO;
 
 @Controller
 @RequestMapping("/deduccionesBeneficios")
 public class DeduccionesBeneficiosController {
     @Autowired
-    private deduccionGlobalDAO deduccionGlobalDAO;
+    private deduccionBeneficio deduccionGlobalDAO;
     @GetMapping("/d")
     public String insertarDeduccion(Model model){
         DeduccionBeneficioGlobal deduccionBeneficio=deduccionGlobalDAO.getDeduccionBeneficio(1);

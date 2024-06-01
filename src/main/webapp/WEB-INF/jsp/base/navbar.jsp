@@ -24,7 +24,7 @@
                         <li>
                             <hr class="dropdown-divider" />
                         </li>
-                        <li><a class="dropdown-item" href="#!">Cerrar sesión</a></li>
+                        <li><a class="dropdown-item" href="/logout">Cerrar sesión</a></li>
                     </ul>
                 </li>
             </ul>
@@ -71,14 +71,12 @@
                                             <a class="nav-link" href="/empleado/listar">Ver empleados</a>
                                         </c:if>
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_permisos_y_licencias'}">
-                                            <a class="nav-link" href="/permiso/listar">Permisos</a>
+                                            <a class="nav-link" href="/permiso/listar">Permisos y Licencias</a>
                                         </c:if>
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_horas_trabajadas'}">
                                             <a class="nav-link" href="#">Horas trabajadas</a>
                                         </c:if>
-                                        <c:if test="${permiso.nombrePermiso=='ROLE_Ver_permisos_y_licencias'}">
-                                            <a class="nav-link" href="#">Permisos y licencias</a>
-                                        </c:if>
+
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_vacaciones'}">
                                             <a class="nav-link" href="#">Vacaciones</a>
                                         </c:if>
@@ -98,10 +96,10 @@
                                     data-bs-parent="#sidenavAccordion">
                                     <nav class="sb-sidenav-menu-nested nav">
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_planilla'}">
-                                            <a class="nav-link" href="/contaduria/planilla">Planilla</a>
+                                            <a class="nav-link" href="/contabilidad/planilla">Planilla</a>
                                         </c:if>
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_boletas_de_pago'}">
-                                            <a class="nav-link" href="#">Boletas de pago</a>
+                                            <a class="nav-link" href="/contabilidad/listarEmpleados">Boletas de pago</a>
                                         </c:if>
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_deducciones_y_beneficios_globales'}">
                                             <a class="nav-link" href="#">Deducciones y beneficios generales</a>

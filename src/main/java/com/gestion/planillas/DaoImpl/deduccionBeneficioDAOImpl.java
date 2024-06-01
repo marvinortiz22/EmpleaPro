@@ -1,9 +1,8 @@
 package com.gestion.planillas.DaoImpl;
-import com.gestion.planillas.DAO.deduccionGlobalDAO;
+import com.gestion.planillas.DAO.deduccionBeneficio;
 import com.gestion.planillas.modelos.DeduccionBeneficioGlobal;
 import com.gestion.planillas.modelos.DeduccionBeneficio;
-import com.gestion.planillas.modelos.Rol;
-import com.gestion.planillas.modelos.Usuario;
+import com.gestion.planillas.modelos.DeduccionBeneficio_Empleado;
 import jakarta.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,16 +13,16 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class deduccionGlobalDAOImpl implements deduccionGlobalDAO{
+public class deduccionBeneficioDAOImpl implements deduccionBeneficio {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public List<DeduccionBeneficio> getDeduccionesGlobales() {
+    public List<DeduccionBeneficioGlobal> getDeduccionesGlobales() {
         Session session=sessionFactory.getCurrentSession();
-        Query<DeduccionBeneficio> query=session.createQuery("FROM DeduccionBeneficio",DeduccionBeneficio.class);
-        List<DeduccionBeneficio> deduccionBeneficios= query.getResultList();
+        Query<DeduccionBeneficioGlobal> query=session.createQuery("FROM DeduccionBeneficioGlobal",DeduccionBeneficioGlobal.class);
+        List<DeduccionBeneficioGlobal> deduccionBeneficios= query.getResultList();
         return deduccionBeneficios;
     }
 
@@ -32,6 +31,15 @@ public class deduccionGlobalDAOImpl implements deduccionGlobalDAO{
         Session session=sessionFactory.getCurrentSession();
         DeduccionBeneficioGlobal deduccionBeneficio=session.get(DeduccionBeneficioGlobal.class,id);
         return deduccionBeneficio;
+    }
+
+    @Override
+    public List<DeduccionBeneficio_Empleado> getDeduccionBeneficioEmp(int id) {
+        Session session=sessionFactory.getCurrentSession();
+        Query<DeduccionBeneficio_Empleado> query=session.createQuery("FROM DeduccionBeneficio_Empleado where empleado.idEmpleado=:id",DeduccionBeneficio_Empleado.class);
+        query.setParameter("id",id);
+        List<DeduccionBeneficio_Empleado> deduccionBeneficios= query.getResultList();
+        return deduccionBeneficios;
     }
 
     @Override

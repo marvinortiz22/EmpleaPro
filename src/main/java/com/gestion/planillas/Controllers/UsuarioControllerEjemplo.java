@@ -1,8 +1,6 @@
 package com.gestion.planillas.Controllers;
 
 import com.gestion.planillas.Otros.AccessControl;
-import com.gestion.planillas.modelos.DeduccionBeneficio;
-import com.gestion.planillas.modelos.DeduccionBeneficioGlobal;
 import com.gestion.planillas.modelos.Otros.Alert;
 import com.gestion.planillas.modelos.Rol;
 import com.gestion.planillas.modelos.Usuario;
@@ -17,7 +15,6 @@ import com.gestion.planillas.DAO.rolDAO;
 import com.gestion.planillas.DAO.permisoDAO;
 import com.gestion.planillas.DAO.tipoDocumentoDAO;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.gestion.planillas.DAO.deduccionGlobalDAO;
 
 import java.lang.System;
 

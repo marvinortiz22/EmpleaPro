@@ -1,5 +1,6 @@
 package com.gestion.planillas.Controllers;
 
+import com.gestion.planillas.Otros.AccessControl;
 import com.gestion.planillas.modelos.Otros.Alert;
 import com.gestion.planillas.modelos.Permiso;
 import com.gestion.planillas.modelos.Rol;
@@ -31,6 +32,7 @@ public class RolController {
     private permisoDAO permisoDAO;
 
     @GetMapping("/listar")
+    @AccessControl(roles="ROLE_Administrador")
     public String listar(Model model){
         List<Rol> roles=rolDAO.getRolesValidos();
         model.addAttribute("roles",roles);
@@ -43,6 +45,7 @@ public class RolController {
     }
 
     @GetMapping("/agregar")
+    @AccessControl(roles="ROLE_Administrador")
     public String agregar(Model model){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         Rol rol=new Rol();
@@ -72,6 +75,7 @@ public class RolController {
         return "redirect:/rol/listar";
     }
     @GetMapping("/editar")
+    @AccessControl(roles="ROLE_Administrador")
     public String editar(Model model,@RequestParam("id")int id){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         Rol rol=rolDAO.getRol(id);
@@ -87,6 +91,7 @@ public class RolController {
         return "rol/rol-editar";
     }
     @GetMapping("/detalles")
+    @AccessControl(roles="ROLE_Administrador")
     public String detalles(Model model,@RequestParam("id")int id){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         Rol rol=rolDAO.getRol(id);
