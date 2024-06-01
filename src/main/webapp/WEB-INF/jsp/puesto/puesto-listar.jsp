@@ -37,7 +37,12 @@
                             <fmt:formatNumber value="${puesto.salarioMax}" pattern="$##,###,##0.00" />
                         </td>
                         <td>
-                            ${puesto.unidad.nombreUnidad}
+                            <c:if test="${empty puesto.unidad}">
+                                N/A
+                            </c:if>
+                            <c:if test="${!empty puesto.unidad}">
+                                ${puesto.unidad.nombreUnidad}
+                            </c:if>
                         </td>
                         <td>
                             <c:if test="${puesto.estado}">

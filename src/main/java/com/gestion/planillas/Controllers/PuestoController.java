@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import com.gestion.planillas.modelos.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -28,5 +29,16 @@ public class PuestoController {
         model.addAttribute("puestos", puestos);
 
         return "puesto/puesto-listar";
+    }
+
+    @GetMapping("/detalles")
+    @AccessControl(roles="ROLE_Administrador")
+    public String detalles(Model model, @RequestParam("id") int id){
+        model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
+
+        Puesto puesto = puestoDAO.getPuesto(id);
+        model.addAttribute("puesto", puesto);
+
+        return "puesto/puesto-detalle";
     }
 }
