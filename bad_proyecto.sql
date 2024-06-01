@@ -361,8 +361,10 @@ alter table EMPLEADO add constraint FK_EMPLEADO_TIENE_TIPODOC foreign key (IDTIP
 alter table EMPLEADO add constraint FK_SE_LE_ASIGNA_PUESTO foreign key (IDPUESTO)
       references PUESTO (IDPUESTO) on delete restrict on update restrict;
 
+
 alter table EMPLEADO add constraint FK_SUPERVISA foreign key (EMP_IDEMPLEADO)
       references EMPLEADO (IDEMPLEADO) on delete restrict on update restrict;
+
 
 alter table EMPLEADO add constraint FK_TIENE_ESTADOCIVIL foreign key (IDESTADOCIVIL)
       references ESTADOCIVIL (IDESTADOCIVIL) on delete restrict on update restrict;

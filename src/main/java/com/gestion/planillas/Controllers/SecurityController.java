@@ -42,11 +42,11 @@ public class SecurityController {
                     return "redirect:/error/estado?user="+usuario.getUsername();
                 int intentosRestantes=3-usuario.getIntentosLogin();
                 if(intentosRestantes==1)
-                    errorMessage="Contraseña incorrecta, le queda 1 intento";
+                    errorMessage="Revise sus credenciales, le queda 1 intento";
                 else
-                    errorMessage="Contraseña incorrecta, le quedan "+intentosRestantes+" intentos";
+                    errorMessage="Revise sus credenciales, le quedan "+intentosRestantes+" intentos";
             }else{
-                errorMessage="Usuario no encontrado";
+                errorMessage="Revise sus credenciales";
             }
         }
         model.addAttribute("errorMessage",errorMessage);

@@ -116,7 +116,7 @@ public class EmpleadoController {
         validarUnicidadEmpleado(empleado, result);
 
         //validar apellido casada
-        if (!(empleado.getEstadoCivil().getIdEstadoCivil() == 2 && empleado.getSexo().equals("F"))){
+        if (!(empleado.getEstadoCivil().getIdEstadoCivil() == 2 && empleado.getSexo().equals("F"))) {
             empleado.setApellidoCasada(null);
         }
 
@@ -163,7 +163,7 @@ public class EmpleadoController {
             if (tipoDocumento.getNombreDoc().equals("DUI") && !empleado.getNumeroDoc().matches("\\d{8}-\\d")) {
                 result.rejectValue("numeroDoc", "error.empleado", "Debe ser en formato XXXXXXXX-X");
             }
-            if (!tipoDocumento.getNombreDoc().equals("DUI") && !empleado.getNumeroDoc().matches("^[a-zA-Z0-9]{20}$")){
+            if (!tipoDocumento.getNombreDoc().equals("DUI") && !empleado.getNumeroDoc().matches("^[a-zA-Z0-9]{20}$")) {
                 result.rejectValue("numeroDoc", "error.empleado", "Deben ser maximo 20 caracteres");
             }
         }
@@ -194,10 +194,15 @@ public class EmpleadoController {
             return "empleado/empleado-agregar";
         }
 
-        empleadoDAO.guardarEmpleado(empleado);
+        if (empleado.getIdEmpleado() != null) {
+            Alert alert=new Alert("success","Se ha actualizado el empleado exitosamente");
+            redirectAttributes.addFlashAttribute("alert",alert);
+        } else {
+            Alert alert=new Alert("success","Se ha añadido el empleado exitosamente");
+            redirectAttributes.addFlashAttribute("alert",alert);
+        }
 
-        Alert alert=new Alert("success","Se ha añadido el empleado exitosamente");
-        redirectAttributes.addFlashAttribute("alert",alert);
+        empleadoDAO.guardarEmpleado(empleado);
 
         return "redirect:/empleado/listar";
     }

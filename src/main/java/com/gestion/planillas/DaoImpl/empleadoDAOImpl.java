@@ -41,7 +41,14 @@ public class empleadoDAOImpl implements empleadoDAO {
         Session session=sessionFactory.getCurrentSession();
         session.saveOrUpdate(empleado);
     }
-
+    /*
+    private void guardarBitacoraEmpleado(Empleado empleado, Integer idUsuario) {
+        Session session = sessionFactory.getCurrentSession();
+        AuditoriaEmpleado auditoria = new AuditoriaEmpleado();
+        auditoria.setUsuario(idUsuario);
+        session.save(auditoria);
+    }
+    */
     @Override
     public List<ProfesionOficio> getProfesionesOficios(Integer id) {
         Empleado empleado = getEmpleado(id);

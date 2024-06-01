@@ -144,7 +144,7 @@
                     </div>
                     <div class="p-2">
                         <label for="nit" class="form-label">NIT</label>
-                        <form:input path="nit" class="form-control" id="nit" pattern="\d{4}-\d{6}-\d{3}-\d" title="Debe ser en formato XXXX-XXXXXX-XXX-X"/>
+                        <form:input path="nit" class="form-control" id="nit" pattern="\d{4}-\d{6}-\d{3}-\d" title="Debe ser en formato XXXX-XXXXXX-XXX-X" maxlength="17"/>
                         <form:errors path="nit" class="text-danger small"/>
                     </div>
                     <div class="p-2">
@@ -154,7 +154,7 @@
                     </div>
                     <div class="p-2">
                         <label for="nup" class="form-label">NUP</label>
-                        <form:input path="nup" class="form-control" id="nup" pattern="\d{12}" title="Debe ser un número de 12 dígitos"/>
+                        <form:input path="nup" class="form-control" id="nup" pattern="\d{12}" title="Debe ser un número de 12 dígitos" maxlength="12"/>
                         <form:errors path="nup" class="text-danger small"/>
                     </div>
                 </div>
@@ -187,24 +187,26 @@
                         <form:select class="form-select" path="supervisor.idEmpleado">
                             <form:option value="0">Sin Jefe Inmediato</form:option>
                             <c:forEach var="empleadoSup" items="${empleados}">
-                                <option value="${empleadoSup.idEmpleado}"
-                                    <c:if test="${empleadoSup.idEmpleado == empleado.supervisor.idEmpleado}">
-                                        selected
-                                    </c:if>
-                                >
-                                    ${empleadoSup.nombre1}
-                                    ${empleadoSup.nombre2},
-                                    ${empleadoSup.apellido1}
-                                    <c:if test="${empleadoSup.apellidoCasada == null}">
-                                        ${empleadoSup.apellido2}
-                                    </c:if>
-                                    <c:if test="${empleadoSup.apellidoCasada != null}">
-                                        De ${empleadoSup.apellidoCasada}
-                                    </c:if>
-                                    <c:if test="${empleadoSup.tipoDocumento != null}">
-                                        (${empleadoSup.tipoDocumento.nombreDoc}: ${empleadoSup.numeroDoc})
-                                    </c:if>
-                                </option>
+                                <c:if test="${empleadoSup.estado == true}">
+                                    <option value="${empleadoSup.idEmpleado}"
+                                        <c:if test="${empleadoSup.idEmpleado == empleado.supervisor.idEmpleado}">
+                                            selected
+                                        </c:if>
+                                    >
+                                        ${empleadoSup.nombre1}
+                                        ${empleadoSup.nombre2},
+                                        ${empleadoSup.apellido1}
+                                        <c:if test="${empleadoSup.apellidoCasada == null}">
+                                            ${empleadoSup.apellido2}
+                                        </c:if>
+                                        <c:if test="${empleadoSup.apellidoCasada != null}">
+                                            De ${empleadoSup.apellidoCasada}
+                                        </c:if>
+                                        <c:if test="${empleadoSup.tipoDocumento != null}">
+                                            (${empleadoSup.tipoDocumento.nombreDoc}: ${empleadoSup.numeroDoc})
+                                        </c:if>
+                                    </option>
+                                </c:if>
                             </c:forEach>
                         </form:select>
                     </div>
