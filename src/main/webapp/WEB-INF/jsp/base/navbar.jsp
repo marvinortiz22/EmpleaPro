@@ -37,7 +37,7 @@
                         <div class="nav">
                             <c:forEach var="permiso" items="${usuarioPermisos.permisos}">
                                 <c:if test="${permiso.nombrePermiso=='ROLE_Ver_puestos'}">
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="/puesto/listar">
                                         <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                         Puestos
                                     </a>

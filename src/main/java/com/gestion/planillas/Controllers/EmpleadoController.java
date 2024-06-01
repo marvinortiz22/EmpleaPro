@@ -56,7 +56,7 @@ public class EmpleadoController {
         List<Empleado> empleados = empleadoDAO.getEmpleados();
         model.addAttribute("empleados", empleados);
 
-        return "empleado/empleados-listar";
+        return "empleado/empleado-listar";
     }
 
     @GetMapping("/detalles")
