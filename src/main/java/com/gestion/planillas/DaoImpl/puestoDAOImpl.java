@@ -2,6 +2,7 @@ package com.gestion.planillas.DaoImpl;
 
 import com.gestion.planillas.DAO.puestoDAO;
 import com.gestion.planillas.modelos.Empleado;
+import jakarta.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -30,5 +31,12 @@ public class puestoDAOImpl implements puestoDAO {
         Session session=sessionFactory.getCurrentSession();
         Puesto puesto = session.get(Puesto.class,id);
         return puesto;
+    }
+
+    @Override
+    @Transactional
+    public void guardarPuesto(Puesto puesto) {
+        Session session=sessionFactory.getCurrentSession();
+        session.saveOrUpdate(puesto);
     }
 }

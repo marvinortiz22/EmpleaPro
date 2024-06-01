@@ -367,7 +367,7 @@ $(document).ready(function() {
         e.target.value = e.target.value.replace(/[^\d.]/g, '').slice(0, 11);
     });
 
-    </script>
+</script>
 
 
 <%@ include file="../base/footer.jsp" %>

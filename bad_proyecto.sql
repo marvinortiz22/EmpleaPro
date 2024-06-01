@@ -257,8 +257,8 @@ create table PUESTO
    IDPUESTO             int not null auto_increment,
    IDUNIDAD             int,
    NOMBREPUESTO         varchar(50) not null,
-   SALARIOMIN           decimal not null,
-   SALARIOMAX           decimal not null,
+   SALARIOMIN           decimal(10,2) not null,
+   SALARIOMAX           decimal(10,2) not null,
    ESTADO               bool not null default true,
    primary key (IDPUESTO)
 );

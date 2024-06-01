@@ -76,7 +76,6 @@ public class Empleado {
     @Pattern(regexp = "^$|^\\d{4}-\\d{6}-\\d{3}-\\d$", message = "Debe ser en formato XXXX-XXXXXX-XXX-X")
     private String nit;
 
-
     @NotBlank(message = "El campo es obligatorio")
     @Pattern(regexp = "\\d{9}", message = "El campo debe contener exactamente 9 dígitos")
     private String isss;
