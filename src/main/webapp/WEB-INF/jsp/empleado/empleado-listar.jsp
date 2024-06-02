@@ -20,6 +20,7 @@
                             <th>Puesto</th>
                             <th>Nombre</th>
                             <th>Documento</th>
+                            <th>Fecha Nacimiento</th>
                             <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
@@ -39,6 +40,9 @@
                             <c:if test="${empleado.tipoDocumento != null}">
                             ${empleado.tipoDocumento.nombreDoc}: ${empleado.numeroDoc}<br>
                             </c:if>
+                        </td>
+                        <td>
+                            <fmt:formatDate value="${empleado.fechaNacimiento}" pattern="dd/MM/yyyy" />
                         </td>
                         <td>
                             <c:if test="${empleado.estado}">
