@@ -55,6 +55,14 @@ public class PuestoController {
         return "puesto/puesto-agregar";
     }
 
+    @GetMapping("/editar")
+    public String editar(Model model, @RequestParam("id") int id) {
+        Puesto puesto = puestoDAO.getPuesto(id);
+        model.addAttribute("puesto", puesto);
+        agregarListasModelo(model);
+        return "puesto/puesto-agregar";
+    }
+
     private void agregarListasModelo(Model model) {
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
 
