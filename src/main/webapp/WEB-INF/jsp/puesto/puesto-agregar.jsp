@@ -55,6 +55,14 @@
                         <form:input path="salarioMax" class="form-control" id="salarioMax" pattern="^\d{1,8}(\.\d{0,2})?$" title="Debe ser un número de 10 dígitos, ejemplo: 12345678.99" required="true"/>
                         <form:errors path="salarioMax" class="text-danger small"/>
                     </div>
+                    <div class="p-2">
+                        <label for="unidad" class="form-label">Unidad</label>
+                        <form:select path="unidad.idUnidad" id="unidad" class="form-select">
+                            <option value="0">Seleccione una Unidad</option>
+                            <form:options items="${unidades}" itemValue="idUnidad" itemLabel="nombreUnidad" />
+                        </form:select>
+                        <form:errors path="unidad.idUnidad" class="text-danger small"/>
+                    </div>
                 </div>
             </div>
 

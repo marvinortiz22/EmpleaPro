@@ -209,6 +209,7 @@
                                 </c:if>
                             </c:forEach>
                         </form:select>
+                        <form:errors path="supervisor.idEmpleado" class="text-danger small"/>
                     </div>
                 </div>
             </div>

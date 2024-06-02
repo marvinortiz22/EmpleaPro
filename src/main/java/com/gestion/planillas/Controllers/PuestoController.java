@@ -4,6 +4,7 @@ import com.gestion.planillas.Otros.AccessControl;
 import com.gestion.planillas.modelos.Otros.Alert;
 import com.gestion.planillas.modelos.Puesto;
 import jakarta.validation.Valid;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,8 @@ public class PuestoController {
     private com.gestion.planillas.DAO.usuarioDAO usuarioDAO;
     @Autowired
     private  com.gestion.planillas.DAO.puestoDAO puestoDAO;
+    @Autowired
+    private  com.gestion.planillas.DAO.unidadesDAO unidadesDAO;
 
     @GetMapping("/listar")
     @AccessControl(roles="ROLE_Administrador")
@@ -56,8 +59,8 @@ public class PuestoController {
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
 
         //para los select de las llaves foraneas
-        List<Puesto> puestos =puestoDAO.getPuestos();
-        model.addAttribute("puestos", puestos);
+        List<Unidad> unidades = unidadesDAO.getUnidades();
+        model.addAttribute("unidades", unidades);
     }
 
     @PostMapping("/guardar")
@@ -72,12 +75,28 @@ public class PuestoController {
             }
         }
 
+        //validar nulls
+        if (puesto.getUnidad().getIdUnidad() == 0) {
+            puesto.setUnidad(null);
+        }
+
+        //validar campos unicos (nombre)
+        if (puesto.getIdPuesto() == null){
+            if(!puestoDAO.esUnico("nombrePuesto", puesto.getNombrePuesto()))
+                result.rejectValue("nombrePuesto","error.nombrePuesto","Ya existe un puesto con este nombre");
+        } else {
+            if(!puestoDAO.esUnico("nombrePuesto", puesto.getNombrePuesto(), puesto.getIdPuesto()))
+                result.rejectValue("nombrePuesto","error.nombrePuesto","Ya existe un puesto con este nombre");
+        }
+
+        //mostrar errores
         if (result.hasErrors()) {
             // Manejar errores de validación aquí
             agregarListasModelo(model);
             return "puesto/puesto-agregar";
         }
 
+        //mostrar mensaje
         if (puesto.getIdPuesto() != null) {
             Alert alert=new Alert("success","Se ha actualizado el puesto exitosamente");
             redirectAttributes.addFlashAttribute("alert",alert);
