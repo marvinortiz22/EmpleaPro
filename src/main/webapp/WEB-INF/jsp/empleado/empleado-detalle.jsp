@@ -137,6 +137,28 @@
                         </c:if>
                     </div>
                 </div>
+                <c:if test="${!empty subordinados}">
+                    <hr>
+                    <h5 class="card-title">Subordinados</h5>
+                    <div class="d-flex flex-wrap justify-content-around mb-4">
+                        <c:forEach var="subordinado" items="${subordinados}" varStatus="status">
+                            <div class="p-2">
+                                ${subordinado.nombre1}
+                                ${subordinado.nombre2},
+                                ${subordinado.apellido1}
+                                <c:if test="${empty subordinado.apellidoCasada}">
+                                    ${subordinado.apellido2}
+                                </c:if>
+                                <c:if test="${!empty subordinado.apellidoCasada}">
+                                    De ${subordinado.apellidoCasada}
+                                </c:if>
+                                <c:if test="${!empty subordinado.tipoDocumento}">
+                                    (${subordinado.tipoDocumento.nombreDoc}: ${subordinado.numeroDoc})
+                                </c:if>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </c:if>
             </div>
 
             <div class="d-flex flex-row justify-content-center">

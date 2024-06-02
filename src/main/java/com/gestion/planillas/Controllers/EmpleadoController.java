@@ -70,6 +70,9 @@ public class EmpleadoController {
         List<ProfesionOficio> profesionOficios = empleadoDAO.getProfesionesOficios(id);
         model.addAttribute("profesionesOficios", profesionOficios);
 
+        List<Empleado> subordinados = empleadoDAO.getSubordinados(id);
+        model.addAttribute("subordinados", subordinados);
+
         return "empleado/empleado-detalle";
     }
 
@@ -269,8 +272,12 @@ public class EmpleadoController {
         LocalDate hoy = LocalDate.now();
         int edad = Period.between(fechaNacimientoLocal, hoy).getYears();
 
-        if (edad < 16 || edad > 100) {
-            result.rejectValue("fechaNacimiento", "error.empleado", "La fecha de nacimiento debe ser valida");
+        if (edad < 18) {
+            result.rejectValue("fechaNacimiento", "error.empleado", "Debe ser mayor de 18 años");
+        }
+
+        if (edad > 100) {
+            result.rejectValue("fechaNacimiento", "error.empleado", "La fecha es muy longeva");
         }
     }
 
