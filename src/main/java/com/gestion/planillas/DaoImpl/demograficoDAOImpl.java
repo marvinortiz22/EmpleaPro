@@ -37,6 +37,7 @@ public class demograficoDAOImpl implements demograficoDAO{
         }
         return result;
     }
+
     @Override
     public List<Object> countEmpleadosPorMun(int idDepartamento) {
         Session session = sessionFactory.getCurrentSession();
@@ -59,6 +60,15 @@ public class demograficoDAOImpl implements demograficoDAO{
         }
         return result;
     }
+
+    @Override
+    public List<Object[]> countEmpleadosPorEstadoCivil() {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "SELECT e.estadoCivil.nombreEstado, COUNT(e) FROM Empleado e GROUP BY e.estadoCivil.nombreEstado";
+        Query<Object[]> query = session.createQuery(hql, Object[].class);
+        return query.getResultList();
+    }
+
     @Override
     public String depSeleccionado(int idDepartamento){
         String nombreDep = null;

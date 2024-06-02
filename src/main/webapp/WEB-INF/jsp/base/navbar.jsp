@@ -127,7 +127,7 @@
                                                 Municipios</a>
                                         </c:if>
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_estados_civiles'}">
-                                            <a class="nav-link" href="#">Estados civiles</a>
+                                            <a class="nav-link" href="/demografia/estadosCiviles">Estados civiles</a>
                                         </c:if>
                                     </nav>
                                 </div>

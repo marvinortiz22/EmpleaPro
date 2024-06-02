@@ -53,4 +53,17 @@ public class DemograficoController {
         return "demografico/demografico-municipios";
     }
 
+    @GetMapping("/estadosCiviles")
+    public String estadosCiviles(Model model){
+        model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
+
+        long nDeEmpleados=demograficoDAO.getNumEmpleados();
+        model.addAttribute("nDeEmpleados",nDeEmpleados);
+
+        List<Object[]> estadoCivilEst = demograficoDAO.countEmpleadosPorEstadoCivil();
+        model.addAttribute("estadoCivilEst", estadoCivilEst);
+
+        return "demografico/demografico-estado-civil";
+    }
+
 }

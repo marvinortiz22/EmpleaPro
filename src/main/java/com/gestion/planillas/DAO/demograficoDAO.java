@@ -5,6 +5,7 @@ import java.util.List;
 public interface demograficoDAO {
     public List<Object> countEmpleadosPorDep();
     public List<Object> countEmpleadosPorMun(int idDepartamento);
+    public List<Object[]> countEmpleadosPorEstadoCivil();
     public String depSeleccionado(int idDepartamento);
     public long getNumEmpleados();
 
