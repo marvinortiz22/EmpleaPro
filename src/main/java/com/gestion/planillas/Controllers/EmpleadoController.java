@@ -279,7 +279,7 @@ public class EmpleadoController {
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
 
         //para los select de las llaves foraneas
-        List<Puesto> puestos =puestoDAO.getPuestos();
+        List<Puesto> puestos =puestoDAO.getPuestosActivados();
         model.addAttribute("puestos", puestos);
 
         List<EstadoCivil> estadosCiviles = estadoCivilDAO.getEstadosCiviles();
@@ -291,7 +291,7 @@ public class EmpleadoController {
         List<TipoDocumento> tiposDocumentos = tipoDocumentoDAO.getTipoDocumentos();
         model.addAttribute("tiposDocumentos", tiposDocumentos);
 
-        List<Empleado> empleados = empleadoDAO.getEmpleados();
+        List<Empleado> empleados = empleadoDAO.getEmpleadosActivados();
         model.addAttribute("empleados", empleados);
 
         List<ProfesionOficio> profesionesOficios = oficioDAO.getProfyOficios();

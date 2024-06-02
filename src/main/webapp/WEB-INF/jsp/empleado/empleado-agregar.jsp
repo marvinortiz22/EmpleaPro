@@ -187,30 +187,37 @@
                         <form:select class="form-select" path="supervisor.idEmpleado">
                             <form:option value="0">Sin Jefe Inmediato</form:option>
                             <c:forEach var="empleadoSup" items="${empleados}">
-                                <c:if test="${empleadoSup.estado == true}">
-                                    <option value="${empleadoSup.idEmpleado}"
-                                        <c:if test="${empleadoSup.idEmpleado == empleado.supervisor.idEmpleado}">
-                                            selected
-                                        </c:if>
-                                    >
-                                        ${empleadoSup.nombre1}
-                                        ${empleadoSup.nombre2},
-                                        ${empleadoSup.apellido1}
-                                        <c:if test="${empleadoSup.apellidoCasada == null}">
-                                            ${empleadoSup.apellido2}
-                                        </c:if>
-                                        <c:if test="${empleadoSup.apellidoCasada != null}">
-                                            De ${empleadoSup.apellidoCasada}
-                                        </c:if>
-                                        <c:if test="${empleadoSup.tipoDocumento != null}">
-                                            (${empleadoSup.tipoDocumento.nombreDoc}: ${empleadoSup.numeroDoc})
-                                        </c:if>
+                                <option value="${empleadoSup.idEmpleado}"
+                                    <c:if test="${empleadoSup.idEmpleado == empleado.supervisor.idEmpleado}">
+                                        selected
+                                    </c:if>
+                                >
+                                    ${empleadoSup.nombre1}
+                                    ${empleadoSup.nombre2},
+                                    ${empleadoSup.apellido1}
+                                    <c:if test="${empleadoSup.apellidoCasada == null}">
+                                        ${empleadoSup.apellido2}
+                                    </c:if>
+                                    <c:if test="${empleadoSup.apellidoCasada != null}">
+                                        De ${empleadoSup.apellidoCasada}
+                                    </c:if>
+                                    <c:if test="${empleadoSup.tipoDocumento != null}">
+                                        (${empleadoSup.tipoDocumento.nombreDoc}: ${empleadoSup.numeroDoc})
+                                    </c:if>
                                     </option>
-                                </c:if>
                             </c:forEach>
                         </form:select>
                         <form:errors path="supervisor.idEmpleado" class="text-danger small"/>
                     </div>
+                    <c:if test="${!empty empleado.idEmpleado}">
+                        <div class="p-2">
+                            <div class="form-check form-switch">
+                                <form:checkbox path="estado" id="estado" class="form-check-input" />
+                                <label for="estado">Activo</label>
+                                <form:errors path="estado" class="text-danger small"/>
+                            </div>
+                        </div>
+                    </c:if>
                 </div>
             </div>
 

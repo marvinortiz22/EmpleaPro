@@ -18,6 +18,14 @@ import java.util.List;
 public class puestoDAOImpl implements puestoDAO {
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Override
+    public Puesto getPuesto(Integer id) {
+        Session session=sessionFactory.getCurrentSession();
+        Puesto puesto = session.get(Puesto.class,id);
+        return puesto;
+    }
+
     @Override
     public List<Puesto> getPuestos() {
         Session session=sessionFactory.getCurrentSession();
@@ -28,10 +36,12 @@ public class puestoDAOImpl implements puestoDAO {
     }
 
     @Override
-    public Puesto getPuesto(Integer id) {
+    public List<Puesto> getPuestosActivados() {
         Session session=sessionFactory.getCurrentSession();
-        Puesto puesto = session.get(Puesto.class,id);
-        return puesto;
+        Query<Puesto> query=session.createQuery("from Puesto WHERE estado = true",Puesto.class);
+        List<Puesto> puestos= query.getResultList();
+        return puestos;
+
     }
 
     @Override

@@ -2,6 +2,7 @@
 <%@ include file="../base/navbar.jsp" %>
 
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
+
 <title>
     <c:if test="${empty puesto.idPuesto}">
         Agregar puesto
@@ -63,6 +64,15 @@
                         </form:select>
                         <form:errors path="unidad.idUnidad" class="text-danger small"/>
                     </div>
+                    <c:if test="${!empty puesto.idPuesto}">
+                        <div class="p-2">
+                            <div class="form-check form-switch">
+                                <form:checkbox path="estado" id="estado" class="form-check-input" />
+                                <label for="estado">Activo</label>
+                                <form:errors path="estado" class="text-danger small"/>
+                            </div>
+                        </div>
+                    </c:if>
                 </div>
             </div>
 

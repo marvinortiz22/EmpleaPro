@@ -67,7 +67,7 @@ public class PuestoController {
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
 
         //para los select de las llaves foraneas
-        List<Unidad> unidades = unidadesDAO.getUnidades();
+        List<Unidad> unidades = unidadesDAO.getUnidadesActivadas();
         model.addAttribute("unidades", unidades);
     }
 
@@ -113,6 +113,25 @@ public class PuestoController {
             redirectAttributes.addFlashAttribute("alert",alert);
         }
 
+        puestoDAO.guardarPuesto(puesto);
+
+        return "redirect:/puesto/listar";
+    }
+
+    @GetMapping("/cambiarEstado")
+    public String cambiarEstado(@RequestParam("id")int id, RedirectAttributes redirectAttributes){
+        Puesto puesto = puestoDAO.getPuesto(id);
+
+        Alert alert;
+
+        if(puesto.isEstado())
+            alert=new Alert("danger","Se ha desactivado el puesto: "+ puesto.getNombrePuesto());
+        else
+            alert=new Alert("success","Se ha activado el puesto: "+ puesto.getNombrePuesto());
+
+        redirectAttributes.addFlashAttribute("alert",alert);
+
+        puesto.setEstado(!puesto.isEstado());
         puestoDAO.guardarPuesto(puesto);
 
         return "redirect:/puesto/listar";

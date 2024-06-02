@@ -32,6 +32,14 @@ public class unidadesDAOImp implements unidadesDAO {
     }
 
     @Override
+    public List<Unidad> getUnidadesActivadas() {
+        Session session = sessionFactory.getCurrentSession();
+        Query<Unidad> query = session.createQuery("from Unidad WHERE estado = true", Unidad.class);
+        List<Unidad> unidades = query.getResultList();
+        return unidades;
+    }
+
+    @Override
     public List<Unidad> getUnidadesList() {
         Session session = sessionFactory.getCurrentSession();
         Query<Unidad> query = session.createQuery("from Unidad", Unidad.class);
