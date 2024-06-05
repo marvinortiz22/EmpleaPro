@@ -1,5 +1,6 @@
 package com.gestion.planillas.DaoImpl;
 import com.gestion.planillas.DAO.auditoriaDAO;
+import com.gestion.planillas.modelos.Auditoria_DeduccionBeneficioEmpleado;
 import com.gestion.planillas.modelos.Auditoria_Empleado;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -27,4 +28,10 @@ public class auditoriaDAOImpl implements auditoriaDAO{
         return session.get(Auditoria_Empleado.class,id);
     }
 
+    @Override
+    public List<Auditoria_DeduccionBeneficioEmpleado> getAuditoriaDecBenEmp() {
+        Session session = sessionFactory.getCurrentSession();
+        Query<Auditoria_DeduccionBeneficioEmpleado> query = session.createQuery("FROM Auditoria_DeduccionBeneficioEmpleado", Auditoria_DeduccionBeneficioEmpleado.class);
+       return query.getResultList();
+    }
 }

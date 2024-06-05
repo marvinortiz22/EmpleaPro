@@ -8,7 +8,7 @@ public class Auditoria_DeduccionBeneficioEmpleado {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idAuditoriaDeducBenefEmp;
+    private int idAuditoria_DeducBenefEmp;
 
     @ManyToOne
     @JoinColumn(name = "IDDEDUCBENEF")
@@ -37,11 +37,11 @@ public class Auditoria_DeduccionBeneficioEmpleado {
     // Getters and Setters
 
     public int getIdAuditoriaDeducBenefEmp() {
-        return idAuditoriaDeducBenefEmp;
+        return idAuditoria_DeducBenefEmp;
     }
 
     public void setIdAuditoriaDeducBenefEmp(int idAuditoriaDeducBenefEmp) {
-        this.idAuditoriaDeducBenefEmp = idAuditoriaDeducBenefEmp;
+        this.idAuditoria_DeducBenefEmp = idAuditoriaDeducBenefEmp;
     }
 
     public DeduccionBeneficio getDeduccionBeneficio() {
