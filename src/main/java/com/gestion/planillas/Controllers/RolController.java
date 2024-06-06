@@ -63,7 +63,7 @@ public class RolController {
     @PostMapping("/agregar")
     public String agregarPost(@ModelAttribute("rol")Rol rol, RedirectAttributes redirectAttributes) {
         rolDAO.guardarRol(rol);
-        Alert alert=new Alert("success","Se ha editado el rol exitosamente");
+        Alert alert=new Alert("success","Se ha agregado el rol exitosamente");
         redirectAttributes.addFlashAttribute("alert",alert);
         return "redirect:/rol/listar";
     }

@@ -2,10 +2,11 @@ package com.gestion.planillas.Controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gestion.planillas.DAO.contaduriaDAO;
-import com.gestion.planillas.DAO.deduccionBeneficio;
+import com.gestion.planillas.DAO.deduccionBeneficioDAO;
 import com.gestion.planillas.DAO.empleadoDAO;
 import com.gestion.planillas.DAO.usuarioDAO;
 import com.gestion.planillas.DAO.datosEmpresaDAO;
+import com.gestion.planillas.Otros.AccessControl;
 import com.gestion.planillas.modelos.DatosEmpresa;
 import com.gestion.planillas.modelos.DeduccionBeneficioGlobal;
 import com.gestion.planillas.modelos.DeduccionBeneficio_Empleado;
@@ -35,10 +36,11 @@ public class boletasController {
     @Autowired
     private empleadoDAO empleadoDAO;
     @Autowired
-    private deduccionBeneficio deduccionBeneficio;
+    private deduccionBeneficioDAO deduccionBeneficio;
     @Autowired
     private datosEmpresaDAO datosEmpresaDAO;
     @GetMapping("/listarEmpleados")
+    @AccessControl(roles = "ROLE_Ver_boletas_de_pago")
     public String listarEmpleados(Model model){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         List<Empleado> empleados = empleadoDAO.getEmpleados();
@@ -46,10 +48,11 @@ public class boletasController {
         return "contaduria/empleados-listar";
     }
     @PostMapping("/boleta")
+    @AccessControl(roles = "ROLE_Ver_boletas_de_pago")
     public String boleta(Model model, @RequestParam("id")int id, HttpServletRequest request){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         List<DeduccionBeneficioGlobal> deduccionBeneficioGlobals=deduccionBeneficio.getDeduccionesGlobales();
-        List<DeduccionBeneficio_Empleado> deduccionBeneficioEmpleados=deduccionBeneficio.getDeduccionBeneficioEmp(id);
+        List<DeduccionBeneficio_Empleado> deduccionBeneficioEmpleados=deduccionBeneficio.getDeduccionesBeneficiosEmp(id);
         Empleado empleado=empleadoDAO.getEmpleado(id);
         model.addAttribute("empleado",empleado);
         model.addAttribute("deduccionesGlobales",deduccionBeneficioGlobals);

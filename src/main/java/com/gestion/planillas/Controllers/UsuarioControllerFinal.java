@@ -4,6 +4,7 @@ import com.gestion.planillas.DAO.permisoDAO;
 import com.gestion.planillas.DAO.rolDAO;
 import com.gestion.planillas.DAO.tipoDocumentoDAO;
 import com.gestion.planillas.DAO.usuarioDAO;
+import com.gestion.planillas.Otros.AccessControl;
 import com.gestion.planillas.modelos.Otros.Alert;
 import com.gestion.planillas.modelos.Rol;
 import com.gestion.planillas.modelos.Usuario;
@@ -33,6 +34,7 @@ public class UsuarioControllerFinal {
     @Autowired
     private rolDAO rolDAO;
     @GetMapping("/listar")
+    @AccessControl(roles="ROLE_Administrador")
     public String listar(Model model) {
 
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
@@ -47,6 +49,7 @@ public class UsuarioControllerFinal {
     }
 
     @GetMapping("/editar")
+    @AccessControl(roles="ROLE_Administrador")
     public String editar(Model model, @RequestParam("id")int id){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
 
@@ -85,6 +88,7 @@ public class UsuarioControllerFinal {
         }
     }
     @GetMapping("/cambiarEstado")
+    @AccessControl(roles="ROLE_Administrador")
     public String cambiarEstado(@RequestParam("id")int id, RedirectAttributes redirectAttributes){
         Usuario usuario=usuarioDAO.getUsuario(id);
         Alert alert;

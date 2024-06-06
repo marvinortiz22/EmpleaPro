@@ -1,6 +1,7 @@
 package com.gestion.planillas.Controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gestion.planillas.Otros.AccessControl;
 import com.gestion.planillas.modelos.PresupuestoAnual;
 import com.gestion.planillas.modelos.Unidad;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,6 +28,7 @@ public class contaduriaController {
     @Autowired
     private usuarioDAO usuarioDAO;
     @GetMapping("/planilla")
+    @AccessControl(roles = "ROLE_Ver_planilla")
     public String planilla(Model model, HttpServletRequest request){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         String jsonString = "";
