@@ -23,7 +23,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="deducBen" items="${listaDecBen}" varStatus="i">
+                    <c:forEach var="deducBen" items="${listaDecBenGlo}" varStatus="i">
                         <tr>
                             <td>${i.count}</td>
                             <td>${deducBen.nombreDeducBenef}</td>
@@ -32,16 +32,14 @@
                                 <c:if test="${deducBen.tipo == 'B'}">Beneficio</c:if>
                             </td>
                             <td>
-                                ${deducBen.empleado.nombre1}
-                                <c:if test="${deducBen.empleado.nombre2 != null}">${deducBen.empleado.nombre2}</c:if>,
-                                ${deducBen.empleado.apellido1}
-                                <c:if test="${deducBen.empleado.apellido2 != null}">${deducBen.empleado.apellido2}</c:if>
-                            </td>
-                            <td>
                                 <c:if test="${deducBen.proporcionalAlSueldo}">Si</c:if>
                                 <c:if test="${!deducBen.proporcionalAlSueldo}">No</c:if>
                             </td>
                             <td>${deducBen.montoOPorcentaje}</td>
+                            <td>
+                                <c:if test="${deducBen.estado}">Activo</c:if>
+                                <c:if test="${!deducBen.estado}">Inactivo</c:if>
+                            </td>
                             <td><fmt:formatDate value="${deducBen.fechaDeOperacion}" /></td>
                             <td>${deducBen.tipoDeOperacion}</td>
                             <td>${deducBen.usuarioRegistra.username}</td>

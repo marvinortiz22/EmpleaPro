@@ -8,7 +8,7 @@ public class Auditoria_DeduccionBeneficioGlobal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idAuditoriaIdDeducBenef;
+    private int idAuditoria_IdDeducBenef;
 
     @ManyToOne
     @JoinColumn(name = "IDDEDUCBENEF")
@@ -28,12 +28,12 @@ public class Auditoria_DeduccionBeneficioGlobal {
 
     // Getters and Setters
 
-    public int getIdAuditoriaIdDeducBenef() {
-        return idAuditoriaIdDeducBenef;
+    public int getIdAuditoria_IdDeducBenef() {
+        return idAuditoria_IdDeducBenef;
     }
 
-    public void setIdAuditoriaIdDeducBenef(int idAuditoriaIdDeducBenef) {
-        this.idAuditoriaIdDeducBenef = idAuditoriaIdDeducBenef;
+    public void setIdAuditoria_IdDeducBenef(int idAuditoria_IdDeducBenef) {
+        this.idAuditoria_IdDeducBenef = idAuditoria_IdDeducBenef;
     }
 
     public DeduccionBeneficio getDeduccionBeneficio() {
