@@ -5,7 +5,7 @@ window.addEventListener('DOMContentLoaded', event => {
     const datatablesSimple = document.getElementById('datatablesSimple');
     if (datatablesSimple) {
         new simpleDatatables.DataTable(datatablesSimple, {
-                        perPage:15,
+                        perPage:5,
                         labels:{
                             placeholder: "Buscar...",
                             searchTitle: "Buscar en la tabla",

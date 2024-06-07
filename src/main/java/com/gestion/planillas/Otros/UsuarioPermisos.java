@@ -12,6 +12,7 @@ public class UsuarioPermisos {
     private  String username;
 
     private String fecha;
+    private String fecha2;
     private List<Permiso> permisos;
 
     public UsuarioPermisos() {
@@ -28,7 +29,7 @@ public class UsuarioPermisos {
 
     public String getFecha() {
         LocalDate fechaActual = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return fechaActual.format(formatter);
     }
 
@@ -36,4 +37,9 @@ public class UsuarioPermisos {
         return permisos;
     }
 
+    public String getFecha2() {
+        LocalDate fechaActual = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return fechaActual.format(formatter);
+    }
 }

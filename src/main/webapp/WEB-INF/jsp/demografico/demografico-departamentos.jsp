@@ -105,3 +105,21 @@
     });
     </script>
 <%@ include file="../base/footer.jsp" %>
+<script>
+  const datatablesSimple = document.getElementById('datatablesSimple');
+      if (datatablesSimple) {
+          new simpleDatatables.DataTable(datatablesSimple, {
+                          perPage:15,
+                          labels:{
+                              placeholder: "Buscar...",
+                              searchTitle: "Buscar en la tabla",
+                              pageTitle: "Página {page}",
+                              perPage: "Filas por página",
+                              noRows: "No hay datos",
+                              info: "Mostrando {start} a {end} de {rows} entradas",
+                              noResults: "No se encontraron filas coincidentes",
+                          }
+          });
+      }
+
+</script>

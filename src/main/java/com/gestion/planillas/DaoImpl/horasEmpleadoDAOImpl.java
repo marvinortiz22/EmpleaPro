@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.validation.ObjectError;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -24,7 +26,7 @@ public class horasEmpleadoDAOImpl implements horasEmpleadoDAO{
     @Override
     public List<HorasEmpleado> getHorasEmpleadoList() {
         Session session=sessionFactory.getCurrentSession();
-        Query<HorasEmpleado> query=session.createQuery("FROM HorasEmpleado",HorasEmpleado.class);
+        Query<HorasEmpleado> query=session.createQuery("FROM HorasEmpleado ORDER BY fecha DESC",HorasEmpleado.class);
         List<HorasEmpleado> horasEmpleadoList= query.getResultList();
         return horasEmpleadoList;
     }
@@ -32,7 +34,7 @@ public class horasEmpleadoDAOImpl implements horasEmpleadoDAO{
     @Override
     public List<HorasEmpleado> getHorasEmpleadoHoy() {
         Session session=sessionFactory.getCurrentSession();
-        Query<Object[]> query=session.createNativeQuery("SELECT idhorasempleado,e.idempleado,fecha,horaingreso,horasalida FROM empleado e LEFT JOIN horasempleado he ON e.IDEMPLEADO = he.IDEMPLEADO AND he.FECHA = CURDATE()",Object[].class);
+        Query<Object[]> query=session.createNativeQuery("SELECT idhorasempleado,e.idempleado,IFNULL(fecha,CURDATE()) as fecha,horaingreso,horasalida FROM empleado e LEFT JOIN horasempleado he ON e.IDEMPLEADO = he.IDEMPLEADO AND he.FECHA = CURDATE()",Object[].class);
         List<Object[]> horasEmpleadoListObject= query.getResultList();
         List<HorasEmpleado> horasEmpleadoList=new ArrayList<>();
         for(Object[] object:horasEmpleadoListObject){
@@ -43,9 +45,9 @@ public class horasEmpleadoDAOImpl implements horasEmpleadoDAO{
             if(object[2]!=null)
                 horasEmpleado.setFecha((Date) object[2]);
             if(object[3]!=null)
-                horasEmpleado.setHoraIngreso((Date) object[3]);
+                horasEmpleado.setHoraIngreso((Time) object[3]);
             if(object[4]!=null)
-                horasEmpleado.setHoraSalida((Date) object[4]);
+                horasEmpleado.setHoraSalida((Time) object[4]);
             horasEmpleadoList.add(horasEmpleado);
         }
         return horasEmpleadoList;

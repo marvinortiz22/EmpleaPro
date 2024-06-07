@@ -1,16 +1,14 @@
 package com.gestion.planillas.Controllers;
 import com.gestion.planillas.DAO.usuarioDAO;
 import com.gestion.planillas.DAO.horasEmpleadoDAO;
+import com.gestion.planillas.DAO.empleadoDAO;
 import com.gestion.planillas.Otros.AccessControl;
 import com.gestion.planillas.modelos.HorasEmpleado;
 import com.gestion.planillas.modelos.Otros.Alert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -22,6 +20,7 @@ public class HorasEmpleadoController {
     private usuarioDAO usuarioDAO;
     @Autowired
     private horasEmpleadoDAO horasEmpleadoDAO;
+    @Autowired empleadoDAO empleadoDAO;
     @GetMapping("/listar")
     @AccessControl(roles = "ROLE_Ver_horas_trabajadas")
     public String listar(Model model,@RequestParam(name = "all",required = false)boolean all){
@@ -40,18 +39,20 @@ public class HorasEmpleadoController {
     }
     @GetMapping("/editar")
     @AccessControl(roles = "ROLE_Editar_horas_trabajadas")
-    public String editar(Model model,@RequestParam(name="id",required = false)Integer id){
+    public String editar(Model model,@RequestParam(name="id",required = false)Integer id,@RequestParam(name="empleado",required = false)Integer idEmpleado){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         HorasEmpleado horasEmpleado;
-        if(id==null)
+        if(id==null){
             horasEmpleado=new HorasEmpleado();
+            horasEmpleado.setEmpleado(empleadoDAO.getEmpleado(idEmpleado));
+        }
         else
             horasEmpleado=horasEmpleadoDAO.getHorasEmpleado(id);
         model.addAttribute("horasEmpleado",horasEmpleado);
         return "horasEmpleado/editar";
     }
     @PostMapping("/editar")
-    public String editar(@RequestParam("horasEmpleado")HorasEmpleado horasEmpleado,RedirectAttributes redirectAttributes){
+    public String editar(@ModelAttribute("horasEmpleado")HorasEmpleado horasEmpleado, RedirectAttributes redirectAttributes){
         horasEmpleadoDAO.guardar(horasEmpleado);
         Alert alert=new Alert("success","Se ha editado el registro exitosamente");
         redirectAttributes.addFlashAttribute("alert",alert);
