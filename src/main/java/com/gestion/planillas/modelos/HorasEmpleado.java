@@ -22,6 +22,17 @@ public class HorasEmpleado {
 
     @Temporal(TemporalType.TIME)
     private Date horaSalida;
+    public HorasEmpleado() {
+    }
+    public HorasEmpleado(int idHorasEmpleado, Empleado empleado, Date fecha, Date horaIngreso, Date horaSalida) {
+        this.idHorasEmpleado = idHorasEmpleado;
+        this.empleado = empleado;
+        this.fecha = fecha;
+        this.horaIngreso = horaIngreso;
+        this.horaSalida = horaSalida;
+    }
+
+
 
     // Getters and Setters
     public int getIdHorasEmpleado() {

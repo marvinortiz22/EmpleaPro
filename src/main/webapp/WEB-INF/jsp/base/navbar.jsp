@@ -74,7 +74,7 @@
                                             <a class="nav-link" href="/permiso/listar">Permisos y Licencias</a>
                                         </c:if>
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_horas_trabajadas'}">
-                                            <a class="nav-link" href="#">Horas trabajadas</a>
+                                            <a class="nav-link" href="/horasEmpleado/listar">Horas trabajadas</a>
                                         </c:if>
 
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_vacaciones'}">

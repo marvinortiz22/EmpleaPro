@@ -96,6 +96,8 @@ public class Empleado {
     private String correoPersonal;
 
     private boolean estado = true;
+    @Transient
+    private String nombreCompleto;
     @ManyToMany
     @JoinTable(
             name="PROFOFC_EMPLEADO",
@@ -326,7 +328,12 @@ public class Empleado {
         String nombre1 = this.nombre1 != null ? this.nombre1 : "";
         String nombre2 = this.nombre2 != null ? this.nombre2 : "";
         String apellido1 = this.apellido1 != null ? this.apellido1 : "";
-        String apellido2 = this.apellido2 != null ? this.apellido2 : "";
+        String apellido2;
+        if(apellidoCasada!=null)
+            apellido2=apellidoCasada;
+        else
+            apellido2 = this.apellido2 != null ? this.apellido2 : "";
+
         return String.format("%s %s %s %s", nombre1, nombre2, apellido1, apellido2).trim().replaceAll(" +", " ");
     }
 
