@@ -1,6 +1,6 @@
 <%@ include file="../base/head.jsp" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
-<title>Auditoria Deducciones y Beneficios</title>
+<title>Auditoria Deducciones y Beneficios por Empleado</title>
 <%@ include file="../base/navbar.jsp" %>
 <div class="container-fluid px-4">
     <div class="d-flex justify-content-center">
