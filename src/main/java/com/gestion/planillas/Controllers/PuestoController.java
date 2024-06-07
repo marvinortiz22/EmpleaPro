@@ -27,7 +27,7 @@ public class PuestoController {
     private  com.gestion.planillas.DAO.unidadesDAO unidadesDAO;
 
     @GetMapping("/listar")
-    @AccessControl(roles="ROLE_Administrador")
+    @AccessControl(roles="ROLE_Ver_puestos")
     public String listar(Model model) {
         model.addAttribute("usuarioPermisos", usuarioDAO.getUsuarioActual());
 
@@ -38,7 +38,7 @@ public class PuestoController {
     }
 
     @GetMapping("/detalles")
-    @AccessControl(roles="ROLE_Administrador")
+    @AccessControl(roles="ROLE_Ver_puestos")
     public String detalles(Model model, @RequestParam("id") int id){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
 
@@ -49,6 +49,7 @@ public class PuestoController {
     }
 
     @GetMapping("/agregar")
+    @AccessControl(roles="ROLE_Agregar_puestos")
     public String agregar(Model model) {
         model.addAttribute("puesto", new Puesto());
         agregarListasModelo(model);
@@ -56,6 +57,7 @@ public class PuestoController {
     }
 
     @GetMapping("/editar")
+    @AccessControl(roles="ROLE_Editar_puestos")
     public String editar(Model model, @RequestParam("id") int id) {
         Puesto puesto = puestoDAO.getPuesto(id);
         model.addAttribute("puesto", puesto);
@@ -119,6 +121,7 @@ public class PuestoController {
     }
 
     @GetMapping("/cambiarEstado")
+    @AccessControl(roles="ROLE_Cambiar_estado_puestos")
     public String cambiarEstado(@RequestParam("id")int id, RedirectAttributes redirectAttributes){
         Puesto puesto = puestoDAO.getPuesto(id);
 

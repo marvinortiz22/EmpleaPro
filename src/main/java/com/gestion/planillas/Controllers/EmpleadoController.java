@@ -49,7 +49,7 @@ public class EmpleadoController {
     private SessionFactory sessionFactory2;
 
     @GetMapping("/listar")
-    @AccessControl(roles="ROLE_Administrador")
+    @AccessControl(roles="ROLE_Ver_empleados")
     public String listar(Model model) {
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
 
@@ -60,7 +60,7 @@ public class EmpleadoController {
     }
 
     @GetMapping("/detalles")
-    @AccessControl(roles="ROLE_Administrador")
+    @AccessControl(roles="ROLE_Ver_empleados")
     public String detalles(Model model, @RequestParam("id") int id){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
 
@@ -77,6 +77,7 @@ public class EmpleadoController {
     }
 
     @GetMapping("/cambiarEstado")
+    @AccessControl(roles="ROLE_Cambiar_estado_empleados")
     public String cambiarEstado(@RequestParam("id")int id, RedirectAttributes redirectAttributes){
         Empleado empleado = empleadoDAO.getEmpleado(id);
 
@@ -96,6 +97,7 @@ public class EmpleadoController {
     }
 
     @GetMapping("/agregar")
+    @AccessControl(roles="ROLE_Agregar_empleados")
     public String agregar(Model model) {
         model.addAttribute("empleado", new Empleado());
         agregarListasModelo(model);
@@ -103,6 +105,7 @@ public class EmpleadoController {
     }
 
     @GetMapping("/editar")
+    @AccessControl(roles="ROLE_Editar_empleados")
     public String editar(Model model, @RequestParam("id") int id) {
         Empleado empleado = empleadoDAO.getEmpleado(id);
         model.addAttribute("empleado", empleado);

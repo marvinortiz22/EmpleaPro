@@ -41,7 +41,7 @@ insert into permiso values (null, 'ROLE_Ver_auditoria_de_deducciones_y_beneficio
 insert into permiso values (null, 'ROLE_Ver_auditoria_de_deducciones_y_beneficios_de_empleados');
 insert into permiso VALUES (NULL,"ROLE_Administrador");
 
---Editar,agregar,etc
+-- Editar,agregar,etc
 
 -- Deducciones y Beneficios Globales
 
