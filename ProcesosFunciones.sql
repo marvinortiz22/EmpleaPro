@@ -324,8 +324,6 @@ DELIMITER ;
 
 DELIMITER $$
 
-DELIMITER $$
-
 CREATE FUNCTION calcularrenta(salario DECIMAL)
 RETURNS DECIMAL(10,2)
 BEGIN
@@ -344,6 +342,8 @@ END$$
 
 DELIMITER ;
 
+-- Auditoria
+
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SetCurrentUser`(IN `userId` INT)
 BEGIN
@@ -351,8 +351,9 @@ BEGIN
 END$$
 DELIMITER ;
 
--- ahi lo cambias sabin
+-- boletas
 
+DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `planillaEmpleado`(
 	IN `fecha1` DATE,
 	IN `fecha2` DATE,
@@ -498,4 +499,6 @@ BEGIN
 	FROM empleado e
 	JOIN puesto p ON e.idpuesto=p.idpuesto
 	WHERE e.idempleado=idempleadop;
-	END
+END$$
+
+DELIMITER ;
