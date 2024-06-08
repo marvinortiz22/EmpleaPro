@@ -361,10 +361,8 @@ alter table EMPLEADO add constraint FK_EMPLEADO_TIENE_TIPODOC foreign key (IDTIP
 alter table EMPLEADO add constraint FK_SE_LE_ASIGNA_PUESTO foreign key (IDPUESTO)
       references PUESTO (IDPUESTO) on delete restrict on update restrict;
 
-
 alter table EMPLEADO add constraint FK_SUPERVISA foreign key (EMP_IDEMPLEADO)
       references EMPLEADO (IDEMPLEADO) on delete restrict on update restrict;
-
 
 alter table EMPLEADO add constraint FK_TIENE_ESTADOCIVIL foreign key (IDESTADOCIVIL)
       references ESTADOCIVIL (IDESTADOCIVIL) on delete restrict on update restrict;
@@ -414,9 +412,6 @@ alter table USUARIO add constraint FK_SE_LE_ASIGNA foreign key (IDROL)
 alter table VACACION add constraint FK_REFERENCE_20 foreign key (IDEMPLEADO)
       references EMPLEADO (IDEMPLEADO) on delete restrict on update restrict;
 
-
-
-
 ALTER TABLE EMPLEADO
 ADD CONSTRAINT UNIQUE_NUMERODOC UNIQUE (NUMERODOC),
 ADD CONSTRAINT UNIQUE_NIT UNIQUE (NIT),
@@ -428,75 +423,46 @@ ALTER TABLE USUARIO
 ADD CONSTRAINT UNIQUE_USERNAME UNIQUE (USERNAME),
 ADD CONSTRAINT UNIQUE_EMAIL UNIQUE (EMAIL);
 
-insert into permiso VALUES (NULL,"ROLE_Administrador");
-INSERT INTO permiso VALUES (NULL,"ROLE_Ver_empleados");
 INSERT INTO permiso VALUES (NULL,"ROLE_Ver_puestos");
-INSERT INTO permiso VALUES (NULL,"ROLE_Ver_profesiones_y_oficios");
-INSERT INTO permiso VALUES (NULL,"ROLE_Ver_unidades");
-INSERT INTO permiso VALUES (NULL,"ROLE_Ver_demografía_y_estado_civil");
-INSERT INTO permiso VALUES (NULL,"ROLE_Ver_demografía");
-INSERT INTO permiso VALUES (NULL,"ROLE_Ver_estados_civiles");
--- Deducciones y Beneficios Globales
-insert into permiso values (null, 'ROLE_Ver_deducciones_y_beneficios_globales');
-insert into permiso values (null, 'ROLE_Agregar_deducciones_y_beneficios_globales');
-insert into permiso values (null, 'ROLE_Editar_deducciones_y_beneficios_globales');
-
--- Deducciones y Beneficios de Empleados
-insert into permiso values (null, 'ROLE_Ver_deducciones_y_beneficios_de_empleados');
-insert into permiso values (null, 'ROLE_Editar_deducciones_y_beneficios_de_empleados');
-
--- Horas Trabajadas
-insert into permiso values (null, 'ROLE_Ver_horas_trabajadas');
-insert into permiso values (null, 'ROLE_Editar_horas_trabajadas');
-
--- Vacaciones
-insert into permiso values (null, 'ROLE_Ver_vacaciones');
-insert into permiso values (null, 'ROLE_Editar_vacaciones');
-
--- Permisos y Licencias
-insert into permiso values (null, 'ROLE_Ver_permisos_y_licencias');
-insert into permiso values (null, 'ROLE_Agregar_permisos_y_licencias');
-insert into permiso values (null, 'ROLE_Editar_permisos_y_licencias');
-
--- Boleta de Pago
-insert into permiso values (null, 'ROLE_Ver_boletas_de_pago');
-
--- Auditoría de Empleados
-insert into permiso values (null, 'ROLE_Ver_auditoria_de_empleados');
-
--- Auditoría de Deducciones y Beneficios Globales
-insert into permiso values (null, 'ROLE_Ver_auditoria_de_deducciones_y_beneficios_globales');
-
--- Auditoría de Deducciones y Beneficios de Empleados
-insert into permiso values (null, 'ROLE_Ver_auditoria_de_deducciones_y_beneficios_de_empleados');
-
--- Planilla
-insert into permiso values (null, 'ROLE_Ver_planilla');
-
--- Empleados
-insert into permiso values (null, 'ROLE_Agregar_empleados');
-insert into permiso values (null, 'ROLE_Editar_empleados');
-insert into permiso values (null, 'ROLE_Cambiar_estado_empleados');
-
--- Puestos
 insert into permiso values (null, 'ROLE_Agregar_puestos');
 insert into permiso values (null, 'ROLE_Editar_puestos');
 insert into permiso values (null, 'ROLE_Cambiar_estado_puestos');
-
--- Oficios
+INSERT INTO permiso VALUES (NULL,"ROLE_Ver_profesiones_y_oficios");
 insert into permiso values (null, 'ROLE_Agregar_oficios');
 insert into permiso values (null, 'ROLE_Editar_oficios');
-
--- Datos Empresa
-insert into permiso values (null, 'ROLE_Ver_datos_empresa');
-insert into permiso values (null, 'ROLE_Editar_datos_empresa');
-
--- Unidades
+INSERT INTO permiso VALUES (NULL,"ROLE_Ver_unidades");
 insert into permiso values (null, 'ROLE_Agregar_unidades');
 insert into permiso values (null, 'ROLE_Editar_unidades');
 insert into permiso values (null, 'ROLE_Cambiar_estado_unidades');
-
--- Presupuesto de Unidades
+INSERT INTO permiso VALUES (NULL,"ROLE_Ver_empleados");
+insert into permiso values (null, 'ROLE_Agregar_empleados');
+insert into permiso values (null, 'ROLE_Editar_empleados');
+insert into permiso values (null, 'ROLE_Cambiar_estado_empleados');
+insert into permiso values (null, 'ROLE_Ver_horas_trabajadas');
+insert into permiso values (null, 'ROLE_Editar_horas_trabajadas');
+insert into permiso values (null, 'ROLE_Ver_permisos_y_licencias');
+insert into permiso values (null, 'ROLE_Agregar_permisos_y_licencias');
+insert into permiso values (null, 'ROLE_Editar_permisos_y_licencias');
+insert into permiso values (null, 'ROLE_Ver_vacaciones');
+insert into permiso values (null, 'ROLE_Editar_vacaciones');
+insert into permiso values (null, 'ROLE_Ver_contabilidad');
+insert into permiso values (null, 'ROLE_Ver_planilla');
+insert into permiso values (null, 'ROLE_Ver_boletas_de_pago');
+insert into permiso values (null, 'ROLE_Ver_deducciones_y_beneficios_globales');
+insert into permiso values (null, 'ROLE_Agregar_deducciones_y_beneficios_globales');
+insert into permiso values (null, 'ROLE_Editar_deducciones_y_beneficios_globales');
+insert into permiso values (null, 'ROLE_Ver_deducciones_y_beneficios_de_empleados');
+insert into permiso values (null, 'ROLE_Editar_deducciones_y_beneficios_de_empleados');
+INSERT INTO permiso VALUES (NULL,"ROLE_Ver_demografía_y_estado_civil");
+INSERT INTO permiso VALUES (NULL,"ROLE_Ver_demografía");
+INSERT INTO permiso VALUES (NULL,"ROLE_Ver_estados_civiles");
+INSERT INTO permiso VALUES (NULL,"ROLE_Ver_auditoria");
+insert into permiso values (null, 'ROLE_Ver_auditoria_de_empleados');
+insert into permiso values (null, 'ROLE_Ver_auditoria_de_deducciones_y_beneficios_globales');
+insert into permiso values (null, 'ROLE_Ver_auditoria_de_deducciones_y_beneficios_de_empleados');
+insert into permiso VALUES (NULL,"ROLE_Administrador");
+insert into permiso values (null, 'ROLE_Ver_datos_empresa');
+insert into permiso values (null, 'ROLE_Editar_datos_empresa');
 insert into permiso values (null, 'ROLE_Ver_presupuesto_de_unidades');
 insert into permiso values (null, 'ROLE_Editar_presupuesto_de_unidades');
 
@@ -542,3 +508,5 @@ insert into rol_permiso values (37, 1);
 insert into rol_permiso values (38, 1);
 insert into rol_permiso values (39, 1);
 insert into rol_permiso values (40, 1);
+insert into rol_permiso values (41, 1);
+insert into rol_permiso values (42, 1);
