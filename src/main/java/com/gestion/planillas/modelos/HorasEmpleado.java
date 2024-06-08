@@ -1,6 +1,10 @@
 package com.gestion.planillas.modelos;
 import jakarta.persistence.*;
-import java.util.Date;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.sql.Time;
+import java.sql.Date;
 
 @Entity
 @Table(name = "HORASEMPLEADO")
@@ -14,25 +18,14 @@ public class HorasEmpleado {
     @JoinColumn(name = "IDEMPLEADO")
     private Empleado empleado;
 
-    @Temporal(TemporalType.DATE)
+
     private Date fecha;
 
-    @Temporal(TemporalType.TIME)
-    private Date horaIngreso;
 
-    @Temporal(TemporalType.TIME)
-    private Date horaSalida;
+    private Time horaIngreso;
+    private Time horaSalida;
     public HorasEmpleado() {
     }
-    public HorasEmpleado(int idHorasEmpleado, Empleado empleado, Date fecha, Date horaIngreso, Date horaSalida) {
-        this.idHorasEmpleado = idHorasEmpleado;
-        this.empleado = empleado;
-        this.fecha = fecha;
-        this.horaIngreso = horaIngreso;
-        this.horaSalida = horaSalida;
-    }
-
-
 
     // Getters and Setters
     public int getIdHorasEmpleado() {
@@ -59,19 +52,19 @@ public class HorasEmpleado {
         this.fecha = fecha;
     }
 
-    public Date getHoraIngreso() {
+    public Time getHoraIngreso() {
         return horaIngreso;
     }
 
-    public void setHoraIngreso(Date horaIngreso) {
+    public void setHoraIngreso(Time horaIngreso) {
         this.horaIngreso = horaIngreso;
     }
 
-    public Date getHoraSalida() {
+    public Time getHoraSalida() {
         return horaSalida;
     }
 
-    public void setHoraSalida(Date horaSalida) {
+    public void setHoraSalida(Time horaSalida) {
         this.horaSalida = horaSalida;
     }
 }
