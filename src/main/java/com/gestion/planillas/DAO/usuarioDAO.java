@@ -20,6 +20,7 @@ public interface usuarioDAO {
 
 	public List<Permiso> getPermisosDeUsuario(String username);
 	public UsuarioPermisos getUsuarioActual();
+	public void asignarVariableSesionUser();
 	public List<String> getAdminsEmails();
 	public boolean tienePermiso(String permiso);
 }

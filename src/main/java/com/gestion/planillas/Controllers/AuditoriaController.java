@@ -21,6 +21,7 @@ public class AuditoriaController {
     private usuarioDAO usuarioDAO;
     @Autowired
     private auditoriaDAO auditoriaDAO;
+
     @GetMapping("/empleados")
     @AccessControl(roles="ROLE_Ver_auditoria_de_empleados")
     public String listAudEmpleados(Model model){
@@ -29,7 +30,6 @@ public class AuditoriaController {
         model.addAttribute("empleado",auditEmp);
         return "auditoria/empleados";
     }
-
     @GetMapping("/detalles")
     @AccessControl(roles="ROLE_Ver_auditoria_de_empleados")
     public String detalles(Model model, @RequestParam("id") int id){

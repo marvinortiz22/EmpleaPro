@@ -29,7 +29,7 @@ public class SecurityController {
 
     @GetMapping("")
     public String principal(){
-        return "redirect:/usuarioEjemplo/listar";
+        return "redirect:/home";
     }
 
     @GetMapping("login")

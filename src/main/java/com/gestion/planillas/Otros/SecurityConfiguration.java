@@ -23,7 +23,7 @@ public class SecurityConfiguration {
                 .formLogin(form->form
                 .loginPage("/login")
                 .permitAll()
-                .defaultSuccessUrl("/usuarioEjemplo/listar")
+                .defaultSuccessUrl("/home")
                         .failureHandler(authenticationFailureHandler()))
 
                 .logout(logout->logout

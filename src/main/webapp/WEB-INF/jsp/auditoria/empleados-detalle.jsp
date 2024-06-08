@@ -116,7 +116,7 @@
                     </div>
                     <div class="p-2">
                         <strong>Fecha de Modificacion: </strong>
-                        <fmt:formatDate value="${empleado.fechaModificacion}" />
+                        <fmt:formatDate value="${empleado.fechaModificacion}" pattern="dd/MM/yyyy HH:MM:ss" />
                     </div>
                 </div>
             </div>

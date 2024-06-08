@@ -8,6 +8,7 @@ import com.gestion.planillas.Otros.AccessControl;
 import com.gestion.planillas.modelos.*;
 import com.gestion.planillas.modelos.Otros.Alert;
 import jakarta.validation.Valid;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -47,6 +48,8 @@ public class EmpleadoController {
     private com.gestion.planillas.DAO.oficioDAO oficioDAO;
     @Autowired
     private SessionFactory sessionFactory2;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @GetMapping("/listar")
     @AccessControl(roles="ROLE_Ver_empleados")
@@ -110,6 +113,7 @@ public class EmpleadoController {
         Empleado empleado = empleadoDAO.getEmpleado(id);
         model.addAttribute("empleado", empleado);
         agregarListasModelo(model);
+
         return "empleado/empleado-agregar";
     }
 

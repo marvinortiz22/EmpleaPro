@@ -13,6 +13,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.gestion.planillas.modelos.Usuario;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -121,7 +122,31 @@ public class UsuarioDAOImpl implements usuarioDAO {
         // En este punto, podría devolver null o lanzar una excepción según tus requisitos.
         return null;
     }
+	@Override
+	@Transactional
+	public void asignarVariableSesionUser() {
+		// Obtiene el objeto Authentication del contexto de seguridad
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+		// Verifica si el usuario está autenticado
+		if (authentication != null && authentication.isAuthenticated()) {
+			// Obtiene el nombre del usuario autenticado
+			String username = authentication.getName();
+
+			// Obtiene el usuario por su nombre de usuario
+			Usuario usuario = getUsuarioPorUsername(username);
+
+			if (usuario != null){
+				Session session = sessionFactory.getCurrentSession();
+
+				String sql = "CALL SetCurrentUser(" + usuario.getIdUsuario() + ")";
+
+				Query query = session.createNativeQuery(sql);
+
+				query.executeUpdate();
+			}
+		}
+	}
 	@Override
 	public List<String> getAdminsEmails(){
 		Session session = sessionFactory.getCurrentSession();
