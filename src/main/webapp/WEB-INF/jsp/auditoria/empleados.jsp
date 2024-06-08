@@ -49,7 +49,7 @@
                                 </c:choose>
                             </td>
                             <td>
-                                ${empleado.fechaModificacion}
+                                <fmt:formatDate value="${empleado.fechaModificacion}" pattern="dd/MM/yyyy hh:mm:ss a" />
                             </td>
                             <td>
                                 ${empleado.tipoDeOperacion}
