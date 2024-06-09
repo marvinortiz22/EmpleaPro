@@ -1,3 +1,4 @@
+use bad_proyecto;
 -- Trigger para registrar la creación de empleados en la tabla de bitácora
 DELIMITER $$
 CREATE TRIGGER `after_insert_empleado` AFTER INSERT ON `empleado`
@@ -22,7 +23,7 @@ INSERT INTO AUDITORIA_EMPLEADO (IDEMPLEADO, IDPUESTO, IDMUNICIPIO, IDESTADOCIVIL
 END$$
 DELIMITER;
 
--- Trigger para registrar la creación en la tabla de bitácora
+-- Trigger para registrar la creación en la tabla de bitácora deduccion beneficio global
 DELIMITER $$
 CREATE TRIGGER `after_insert_deduccionbeneficioglobal` AFTER INSERT ON `deduccionbeneficioglobal`
  FOR EACH ROW BEGIN
@@ -40,7 +41,7 @@ CREATE TRIGGER `after_insert_deduccionbeneficioglobal` AFTER INSERT ON `deduccio
 END$$
 DELIMITER ;
 
--- Trigger para registrar la actualización en la tabla de bitácora
+-- Trigger para registrar la actualización en la tabla de bitácora deduccion beneficio global
 DELIMITER $$
 CREATE TRIGGER `after_update_deduccionbeneficioglobal` AFTER UPDATE ON `deduccionbeneficioglobal`
  FOR EACH ROW BEGIN
@@ -58,7 +59,7 @@ CREATE TRIGGER `after_update_deduccionbeneficioglobal` AFTER UPDATE ON `deduccio
 END$$
 DELIMITER ;
 
--- Trigger para registrar la creación en la tabla de bitácora
+-- Trigger para registrar la creación en la tabla de bitácora deduccion beneficio empleado
 DELIMITER $$
 CREATE TRIGGER `after_insert_deduccionbeneficioempleado` AFTER INSERT ON `deduccionbeneficio_empleado`
  FOR EACH ROW BEGIN
@@ -76,7 +77,7 @@ CREATE TRIGGER `after_insert_deduccionbeneficioempleado` AFTER INSERT ON `deducc
 END$$
 DELIMITER ;
 
--- Trigger para registrar la actualización en la tabla de bitácora
+-- Trigger para registrar la actualización en la tabla de bitácora deduccion beneficio empleado
 DELIMITER $$
 CREATE TRIGGER `after_update_deduccionbeneficioempleado` AFTER UPDATE ON `deduccionbeneficio_empleado`
  FOR EACH ROW BEGIN

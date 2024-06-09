@@ -1,10 +1,10 @@
 package com.gestion.planillas.Controllers;
 import com.gestion.planillas.DAO.usuarioDAO;
-import com.gestion.planillas.DAO.horasEmpleadoDAO;
+import com.gestion.planillas.DAO.vacacionesDAO;
 import com.gestion.planillas.DAO.empleadoDAO;
 import com.gestion.planillas.Otros.AccessControl;
-import com.gestion.planillas.modelos.HorasEmpleado;
 import com.gestion.planillas.modelos.Otros.Alert;
+import com.gestion.planillas.modelos.Vacacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,49 +13,51 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
+@RequestMapping("/vacaciones")
 @Controller
-@RequestMapping("/horasEmpleado")
-public class HorasEmpleadoController {
+public class VacacionesController {
+    @Autowired
+    private vacacionesDAO vacacionesDAO;
     @Autowired
     private usuarioDAO usuarioDAO;
     @Autowired
-    private horasEmpleadoDAO horasEmpleadoDAO;
-    @Autowired empleadoDAO empleadoDAO;
+    private empleadoDAO empleadoDAO;
+
     @GetMapping("/listar")
-    @AccessControl(roles = "ROLE_Ver_horas_trabajadas")
+    @AccessControl(roles="ROLE_Ver_vacaciones")
     public String listar(Model model,@RequestParam(name = "all",required = false)boolean all){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
-        List<HorasEmpleado> horasEmpleadoList;
+        List<Vacacion> vacacionList;
         if(all)
-            horasEmpleadoList=horasEmpleadoDAO.getHorasEmpleadoList();
+            vacacionList=vacacionesDAO.getVacaciones();
         else
-            horasEmpleadoList=horasEmpleadoDAO.getHorasEmpleadoHoy();
+            vacacionList=vacacionesDAO.getVacacionesAñoActual();
         if (model.containsAttribute("alert")) {
             Alert alert = (Alert) model.getAttribute("alert");
             model.addAttribute("alert",alert);
         }
-        model.addAttribute("horasEmpleadolist",horasEmpleadoList);
-        return "horasEmpleado/listar";
+        model.addAttribute("vacacionesList",vacacionList);
+        return "vacaciones/listar";
     }
     @GetMapping("/editar")
-    @AccessControl(roles = "ROLE_Editar_horas_trabajadas")
+    @AccessControl(roles="ROLE_Editar_vacaciones")
     public String editar(Model model,@RequestParam(name="id",required = false)Integer id,@RequestParam(name="empleado",required = false)Integer idEmpleado){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
-        HorasEmpleado horasEmpleado;
+        Vacacion vacacion;
         if(id==null){
-            horasEmpleado=new HorasEmpleado();
-            horasEmpleado.setEmpleado(empleadoDAO.getEmpleado(idEmpleado));
+            vacacion=new Vacacion();
+            vacacion.setEmpleado(empleadoDAO.getEmpleado(idEmpleado));
         }
         else
-            horasEmpleado=horasEmpleadoDAO.getHorasEmpleado(id);
-        model.addAttribute("horasEmpleado",horasEmpleado);
-        return "horasEmpleado/editar";
+            vacacion=vacacionesDAO.getVacacion(id);
+        model.addAttribute("vacacion",vacacion);
+        return "vacaciones/editar";
     }
     @PostMapping("/editar")
-    public String editar(@ModelAttribute("horasEmpleado")HorasEmpleado horasEmpleado, RedirectAttributes redirectAttributes){
-        horasEmpleadoDAO.guardar(horasEmpleado);
+    public String editar(@ModelAttribute("vacacion") Vacacion vacacion, RedirectAttributes redirectAttributes){
+        vacacionesDAO.guardar(vacacion);
         Alert alert=new Alert("success","Se ha editado el registro exitosamente");
         redirectAttributes.addFlashAttribute("alert",alert);
-        return "redirect:/horasEmpleado/listar";
+        return "redirect:/vacaciones/listar";
     }
 }

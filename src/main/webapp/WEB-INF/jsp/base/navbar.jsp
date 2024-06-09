@@ -78,7 +78,7 @@
                                         </c:if>
 
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_vacaciones'}">
-                                            <a class="nav-link" href="#">Vacaciones</a>
+                                            <a class="nav-link" href="/vacaciones/listar">Vacaciones</a>
                                         </c:if>
                                     </nav>
                                 </div>

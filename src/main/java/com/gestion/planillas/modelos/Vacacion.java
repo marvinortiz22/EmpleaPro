@@ -1,6 +1,6 @@
 package com.gestion.planillas.modelos;
 import jakarta.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Table(name = "VACACION")

@@ -22,12 +22,12 @@
         <form:input hidden="true" type="date" path="fecha" value="${usuarioPermisos.fecha2}"/>
         <div class="col-md-6">
             <label class="form-label">Hora de ingreso</label>
-            <form:input path="horaIngreso" type="time" class="form-control" step="1" value="" required="true"/>
+            <form:input path="horaIngreso" type="time" class="form-control" step="1" value=""/>
             <form:errors path="horaIngreso"/>
         </div>
         <div class="col-md-6">
             <label class="form-label">Hora de salida </label>
-            <form:input path="horaSalida" type="time" class="form-control" step="1" value="" required="true"/>
+            <form:input path="horaSalida" type="time" class="form-control" step="1" value=""/>
             <form:errors path="horaSalida"/>
         </div>
     </div>

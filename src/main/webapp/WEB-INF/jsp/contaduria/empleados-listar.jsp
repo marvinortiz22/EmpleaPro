@@ -1,15 +1,15 @@
 <%@ include file="../base/head.jsp" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
-<title>Empleados</title>
+<title>Boleta</title>
 <%@ include file="../base/navbar.jsp" %>
     <div class="container-fluid px-4">
         
         <div class="d-flex flex-column align-items-center">
-            <h1 class="mt-4 mb-5">Empleados</h1>
+            <h1 class="mt-4 mb-5">Boletas de pago</h1>
             <p class="mb-2">Seleccione un rango de fechas:</p>
         </div>
         <form:form method="post" id="miFormulario">
-            <div class="row mb-3">
+            <div class="row mb-5">
                 <div class="col-md-6">
                     <label for="">Desde:</label>
                     <input type="date" class="form-control" name="fecha1" id="fecha1" value="2024-05-21"/>
@@ -19,6 +19,7 @@
                     <input type="date" class="form-control" name="fecha2" id="fecha2" value="2024-05-23"/>
                 </div>
             </div>
+        <p class="text-center mt-2">Seleccione un empleado: </p>
         <div class="card mb-4">
             
             <div class="card-body">

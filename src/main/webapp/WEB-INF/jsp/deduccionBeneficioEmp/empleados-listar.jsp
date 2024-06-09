@@ -4,8 +4,9 @@
 <%@ include file="../base/navbar.jsp" %>
     <div class="container-fluid px-4">
         <div class="d-flex justify-content-center">
-            <h1 class="mt-4">Empleados</h1>
+            <h1 class="mt-4 mb-5">Deducciones y beneficios de empleados</h1>
         </div>
+        <p class="text-center">Seleccione un empleado:</p>
         <div class="card mb-4">
             
             <div class="card-body">
