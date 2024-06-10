@@ -36,9 +36,9 @@
 </head>
 
 <body>
-    <div class="container-fluid px-4">
-        <a href="/contabilidad/listarEmpleados"><button title="Lista principal" class="btn btn-primary ms-4 mt-1">←</button></a>
-        <div class="d-flex flex-column align-items-center">
+    <a href="/contabilidad/listarEmpleados" data-ac="regresar"><button title="Lista principal" class="btn btn-primary ms-4 mt-1">←</button></a>
+    <div class="container-fluid px-4" id="boletaDePago">
+        <div class="d-flex flex-column align-items-center cabezaBoleta">
             <h5 id="nombreEmpresa" class="mt-4 mb-2">Nombre de la empresa</h5>
             <h5 class="mb-2" style="text-align: center;">Boleta de pago correspondiente al período</h5>
             <h5 id="rangoFechas" class="mb-2">del: al: </h5>
@@ -46,7 +46,9 @@
             <h5 id="numeroDoc">Número de documento: 1 </h5>
         </div>
         <div class="d-flex justify-content-end mb-4">
-            <a href="#"><button title="Imprimir" class="btn btn-success me-1"><i class="fa-solid fa-print"></i></button></a>
+            <button title="Imprimir" class="btn btn-success me-1" onclick="imprimirBoleta()">
+                <i class="fa-solid fa-print"></i>
+            </button>
         </div>
         <div class="d-flex justify-content-center">
             <h5 class="mt-4">Beneficios</h5>
@@ -162,6 +164,17 @@
 
             document.getElementById("total-deducciones").textContent = data["Total deducciones"];
             document.getElementById("salario-neto").textContent = data["Salario neto"];
+        }
+
+        function imprimirBoleta() {
+            const btnRegresar = document.querySelector('[data-ac="regresar"]'); btnRegresar.style.display = "none";
+            const btnImprimir = document.querySelector('[title="Imprimir"]'); btnImprimir.style.display = "none";
+            const piePagina = document.querySelector('footer'); piePagina.style.display = "none";
+            const nav = document.querySelector('.sb-topnav.navbar'); nav.style.display = "none";
+            const boletaPago = document.querySelector('#boletaDePago'); boletaPago.style.marginTop = "-70px";
+            window.print();
+            btnRegresar.style.display = "block"; btnImprimir.style.display = "block"; piePagina.style.display = "block";
+            nav.style.display = "block"; boletaPago.style.marginTop = "0px";
         }
     </script>
 

@@ -3,6 +3,7 @@ package com.gestion.planillas.Controllers;
 import java.text.NumberFormat;
 import java.util.*;
 
+import com.gestion.planillas.modelos.DatosEmpresa;
 import com.gestion.planillas.modelos.Empleado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import com.gestion.planillas.DAO.usuarioDAO;
 import com.gestion.planillas.DAO.empleadoDAO;
 import com.gestion.planillas.DAO.contaduriaDAO;
+import com.gestion.planillas.DAO.datosEmpresaDAO;
 import com.gestion.planillas.Otros.AccessControl;
 import com.gestion.planillas.modelos.PresupuestoAnual;
 import com.gestion.planillas.modelos.Unidad;
@@ -39,6 +41,8 @@ public class UnidadesControlador {
     private contaduriaDAO contaduriaDAO;
     @Autowired
     private presupuestoDAO presupuesto;
+    @Autowired
+    private datosEmpresaDAO datosEmpresaDAO;
 
     @GetMapping("/listar")
     @AccessControl(roles="ROLE_Ver_unidades")
@@ -115,6 +119,8 @@ public class UnidadesControlador {
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         Unidad unidad = unidadesDAO.getUnidad(id);
         model.addAttribute("unidad", unidad);
+        DatosEmpresa datosEmpresa=datosEmpresaDAO.getDatosEmpresa();
+        model.addAttribute("nombreEmpresa",datosEmpresa.getNombreEmpresa());
         List<PresupuestoAnual> presupuestos = presupuesto.getPresupuestosUnidad(id);
         List<Map<String, Object>> resultados = new ArrayList<>();
         for (PresupuestoAnual presupuesto : presupuestos) {

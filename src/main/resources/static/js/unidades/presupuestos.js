@@ -17,7 +17,9 @@ const manejarTabla = new ManejoTabla({
     `,
     ocultarCampos: ['id'],
     ordenColumnas: ['id', 'Año', 'Monto','Monto-Salarios'],
-    tituloColAcciones: ['Acciones']
+    tituloColAcciones: ['Acciones'],
+    pdf: true,
+    tituloPdf: [nombreEmpresa, 'Presupuestos de la Unidad: ' + document.getElementById('nombreUnidadViendo').innerText, ''],
 });
 
 
