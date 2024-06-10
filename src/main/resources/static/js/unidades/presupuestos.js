@@ -19,7 +19,8 @@ const manejarTabla = new ManejoTabla({
     ordenColumnas: ['id', 'Año', 'Monto','Monto-Salarios'],
     tituloColAcciones: ['Acciones'],
     pdf: true,
-    tituloPdf: [nombreEmpresa, 'Presupuestos de la Unidad: ' + document.getElementById('nombreUnidadViendo').innerText, ''],
+    funcionPdf: presupuestosTablaPdf,
+    parametrosPdf: ['contenedorTabla', { titulo : [nombreEmpresa, 'Presupuestos de la Unidad: ' + document.getElementById('nombreUnidadViendo').innerText, ''] }]
 });
 
 

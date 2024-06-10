@@ -2,6 +2,7 @@ package com.gestion.planillas.Controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gestion.planillas.Otros.AccessControl;
+import com.gestion.planillas.modelos.DatosEmpresa;
 import com.gestion.planillas.modelos.PresupuestoAnual;
 import com.gestion.planillas.modelos.Unidad;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.gestion.planillas.DAO.contaduriaDAO;
+import com.gestion.planillas.DAO.datosEmpresaDAO;
 import com.gestion.planillas.DAO.usuarioDAO;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -27,25 +29,22 @@ public class contaduriaController {
     private contaduriaDAO contaduriaDAO;
     @Autowired
     private usuarioDAO usuarioDAO;
+    @Autowired
+    private datosEmpresaDAO datosEmpresaDAO;
     @GetMapping("/planilla")
     @AccessControl(roles = "ROLE_Ver_planilla")
     public String planilla(Model model, HttpServletRequest request){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         String jsonString = "";
-        boolean permisoEditar = false;
-        boolean permisoCrear = false;
-        boolean cambiarEstado = false;
-        boolean verPresupuestos = false;
-        model.addAttribute("permisoEditar", permisoEditar);
-        model.addAttribute("permisoCrear", permisoCrear);
-        model.addAttribute("cambiarEstado", cambiarEstado);
-        model.addAttribute("verPresupuestos", verPresupuestos);
         model.addAttribute("unidades", jsonString);
         return "contaduria/planilla";
     }
     @PostMapping("/planilla")
     public String planillaPost(Model model,HttpServletRequest request){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
+        model.addAttribute("fecha1",request.getParameter("fecha1")); model.addAttribute("fecha2",request.getParameter("fecha2"));
+        DatosEmpresa datosEmpresa = datosEmpresaDAO.getDatosEmpresa();
+        model.addAttribute("nombreEmpresa", datosEmpresa.getNombreEmpresa());
         List<Object[]> planillaList = contaduriaDAO.planilla(request.getParameter("fecha1"),request.getParameter("fecha2"));
         List<Map<String, Object>> resultados = new ArrayList<>();
         for (Object[] planilla : planillaList) {
@@ -76,14 +75,6 @@ public class contaduriaController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        boolean permisoEditar = false;
-        boolean permisoCrear = false;
-        boolean cambiarEstado = false;
-        boolean verPresupuestos = false;
-        model.addAttribute("permisoEditar", permisoEditar);
-        model.addAttribute("permisoCrear", permisoCrear);
-        model.addAttribute("cambiarEstado", cambiarEstado);
-        model.addAttribute("verPresupuestos", verPresupuestos);
         model.addAttribute("unidades", jsonString);
         return "contaduria/planilla";
     }

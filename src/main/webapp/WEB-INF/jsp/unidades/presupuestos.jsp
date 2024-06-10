@@ -78,7 +78,7 @@
         let nombreEmpresa = '<%= request.getAttribute("nombreEmpresa") %>';
     </script>
     <script src="${pageContext.request.contextPath}/js/jspdf.js"></script>
-    <script src="${pageContext.request.contextPath}/js/presupuestosTabla.js"></script>
+    <script src="${pageContext.request.contextPath}/js/pdfs/presupuestosTabla.js"></script>
     <script src="${pageContext.request.contextPath}/js/ManejoTablas.js"></script>
     <script src="${pageContext.request.contextPath}/js/unidades/presupuestos.js"></script>
 <%@ include file="../base/footer.jsp" %>

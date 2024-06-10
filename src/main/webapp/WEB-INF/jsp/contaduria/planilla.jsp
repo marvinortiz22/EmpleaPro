@@ -27,12 +27,6 @@
                 <button class="btn btn-primary me-0">Mostrar</button>
             </div>
         </form:form>
-        <div>
-            <a href="/unidad/agregar" class="btnAgregar" <% if(!Boolean.parseBoolean(request.getAttribute("permisoCrear").toString())){ %> hidden <% } %> >
-                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
-                Nueva unidad
-            </a>
-        </div>
         <section id="contenedorTabla">
             <form>
                 <div>
@@ -90,20 +84,20 @@
 
     <script>
         let datos = '<%= request.getAttribute("unidades") %>';
-        let permisoEditar = '<%= request.getAttribute("permisoEditar") %>';
-        let permisoCrear = '<%= request.getAttribute("permisoCrear") %>';
-        let cambiarEstado = '<%= request.getAttribute("cambiarEstado") %>';
-        let verPresupuestos = '<%= request.getAttribute("verPresupuestos") %>';
+        let fechaI = '<%= request.getAttribute("fecha1") %>', fechaF = '<%= request.getAttribute("fecha2") %>';
+        let nombreEmpresa = '<%= request.getAttribute("nombreEmpresa") %>';
         document.getElementById("formulario").addEventListener("submit", function(event) {
-        var fecha1 = document.getElementById("fecha1").value;
-        var fecha2 = document.getElementById("fecha2").value;
+        let fecha1 = document.getElementById("fecha1").value;
+        let fecha2 = document.getElementById("fecha2").value;
 
         if (fecha2 <= fecha1) {
             alert("La fecha de fin debe ser mayor que la fecha de inicio.");
-            event.preventDefault(); 
+            event.preventDefault();
         }
     });
     </script>
+    <script src="${pageContext.request.contextPath}/js/jspdf.js"></script>
+    <script src="${pageContext.request.contextPath}/js/pdfs/planillaTabla.js"></script>
     <script src="${pageContext.request.contextPath}/js/ManejoTablas.js"></script>
     <script src="${pageContext.request.contextPath}/js/planilla/js.js"></script>
 <%@ include file="../base/footer.jsp" %>

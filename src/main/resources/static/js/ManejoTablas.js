@@ -32,7 +32,7 @@ class ManejoTabla {
         * FECHA DE LANZAMIENTO: 22/05/2024
         * VERSIÓN: 1.2
     */
-    constructor({ datos = [], idContenedorTabla = '', paginacion = 5, acciones = false, tituloColAcciones = [], html = '', ocultarCampos = [], ordenColumnas = [], pdf = false, tituloPdf = 'Tabla exportada a PDF' }) {
+    constructor({ datos = [], idContenedorTabla = '', paginacion = 5, acciones = false, tituloColAcciones = [], html = '', ocultarCampos = [], ordenColumnas = [], pdf = false, funcionPdf = null, parametrosPdf = []}) {
         this.datos = (typeof datos === 'string') ? JSON.parse(datos) : datos;
         this.datos = this.datos.map(dato => {
             let newDato = {};
@@ -53,7 +53,7 @@ class ManejoTabla {
             btnPdf.textContent = 'PDF';
             btnPdf.classList.add('btn', 'btn-primary');
             this.formBusqueda.insertAdjacentElement('afterbegin', btnPdf);
-            btnPdf.addEventListener('click', () => genPDFFullTabla(idContenedorTabla, { titulo: tituloPdf }));
+            btnPdf.addEventListener('click', () => funcionPdf(...parametrosPdf));
         }
         this.idTimeout = null;
         this.buscar = this.buscar.bind(this);

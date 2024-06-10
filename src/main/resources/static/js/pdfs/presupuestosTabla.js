@@ -1,4 +1,4 @@
-function genPDFFullTabla (idtabla, {
+function presupuestosTablaPdf (idtabla, {
     titulo = 'Tabla exportada a PDF',
     colorCabecera = '#000',
     colorTextoCabecera = '#fff',
@@ -59,5 +59,5 @@ function genPDFFullTabla (idtabla, {
         documento.line(10, y + altoCelda, 200, y + altoCelda) // dibujar la linea inferior
         y += altoCelda
     })
-    documento.save('tabla.pdf')
+    documento.save('presupuestos.pdf')
 }
