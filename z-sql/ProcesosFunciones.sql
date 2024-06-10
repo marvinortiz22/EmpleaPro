@@ -143,7 +143,8 @@ BEGIN
     	calcularDeducBenefEmpleado((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),idempleado,"B")
     	),idempleado,"D")	) AS salarioneto
     	FROM empleado e
-    	JOIN puesto p ON e.idpuesto=p.idpuesto;
+    	JOIN puesto p ON e.idpuesto=p.idpuesto
+    	WHERE e.fechaingreso>=fecha1 AND e.ESTADO=1;
 	END $$
 delimiter ;
 

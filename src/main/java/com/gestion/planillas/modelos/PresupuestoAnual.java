@@ -17,6 +17,17 @@ public class PresupuestoAnual {
     private int ano;
     private BigDecimal monto;
 
+    @Transient
+    private double montoSinSalarios;
+
+    public double getMontoSinSalarios() {
+        return montoSinSalarios;
+    }
+
+    public void setMontoSinSalarios(double montoSinSalarios) {
+        this.montoSinSalarios = montoSinSalarios;
+    }
+
     public int getIdPresupuesto() {
         return idPresupuesto;
     }

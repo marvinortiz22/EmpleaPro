@@ -5,7 +5,7 @@
             white-space: nowrap;
         }
     </style>
-<title>Unidades</title>
+<title>Planilla</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/unidades/css.css">
 <%@ include file="../base/navbar.jsp" %>
     <div id="contenedorPrincipal">

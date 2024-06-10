@@ -1,10 +1,9 @@
 package com.gestion.planillas.Controllers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.NumberFormat;
+import java.util.*;
 
+import com.gestion.planillas.modelos.Empleado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.ui.Model;
 import com.gestion.planillas.DAO.usuarioDAO;
+import com.gestion.planillas.DAO.empleadoDAO;
+import com.gestion.planillas.DAO.contaduriaDAO;
 import com.gestion.planillas.Otros.AccessControl;
 import com.gestion.planillas.modelos.PresupuestoAnual;
 import com.gestion.planillas.modelos.Unidad;
@@ -32,6 +33,10 @@ public class UnidadesControlador {
     private unidadesDAO unidadesDAO;
     @Autowired
     private tipounidadesDAO tipounidadesDAO;
+    @Autowired
+    private empleadoDAO empleadoDAO;
+    @Autowired
+    private contaduriaDAO contaduriaDAO;
     @Autowired
     private presupuestoDAO presupuesto;
 
@@ -117,6 +122,15 @@ public class UnidadesControlador {
             resultado.put("id", presupuesto.getIdPresupuesto());
             resultado.put("Año", presupuesto.getAno());
             resultado.put("Monto", presupuesto.getMonto());
+            List<Empleado> empleados=empleadoDAO.getEmpleadosUnidad(id, presupuesto.getAno());
+            Double sumaSalarios=0.00;
+            for(Empleado empleado:empleados){
+                Double salarioNeto=(Double) contaduriaDAO.planillaEmpleado(empleado.getFechaIngreso().toString(),presupuesto.getAno()+"-12-31",empleado.getIdEmpleado())[16];
+                sumaSalarios+=salarioNeto;
+            }
+            sumaSalarios=Double.parseDouble(presupuesto.getMonto().toString())-sumaSalarios;
+            NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.US);
+            resultado.put("Monto-Salarios",currencyFormatter.format(sumaSalarios));
             resultados.add(resultado);
         }
         ObjectMapper mapper = new ObjectMapper();

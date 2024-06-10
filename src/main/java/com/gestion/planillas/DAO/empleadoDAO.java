@@ -17,5 +17,6 @@ public interface empleadoDAO {
 	public Empleado getEmpleado(Integer id);
 	public void guardarEmpleado(Empleado empleado);
 	public List<ProfesionOficio> getProfesionesOficios(Integer id);
+	public List<Empleado> getEmpleadosUnidad(int id,int anio);
 
 }
