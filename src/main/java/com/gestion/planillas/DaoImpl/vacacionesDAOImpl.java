@@ -32,7 +32,7 @@ public class vacacionesDAOImpl implements vacacionesDAO{
     @Override
     public List<Vacacion> getVacacionesAñoActual() {
         Session session=sessionFactory.getCurrentSession();
-        Query<Object[]> query=session.createNativeQuery("SELECT idvacacion,e.idempleado,v.fechainicio,fechafin,pendiente FROM vacacion v right JOIN empleado e ON e.IDEMPLEADO=v.IDEMPLEADO AND YEAR(fechainicio)=YEAR(CURDATE())",Object[].class);
+        Query<Object[]> query=session.createNativeQuery("SELECT idvacacion,e.idempleado,v.fechainicio FROM vacacion v right JOIN empleado e ON e.IDEMPLEADO=v.IDEMPLEADO AND YEAR(fechainicio)=YEAR(CURDATE())",Object[].class);
         List<Object[]> vacacionesObject= query.getResultList();
         List<Vacacion> vacaciones=new ArrayList<>();
         for(Object[]  object:vacacionesObject){

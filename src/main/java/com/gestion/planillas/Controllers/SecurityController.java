@@ -1,25 +1,15 @@
 package com.gestion.planillas.Controllers;
 
 import com.gestion.planillas.DAO.usuarioDAO;
-import com.gestion.planillas.Otros.AccessControl;
 import com.gestion.planillas.Otros.EmailService;
 import com.gestion.planillas.modelos.Usuario;
-import com.resend.*;
-import com.resend.services.emails.model.CreateEmailOptions;
-import com.resend.services.emails.model.CreateEmailResponse;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.eclipse.tags.shaded.org.apache.xpath.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import com.amazonaws.services.simpleemail.model.SendEmailRequest;
-import software.amazon.awssdk.services.pinpointemail.model.SendEmailResponse;
-
-import java.util.List;
 
 @RequestMapping("/")
 @Controller
@@ -77,28 +67,16 @@ public class SecurityController {
             usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
             usuarioDAO.guardarUsuario(usuario);
 
-            List<String> emails=usuarioDAO.getAdminsEmails();
+            /*List<String> emails=usuarioDAO.getAdminsEmails();
             String subject = "Nuevo usuario";
             for(String email:emails){
                 try{
                     String text = "nuevo usuario\n\nhttp://localhost:8080/usuario/editar?id="+usuario.getIdUsuario();
-                    //emailService.sendEmail(email, subject, text);
-                    Resend resend = new Resend("re_4SAiAPiL_PHJYL6bCUSJcmCm3vE3AJ961");
-
-
-
-                    CreateEmailOptions sendEmailRequest = CreateEmailOptions.builder()
-                            .from("onboarding@resend.dev")
-                            .to(email)
-                            .subject(subject)
-                            .text(text)
-                            .build();
-
-                    CreateEmailResponse data = resend.emails().send(sendEmailRequest);
+                    emailService.sendEmail(email, subject, text);
                 }catch (Exception e){
 
                 }
-            }
+            }*/
 
             return "redirect:/login";
         }
