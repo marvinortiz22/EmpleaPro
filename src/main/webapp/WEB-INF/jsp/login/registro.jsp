@@ -19,13 +19,14 @@
                         </div>
                         <div class="card-body">
                             <form:form modelAttribute="usuario" action="/registro" method="post">
+                                <form:input class="form-control" path="rol.idRol" value="1" hidden="true"/>
                                 <div class="form-floating mb-3">
                                     <form:input class="form-control" path="username" required="true" />
                                     <label for="username">Nombre de usuario</label>
                                     <form:errors path="username"/>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <form:input class="form-control" path="email" required="true" />
+                                    <form:input class="form-control" path="email" type="email" required="true" />
                                     <label for="email">Correo electrónico</label>
                                     <form:errors path="email"/>
                                 </div>

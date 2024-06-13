@@ -27,16 +27,17 @@ public class AccessControlAspect {
         if (!SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
             throw new IllegalAccessException("El usuario no está autenticado");
         }
+        UsuarioPermisos usuarioPermisos=usuarioDAO.getUsuarioActual();
+        Usuario usuario=usuarioDAO.getUsuarioPorUsername(usuarioPermisos.getUsername());
+
+        if(!usuario.isEstado())
+            throw new AccessDeniedException("El usuario está inhabilitado");
+
+        if(usuario.getRol()==null)
+            throw new AuthenticationCredentialsNotFoundException("El usuario no tiene ningún rol asignado");
 
         // Verificar si el usuario tiene los roles requeridos
         String[] requiredRoles = accessControl.roles();
-        UsuarioPermisos usuarioPermisos=usuarioDAO.getUsuarioActual();
-
-        Usuario usuario=usuarioDAO.getUsuarioPorUsername(usuarioPermisos.getUsername());
-        if(!usuario.isEstado()){
-            throw new AccessDeniedException("El usuario está inhabilitado");
-        }
-
         List<Permiso> permisos=usuarioPermisos.getPermisos();
         if (requiredRoles.length > 0) {
             List<String> requiredRolesList = Arrays.asList(requiredRoles);
@@ -45,12 +46,20 @@ public class AccessControlAspect {
                             .anyMatch(permiso -> permiso.getNombrePermiso().equals(role)));
             if (!hasRequiredRole) {
 
-                throw new IllegalAccessException("El usuario tiene los permisos necesarios");
+                throw new IllegalAccessException("El usuario no tiene los permisos necesarios");
             }
         }
 
         // Permitir el acceso al método
         return joinPoint.proceed();
+    }
+    public boolean tienePermisoAdmin(UsuarioPermisos usuario) {
+        for (Permiso permiso : usuario.getPermisos()) {
+            if (permiso.getNombrePermiso().equals("ROLE_Administrador")) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

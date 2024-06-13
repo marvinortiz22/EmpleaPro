@@ -172,11 +172,11 @@
                         <form:input path="salario" class="form-control" id="salario" pattern="^\d{1,8}(\.\d{0,2})?$" title="Debe ser un número de 10 dígitos, ejemplo: 12345678.99" required="true"/>
                         <form:errors path="salario" class="text-danger small"/>
                     </div>
-                    <div class="p-2">
+                    <!--div class="p-2">
                         <label for="fechaIngreso" class="form-label">Fecha de Ingreso*</label>
                         <form:input path="fechaIngreso" type="date" value="${empleado.getFechaIngresoFormateada()}" class="form-control"/>
                         <form:errors path="fechaIngreso" class="text-danger small"/>
-                    </div>
+                    </div-->
                     <div class="p-2">
                         <label for="correoInstitucional" class="form-label">Correo Institucional*</label>
                         <form:input path="correoInstitucional" class="form-control" type="email" maxlength="30" required="true"/>

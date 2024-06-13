@@ -11,15 +11,12 @@ public class Auditoria_DeduccionBeneficioEmpleado {
     private int idAuditoria_DeducBenefEmp;
 
     @ManyToOne
-    @JoinColumn(name = "IDDEDUCBENEF")
-    private DeduccionBeneficio deduccionBeneficio;
-
-    private String nombreDeducBenef;
-    private String tipo;
-
-    @ManyToOne
     @JoinColumn(name = "IDDEDUCBENEF_EMP")
     private DeduccionBeneficio_Empleado deduccionBeneficioEmpleado;
+
+    @ManyToOne
+    @JoinColumn(name = "IDDEDUCBENEF")
+    private DeduccionBeneficio deduccionBeneficio;
 
     @ManyToOne
     @JoinColumn(name = "IDEMPLEADO")
@@ -27,6 +24,8 @@ public class Auditoria_DeduccionBeneficioEmpleado {
 
     private boolean proporcionalAlSueldo;
     private double montoOPorcentaje;
+
+    private boolean estado;
     private Date fechaDeOperacion;
     private String tipoDeOperacion;
 
@@ -50,22 +49,6 @@ public class Auditoria_DeduccionBeneficioEmpleado {
 
     public void setDeduccionBeneficio(DeduccionBeneficio deduccionBeneficio) {
         this.deduccionBeneficio = deduccionBeneficio;
-    }
-
-    public String getNombreDeducBenef() {
-        return nombreDeducBenef;
-    }
-
-    public void setNombreDeducBenef(String nombreDeducBenef) {
-        this.nombreDeducBenef = nombreDeducBenef;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public DeduccionBeneficio_Empleado getDeduccionBeneficioEmpleado() {
@@ -122,5 +105,13 @@ public class Auditoria_DeduccionBeneficioEmpleado {
 
     public void setUsuarioRegistra(Usuario usuarioRegistra) {
         this.usuarioRegistra = usuarioRegistra;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

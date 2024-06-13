@@ -6,10 +6,10 @@
     <body>
     <div class="container">
             <div class="row d-flex justify-content-center mt-5">
-                <div class="alert alert-danger col-8 mt-5 text-center" role="alert">
-                    No tiene los permisos necesarios para acceder a esta funcionalidad
+                <div class="alert alert-success col-8 mt-5 text-center" role="alert">
+                    Gracias por registrarse, por favor espere mientras el administrador le asigna un rol
                     <hr>
-                    <button class="btn btn-primary" onclick="history.back()">Regresar</button>
+                    <a href="/login" class="btn btn-primary">Volver al login</a>
                   </div>
             </div>
         </div>

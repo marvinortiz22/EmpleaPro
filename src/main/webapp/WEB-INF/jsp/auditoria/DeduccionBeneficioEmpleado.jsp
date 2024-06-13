@@ -4,7 +4,7 @@
 <%@ include file="../base/navbar.jsp" %>
 <div class="container-fluid px-4">
     <div class="d-flex justify-content-center">
-        <h1 class="mt-4">Historial de cambios en las deducciones y beneficios de empleados</h1>
+        <h1 class="mt-4 text-center">Historial de cambios en las deducciones y beneficios de empleados</h1>
     </div>
     <div class="card mb-4">
         <div class="card-body">
@@ -12,6 +12,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>id</th>
                         <th>Nombre Deduccion o Beneficio</th>
                         <th>Tipo</th>
                         <th>Empleado</th>
@@ -25,11 +26,12 @@
                 <tbody>
                     <c:forEach var="deducBen" items="${listaDecBen}" varStatus="i">
                         <tr>
-                            <td>${i.count}</td>
-                            <td>${deducBen.nombreDeducBenef}</td>
+                            <td>${i.count} </td>
+                            <td>id-${deducBen.deduccionBeneficio.idDeducBenef} </td>
+                            <td>${deducBen.deduccionBeneficio.nombreDeducBenef}</td>
                             <td>
-                                <c:if test="${deducBen.tipo == 'D'}">Deduccion</c:if>
-                                <c:if test="${deducBen.tipo == 'B'}">Beneficio</c:if>
+                                <c:if test="${deducBen.deduccionBeneficio.tipo == 'D'}">Deduccion</c:if>
+                                <c:if test="${deducBen.deduccionBeneficio.tipo == 'B'}">Beneficio</c:if>
                             </td>
                             <td>
                                 ${deducBen.empleado.nombre1} 

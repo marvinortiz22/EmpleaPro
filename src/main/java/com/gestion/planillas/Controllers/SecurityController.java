@@ -4,6 +4,9 @@ import com.gestion.planillas.DAO.usuarioDAO;
 import com.gestion.planillas.Otros.AccessControl;
 import com.gestion.planillas.Otros.EmailService;
 import com.gestion.planillas.modelos.Usuario;
+import com.resend.*;
+import com.resend.services.emails.model.CreateEmailOptions;
+import com.resend.services.emails.model.CreateEmailResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.eclipse.tags.shaded.org.apache.xpath.operations.Mod;
@@ -13,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import com.amazonaws.services.simpleemail.model.SendEmailRequest;
+import software.amazon.awssdk.services.pinpointemail.model.SendEmailResponse;
 
 import java.util.List;
 
@@ -72,18 +77,30 @@ public class SecurityController {
             usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
             usuarioDAO.guardarUsuario(usuario);
 
-            /*List<String> emails=usuarioDAO.getAdminsEmails();
+            List<String> emails=usuarioDAO.getAdminsEmails();
             String subject = "Nuevo usuario";
             for(String email:emails){
                 try{
                     String text = "nuevo usuario\n\nhttp://localhost:8080/usuario/editar?id="+usuario.getIdUsuario();
-                    emailService.sendEmail(email, subject, text);
+                    //emailService.sendEmail(email, subject, text);
+                    Resend resend = new Resend("re_4SAiAPiL_PHJYL6bCUSJcmCm3vE3AJ961");
+
+
+
+                    CreateEmailOptions sendEmailRequest = CreateEmailOptions.builder()
+                            .from("onboarding@resend.dev")
+                            .to(email)
+                            .subject(subject)
+                            .text(text)
+                            .build();
+
+                    CreateEmailResponse data = resend.emails().send(sendEmailRequest);
                 }catch (Exception e){
 
                 }
-            }*/
+            }
 
-            return "redirect:/usuarioEjemplo/listar";
+            return "redirect:/login";
         }
     }
 
@@ -96,14 +113,18 @@ public class SecurityController {
         return "error";
     }*/
     @GetMapping("error/permisos")
-    public String errorUrl() {
+    public String errorPermisos() {
         return "error/errorPermisos";
     }
     @GetMapping("error/estado")
-    public String errorUrl2(@RequestParam(value="user",required = false)String username,Model model) {
+    public String errorEstado(@RequestParam(value="user",required = false)String username,Model model) {
         Usuario usuario=usuarioDAO.getUsuarioPorUsername(username);
         model.addAttribute("usuario",usuario);
         return "error/errorEstado";
+    }
+    @GetMapping("error/rol")
+    public String errorRol() {
+        return "error/errorRol";
     }
     @GetMapping("solicitarDesbloqueo")
     public String solicitarDesbloqueo(@RequestParam(value="id",required = false) int id){

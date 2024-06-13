@@ -12,7 +12,7 @@ public class Usuario {
 
     @ManyToOne
     @JoinColumn(name = "IDROL")
-    private Rol rol=new Rol(1,"usuario",true);
+    private Rol rol;
 	private String username;
 	private String email;
 

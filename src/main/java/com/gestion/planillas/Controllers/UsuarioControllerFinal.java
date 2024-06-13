@@ -92,10 +92,14 @@ public class UsuarioControllerFinal {
     public String cambiarEstado(@RequestParam("id")int id, RedirectAttributes redirectAttributes){
         Usuario usuario=usuarioDAO.getUsuario(id);
         Alert alert;
-        if(usuario.isEstado())
+        if(usuario.isEstado()){
             alert=new Alert("danger","Se ha bloqueado el usuario "+usuario.getUsername());
-        else
+            usuario.setSolicitoDesbloqueo(false);
+        }
+        else{
             alert=new Alert("success","Se ha desbloqueado el usuario "+usuario.getUsername());
+            usuario.setSolicitoDesbloqueo(false);
+        }
         redirectAttributes.addFlashAttribute("alert",alert);
         usuario.setEstado(!usuario.isEstado());
         usuarioDAO.guardarUsuario(usuario);

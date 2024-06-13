@@ -17,10 +17,8 @@ import com.gestion.planillas.DAO.datosEmpresaDAO;
 import com.gestion.planillas.DAO.usuarioDAO;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.NumberFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping("/contabilidad")
@@ -46,26 +44,28 @@ public class contaduriaController {
         DatosEmpresa datosEmpresa = datosEmpresaDAO.getDatosEmpresa();
         model.addAttribute("nombreEmpresa", datosEmpresa.getNombreEmpresa());
         List<Object[]> planillaList = contaduriaDAO.planilla(request.getParameter("fecha1"),request.getParameter("fecha2"));
+
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.US);
         List<Map<String, Object>> resultados = new ArrayList<>();
         for (Object[] planilla : planillaList) {
             Map<String, Object> resultado = new HashMap<>();
             resultado.put("Número de documento", planilla[0]);
             resultado.put("Nombre", planilla[1]);
             resultado.put("Cargo", planilla[2]);
-            resultado.put("Salario/hora", String.format("$%.2f",Double.parseDouble(planilla[3].toString())));
+            resultado.put("Salario/hora", currencyFormatter.format(planilla[3]));
             resultado.put("Horas normales", planilla[4]);
-            resultado.put("Salario*horas normales",String.format("$%.2f",Double.parseDouble(planilla[5].toString())));
-            resultado.put("Vacaciones", String.format("$%.2f",Double.parseDouble(planilla[6].toString())));
-            resultado.put("Horas extra",String.format("$%.2f",Double.parseDouble(planilla[7].toString())));
-            resultado.put("Permisos remunerables",String.format("$%.2f",Double.parseDouble(planilla[8].toString())));
-            resultado.put("Otros beneficios", String.format("$%.2f",Double.parseDouble(planilla[9].toString())));
-            resultado.put("Salario+beneficios", String.format("$%.2f",Double.parseDouble(planilla[10].toString())));
-            resultado.put("ISSS", String.format("$%.2f",Double.parseDouble(planilla[11].toString())));
-            resultado.put("AFP",String.format("$%.2f",Double.parseDouble(planilla[12].toString())));
-            resultado.put("ISR",String.format("$%.2f",Double.parseDouble(planilla[13].toString())));
-            resultado.put("Otras deducciones", String.format("$%.2f",Double.parseDouble(planilla[14].toString())));
-            resultado.put("Total deducciones",String.format("$%.2f",Double.parseDouble(planilla[15].toString())));
-            resultado.put("Salario neto",String.format("$%.2f",Double.parseDouble(planilla[16].toString())));
+            resultado.put("Salario*horas normales",currencyFormatter.format(planilla[5]));
+            resultado.put("Vacaciones", currencyFormatter.format(planilla[6]));
+            resultado.put("Horas extra",currencyFormatter.format(planilla[7]));
+            resultado.put("Permisos remunerables",currencyFormatter.format(planilla[8]));
+            resultado.put("Otros beneficios", currencyFormatter.format(planilla[9]));
+            resultado.put("Salario+beneficios", currencyFormatter.format(planilla[10]));
+            resultado.put("ISSS", currencyFormatter.format(planilla[11]));
+            resultado.put("AFP",currencyFormatter.format(planilla[12]));
+            resultado.put("ISR",currencyFormatter.format(planilla[13]));
+            resultado.put("Otras deducciones", currencyFormatter.format(planilla[14]));
+            resultado.put("Total deducciones",currencyFormatter.format(planilla[15]));
+            resultado.put("Salario neto",currencyFormatter.format(planilla[16]));
             resultados.add(resultado);
         }
         ObjectMapper mapper = new ObjectMapper();

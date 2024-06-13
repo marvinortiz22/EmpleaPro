@@ -16,21 +16,18 @@
 
 
 -- Volcando estructura de base de datos para bad_proyecto
-DROP DATABASE IF EXISTS `bad_proyecto`;
 CREATE DATABASE IF NOT EXISTS `bad_proyecto` /*!40100 DEFAULT CHARACTER SET latin1 */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `bad_proyecto`;
 
 -- Volcando estructura para tabla bad_proyecto.auditoria_deduccionbeneficioempleado
-DROP TABLE IF EXISTS `auditoria_deduccionbeneficioempleado`;
 CREATE TABLE IF NOT EXISTS `auditoria_deduccionbeneficioempleado` (
   `IDAUDITORIA_DEDUCBENEFEMP` int NOT NULL AUTO_INCREMENT,
-  `IDDEDUCBENEF` int NOT NULL,
-  `NOMBREDEDUCBENEF` varchar(50) NOT NULL,
-  `TIPO` enum('D','B') NOT NULL,
   `IDDEDUCBENEF_EMP` int NOT NULL,
+  `IDDEDUCBENEF` int NOT NULL,
   `IDEMPLEADO` int DEFAULT NULL,
   `PROPORCIONALALSUELDO` tinyint(1) NOT NULL,
   `MONTOOPORCENTAJE` decimal(10,0) NOT NULL,
+  `ESTADO` tinyint NOT NULL,
   `FECHADEOPERACION` date NOT NULL,
   `TIPODEOPERACION` varchar(25) NOT NULL,
   `USUARIOREGISTRA` int DEFAULT NULL,
@@ -43,18 +40,20 @@ CREATE TABLE IF NOT EXISTS `auditoria_deduccionbeneficioempleado` (
   CONSTRAINT `FK_DEDUCCIONBENEFICIOEMPAUDI` FOREIGN KEY (`IDDEDUCBENEF`) REFERENCES `deduccionbeneficio` (`IDDEDUCBENEF`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_DEDUCCIONBENEFICIOEMPLEADO` FOREIGN KEY (`IDDEDUCBENEF_EMP`) REFERENCES `deduccionbeneficio_empleado` (`IDDEDUCBENEF_EMP`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_DEDUCCIONBENEFICIOEMPLEADOAUDIEMP` FOREIGN KEY (`IDEMPLEADO`) REFERENCES `empleado` (`IDEMPLEADO`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla bad_proyecto.auditoria_deduccionbeneficioempleado: ~0 rows (aproximadamente)
 DELETE FROM `auditoria_deduccionbeneficioempleado`;
+INSERT INTO `auditoria_deduccionbeneficioempleado` (`IDAUDITORIA_DEDUCBENEFEMP`, `IDDEDUCBENEF_EMP`, `IDDEDUCBENEF`, `IDEMPLEADO`, `PROPORCIONALALSUELDO`, `MONTOOPORCENTAJE`, `ESTADO`, `FECHADEOPERACION`, `TIPODEOPERACION`, `USUARIOREGISTRA`) VALUES
+	(5, 5, 5, 1, 1, 17, 0, '2024-06-12', 'Actualización', 8),
+	(6, 4, 6, 1, 0, 20, 0, '2024-06-12', 'Actualización', 8),
+	(7, 5, 5, 1, 1, 17, 1, '2024-06-12', 'Actualización', 8),
+	(8, 4, 6, 1, 0, 20, 1, '2024-06-12', 'Actualización', 8);
 
 -- Volcando estructura para tabla bad_proyecto.auditoria_deduccionbeneficioglobal
-DROP TABLE IF EXISTS `auditoria_deduccionbeneficioglobal`;
 CREATE TABLE IF NOT EXISTS `auditoria_deduccionbeneficioglobal` (
   `IDAUDITORIA_IDDEDUCBENEF` int NOT NULL AUTO_INCREMENT,
   `IDDEDUCBENEF` int NOT NULL,
-  `NOMBREDEDUCBENEF` varchar(50) NOT NULL,
-  `TIPO` enum('D','B') NOT NULL,
   `PROPORCIONALALSUELDO` tinyint(1) NOT NULL,
   `MONTOOPORCENTAJE` decimal(10,0) NOT NULL,
   `ESTADO` tinyint(1) NOT NULL DEFAULT '1',
@@ -66,13 +65,20 @@ CREATE TABLE IF NOT EXISTS `auditoria_deduccionbeneficioglobal` (
   KEY `FK_USUARIOREGISTRA` (`USUARIOREGISTRA`),
   CONSTRAINT `FK_DEDUCCIONBENEFICIOGLOBAL` FOREIGN KEY (`IDDEDUCBENEF`) REFERENCES `deduccionbeneficio` (`IDDEDUCBENEF`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_USUARIOREGISTRA` FOREIGN KEY (`USUARIOREGISTRA`) REFERENCES `usuario` (`IDUSUARIO`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla bad_proyecto.auditoria_deduccionbeneficioglobal: ~0 rows (aproximadamente)
 DELETE FROM `auditoria_deduccionbeneficioglobal`;
+INSERT INTO `auditoria_deduccionbeneficioglobal` (`IDAUDITORIA_IDDEDUCBENEF`, `IDDEDUCBENEF`, `PROPORCIONALALSUELDO`, `MONTOOPORCENTAJE`, `ESTADO`, `FECHADEOPERACION`, `TIPODEOPERACION`, `USUARIOREGISTRA`) VALUES
+	(1, 5, 1, 1, 1, '2024-06-12', 'Inserción', NULL),
+	(2, 5, 0, 1, 1, '2024-06-12', 'Actualización', NULL),
+	(3, 5, 0, 1, 0, '2024-06-12', 'Actualización', NULL),
+	(4, 7, 1, 13, 1, '2024-06-12', 'Inserción', NULL),
+	(5, 7, 1, 3, 1, '2024-06-12', 'Actualización', NULL),
+	(6, 10, 1, 7, 1, '2024-06-12', 'Inserción', NULL),
+	(7, 10, 1, 7, 1, '2024-06-12', 'Actualización', NULL);
 
 -- Volcando estructura para tabla bad_proyecto.auditoria_empleado
-DROP TABLE IF EXISTS `auditoria_empleado`;
 CREATE TABLE IF NOT EXISTS `auditoria_empleado` (
   `IDAUDITORIA_EMPLEADO` int NOT NULL AUTO_INCREMENT,
   `IDEMPLEADO` int DEFAULT NULL,
@@ -115,9 +121,9 @@ CREATE TABLE IF NOT EXISTS `auditoria_empleado` (
   CONSTRAINT `fk_idpuestoaudiemp` FOREIGN KEY (`IDPUESTO`) REFERENCES `puesto` (`IDPUESTO`),
   CONSTRAINT `fk_idtipodocaudiemp` FOREIGN KEY (`IDTIPODOC`) REFERENCES `tipodocumento` (`IDTIPODOC`),
   CONSTRAINT `FK_USUARIOMODIFICAEMPLEADO` FOREIGN KEY (`USUARIOREGISTRA`) REFERENCES `usuario` (`IDUSUARIO`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla bad_proyecto.auditoria_empleado: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla bad_proyecto.auditoria_empleado: ~10 rows (aproximadamente)
 DELETE FROM `auditoria_empleado`;
 INSERT INTO `auditoria_empleado` (`IDAUDITORIA_EMPLEADO`, `IDEMPLEADO`, `IDPUESTO`, `IDMUNICIPIO`, `IDESTADOCIVIL`, `EMP_IDEMPLEADO`, `IDTIPODOC`, `NOMBRE1`, `NOMBRE2`, `APELLIDO1`, `APELLIDO2`, `APELLIDOCASADA`, `SEXO`, `FECHANACIMIENTO`, `FECHAINGRESO`, `NUMERODOC`, `NIT`, `ISSS`, `NUP`, `SALARIO`, `CORREOINSTITUCIONAL`, `CORREOPERSONAL`, `ESTADO`, `FECHAMODIFICACION`, `TIPODEOPERACION`, `USUARIOREGISTRA`) VALUES
 	(3, 3, 2, NULL, NULL, NULL, NULL, 'miguel', NULL, 'ortiz', NULL, NULL, 'M', '2024-05-23', '2024-05-23 10:32:09', '3', NULL, '3', NULL, 4, 'c', 'c', 1, '2024-06-09 13:24:39', 'Actualización', NULL),
@@ -129,10 +135,17 @@ INSERT INTO `auditoria_empleado` (`IDAUDITORIA_EMPLEADO`, `IDEMPLEADO`, `IDPUEST
 	(9, 4, 2, NULL, NULL, NULL, NULL, 'f', NULL, 's', NULL, NULL, 'M', '2024-06-08', '2024-06-08 23:19:27', '4', NULL, '4', NULL, 1, 'd', 'd', 1, '2024-06-09 16:23:24', 'Actualización', NULL),
 	(10, 1, 1, 151, NULL, NULL, NULL, 'pepe', 'david', 'mejia', '', '', 'M', '2024-05-22', '2024-05-07 20:28:18', '1', NULL, '1', NULL, 2, 'a', 'a', 1, '2024-06-09 16:24:01', 'Actualización', NULL),
 	(11, 1, 1, 151, NULL, NULL, NULL, 'pepe', 'david', 'mejia', '', '', 'M', '2024-05-22', '2024-05-21 20:28:18', '1', NULL, '1', NULL, 2, 'a', 'a', 1, '2024-06-09 16:24:23', 'Actualización', NULL),
-	(12, 1, 1, 151, NULL, NULL, NULL, 'pepe', 'david', 'mejia', '', '', 'M', '2024-05-22', '2024-05-22 20:28:18', '1', NULL, '1', NULL, 2, 'a', 'a', 1, '2024-06-09 19:59:13', 'Actualización', NULL);
+	(12, 1, 1, 151, NULL, NULL, NULL, 'pepe', 'david', 'mejia', '', '', 'M', '2024-05-22', '2024-05-22 20:28:18', '1', NULL, '1', NULL, 2, 'a', 'a', 1, '2024-06-09 19:59:13', 'Actualización', NULL),
+	(13, 6, NULL, NULL, NULL, NULL, NULL, 'b', NULL, 'b', NULL, NULL, 'M', '2024-06-12', '2024-06-12 20:47:32', '6', NULL, '6', NULL, 1, 'f', 'f', 1, '2024-06-12 20:47:32', 'Inserción', NULL),
+	(14, 7, NULL, NULL, NULL, NULL, NULL, 'c', NULL, 'c', NULL, NULL, 'M', '2024-06-12', '2024-06-12 20:50:05', '7', NULL, '7', NULL, 1, 'g', 'g', 1, '2024-06-12 20:50:05', 'Inserción', NULL),
+	(15, 8, NULL, NULL, NULL, NULL, NULL, 'D', NULL, 'D', NULL, NULL, 'M', '2024-06-12', '2024-06-12 00:00:00', '8', NULL, '8', NULL, 1, 'H', 'H', 1, '2024-06-12 20:51:19', 'Inserción', NULL),
+	(16, 8, NULL, NULL, NULL, NULL, NULL, 'D', NULL, 'D', NULL, NULL, 'M', '2024-06-12', '2024-06-12 00:00:00', '8', NULL, '8', NULL, 1, 'H@', 'H', 1, '2024-06-12 20:51:28', 'Actualización', NULL),
+	(17, 9, 1, 248, 1, NULL, 1, 'A', '', 'A', '', NULL, 'M', '2000-06-12', '2024-06-12 20:58:43', '99999999-9', '9999-999999-999-9', '999999999', '999999999999', 1, 'i@gmail.com', 'i@gmail.com', 1, '2024-06-12 20:58:43', 'Inserción', 8),
+	(18, 9, 1, 248, 1, NULL, 1, 'A', '', 'A', '', NULL, 'M', '2000-06-12', '2024-06-12 20:59:44', '99999999-9', '9999-999999-999-9', '999999999', '999999999999', 2, 'i@gmail.com', 'i@gmail.com', 1, '2024-06-12 20:59:43', 'Actualización', 8),
+	(19, 9, 1, 248, 1, NULL, 1, 'A', '', 'A', '', NULL, 'M', '2000-06-12', '2024-06-12 21:00:04', '99999999-9', '9999-999999-999-9', '999999999', '999999999999', 2, 'i@gmail.com', 'i@gmail.com', 1, '2024-06-12 21:00:04', 'Actualización', 8),
+	(20, 4, 2, NULL, NULL, NULL, NULL, 'maria', NULL, 'gabriel', 'jimenez', 'gonzales', 'M', '2024-06-08', '2024-06-08 23:19:27', '4', NULL, '4', NULL, 1, 'd', 'd', 1, '2024-06-12 21:45:20', 'Actualización', NULL);
 
 -- Volcando estructura para función bad_proyecto.calcularDeducBenefEmpleado
-DROP FUNCTION IF EXISTS `calcularDeducBenefEmpleado`;
 DELIMITER //
 CREATE FUNCTION `calcularDeducBenefEmpleado`(
 	`salario` DECIMAL,
@@ -148,7 +161,7 @@ BEGIN
 	SELECT proporcionalalsueldo,montooporcentaje FROM deduccionbeneficio_empleado dbe 
 	JOIN deduccionbeneficio db ON db.IDDEDUCBENEF=dbe.IDDEDUCBENEF
 	JOIN empleado e ON e.IDEMPLEADO=dbe.IDEMPLEADO
-	WHERE e.IDEMPLEADO=idempleadop AND tipo=tipop;
+	WHERE e.IDEMPLEADO=idempleadop AND tipo=tipop AND dbe.estado=1;
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
 
     OPEN cursorbeneficios;
@@ -175,7 +188,6 @@ END//
 DELIMITER ;
 
 -- Volcando estructura para función bad_proyecto.calcularDeducBenefGlobales
-DROP FUNCTION IF EXISTS `calcularDeducBenefGlobales`;
 DELIMITER //
 CREATE FUNCTION `calcularDeducBenefGlobales`(
 	`salario` DECIMAL,
@@ -189,7 +201,7 @@ BEGIN
 	DECLARE cursorbeneficios CURSOR for
 	SELECT proporcionalalsueldo,montooporcentaje FROM deduccionbeneficioglobal dbg 
 	JOIN deduccionbeneficio db ON db.IDDEDUCBENEF=dbg.IDDEDUCBENEF
-	WHERE estado=1 AND tipo=tipop;
+	WHERE estado=1 AND tipo=tipop AND db.NOMBREDEDUCBENEF!='ISSS' AND db.NOMBREDEDUCBENEF!='AFP';
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
 
     OPEN cursorbeneficios;
@@ -216,7 +228,6 @@ END//
 DELIMITER ;
 
 -- Volcando estructura para función bad_proyecto.calcularHorasExtra
-DROP FUNCTION IF EXISTS `calcularHorasExtra`;
 DELIMITER //
 CREATE FUNCTION `calcularHorasExtra`(
     empleado_id INT,
@@ -258,7 +269,6 @@ END//
 DELIMITER ;
 
 -- Volcando estructura para función bad_proyecto.calcularHorasNormales
-DROP FUNCTION IF EXISTS `calcularHorasNormales`;
 DELIMITER //
 CREATE FUNCTION `calcularHorasNormales`(
     empleado_id INT,
@@ -300,7 +310,6 @@ END//
 DELIMITER ;
 
 -- Volcando estructura para función bad_proyecto.calcularHorasTrabajadas
-DROP FUNCTION IF EXISTS `calcularHorasTrabajadas`;
 DELIMITER //
 CREATE FUNCTION `calcularHorasTrabajadas`(
     empleado_id INT,
@@ -322,12 +331,13 @@ END//
 DELIMITER ;
 
 -- Volcando estructura para función bad_proyecto.calcularISSS
-DROP FUNCTION IF EXISTS `calcularISSS`;
 DELIMITER //
-CREATE FUNCTION `calcularISSS`(salario DECIMAL) RETURNS decimal(10,2)
+CREATE FUNCTION `calcularISSS`(
+	`salario` DECIMAL
+) RETURNS decimal(10,2)
 BEGIN
 	DECLARE descuentomonto DECIMAL(10,2);
-	set descuentomonto=salario*0.03;
+	set descuentomonto=salario*(SELECT montooporcentaje/100 FROM deduccionbeneficioglobal dbg JOIN deduccionbeneficio db ON db.IDDEDUCBENEF=dbg.IDDEDUCBENEF WHERE db.NOMBREDEDUCBENEF='ISSS');
 	if descuentomonto>30 then
 		set descuentomonto=30;
 	END if;
@@ -336,7 +346,6 @@ END//
 DELIMITER ;
 
 -- Volcando estructura para función bad_proyecto.calcularrenta
-DROP FUNCTION IF EXISTS `calcularrenta`;
 DELIMITER //
 CREATE FUNCTION `calcularrenta`(salario DECIMAL) RETURNS decimal(10,2)
 BEGIN
@@ -355,7 +364,6 @@ END//
 DELIMITER ;
 
 -- Volcando estructura para tabla bad_proyecto.datosempresa
-DROP TABLE IF EXISTS `datosempresa`;
 CREATE TABLE IF NOT EXISTS `datosempresa` (
   `IDEMPRESA` int NOT NULL,
   `NOMBREEMPRESA` varchar(50) NOT NULL,
@@ -375,80 +383,82 @@ INSERT INTO `datosempresa` (`IDEMPRESA`, `NOMBREEMPRESA`, `DIRECCION`, `NOMBRERE
 	(0, 'Empresa sa de cv', 'mi casa', 'marvin', '1111-111111-111-1', '1111111', '1111-1111', 'https://google.com', 'danielmezquino@gmail.com');
 
 -- Volcando estructura para tabla bad_proyecto.deduccionbeneficio
-DROP TABLE IF EXISTS `deduccionbeneficio`;
 CREATE TABLE IF NOT EXISTS `deduccionbeneficio` (
   `IDDEDUCBENEF` int NOT NULL AUTO_INCREMENT,
   `NOMBREDEDUCBENEF` varchar(75) NOT NULL,
   `TIPO` enum('D','B') NOT NULL,
   PRIMARY KEY (`IDDEDUCBENEF`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla bad_proyecto.deduccionbeneficio: ~6 rows (aproximadamente)
+-- Volcando datos para la tabla bad_proyecto.deduccionbeneficio: ~9 rows (aproximadamente)
 DELETE FROM `deduccionbeneficio`;
 INSERT INTO `deduccionbeneficio` (`IDDEDUCBENEF`, `NOMBREDEDUCBENEF`, `TIPO`) VALUES
-	(1, 'bono global 1', 'B'),
+	(1, 'bono global 3', 'B'),
 	(2, 'bono global 2 p', 'B'),
 	(3, 'deduccion global 1', 'D'),
 	(4, 'deduccion global 2 p', 'D'),
 	(5, 'bono por ventas p', 'B'),
-	(6, 'cuota alimencia', 'D');
+	(6, 'cuota alimencia', 'D'),
+	(7, 'ISSS', 'D'),
+	(10, 'AFP', 'D');
 
 -- Volcando estructura para tabla bad_proyecto.deduccionbeneficioglobal
-DROP TABLE IF EXISTS `deduccionbeneficioglobal`;
 CREATE TABLE IF NOT EXISTS `deduccionbeneficioglobal` (
   `IDDEDUCBENEF` int NOT NULL AUTO_INCREMENT,
   `PROPORCIONALALSUELDO` tinyint(1) NOT NULL,
-  `MONTOOPORCENTAJE` decimal(10,0) NOT NULL,
+  `MONTOOPORCENTAJE` decimal(10,2) NOT NULL,
   `ESTADO` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`IDDEDUCBENEF`) USING BTREE,
   CONSTRAINT `FK_REFERENCE_23` FOREIGN KEY (`IDDEDUCBENEF`) REFERENCES `deduccionbeneficio` (`IDDEDUCBENEF`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla bad_proyecto.deduccionbeneficioglobal: ~4 rows (aproximadamente)
 DELETE FROM `deduccionbeneficioglobal`;
 INSERT INTO `deduccionbeneficioglobal` (`IDDEDUCBENEF`, `PROPORCIONALALSUELDO`, `MONTOOPORCENTAJE`, `ESTADO`) VALUES
-	(1, 1, 20002, 1),
-	(2, 1, 10, 1),
-	(3, 0, 20, 1),
-	(4, 1, 10, 1);
+	(1, 1, 20002.00, 1),
+	(2, 1, 10.00, 1),
+	(3, 0, 20.00, 1),
+	(4, 1, 10.00, 1),
+	(5, 0, 1.00, 0),
+	(7, 1, 3.00, 1),
+	(10, 1, 7.25, 1);
 
 -- Volcando estructura para tabla bad_proyecto.deduccionbeneficio_empleado
-DROP TABLE IF EXISTS `deduccionbeneficio_empleado`;
 CREATE TABLE IF NOT EXISTS `deduccionbeneficio_empleado` (
   `IDDEDUCBENEF_EMP` int NOT NULL AUTO_INCREMENT,
   `IDEMPLEADO` int DEFAULT NULL,
   `IDDEDUCBENEF` int DEFAULT NULL,
   `PROPORCIONALALSUELDO` tinyint(1) NOT NULL,
   `MONTOOPORCENTAJE` decimal(10,2) NOT NULL,
+  `ESTADO` tinyint NOT NULL DEFAULT '1',
   PRIMARY KEY (`IDDEDUCBENEF_EMP`) USING BTREE,
   KEY `FK_REFERENCE_21` (`IDEMPLEADO`),
   KEY `FK_REFERENCE_22` (`IDDEDUCBENEF`),
   CONSTRAINT `FK_REFERENCE_21` FOREIGN KEY (`IDEMPLEADO`) REFERENCES `empleado` (`IDEMPLEADO`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_REFERENCE_22` FOREIGN KEY (`IDDEDUCBENEF`) REFERENCES `deduccionbeneficio` (`IDDEDUCBENEF`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla bad_proyecto.deduccionbeneficio_empleado: ~16 rows (aproximadamente)
 DELETE FROM `deduccionbeneficio_empleado`;
-INSERT INTO `deduccionbeneficio_empleado` (`IDDEDUCBENEF_EMP`, `IDEMPLEADO`, `IDDEDUCBENEF`, `PROPORCIONALALSUELDO`, `MONTOOPORCENTAJE`) VALUES
-	(1, 1, 5, 0, 17.00),
-	(2, 1, 6, 1, 20.00),
-	(3, 1, 5, 0, 30.00),
-	(4, 1, 6, 0, 20.00),
-	(5, 1, 5, 1, 17.25),
-	(8, 1, 5, 0, 1.00),
-	(9, 1, 5, 0, 1.00),
-	(10, 1, 5, 0, 1.00),
-	(11, 1, 6, 0, 1.00),
-	(12, 1, 6, 0, 1.00),
-	(13, 1, 6, 0, 2.00),
-	(14, 1, 5, 0, 1.00),
-	(15, 1, 5, 0, 1.00),
-	(16, 1, 5, 0, 1.00),
-	(17, 1, 5, 0, 1.00),
-	(18, 3, 6, 1, 2.00);
+INSERT INTO `deduccionbeneficio_empleado` (`IDDEDUCBENEF_EMP`, `IDEMPLEADO`, `IDDEDUCBENEF`, `PROPORCIONALALSUELDO`, `MONTOOPORCENTAJE`, `ESTADO`) VALUES
+	(1, 1, 5, 0, 17.00, 1),
+	(2, 1, 6, 1, 20.00, 1),
+	(3, 1, 5, 0, 30.00, 1),
+	(4, 1, 6, 0, 20.00, 1),
+	(5, 1, 5, 1, 17.25, 1),
+	(8, 1, 5, 0, 1.00, 1),
+	(9, 1, 5, 0, 1.00, 1),
+	(10, 1, 5, 0, 1.00, 1),
+	(11, 1, 6, 0, 1.00, 1),
+	(12, 1, 6, 0, 1.00, 1),
+	(13, 1, 6, 0, 2.00, 1),
+	(14, 1, 5, 0, 1.00, 1),
+	(15, 1, 5, 0, 1.00, 1),
+	(16, 1, 5, 0, 1.00, 1),
+	(17, 1, 5, 0, 1.00, 1),
+	(18, 3, 6, 1, 2.00, 1);
 
 -- Volcando estructura para tabla bad_proyecto.departamento
-DROP TABLE IF EXISTS `departamento`;
 CREATE TABLE IF NOT EXISTS `departamento` (
   `IDDEPARTAMENTO` int NOT NULL AUTO_INCREMENT,
   `NOMBREDEPARTAMENTO` varchar(50) NOT NULL,
@@ -474,7 +484,6 @@ INSERT INTO `departamento` (`IDDEPARTAMENTO`, `NOMBREDEPARTAMENTO`) VALUES
 	(14, 'La Unión');
 
 -- Volcando estructura para función bad_proyecto.diasconpermiso
-DROP FUNCTION IF EXISTS `diasconpermiso`;
 DELIMITER //
 CREATE FUNCTION `diasconpermiso`(
 	`idEmpleadop` INT
@@ -501,7 +510,6 @@ END//
 DELIMITER ;
 
 -- Volcando estructura para tabla bad_proyecto.empleado
-DROP TABLE IF EXISTS `empleado`;
 CREATE TABLE IF NOT EXISTS `empleado` (
   `IDEMPLEADO` int NOT NULL AUTO_INCREMENT,
   `IDPUESTO` int DEFAULT NULL,
@@ -516,7 +524,7 @@ CREATE TABLE IF NOT EXISTS `empleado` (
   `APELLIDOCASADA` varchar(25) DEFAULT NULL,
   `SEXO` enum('M','F') NOT NULL,
   `FECHANACIMIENTO` date NOT NULL,
-  `FECHAINGRESO` datetime NOT NULL,
+  `FECHAINGRESO` datetime DEFAULT (curdate()),
   `NUMERODOC` varchar(20) NOT NULL,
   `NIT` varchar(25) DEFAULT NULL,
   `ISSS` varchar(25) NOT NULL,
@@ -542,32 +550,34 @@ CREATE TABLE IF NOT EXISTS `empleado` (
   CONSTRAINT `FK_SUPERVISA` FOREIGN KEY (`EMP_IDEMPLEADO`) REFERENCES `empleado` (`IDEMPLEADO`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_TIENE_ESTADOCIVIL` FOREIGN KEY (`IDESTADOCIVIL`) REFERENCES `estadocivil` (`IDESTADOCIVIL`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_VIVE_EN` FOREIGN KEY (`IDMUNICIPIO`) REFERENCES `municipio` (`IDMUNICIPIO`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla bad_proyecto.empleado: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla bad_proyecto.empleado: ~5 rows (aproximadamente)
 DELETE FROM `empleado`;
 INSERT INTO `empleado` (`IDEMPLEADO`, `IDPUESTO`, `IDMUNICIPIO`, `IDESTADOCIVIL`, `EMP_IDEMPLEADO`, `IDTIPODOC`, `NOMBRE1`, `NOMBRE2`, `APELLIDO1`, `APELLIDO2`, `APELLIDOCASADA`, `SEXO`, `FECHANACIMIENTO`, `FECHAINGRESO`, `NUMERODOC`, `NIT`, `ISSS`, `NUP`, `SALARIO`, `CORREOINSTITUCIONAL`, `CORREOPERSONAL`, `ESTADO`) VALUES
 	(1, 1, 151, NULL, NULL, NULL, 'pepe', 'david', 'mejia', '', '', 'M', '2024-05-22', '2024-05-22 20:28:18', '1', NULL, '1', NULL, 2.000, 'a', 'a', 1),
 	(2, 1, NULL, NULL, NULL, NULL, 'pepe', NULL, 'aguilar', NULL, NULL, 'M', '2024-05-23', '2024-05-23 10:12:13', '2', NULL, '2', NULL, 2.000, 'b', 'b', 1),
 	(3, 2, NULL, NULL, NULL, NULL, 'miguel', NULL, 'ortiz', NULL, NULL, 'M', '2024-05-23', '2024-05-23 10:32:09', '3', NULL, '3', NULL, 4.000, 'c', 'c', 1),
-	(4, 2, NULL, NULL, NULL, NULL, 'f', NULL, 's', NULL, NULL, 'M', '2024-06-08', '2024-06-08 23:19:27', '4', NULL, '4', NULL, 1.000, 'd', 'd', 1),
-	(5, 2, 127, 1, NULL, 1, 'a', '', 'a', '', NULL, 'M', '2000-01-01', '2024-05-20 00:00:00', '5', NULL, '555555555', NULL, 3.000, 'e@gmail.com', 'e@gmail.com', 1);
+	(4, 2, NULL, NULL, NULL, NULL, 'maria', NULL, 'gabriel', 'jimenez', 'gonzales', 'M', '2024-06-08', '2024-06-08 23:19:27', '4', NULL, '4', NULL, 1.000, 'd', 'd', 1),
+	(5, 2, 127, 1, NULL, 1, 'a', '', 'a', '', NULL, 'M', '2000-01-01', '2024-05-20 00:00:00', '5', NULL, '555555555', NULL, 3.000, 'e@gmail.com', 'e@gmail.com', 1),
+	(6, NULL, NULL, NULL, NULL, NULL, 'b', NULL, 'b', NULL, NULL, 'M', '2024-06-12', NULL, '6', NULL, '6', NULL, 1.000, 'f', 'f', 1),
+	(7, NULL, NULL, NULL, NULL, NULL, 'c', NULL, 'c', NULL, NULL, 'M', '2024-06-12', '2024-06-12 00:00:00', '7', NULL, '7', NULL, 1.000, 'g', 'g', 1),
+	(8, NULL, NULL, NULL, NULL, NULL, 'D', NULL, 'D', NULL, NULL, 'M', '2024-06-12', '2024-06-12 00:00:00', '8', NULL, '8', NULL, 1.000, 'H@', 'H', 1),
+	(9, 1, 248, 1, NULL, 1, 'A', '', 'A', '', NULL, 'M', '2000-06-12', '2024-06-12 21:00:04', '99999999-9', '9999-999999-999-9', '999999999', '999999999999', 2.000, 'i@gmail.com', 'i@gmail.com', 1);
 
 -- Volcando estructura para tabla bad_proyecto.estadocivil
-DROP TABLE IF EXISTS `estadocivil`;
 CREATE TABLE IF NOT EXISTS `estadocivil` (
   `IDESTADOCIVIL` int NOT NULL AUTO_INCREMENT,
   `NOMBREESTADO` varchar(20) NOT NULL,
   PRIMARY KEY (`IDESTADOCIVIL`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla bad_proyecto.estadocivil: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla bad_proyecto.estadocivil: ~1 rows (aproximadamente)
 DELETE FROM `estadocivil`;
 INSERT INTO `estadocivil` (`IDESTADOCIVIL`, `NOMBREESTADO`) VALUES
 	(1, 'a');
 
 -- Volcando estructura para tabla bad_proyecto.horasempleado
-DROP TABLE IF EXISTS `horasempleado`;
 CREATE TABLE IF NOT EXISTS `horasempleado` (
   `IDHORASEMPLEADO` int NOT NULL AUTO_INCREMENT,
   `IDEMPLEADO` int DEFAULT NULL,
@@ -579,7 +589,7 @@ CREATE TABLE IF NOT EXISTS `horasempleado` (
   CONSTRAINT `FK_REFERENCE_17` FOREIGN KEY (`IDEMPLEADO`) REFERENCES `empleado` (`IDEMPLEADO`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla bad_proyecto.horasempleado: ~17 rows (aproximadamente)
+-- Volcando datos para la tabla bad_proyecto.horasempleado: ~19 rows (aproximadamente)
 DELETE FROM `horasempleado`;
 INSERT INTO `horasempleado` (`IDHORASEMPLEADO`, `IDEMPLEADO`, `FECHA`, `HORAINGRESO`, `HORASALIDA`) VALUES
 	(4, 1, '2024-05-22', '12:00:00', '22:00:00'),
@@ -603,7 +613,6 @@ INSERT INTO `horasempleado` (`IDHORASEMPLEADO`, `IDEMPLEADO`, `FECHA`, `HORAINGR
 	(27, 1, '2024-06-08', '22:44:02', '22:42:04');
 
 -- Volcando estructura para tabla bad_proyecto.municipio
-DROP TABLE IF EXISTS `municipio`;
 CREATE TABLE IF NOT EXISTS `municipio` (
   `IDMUNICIPIO` int NOT NULL AUTO_INCREMENT,
   `IDDEPARTAMENTO` int DEFAULT NULL,
@@ -879,8 +888,17 @@ INSERT INTO `municipio` (`IDMUNICIPIO`, `IDDEPARTAMENTO`, `NOMBREMUNICIPIO`) VAL
 	(261, 10, 'Tepetitán'),
 	(262, 10, 'Verapaz');
 
+-- Volcando estructura para función bad_proyecto.obtenerAFP
+DELIMITER //
+CREATE FUNCTION `obtenerAFP`() RETURNS decimal(10,4)
+BEGIN
+	DECLARE afp DECIMAL(10,4);
+	set afp=(SELECT montooporcentaje/100 FROM deduccionbeneficioglobal dbg JOIN deduccionbeneficio db ON db.IDDEDUCBENEF=dbg.IDDEDUCBENEF WHERE db.NOMBREDEDUCBENEF='AFP' );
+	RETURN afp;
+END//
+DELIMITER ;
+
 -- Volcando estructura para procedimiento bad_proyecto.obtenerEmpleados
-DROP PROCEDURE IF EXISTS `obtenerEmpleados`;
 DELIMITER //
 CREATE PROCEDURE `obtenerEmpleados`()
 BEGIN
@@ -889,7 +907,6 @@ END//
 DELIMITER ;
 
 -- Volcando estructura para tabla bad_proyecto.perlic_empleado
-DROP TABLE IF EXISTS `perlic_empleado`;
 CREATE TABLE IF NOT EXISTS `perlic_empleado` (
   `IDPERLIC_EMP` int NOT NULL AUTO_INCREMENT,
   `IDEMPLEADO` int DEFAULT NULL,
@@ -912,7 +929,6 @@ INSERT INTO `perlic_empleado` (`IDPERLIC_EMP`, `IDEMPLEADO`, `IDPERMISOLICENCIA`
 	(1, 1, 1, 1, 0, '2024-05-23', '2024-06-23', NULL);
 
 -- Volcando estructura para tabla bad_proyecto.permiso
-DROP TABLE IF EXISTS `permiso`;
 CREATE TABLE IF NOT EXISTS `permiso` (
   `IDPERMISO` int NOT NULL AUTO_INCREMENT,
   `NOMBREPERMISO` varchar(100) NOT NULL,
@@ -968,7 +984,6 @@ INSERT INTO `permiso` (`IDPERMISO`, `NOMBREPERMISO`) VALUES
 	(44, 'ROLE_Agregar_deducciones_y_beneficios_de_empleados');
 
 -- Volcando estructura para tabla bad_proyecto.permisolicencia
-DROP TABLE IF EXISTS `permisolicencia`;
 CREATE TABLE IF NOT EXISTS `permisolicencia` (
   `IDPERMISOLICENCIA` int NOT NULL AUTO_INCREMENT,
   `TIPO` enum('P','L') NOT NULL,
@@ -982,15 +997,20 @@ INSERT INTO `permisolicencia` (`IDPERMISOLICENCIA`, `TIPO`, `CAUSA`) VALUES
 	(1, 'P', 'maternidad');
 
 -- Volcando estructura para procedimiento bad_proyecto.planilla
-DROP PROCEDURE IF EXISTS `planilla`;
 DELIMITER //
 CREATE PROCEDURE `planilla`(
 	IN `fecha1` DATE,
 	IN `fecha2` DATE
 )
 BEGIN
-	SELECT numerodoc,CONCAT(COALESCE(nombre1,''),' ',COALESCE(nombre2,''),' ',COALESCE(apellido1,''),' ',
-	COALESCE(apellido2,''),' ',COALESCE(apellidocasada,'')) AS Nombre,
+	SELECT 
+    idempleado,
+    TRIM(CONCAT_WS(' ',
+        nombre1,
+        nombre2,
+        apellido1,
+        IF(apellidocasada IS NOT NULL AND apellidocasada != '', CONCAT('de ', apellidocasada), apellido2)
+    )) AS Nombre,
 	p.nombrepuesto as cargo,
 	salario AS "salario/hora",
 	calcularHorasNormales(idempleado,fecha1,fecha2) AS "horas trabajadas",
@@ -1024,7 +1044,7 @@ BEGIN
 	calcularDeducBenefGlobales((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),"B")+
 	calcularDeducBenefEmpleado((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),idempleado,"B")
 	)
-	*0.0725 AS "afp",
+	*obtenerAFP() AS "afp",
 	calcularrenta(salario)*calcularHorasNormales(idempleado,fecha1,fecha2) AS renta,
 	calcularDeducBenefGlobales((
 	salario*calcularHorasNormales(idempleado,fecha1,fecha2)+
@@ -1059,7 +1079,7 @@ BEGIN
 	calcularDeducBenefGlobales((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),"B")+
 	calcularDeducBenefEmpleado((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),idempleado,"B")
 	)
-	*0.0725,2)+
+	*obtenerAFP(),2)+
 	calcularrenta(salario)*calcularHorasNormales(idempleado,fecha1,fecha2)+
 	calcularDeducBenefGlobales((
 	salario*calcularHorasNormales(idempleado,fecha1,fecha2)+
@@ -1102,7 +1122,7 @@ BEGIN
 	calcularDeducBenefGlobales((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),"B")+
 	calcularDeducBenefEmpleado((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),idempleado,"B")
 	)
-	*0.0725,2)+
+	*obtenerAFP(),2)+
 	calcularrenta(salario)*calcularHorasNormales(idempleado,fecha1,fecha2)+
 	calcularDeducBenefGlobales((
 	salario*calcularHorasNormales(idempleado,fecha1,fecha2)+
@@ -1127,7 +1147,6 @@ BEGIN
 DELIMITER ;
 
 -- Volcando estructura para procedimiento bad_proyecto.planillaEmpleado
-DROP PROCEDURE IF EXISTS `planillaEmpleado`;
 DELIMITER //
 CREATE PROCEDURE `planillaEmpleado`(
 	IN `fecha1` DATE,
@@ -1135,8 +1154,14 @@ CREATE PROCEDURE `planillaEmpleado`(
 	IN `idempleadop` int
 )
 BEGIN
-	SELECT numerodoc,CONCAT(COALESCE(nombre1,''),' ',COALESCE(nombre2,''),' ',COALESCE(apellido1,''),' ',
-	COALESCE(apellido2,''),' ',COALESCE(apellidocasada,'')) AS Nombre,
+	SELECT 
+    idempleado,
+    TRIM(CONCAT_WS(' ',
+        nombre1,
+        nombre2,
+        apellido1,
+        IF(apellidocasada IS NOT NULL AND apellidocasada != '', CONCAT('de ', apellidocasada), apellido2)
+    )) AS Nombre,
 	p.nombrepuesto as cargo,
 	salario AS "salario/hora",
 	calcularHorasNormales(idempleado,fecha1,fecha2) AS "horas trabajadas",
@@ -1170,7 +1195,7 @@ BEGIN
 	calcularDeducBenefGlobales((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),"B")+
 	calcularDeducBenefEmpleado((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),idempleado,"B")
 	)
-	*0.0725 AS "afp",
+	*obtenerAFP() AS "afp",
 	calcularrenta(salario)*calcularHorasNormales(idempleado,fecha1,fecha2) AS renta,
 	calcularDeducBenefGlobales((
 	salario*calcularHorasNormales(idempleado,fecha1,fecha2)+
@@ -1205,7 +1230,7 @@ BEGIN
 	calcularDeducBenefGlobales((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),"B")+
 	calcularDeducBenefEmpleado((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),idempleado,"B")
 	)
-	*0.0725,2)+
+	*obtenerAFP(),2)+
 	calcularrenta(salario)*calcularHorasNormales(idempleado,fecha1,fecha2)+
 	calcularDeducBenefGlobales((
 	salario*calcularHorasNormales(idempleado,fecha1,fecha2)+
@@ -1248,7 +1273,7 @@ BEGIN
 	calcularDeducBenefGlobales((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),"B")+
 	calcularDeducBenefEmpleado((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),idempleado,"B")
 	)
-	*0.0725,2)+
+	*obtenerAFP(),2)+
 	calcularrenta(salario)*calcularHorasNormales(idempleado,fecha1,fecha2)+
 	calcularDeducBenefGlobales((
 	salario*calcularHorasNormales(idempleado,fecha1,fecha2)+
@@ -1273,7 +1298,6 @@ BEGIN
 DELIMITER ;
 
 -- Volcando estructura para tabla bad_proyecto.presupuestoanual
-DROP TABLE IF EXISTS `presupuestoanual`;
 CREATE TABLE IF NOT EXISTS `presupuestoanual` (
   `IDPRESUPUESTO` int NOT NULL AUTO_INCREMENT,
   `IDUNIDAD` int DEFAULT NULL,
@@ -1292,7 +1316,6 @@ INSERT INTO `presupuestoanual` (`IDPRESUPUESTO`, `IDUNIDAD`, `ANO`, `MONTO`) VAL
 	(3, 1, 2018, 4544552);
 
 -- Volcando estructura para tabla bad_proyecto.profesionoficio
-DROP TABLE IF EXISTS `profesionoficio`;
 CREATE TABLE IF NOT EXISTS `profesionoficio` (
   `IDPROFOFC` int NOT NULL AUTO_INCREMENT,
   `NOMBREPROFOFC` varchar(50) NOT NULL,
@@ -1306,7 +1329,6 @@ INSERT INTO `profesionoficio` (`IDPROFOFC`, `NOMBREPROFOFC`) VALUES
 	(2, 'a');
 
 -- Volcando estructura para tabla bad_proyecto.profofc_empleado
-DROP TABLE IF EXISTS `profofc_empleado`;
 CREATE TABLE IF NOT EXISTS `profofc_empleado` (
   `IDPROFOFC` int NOT NULL,
   `IDEMPLEADO` int NOT NULL,
@@ -1316,16 +1338,16 @@ CREATE TABLE IF NOT EXISTS `profofc_empleado` (
   CONSTRAINT `FK_PROFOFC_EMPLEADO2` FOREIGN KEY (`IDEMPLEADO`) REFERENCES `empleado` (`IDEMPLEADO`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla bad_proyecto.profofc_empleado: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla bad_proyecto.profofc_empleado: ~4 rows (aproximadamente)
 DELETE FROM `profofc_empleado`;
 INSERT INTO `profofc_empleado` (`IDPROFOFC`, `IDEMPLEADO`) VALUES
 	(1, 1),
 	(2, 1),
 	(1, 5),
-	(2, 5);
+	(2, 5),
+	(2, 9);
 
 -- Volcando estructura para tabla bad_proyecto.puesto
-DROP TABLE IF EXISTS `puesto`;
 CREATE TABLE IF NOT EXISTS `puesto` (
   `IDPUESTO` int NOT NULL AUTO_INCREMENT,
   `IDUNIDAD` int DEFAULT NULL,
@@ -1338,14 +1360,13 @@ CREATE TABLE IF NOT EXISTS `puesto` (
   CONSTRAINT `FK_PERTENECE_A_UNIDAD` FOREIGN KEY (`IDUNIDAD`) REFERENCES `unidad` (`IDUNIDAD`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla bad_proyecto.puesto: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla bad_proyecto.puesto: ~2 rows (aproximadamente)
 DELETE FROM `puesto`;
 INSERT INTO `puesto` (`IDPUESTO`, `IDUNIDAD`, `NOMBREPUESTO`, `SALARIOMIN`, `SALARIOMAX`, `ESTADO`) VALUES
 	(1, 1, 'electricista', 1, 2, 1),
 	(2, 2, 'secretario', 3, 4, 1);
 
 -- Volcando estructura para tabla bad_proyecto.rol
-DROP TABLE IF EXISTS `rol`;
 CREATE TABLE IF NOT EXISTS `rol` (
   `IDROL` int NOT NULL AUTO_INCREMENT,
   `NOMBREROL` varchar(25) NOT NULL,
@@ -1361,7 +1382,6 @@ INSERT INTO `rol` (`IDROL`, `NOMBREROL`, `ESTADO`) VALUES
 	(14, 'contador', 1);
 
 -- Volcando estructura para tabla bad_proyecto.rol_permiso
-DROP TABLE IF EXISTS `rol_permiso`;
 CREATE TABLE IF NOT EXISTS `rol_permiso` (
   `IDPERMISO` int NOT NULL,
   `IDROL` int NOT NULL,
@@ -1390,10 +1410,8 @@ INSERT INTO `rol_permiso` (`IDPERMISO`, `IDROL`) VALUES
 	(14, 1),
 	(15, 1),
 	(16, 1),
-	(17, 1),
 	(18, 1),
 	(19, 1),
-	(20, 1),
 	(21, 1),
 	(22, 1),
 	(23, 1),
@@ -1460,133 +1478,13 @@ INSERT INTO `rol_permiso` (`IDPERMISO`, `IDROL`) VALUES
 	(40, 2),
 	(41, 2),
 	(42, 2),
+	(43, 2),
+	(44, 2),
 	(8, 14),
 	(9, 14),
 	(10, 14);
 
--- Volcando estructura para procedimiento bad_proyecto.salarioNeto
-DROP PROCEDURE IF EXISTS `salarioNeto`;
-DELIMITER //
-CREATE PROCEDURE `salarioNeto`(
-	IN `fecha1` DATE,
-	IN `fecha2` DATE,
-	IN `idempleadop` int
-)
-BEGIN
-	SELECT (
-	(
-	salario*calcularHorasNormales(idempleado,fecha1,fecha2)+
-	verificarVacacion(idempleado,fecha1,fecha2)*salario*88*0.3+
-	calcularHorasExtra(idempleado,fecha1,fecha2)*salario*2+
-	diasconpermiso(idempleado)*8*salario+
-	calcularDeducBenefGlobales((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),"B")+
-	calcularDeducBenefEmpleado((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),idempleado,"B")
-	)-
-	(
-	FORMAT(calcularISSS(
-	salario*calcularHorasNormales(idempleado,fecha1,fecha2)+
-	verificarVacacion(idempleado,fecha1,fecha2)*salario*88*0.3+
-	calcularHorasExtra(idempleado,fecha1,fecha2)*salario*2+
-	diasconpermiso(idempleado)*8*salario+
-	calcularDeducBenefGlobales((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),"B")+
-	calcularDeducBenefEmpleado((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),idempleado,"B")
-	),2) +
-	FORMAT(
-	(salario*calcularHorasNormales(idempleado,fecha1,fecha2)+
-	verificarVacacion(idempleado,fecha1,fecha2)*salario*88*0.3+
-	calcularHorasExtra(idempleado,fecha1,fecha2)*salario*2+
-	diasconpermiso(idempleado)*8*salario+
-	calcularDeducBenefGlobales((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),"B")+
-	calcularDeducBenefEmpleado((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),idempleado,"B")
-	)
-	*0.0725,2)+
-	calcularrenta(salario)*calcularHorasNormales(idempleado,fecha1,fecha2)+
-	calcularDeducBenefGlobales((
-	salario*calcularHorasNormales(idempleado,fecha1,fecha2)+
-	verificarVacacion(idempleado,fecha1,fecha2)*salario*88*0.3+
-	calcularHorasExtra(idempleado,fecha1,fecha2)*salario*2+
-	diasconpermiso(idempleado)*8*salario+
-	calcularDeducBenefGlobales((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),"B")+
-	calcularDeducBenefEmpleado((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),idempleado,"B")
-	),"D")+
-	calcularDeducBenefEmpleado((
-	salario*calcularHorasNormales(idempleado,fecha1,fecha2)+
-	verificarVacacion(idempleado,fecha1,fecha2)*salario*88*0.3+
-	calcularHorasExtra(idempleado,fecha1,fecha2)*salario*2+
-	diasconpermiso(idempleado)*8*salario+
-	calcularDeducBenefGlobales((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),"B")+
-	calcularDeducBenefEmpleado((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),idempleado,"B")
-	),idempleado,"D")	)) AS salarioneto
-	FROM empleado e 
-	JOIN puesto p ON e.idpuesto=p.idpuesto
-	WHERE e.idempleado=idempleadop;
-	END//
-DELIMITER ;
-
--- Volcando estructura para función bad_proyecto.salarioNeto
-DROP FUNCTION IF EXISTS `salarioNeto`;
-DELIMITER //
-CREATE FUNCTION `salarioNeto`(
-	`fecha1` DATE,
-	`fecha2` DATE,
-	`idempleadop` int
-) RETURNS decimal(10,2)
-BEGIN
-	DECLARE salarioneto DECIMAL(10,2);
-
-	SET salarioneto=(SELECT
-	(
-	salario*calcularHorasNormales(idempleado,fecha1,fecha2)+
-	verificarVacacion(idempleado,fecha1,fecha2)*salario*88*0.3+
-	calcularHorasExtra(idempleado,fecha1,fecha2)*salario*2+
-	diasconpermiso(idempleado)*8*salario+
-	calcularDeducBenefGlobales((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),"B")+
-	calcularDeducBenefEmpleado((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),idempleado,"B")
-	)-
-	(
-	FORMAT(calcularISSS(
-	salario*calcularHorasNormales(idempleado,fecha1,fecha2)+
-	verificarVacacion(idempleado,fecha1,fecha2)*salario*88*0.3+
-	calcularHorasExtra(idempleado,fecha1,fecha2)*salario*2+
-	diasconpermiso(idempleado)*8*salario+
-	calcularDeducBenefGlobales((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),"B")+
-	calcularDeducBenefEmpleado((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),idempleado,"B")
-	),2) +
-	(
-	FORMAT((salario*calcularHorasNormales(idempleado,fecha1,fecha2)+
-	verificarVacacion(idempleado,fecha1,fecha2)*salario*88*0.3+
-	calcularHorasExtra(idempleado,fecha1,fecha2)*salario*2+
-	diasconpermiso(idempleado)*8*salario+
-	calcularDeducBenefGlobales((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),"B")+
-	calcularDeducBenefEmpleado((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),idempleado,"B")
-	)
-	*0.0725,2))+
-	calcularrenta(salario)*calcularHorasNormales(idempleado,fecha1,fecha2)+
-	calcularDeducBenefGlobales((
-	salario*calcularHorasNormales(idempleado,fecha1,fecha2)+
-	verificarVacacion(idempleado,fecha1,fecha2)*salario*88*0.3+
-	calcularHorasExtra(idempleado,fecha1,fecha2)*salario*2+
-	diasconpermiso(idempleado)*8*salario+
-	calcularDeducBenefGlobales((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),"B")+
-	calcularDeducBenefEmpleado((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),idempleado,"B")
-	),"D")+
-	calcularDeducBenefEmpleado((
-	salario*calcularHorasNormales(idempleado,fecha1,fecha2)+
-	verificarVacacion(idempleado,fecha1,fecha2)*salario*88*0.3+
-	calcularHorasExtra(idempleado,fecha1,fecha2)*salario*2+
-	diasconpermiso(idempleado)*8*salario+
-	calcularDeducBenefGlobales((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),"B")+
-	calcularDeducBenefEmpleado((salario*calcularHorasNormales(idempleado,fecha1,fecha2)),idempleado,"B")
-	),idempleado,"D")	)
-	FROM empleado e 
-	JOIN puesto p ON e.idpuesto=p.idpuesto
-	WHERE e.idempleado=idempleadop);
-	RETURN salarioneto;
-	END//
-DELIMITER ;
-
 -- Volcando estructura para procedimiento bad_proyecto.SetCurrentUser
-DROP PROCEDURE IF EXISTS `SetCurrentUser`;
 DELIMITER //
 CREATE PROCEDURE `SetCurrentUser`(IN `userId` INT)
 BEGIN
@@ -1595,20 +1493,18 @@ END//
 DELIMITER ;
 
 -- Volcando estructura para tabla bad_proyecto.tipodocumento
-DROP TABLE IF EXISTS `tipodocumento`;
 CREATE TABLE IF NOT EXISTS `tipodocumento` (
   `IDTIPODOC` int NOT NULL AUTO_INCREMENT,
   `NOMBREDOC` varchar(50) NOT NULL,
   PRIMARY KEY (`IDTIPODOC`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla bad_proyecto.tipodocumento: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla bad_proyecto.tipodocumento: ~1 rows (aproximadamente)
 DELETE FROM `tipodocumento`;
 INSERT INTO `tipodocumento` (`IDTIPODOC`, `NOMBREDOC`) VALUES
-	(1, 'a');
+	(1, 'DUI');
 
 -- Volcando estructura para tabla bad_proyecto.tipounidad
-DROP TABLE IF EXISTS `tipounidad`;
 CREATE TABLE IF NOT EXISTS `tipounidad` (
   `IDTIPOUNIDAD` int NOT NULL AUTO_INCREMENT,
   `NOMBRETIPOUNIDAD` varchar(50) NOT NULL,
@@ -1621,7 +1517,6 @@ INSERT INTO `tipounidad` (`IDTIPOUNIDAD`, `NOMBRETIPOUNIDAD`) VALUES
 	(1, 'unidad');
 
 -- Volcando estructura para tabla bad_proyecto.unidad
-DROP TABLE IF EXISTS `unidad`;
 CREATE TABLE IF NOT EXISTS `unidad` (
   `IDUNIDAD` int NOT NULL AUTO_INCREMENT,
   `IDTIPOUNIDAD` int DEFAULT NULL,
@@ -1635,14 +1530,13 @@ CREATE TABLE IF NOT EXISTS `unidad` (
   CONSTRAINT `FK_TIENE_TIPOUNIDAD` FOREIGN KEY (`IDTIPOUNIDAD`) REFERENCES `tipounidad` (`IDTIPOUNIDAD`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla bad_proyecto.unidad: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla bad_proyecto.unidad: ~1 rows (aproximadamente)
 DELETE FROM `unidad`;
 INSERT INTO `unidad` (`IDUNIDAD`, `IDTIPOUNIDAD`, `UNI_IDUNIDAD`, `NOMBREUNIDAD`, `ESTADO`) VALUES
 	(1, 1, NULL, 'contaduria', 1),
 	(2, 1, NULL, 'secretaria', 1);
 
 -- Volcando estructura para tabla bad_proyecto.usuario
-DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE IF NOT EXISTS `usuario` (
   `IDUSUARIO` int NOT NULL AUTO_INCREMENT,
   `IDROL` int DEFAULT NULL,
@@ -1657,41 +1551,34 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   UNIQUE KEY `UNIQUE_USERNAME` (`USERNAME`),
   KEY `FK_SE_LE_ASIGNA` (`IDROL`),
   CONSTRAINT `FK_SE_LE_ASIGNA` FOREIGN KEY (`IDROL`) REFERENCES `rol` (`IDROL`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla bad_proyecto.usuario: ~9 rows (aproximadamente)
+-- Volcando datos para la tabla bad_proyecto.usuario: ~6 rows (aproximadamente)
 DELETE FROM `usuario`;
 INSERT INTO `usuario` (`IDUSUARIO`, `IDROL`, `USERNAME`, `EMAIL`, `PASSWORD`, `ESTADO`, `INTENTOSLOGIN`, `SOLICITODESBLOQUEO`) VALUES
 	(8, 1, 'user', 'marvinortiz192@gmail.com', '$2a$10$XsUZ.NSqJUYY1PsgYzzIq.cSnn95IleR2KUeSE86o7/BaqXY/qpxW', 1, 0, 0),
-	(26, 1, 'user2', 'a', '$2a$10$XsUZ.NSqJUYY1PsgYzzIq.cSnn95IleR2KUeSE86o7/BaqXY/qpxW', 1, 0, 0),
+	(26, 2, 'admin', 'a', '$2a$10$XsUZ.NSqJUYY1PsgYzzIq.cSnn95IleR2KUeSE86o7/BaqXY/qpxW', 0, 0, 0),
 	(34, 1, 'user3', 'danielmezquino@gmail.com', '$2a$10$emCfh2hJ4sGVrG2AXaoOzuaXFTdSWDQgPUsOnYxGKW1ahe2JisT22', 1, 0, 0),
 	(37, 1, 'user4', '4', '$2a$10$CLXxOXKeWndJNGIp7McXX.wcx6BTOhPjpFy8OWpdsx0Y3nZZoKFEW', 1, 0, 0),
 	(38, 1, 'user5', '5', '$2a$10$cQDW.UHQ7ZqEvqRJR6QU7uL.XCiq4.QsR3Wd.Qs7vELngg.WUX0vK', 1, 0, 0),
-	(39, 1, 'a', 'as', '$2a$10$KGR02DvEhkERGuvjM0/0meyrHQhcTt2J5ymPPhXLqAiUzhFcoq3Oy', 1, 0, 0),
-	(42, 1, 'migue', 'miguel', '$2a$10$pu4A3nLv1aiL8y4fNHYfN.Z10iSRt7AUTU7.TOItImD2SuUobp0A2', 1, 0, 0),
-	(43, 1, 'asasasas', 'asas', '$2a$10$xcABjELGGDcqi.nPFqwc8uDUktwBd5SBephS819oqe4M8l4xYSGjG', 1, 0, 0),
-	(44, NULL, NULL, '<select></select>', NULL, 1, 0, 0);
+	(45, NULL, 'user6', '6@gmail.com', '$2a$10$91akWfCthSOJ1ThpTMkEm.rRr/eovRrD7tX0H8MmFgt1gqw0iG3cK', 1, 1, 0);
 
 -- Volcando estructura para tabla bad_proyecto.vacacion
-DROP TABLE IF EXISTS `vacacion`;
 CREATE TABLE IF NOT EXISTS `vacacion` (
   `IDVACACION` int NOT NULL AUTO_INCREMENT,
   `IDEMPLEADO` int DEFAULT NULL,
   `FECHAINICIO` date DEFAULT NULL,
-  `FECHAFIN` date DEFAULT NULL,
-  `PENDIENTE` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`IDVACACION`),
   KEY `FK_REFERENCE_20` (`IDEMPLEADO`),
   CONSTRAINT `FK_REFERENCE_20` FOREIGN KEY (`IDEMPLEADO`) REFERENCES `empleado` (`IDEMPLEADO`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla bad_proyecto.vacacion: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla bad_proyecto.vacacion: ~1 rows (aproximadamente)
 DELETE FROM `vacacion`;
-INSERT INTO `vacacion` (`IDVACACION`, `IDEMPLEADO`, `FECHAINICIO`, `FECHAFIN`, `PENDIENTE`) VALUES
-	(6, 2, '2024-06-16', NULL, 0);
+INSERT INTO `vacacion` (`IDVACACION`, `IDEMPLEADO`, `FECHAINICIO`) VALUES
+	(6, 2, '2024-06-16');
 
 -- Volcando estructura para función bad_proyecto.verificarVacacion
-DROP FUNCTION IF EXISTS `verificarVacacion`;
 DELIMITER //
 CREATE FUNCTION `verificarVacacion`(
     empleado_id INT,
@@ -1719,55 +1606,33 @@ BEGIN
 END//
 DELIMITER ;
 
--- Volcando estructura para vista bad_proyecto.v_administradoresemails
-DROP VIEW IF EXISTS `v_administradoresemails`;
--- Creando tabla temporal para superar errores de dependencia de VIEW
-CREATE TABLE `v_administradoresemails` (
-	`email` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci'
-) ENGINE=MyISAM;
-
 -- Volcando estructura para disparador bad_proyecto.after_insert_deduccionbeneficioempleado
-DROP TRIGGER IF EXISTS `after_insert_deduccionbeneficioempleado`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `after_insert_deduccionbeneficioempleado` AFTER INSERT ON `deduccionbeneficio_empleado` FOR EACH ROW BEGIN
     DECLARE user_id INT;
-    DECLARE nombre_deduccion VARCHAR(50);
-    DECLARE tipo_deduccion CHAR(1);
     SET user_id = @current_user_id;
 
-    SELECT NOMBREDEDUCBENEF, TIPO INTO nombre_deduccion, tipo_deduccion
-    FROM DEDUCCIONBENEFICIO
-    WHERE IDDEDUCBENEF = NEW.IDDEDUCBENEF;
-
-    INSERT INTO AUDITORIA_DEDUCCIONBENEFICIOEMPLEADO (IDDEDUCBENEF, NOMBREDEDUCBENEF, TIPO, IDDEDUCBENEF_EMP, IDEMPLEADO, PROPORCIONALALSUELDO, MONTOOPORCENTAJE, FECHADEOPERACION, TIPODEOPERACION, USUARIOREGISTRA)
-    VALUES (NEW.IDDEDUCBENEF, nombre_deduccion, tipo_deduccion, NEW.IDDEDUCBENEF_EMP, NEW.IDEMPLEADO, NEW.PROPORCIONALALSUELDO, NEW.MONTOOPORCENTAJE, NOW(), 'Inserción', user_id);
+    INSERT INTO AUDITORIA_DEDUCCIONBENEFICIOEMPLEADO (IDDEDUCBENEF, IDDEDUCBENEF_EMP, IDEMPLEADO, PROPORCIONALALSUELDO, MONTOOPORCENTAJE, FECHADEOPERACION, TIPODEOPERACION, USUARIOREGISTRA,ESTADO)
+    VALUES (NEW.IDDEDUCBENEF, NEW.IDDEDUCBENEF_EMP, NEW.IDEMPLEADO, NEW.PROPORCIONALALSUELDO, NEW.MONTOOPORCENTAJE, NOW(), 'Inserción', user_id,NEW.ESTADO);
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 -- Volcando estructura para disparador bad_proyecto.after_insert_deduccionbeneficioglobal
-DROP TRIGGER IF EXISTS `after_insert_deduccionbeneficioglobal`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `after_insert_deduccionbeneficioglobal` AFTER INSERT ON `deduccionbeneficioglobal` FOR EACH ROW BEGIN
     DECLARE user_id INT;
-    DECLARE nombre_deduccion VARCHAR(75);
-    DECLARE tipo_deduccion CHAR(1);
     SET user_id = @current_user_id;
 
-    SELECT NOMBREDEDUCBENEF, TIPO INTO nombre_deduccion, tipo_deduccion
-    FROM DEDUCCIONBENEFICIO
-    WHERE IDDEDUCBENEF = NEW.IDDEDUCBENEF;
-
-    INSERT INTO AUDITORIA_DEDUCCIONBENEFICIOGLOBAL (IDDEDUCBENEF, NOMBREDEDUCBENEF, TIPO, PROPORCIONALALSUELDO, MONTOOPORCENTAJE, ESTADO, FECHADEOPERACION, TIPODEOPERACION, USUARIOREGISTRA)
-    VALUES (NEW.IDDEDUCBENEF, nombre_deduccion, tipo_deduccion, NEW.PROPORCIONALALSUELDO, NEW.MONTOOPORCENTAJE, NEW.ESTADO, NOW(), 'Inserción', user_id);
+    INSERT INTO AUDITORIA_DEDUCCIONBENEFICIOGLOBAL (IDDEDUCBENEF, PROPORCIONALALSUELDO, MONTOOPORCENTAJE, ESTADO, FECHADEOPERACION, TIPODEOPERACION, USUARIOREGISTRA)
+    VALUES (NEW.IDDEDUCBENEF, NEW.PROPORCIONALALSUELDO, NEW.MONTOOPORCENTAJE, NEW.ESTADO, NOW(), 'Inserción', user_id);
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 -- Volcando estructura para disparador bad_proyecto.after_insert_empleado
-DROP TRIGGER IF EXISTS `after_insert_empleado`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `after_insert_empleado` AFTER INSERT ON `empleado` FOR EACH ROW BEGIN
@@ -1775,53 +1640,38 @@ CREATE TRIGGER `after_insert_empleado` AFTER INSERT ON `empleado` FOR EACH ROW B
     SET user_id = @current_user_id;
 
 INSERT INTO AUDITORIA_EMPLEADO (IDEMPLEADO, IDPUESTO, IDMUNICIPIO, IDESTADOCIVIL, EMP_IDEMPLEADO, IDTIPODOC, NOMBRE1, NOMBRE2, APELLIDO1, APELLIDO2, APELLIDOCASADA, SEXO, FECHANACIMIENTO, FECHAINGRESO, NUMERODOC, NIT, ISSS, NUP, SALARIO, CORREOINSTITUCIONAL, CORREOPERSONAL, ESTADO, FECHAMODIFICACION, TIPODEOPERACION, USUARIOREGISTRA)
-    VALUES (NEW.IDEMPLEADO, NEW.IDPUESTO, NEW.IDMUNICIPIO, NEW.IDESTADOCIVIL, NEW.EMP_IDEMPLEADO, NEW.IDTIPODOC, NEW.NOMBRE1, NEW.NOMBRE2, NEW.APELLIDO1, NEW.APELLIDO2, NEW.APELLIDOCASADA, NEW.SEXO, NEW.FECHANACIMIENTO, NEW.FECHAINGRESO, NEW.NUMERODOC, NEW.NIT, NEW.ISSS, NEW.NUP, NEW.SALARIO, NEW.CORREOINSTITUCIONAL, NEW.CORREOPERSONAL, NEW.ESTADO, NOW(), 'Creación', user_id);
+    VALUES (NEW.IDEMPLEADO, NEW.IDPUESTO, NEW.IDMUNICIPIO, NEW.IDESTADOCIVIL, NEW.EMP_IDEMPLEADO, NEW.IDTIPODOC, NEW.NOMBRE1, NEW.NOMBRE2, NEW.APELLIDO1, NEW.APELLIDO2, NEW.APELLIDOCASADA, NEW.SEXO, NEW.FECHANACIMIENTO, NEW.FECHAINGRESO, NEW.NUMERODOC, NEW.NIT, NEW.ISSS, NEW.NUP, NEW.SALARIO, NEW.CORREOINSTITUCIONAL, NEW.CORREOPERSONAL, NEW.ESTADO, NOW(), 'Inserción', user_id);
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 -- Volcando estructura para disparador bad_proyecto.after_update_deduccionbeneficioempleado
-DROP TRIGGER IF EXISTS `after_update_deduccionbeneficioempleado`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `after_update_deduccionbeneficioempleado` AFTER UPDATE ON `deduccionbeneficio_empleado` FOR EACH ROW BEGIN
     DECLARE user_id INT;
-    DECLARE nombre_deduccion VARCHAR(50);
-    DECLARE tipo_deduccion CHAR(1);
     SET user_id = @current_user_id;
 
-    SELECT NOMBREDEDUCBENEF, TIPO INTO nombre_deduccion, tipo_deduccion
-    FROM DEDUCCIONBENEFICIO
-    WHERE IDDEDUCBENEF = NEW.IDDEDUCBENEF;
-
-    INSERT INTO AUDITORIA_DEDUCCIONBENEFICIOEMPLEADO (IDDEDUCBENEF, NOMBREDEDUCBENEF, TIPO, IDDEDUCBENEF_EMP, IDEMPLEADO, PROPORCIONALALSUELDO, MONTOOPORCENTAJE, FECHADEOPERACION, TIPODEOPERACION, USUARIOREGISTRA)
-    VALUES (NEW.IDDEDUCBENEF, nombre_deduccion, tipo_deduccion, NEW.IDDEDUCBENEF_EMP, NEW.IDEMPLEADO, NEW.PROPORCIONALALSUELDO, NEW.MONTOOPORCENTAJE, NOW(), 'Actualización', user_id);
+    INSERT INTO AUDITORIA_DEDUCCIONBENEFICIOEMPLEADO (IDDEDUCBENEF, IDDEDUCBENEF_EMP, IDEMPLEADO, PROPORCIONALALSUELDO, MONTOOPORCENTAJE, FECHADEOPERACION, TIPODEOPERACION, USUARIOREGISTRA,ESTADO)
+    VALUES (NEW.IDDEDUCBENEF, NEW.IDDEDUCBENEF_EMP, NEW.IDEMPLEADO, NEW.PROPORCIONALALSUELDO, NEW.MONTOOPORCENTAJE, NOW(), 'Actualización', user_id,NEW.ESTADO);
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 -- Volcando estructura para disparador bad_proyecto.after_update_deduccionbeneficioglobal
-DROP TRIGGER IF EXISTS `after_update_deduccionbeneficioglobal`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `after_update_deduccionbeneficioglobal` AFTER UPDATE ON `deduccionbeneficioglobal` FOR EACH ROW BEGIN
     DECLARE user_id INT;
-    DECLARE nombre_deduccion VARCHAR(75);
-    DECLARE tipo_deduccion CHAR(1);
     SET user_id = @current_user_id;
 
-    SELECT NOMBREDEDUCBENEF, TIPO INTO nombre_deduccion, tipo_deduccion
-    FROM DEDUCCIONBENEFICIO
-    WHERE IDDEDUCBENEF = NEW.IDDEDUCBENEF;
-
-    INSERT INTO AUDITORIA_DEDUCCIONBENEFICIOGLOBAL (IDDEDUCBENEF, NOMBREDEDUCBENEF, TIPO, PROPORCIONALALSUELDO, MONTOOPORCENTAJE, ESTADO, FECHADEOPERACION, TIPODEOPERACION, USUARIOREGISTRA)
-    VALUES (NEW.IDDEDUCBENEF, nombre_deduccion, tipo_deduccion, NEW.PROPORCIONALALSUELDO, NEW.MONTOOPORCENTAJE, NEW.ESTADO, NOW(), 'Actualización', user_id);
+    INSERT INTO AUDITORIA_DEDUCCIONBENEFICIOGLOBAL (IDDEDUCBENEF, PROPORCIONALALSUELDO, MONTOOPORCENTAJE, ESTADO, FECHADEOPERACION, TIPODEOPERACION, USUARIOREGISTRA)
+    VALUES (NEW.IDDEDUCBENEF, NEW.PROPORCIONALALSUELDO, NEW.MONTOOPORCENTAJE, NEW.ESTADO, NOW(), 'Actualización', user_id);
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 -- Volcando estructura para disparador bad_proyecto.after_update_empleado
-DROP TRIGGER IF EXISTS `after_update_empleado`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `after_update_empleado` AFTER UPDATE ON `empleado` FOR EACH ROW BEGIN
@@ -1833,10 +1683,6 @@ INSERT INTO AUDITORIA_EMPLEADO (IDEMPLEADO, IDPUESTO, IDMUNICIPIO, IDESTADOCIVIL
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
-
--- Eliminando tabla temporal y crear estructura final de VIEW
-DROP TABLE IF EXISTS `v_administradoresemails`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `v_administradoresemails` AS select `u`.`EMAIL` AS `email` from ((`usuario` `u` join `rol_permiso` `rp` on((`rp`.`IDROL` = `u`.`IDROL`))) join `permiso` `p` on((`p`.`IDPERMISO` = `rp`.`IDPERMISO`))) where (`p`.`NOMBREPERMISO` = 'ROLE_Administrador');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

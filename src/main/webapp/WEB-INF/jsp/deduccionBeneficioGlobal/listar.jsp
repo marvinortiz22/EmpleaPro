@@ -3,12 +3,11 @@
 <title>Deduccion/beneficio</title>
 <%@ include file="../base/navbar.jsp" %>
     <div class="container-fluid px-4">
-        <a href="/deduccionesBeneficiosEmpleados/listarEmpleados"><button title="Lista principal" class="btn btn-primary ms-4 mt-1">←</button></a>
         <div class="d-flex justify-content-center text-center">
-            <h1 class="mt-4">Deducciones y beneficios en nómina de: <br> ${empleado.nombre1} ${empleado.nombre2} ${empleado.apellido1} ${empleado.apellido2} </h1>
+            <h1 class="mt-4">Deducciones y beneficios generales </h1>
         </div>
         <div class="d-flex justify-content-end mb-4">
-            <a href="/deduccionesBeneficiosEmpleados/agregar?empleado=${empleado.idEmpleado}"><button title="Agregar" class="btn btn-primary"><i class="fa-solid fa-plus"></i></button></a>
+            <a href="/deduccionesBeneficiosGlobales/agregar"><button title="Agregar" class="btn btn-primary"><i class="fa-solid fa-plus"></i></button></a>
         </div>
         <div class="card mb-4">
             
@@ -68,13 +67,14 @@
                                 Inactivo
                             </c:if>
                         </td>
+                    
                         <td>
-                            <a href="/deduccionesBeneficiosEmpleados/editar?id=${deduccionBeneficio.idDeducBenef_Emp}&empleado=${empleado.idEmpleado}"><button title="Editar" class="btn btn-warning"><i class="fas fa-pen-to-square"></i></button></a>
+                            <a href="/deduccionesBeneficiosGlobales/editar?id=${deduccionBeneficio.deduccionBeneficio.idDeducBenef}"><button title="Editar" class="btn btn-warning"><i class="fas fa-pen-to-square"></i></button></a>
                             <c:if test="${deduccionBeneficio.estado}">
-                                <a href="/deduccionesBeneficiosEmpleados/cambiarEstado?id=${deduccionBeneficio.idDeducBenef_Emp}"><button id="x" title="Inhabilitar" class="btn btn-danger"><i class="fas fa-lock"></i></button></a>
+                                <a href="/deduccionesBeneficiosGlobales/cambiarEstado?id=${deduccionBeneficio.deduccionBeneficio.idDeducBenef}"><button id="x" title="Inhabilitar" class="btn btn-danger"><i class="fas fa-lock"></i></button></a>
                             </c:if>
                             <c:if test="${!deduccionBeneficio.estado}">
-                                <a href="/deduccionesBeneficiosEmpleados/cambiarEstado?id=${deduccionBeneficio.idDeducBenef_Emp}"><button title="Habilitar" id="check" class="btn btn-success"><i class="fas fa-lock"></i></button></a>
+                                <a href="/deduccionesBeneficiosGlobales/cambiarEstado?id=${deduccionBeneficio.deduccionBeneficio.idDeducBenef}"><button title="Habilitar" id="check" class="btn btn-success"><i class="fas fa-lock"></i></button></a>
                             </c:if>
                         </td>
                         </tr>

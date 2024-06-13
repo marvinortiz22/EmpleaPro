@@ -63,10 +63,10 @@ public class Empleado {
 
     private String sexo;
 
+    @NotNull(message = "La fecha de nacimiento es obligatoria")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaNacimiento;
 
-    @NotNull(message = "La fecha de nacimiento es obligatoria")
     @Past(message = "La fecha no debe ser a futuro")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaIngreso = new Date();

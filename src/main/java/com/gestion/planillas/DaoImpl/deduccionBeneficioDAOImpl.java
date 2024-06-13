@@ -42,7 +42,7 @@ public class deduccionBeneficioDAOImpl implements deduccionBeneficioDAO {
     @Override
     public List<DeduccionBeneficioGlobal> getDeduccionesGlobales() {
         Session session=sessionFactory.getCurrentSession();
-        Query<DeduccionBeneficioGlobal> query=session.createQuery("FROM DeduccionBeneficioGlobal",DeduccionBeneficioGlobal.class);
+        Query<DeduccionBeneficioGlobal> query=session.createQuery("FROM DeduccionBeneficioGlobal order by estado desc, deduccionBeneficio.tipo, proporcionalAlSueldo",DeduccionBeneficioGlobal.class);
         List<DeduccionBeneficioGlobal> deduccionBeneficios= query.getResultList();
         return deduccionBeneficios;
     }
@@ -63,7 +63,7 @@ public class deduccionBeneficioDAOImpl implements deduccionBeneficioDAO {
     @Override
     public List<DeduccionBeneficio_Empleado> getDeduccionesBeneficiosEmp(int id) {
         Session session=sessionFactory.getCurrentSession();
-        Query<DeduccionBeneficio_Empleado> query=session.createQuery("FROM DeduccionBeneficio_Empleado where empleado.idEmpleado=:id order by deduccionBeneficio.tipo, proporcionalAlSueldo",DeduccionBeneficio_Empleado.class);
+        Query<DeduccionBeneficio_Empleado> query=session.createQuery("FROM DeduccionBeneficio_Empleado where empleado.idEmpleado=:id order by estado desc, deduccionBeneficio.tipo, proporcionalAlSueldo",DeduccionBeneficio_Empleado.class);
         query.setParameter("id",id);
         List<DeduccionBeneficio_Empleado> deduccionBeneficios= query.getResultList();
         return deduccionBeneficios;

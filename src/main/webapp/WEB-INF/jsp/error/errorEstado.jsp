@@ -6,7 +6,7 @@
     </head>
     <body>
     <div class="container">
-                <div class="row d-flex justify-content-center">
+                <div class="row d-flex justify-content-center mt-5">
                     <div class="alert alert-danger col-8 mt-5 text-center" role="alert">
                         <c:if test="${usuario.solicitoDesbloqueo}">
                             Se ha enviado un correo electrónico para solicitar su desbloqueo
