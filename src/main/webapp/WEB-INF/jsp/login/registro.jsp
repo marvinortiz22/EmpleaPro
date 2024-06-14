@@ -19,7 +19,7 @@
                         </div>
                         <div class="card-body">
                             <form:form modelAttribute="usuario" action="/registro" method="post">
-                                <form:input class="form-control" path="rol.idRol" value="1" hidden="true"/>
+                                <!--form:input class="form-control" path="rol.idRol" value="1" hidden="true"/-->
                                 <div class="form-floating mb-3">
                                     <form:input class="form-control" path="username" required="true" />
                                     <label for="username">Nombre de usuario</label>

@@ -13,6 +13,9 @@ public class Usuario {
     @ManyToOne
     @JoinColumn(name = "IDROL")
     private Rol rol;
+
+	@Transient
+	private String oldRolNombre;
 	private String username;
 	private String email;
 
@@ -61,6 +64,14 @@ public class Usuario {
 	}
 	public void setRol(Rol rol) {
 		this.rol = rol;
+	}
+
+	public String getOldRolNombre() {
+		return oldRolNombre;
+	}
+
+	public void setOldRolNombre(String oldRolNombre) {
+		this.oldRolNombre = oldRolNombre;
 	}
 
 	public String getEmail() {

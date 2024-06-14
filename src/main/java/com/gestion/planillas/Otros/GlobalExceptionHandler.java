@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
     public void handleAuthenticationCredentialsNotFoundException(AuthenticationCredentialsNotFoundException ex, HttpServletResponse response) throws IOException {
-        response.sendRedirect("/error/rol");
+        response.sendRedirect("/sinRol");
     }
 
 }

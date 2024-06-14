@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping("/")
 @Controller
 public class SecurityController {
@@ -54,33 +56,38 @@ public class SecurityController {
         return "login/registro";
     }
     @PostMapping("registro")
-    public String registroPost(@Valid @ModelAttribute("usuario")Usuario usuario, BindingResult result){
-        if(usuarioDAO.getUsuarioPorCampo("username",usuario.getUsername())!=null)
-            result.rejectValue("username","error.username","Ya existe un usuario con este nombre de usuario");
-        if(usuarioDAO.getUsuarioPorCampo("email",usuario.getEmail())!=null)
-            result.rejectValue("email","error.email","Ya existe un usuario con este correo electrónico");
-        if(!usuario.getPassword().equals(usuario.getPassword2()))
-            result.rejectValue("password2","password2.error","Las contraseñas no coinciden");
+    public String registroPost(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result) {
+        if (usuarioDAO.getUsuarioPorCampo("username", usuario.getUsername()) != null)
+            result.rejectValue("username", "error.username", "Ya existe un usuario con este nombre de usuario");
+        if (usuarioDAO.getUsuarioPorCampo("email", usuario.getEmail()) != null)
+            result.rejectValue("email", "error.email", "Ya existe un usuario con este correo electrónico");
+        if (!usuario.getPassword().equals(usuario.getPassword2()))
+            result.rejectValue("password2", "password2.error", "Las contraseñas no coinciden");
         if (result.hasErrors())
             return "login/registro";
-        else{
+        else {
             usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
             usuarioDAO.guardarUsuario(usuario);
 
-            /*List<String> emails=usuarioDAO.getAdminsEmails();
-            String subject = "Nuevo usuario";
-            for(String email:emails){
-                try{
-                    String text = "nuevo usuario\n\nhttp://localhost:8080/usuario/editar?id="+usuario.getIdUsuario();
-                    emailService.sendEmail(email, subject, text);
-                }catch (Exception e){
+            List<String> emails = usuarioDAO.getAdminsEmails();
+            new Thread(() -> {
 
+                String subject = "Nuevo usuario";
+                for (String email : emails) {
+                    try {
+                        String text = "Se ha registrado un nuevo usuario con username '" + usuario.getUsername() +
+                                "'. Acceda a este link para asignarle un rol:\n\nhttp://localhost:8080/usuario/editar?id=" + usuario.getIdUsuario();
+                        emailService.sendEmail(email, subject, text);
+                    } catch (Exception e) {
+
+                    }
                 }
-            }*/
+            }).start();
 
             return "redirect:/login";
         }
     }
+
 
     /*@GetMapping("logout")
     public String logout(){
@@ -100,7 +107,7 @@ public class SecurityController {
         model.addAttribute("usuario",usuario);
         return "error/errorEstado";
     }
-    @GetMapping("error/rol")
+    @GetMapping("/sinRol")
     public String errorRol() {
         return "error/errorRol";
     }

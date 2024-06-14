@@ -24,7 +24,11 @@
                         <li>
                             <hr class="dropdown-divider" />
                         </li>
-                        <li><a class="dropdown-item" href="/logout">Cerrar sesión</a></li>
+                        <li>
+                            <form:form action="/logout" method="POST">
+                                <button class="dropdown-item">Cerrar sesión</button>
+                            </form:form>
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -169,10 +173,7 @@
                                     data-bs-parent="#sidenavAccordion">
                                     <nav class="sb-sidenav-menu-nested nav">
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Administrador'}">
-                                            <a class="nav-link" href="/usuarioEjemplo/listar">Usuarios Ejemplo</a>
-                                        </c:if>
-                                        <c:if test="${permiso.nombrePermiso=='ROLE_Administrador'}">
-                                            <a class="nav-link" href="/usuario/listar">Usuarios Final</a>
+                                            <a class="nav-link" href="/usuario/listar">Usuarios</a>
                                         </c:if>
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Administrador'}">
                                             <a class="nav-link" href="/rol/listar">Roles</a>
