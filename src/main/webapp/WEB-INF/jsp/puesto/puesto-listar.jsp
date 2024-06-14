@@ -7,7 +7,7 @@
             <h1 class="mt-4">Puestos</h1>
         </div>
         <div class="d-flex justify-content-end mb-4">
-            <a href="#"><button title="Imprimir" class="btn btn-success me-1"><i class="fa-solid fa-print"></i></button></a>
+            <!--a href="#"><button title="Imprimir" class="btn btn-success me-1"><i class="fa-solid fa-print"></i></button></a-->
             <a href="/puesto/agregar"><button title="Agregar" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Nuevo puesto </button></a>
         </div>
         <div class="card mb-4">

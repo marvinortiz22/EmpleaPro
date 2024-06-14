@@ -34,7 +34,7 @@
                             ${empleado.puesto.nombrePuesto}
                         </td>
                         <td>
-                            ${empleado.nombre1} ${empleado.nombre2}, ${empleado.apellido1} ${empleado.apellido2}
+                            ${empleado.nombreCompleto}
                         </td>
                         <td>
                             <c:if test="${empleado.tipoDocumento != null}">

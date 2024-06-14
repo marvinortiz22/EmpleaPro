@@ -91,13 +91,13 @@ public class PuestoController {
         }
 
         //validar campos unicos (nombre)
-        if (puesto.getIdPuesto() == null){
+        /*if (puesto.getIdPuesto() == null){
             if(!puestoDAO.esUnico("nombrePuesto", puesto.getNombrePuesto()))
                 result.rejectValue("nombrePuesto","error.nombrePuesto","Ya existe un puesto con este nombre");
         } else {
             if(!puestoDAO.esUnico("nombrePuesto", puesto.getNombrePuesto(), puesto.getIdPuesto()))
                 result.rejectValue("nombrePuesto","error.nombrePuesto","Ya existe un puesto con este nombre");
-        }
+        }*/
 
         //mostrar errores
         if (result.hasErrors()) {

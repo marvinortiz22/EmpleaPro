@@ -17,7 +17,7 @@
 <form:form modelAttribute="usuario" method="POST" action="/usuario/editar" class="container mx-2 mt-4">
     <div class="row mb-3">
         <form:hidden path="idUsuario"/>
-        <form:input path="oldRolNombre" class="form-control" required="true" value="${usuario.rol.nombreRol}"/>
+        <form:hidden path="oldRolNombre" class="form-control" required="true" value="${usuario.rol.nombreRol}"/>
         <div class="col-md-6">
             <label class="form-label">Nombre de usuario</label>
             <form:input path="username" class="form-control" value="" required="true"/>
@@ -25,7 +25,7 @@
         </div>
         <div class="col-md-6">
             <label class="form-label">Correo electrónico </label>
-            <form:input path="email" class="form-control" value="" required="true"/>
+            <form:input path="email" class="form-control" type="email" value="" required="true"/>
             <form:errors path="email"/>
         </div>
     </div>

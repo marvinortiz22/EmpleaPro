@@ -84,7 +84,7 @@
                     </div>
                     <div class="p-2">
                         <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento*</label>
-                        <form:input path="fechaNacimiento" type="date" class="form-control"/>
+                        <form:input path="fechaNacimiento" id="birthdate" type="date" class="form-control"/>
                         <form:errors path="fechaNacimiento" class="text-danger small"/>
                     </div>
                     <div class="p-2">
@@ -353,6 +353,15 @@ $(document).ready(function() {
         // Aplicar la máscara al cargar la página
         applyMasking();
     });
+    function setMaxDate() {
+            const today = new Date();
+            const maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+            const formattedMaxDate = maxDate.toISOString().split('T')[0];
+            document.getElementById('birthdate').max = formattedMaxDate;
+        }
+
+        // Llamar a la función al cargar la página
+        window.onload = setMaxDate;
 </script>
 
 

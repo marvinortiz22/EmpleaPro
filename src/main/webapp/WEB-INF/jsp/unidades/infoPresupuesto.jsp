@@ -36,11 +36,11 @@
             <form:input path="unidad.idUnidad" hidden="true"/>
             <div>
                 <label for="nombre">Monto</label>
-                <form:input path="monto" name="monto" required="true" type="number" step="0.01" min="0"/>
+                <form:input path="monto" name="monto" maxlength="10" required="true" type="number" step="0.01" min="0" max="1000000000"/>
             </div>
             <div>
                 <label for="nombre">Año</label>
-                <form:input path="ano" name="ano" required="true" type="number" min="0" />
+                <form:input path="ano" name="ano" required="true" type="number" min="0" max="1000000000"/>
             </div>
             <div style="grid-column: span 2;">
                 <button type="submit">Guardar</button>

@@ -35,7 +35,7 @@
             <form:input path="idUnidad" hidden="true"/>
             <div>
                 <label for="nombre">Nombre</label>
-                <form:input path="nombreUnidad" id="nombre" name="nombre" required="true"/>
+                <form:input path="nombreUnidad" maxlength="50" id="nombre" name="nombre" required="true"/>
             </div>
             <div>
                 <label for="tipo">Tipo de unidad</label>

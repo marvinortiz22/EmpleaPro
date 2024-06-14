@@ -1,10 +1,10 @@
 <%@ include file="../base/head.jsp" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
-<title>ISSS y AFP</title>
+<title>Deduccion/beneficio</title>
 <%@ include file="../base/navbar.jsp" %>
     <div class="container-fluid px-4">
         <div class="d-flex justify-content-center text-center">
-            <h1 class="mt-4">ISSS y AFP</h1>
+            <h1 class="mt-4">Deducciones y beneficios generales </h1>
         </div>
         <div class="d-flex justify-content-end mb-4">
             <a href="/deduccionesBeneficiosGlobales/agregar"><button title="Agregar" class="btn btn-primary"><i class="fa-solid fa-plus"></i></button></a>
