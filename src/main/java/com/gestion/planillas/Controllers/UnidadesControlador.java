@@ -166,6 +166,7 @@ public class UnidadesControlador {
     }
 
     @GetMapping("/presupuestos/agregar")
+    @AccessControl(roles="ROLE_Agregar_presupuesto_de_unidades")
     public String agregarP(Model model, @RequestParam("idUnidad") int idUnidad){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         Unidad unidad = unidadesDAO.getUnidad(idUnidad);
@@ -177,6 +178,7 @@ public class UnidadesControlador {
     }
 
     @GetMapping("/presupuestos/editar")
+    @AccessControl(roles="ROLE_Editar_presupuesto_de_unidades")
     public String editarP(Model model, @RequestParam("id") int id){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         PresupuestoAnual presupuest = presupuesto.getPresupuesto(id);

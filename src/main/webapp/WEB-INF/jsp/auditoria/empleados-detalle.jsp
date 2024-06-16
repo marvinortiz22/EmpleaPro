@@ -23,13 +23,13 @@
                     <div class="p-2">
                         <strong>Nombre:</strong>
                         ${empleado.empleado.nombre1}
-                        ${empleado.empleado.nombre2},
+                        ${empleado.empleado.nombre2}
                         ${empleado.empleado.apellido1}
                         <c:if test="${empty empleado.apellidoCasada}">
                             ${empleado.empleado.apellido2}
                         </c:if>
                         <c:if test="${!empty empleado.apellidoCasada}">
-                            De ${empleado.empleado.apellidoCasada}
+                            de ${empleado.empleado.apellidoCasada}
                         </c:if>
                     </div>
                     <div class="p-2">

@@ -41,7 +41,7 @@
                                     </c:if>
                                 </td>
                                 <td>
-                                    ${permiso.empleado.nombre1} ${permiso.empleado.nombre2}, ${permiso.empleado.apellido1} ${permiso.empleado.apellido2}
+                                    ${permiso.empleado.nombre1} ${permiso.empleado.nombre2} ${permiso.empleado.apellido1} ${permiso.empleado.apellido2}
                                 </td>
                                 <td>
                                     <c:if test="${permiso.aprobada}">

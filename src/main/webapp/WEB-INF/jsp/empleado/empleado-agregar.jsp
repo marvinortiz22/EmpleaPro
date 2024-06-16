@@ -201,7 +201,7 @@
                                         ${empleadoSup.apellido2}
                                     </c:if>
                                     <c:if test="${empleadoSup.apellidoCasada != null}">
-                                        De ${empleadoSup.apellidoCasada}
+                                        de ${empleadoSup.apellidoCasada}
                                     </c:if>
                                     <c:if test="${empleadoSup.tipoDocumento != null}">
                                         (${empleadoSup.tipoDocumento.nombreDoc}: ${empleadoSup.numeroDoc})
