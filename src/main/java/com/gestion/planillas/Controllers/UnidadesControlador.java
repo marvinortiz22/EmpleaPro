@@ -5,6 +5,7 @@ import java.util.*;
 
 import com.gestion.planillas.modelos.DatosEmpresa;
 import com.gestion.planillas.modelos.Empleado;
+import com.gestion.planillas.modelos.Otros.Alert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -75,6 +76,10 @@ public class UnidadesControlador {
         boolean verPresupuestos = usuarioDAO.tienePermiso("ROLE_Ver_presupuesto_de_unidades");
         model.addAttribute("permisoEditar", permisoEditar); model.addAttribute("permisoCrear", permisoCrear);
         model.addAttribute("cambiarEstado", cambiarEstado); model.addAttribute("verPresupuestos", verPresupuestos);
+        if (model.containsAttribute("alert")) {
+            Alert alert = (Alert) model.getAttribute("alert");
+            model.addAttribute("alert",alert);
+        }
         return "unidades/unidades";
     }
 
@@ -104,12 +109,16 @@ public class UnidadesControlador {
     @PostMapping("/agregar")
     public String agregarUnidad(@ModelAttribute("unidad") Unidad unidad, RedirectAttributes redirectAttributes) {
         unidadesDAO.agregarEditarUnidad(unidad);
+        Alert alert=new Alert("success","Se ha agregado la unidad exitosamente");
+        redirectAttributes.addFlashAttribute("alert",alert);
         return "redirect:/unidad/listar";
     }
 
     @PostMapping("/editar")
     public String editarUnidad(@ModelAttribute("unidad") Unidad unidad, RedirectAttributes redirectAttributes) {
         unidadesDAO.agregarEditarUnidad(unidad);
+        Alert alert=new Alert("success","Se ha editado la unidad exitosamente");
+        redirectAttributes.addFlashAttribute("alert",alert);
         return "redirect:/unidad/listar";
     }
 
@@ -149,6 +158,10 @@ public class UnidadesControlador {
         model.addAttribute("presupuestos", jsonString); model.addAttribute("idUnidad", id);
         boolean permisoEditar = usuarioDAO.tienePermiso("ROLE_Editar_presupuesto_de_unidades");
         model.addAttribute("permisoEditar", permisoEditar);
+        if (model.containsAttribute("alert")) {
+            Alert alert = (Alert) model.getAttribute("alert");
+            model.addAttribute("alert",alert);
+        }
         return "unidades/presupuestos";
     }
 
@@ -174,12 +187,16 @@ public class UnidadesControlador {
     @PostMapping("/presupuestos/agregar")
     public String agregarPresupuesto(@ModelAttribute("presupuesto") PresupuestoAnual presupuest, RedirectAttributes redirectAttributes) {
         presupuesto.agregarEditarPresupuesto(presupuest);
+        Alert alert=new Alert("success","Se ha agregado el presupuesto exitosamente");
+        redirectAttributes.addFlashAttribute("alert",alert);
         return "redirect:/unidad/presupuestos?id=" + presupuest.getUnidad().getIdUnidad();
     }
 
     @PostMapping("/presupuestos/editar")
     public String editarPresupuesto(@ModelAttribute("presupuesto") PresupuestoAnual presupuest, RedirectAttributes redirectAttributes) {
         presupuesto.agregarEditarPresupuesto(presupuest);
+        Alert alert=new Alert("success","Se ha editado el presupuesto exitosamente");
+        redirectAttributes.addFlashAttribute("alert",alert);
         return "redirect:/unidad/presupuestos?id=" + presupuest.getUnidad().getIdUnidad();
     }
 }

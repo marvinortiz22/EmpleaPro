@@ -87,16 +87,6 @@ public class SecurityController {
             return "redirect:/login";
         }
     }
-
-
-    /*@GetMapping("logout")
-    public String logout(){
-        return "redirect:/usuario/listar";
-    }
-    /*@GetMapping("error")
-    public String errorUrl() {
-        return "error";
-    }*/
     @GetMapping("error/permisos")
     public String errorPermisos() {
         return "error/errorPermisos";
@@ -117,7 +107,7 @@ public class SecurityController {
         usuario.setSolicitoDesbloqueo(true);
         usuarioDAO.guardarUsuario(usuario);
 
-        /*List<String> emails=usuarioDAO.getAdminsEmails();
+        List<String> emails=usuarioDAO.getAdminsEmails();
             String subject = "Solicitud de desbloqueo";
             for(String email:emails){
                 try{
@@ -126,7 +116,7 @@ public class SecurityController {
                 }catch (Exception e){
 
                 }
-            }*/
+            }
 
         return "error/errorEstado";
     }

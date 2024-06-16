@@ -10,10 +10,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/unidades/info.css">
 <%@ include file="../base/navbar.jsp" %>
     <div id="contenedorPrincipal">
-        <header>
-            <button onclick="window.history.back()">
-                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
-            </button>
+        <header>  
+            <a href="/unidad/presupuestos?id=${presupuesto.unidad.idUnidad}" class="btn btn-primary">←</a>
             <h1>
                 <% if(!Boolean.parseBoolean(request.getAttribute("editar").toString())){ %>
                     Nueva Presupuesto
@@ -36,11 +34,11 @@
             <form:input path="unidad.idUnidad" hidden="true"/>
             <div>
                 <label for="nombre">Monto</label>
-                <form:input path="monto" name="monto" maxlength="10" required="true" type="number" step="0.01" min="0" max="1000000000"/>
+                <form:input path="monto" name="monto" required="true" type="number" step="0.01" min="0" max="99999999.99"/>
             </div>
             <div>
                 <label for="nombre">Año</label>
-                <form:input path="ano" name="ano" required="true" type="number" min="0" max="1000000000"/>
+                <form:input path="ano" name="ano" required="true" type="number" min="0" max="9999999999"/>
             </div>
             <div style="grid-column: span 2;">
                 <button type="submit">Guardar</button>

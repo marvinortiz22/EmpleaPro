@@ -120,6 +120,7 @@
                               noResults: "No se encontraron filas coincidentes",
                           }
           });
+          console.log(simpleDatatables.rows)
       }
 
 </script>

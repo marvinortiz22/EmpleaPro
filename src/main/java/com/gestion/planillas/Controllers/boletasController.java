@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -58,17 +59,21 @@ public class boletasController {
         model.addAttribute("deduccionEmpleado",deduccionBeneficioEmpleados);
         Object[] boleta;
         String fecha1="",fecha2="";
-        if(request.getParameter("fecha1")==null||request.getParameter("fecha2")==null)
-            boleta= contaduriaDAO.planillaEmpleado("2024-05-21","2024-05-23",id);
-        else{
-            fecha1=request.getParameter("fecha1");
-            fecha2=request.getParameter("fecha2");
-            boleta= contaduriaDAO.planillaEmpleado(fecha1,fecha2,id);
-        }
+        fecha1=request.getParameter("fecha1");
+        fecha2=request.getParameter("fecha2");
+        boleta= contaduriaDAO.planillaEmpleado(fecha1,fecha2,id);
+
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate fecha1Local = LocalDate.parse(fecha1, inputFormatter);
+        LocalDate fecha2Local = LocalDate.parse(fecha2, inputFormatter);
+        String fecha1Salida = fecha1Local.format(outputFormatter);
+        String fecha2Salida=fecha2Local.format(outputFormatter);
+
 
         model.addAttribute("boleta",boleta);
-        model.addAttribute("fecha1",fecha1);
-        model.addAttribute("fecha2",fecha2);
+        model.addAttribute("fecha1",fecha1Salida);
+        model.addAttribute("fecha2",fecha2Salida);
 
         DatosEmpresa datosEmpresa=datosEmpresaDAO.getDatosEmpresa();
         String nombreEmpresa="";
@@ -136,7 +141,6 @@ public class boletasController {
         for (DeduccionBeneficioGlobal deduccionGlobal : deduccionBeneficioGlobals) {
             if (deduccionGlobal.getDeduccionBeneficio().getTipo().equals("D")) {
                 Map<String, String> detalle = new HashMap<>();
-
 
                 if (deduccionGlobal.isProporcionalAlSueldo()) {
                     detalle.put("nombre", deduccionGlobal.getDeduccionBeneficio().getNombreDeducBenef()+" ("+deduccionGlobal.getMontoOPorcentaje()+"%)");

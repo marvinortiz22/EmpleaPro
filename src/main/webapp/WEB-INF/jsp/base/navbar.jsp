@@ -106,7 +106,7 @@
                                             <a class="nav-link" href="/contabilidad/listarEmpleados">Boletas de pago</a>
                                         </c:if>
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_deducciones_y_beneficios_globales'}">
-                                            <a class="nav-link" href="/deduccionesBeneficiosGlobales/listar">Deducciones y beneficios generales</a>
+                                            <a class="nav-link" href="/deduccionesBeneficiosGlobales/listar">ISSS y AFP</a>
                                         </c:if>
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_deducciones_y_beneficios_de_empleados'}">
                                             <a class="nav-link" href="/deduccionesBeneficiosEmpleados/listarEmpleados">Deducciones y beneficios por empleados</a>

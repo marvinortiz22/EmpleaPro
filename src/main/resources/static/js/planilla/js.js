@@ -3,7 +3,7 @@ const manejarTabla = new ManejoTabla({
     idContenedorTabla: 'contenedorTabla',
     acciones: false,
     ocultarCampos: [],
-    ordenColumnas: ['Número de documento', 'Nombre', 'Cargo', 'Salario/hora', 'Horas normales', 'Salario*horas normales', 'Vacaciones', 'Horas extra', 'Permisos remunerables', 'Otros beneficios', 'Salario+beneficios', 'ISSS', 'AFP', 'ISR', 'Otras deducciones', 'Total deducciones', 'Salario neto'],
+    ordenColumnas: ['Número de documento', 'Nombre', 'Cargo', 'Salario / hora', 'Horas normales', 'Salario base', 'Vacaciones', 'Horas extra', 'Permisos remunerables', 'Otros beneficios', 'Salario + beneficios', 'ISSS', 'AFP', 'ISR', 'Otras deducciones', 'Total deducciones', 'Salario neto'],
     tituloColAcciones: ['Presupuesto', 'Acciones'],
     pdf: true,
     funcionPdf: planillaTablaPdf,

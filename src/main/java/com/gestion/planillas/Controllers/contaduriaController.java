@@ -18,6 +18,8 @@ import com.gestion.planillas.DAO.usuarioDAO;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Controller
@@ -40,7 +42,6 @@ public class contaduriaController {
     @PostMapping("/planilla")
     public String planillaPost(Model model,HttpServletRequest request){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
-        model.addAttribute("fecha1",request.getParameter("fecha1")); model.addAttribute("fecha2",request.getParameter("fecha2"));
         DatosEmpresa datosEmpresa = datosEmpresaDAO.getDatosEmpresa();
         model.addAttribute("nombreEmpresa", datosEmpresa.getNombreEmpresa());
         List<Object[]> planillaList = contaduriaDAO.planilla(request.getParameter("fecha1"),request.getParameter("fecha2"));
@@ -52,14 +53,14 @@ public class contaduriaController {
             resultado.put("Número de documento", planilla[0]);
             resultado.put("Nombre", planilla[1]);
             resultado.put("Cargo", planilla[2]);
-            resultado.put("Salario/hora", currencyFormatter.format(planilla[3]));
+            resultado.put("Salario / hora", currencyFormatter.format(planilla[3]));
             resultado.put("Horas normales", planilla[4]);
-            resultado.put("Salario*horas normales",currencyFormatter.format(planilla[5]));
+            resultado.put("Salario base",currencyFormatter.format(planilla[5]));
             resultado.put("Vacaciones", currencyFormatter.format(planilla[6]));
             resultado.put("Horas extra",currencyFormatter.format(planilla[7]));
             resultado.put("Permisos remunerables",currencyFormatter.format(planilla[8]));
             resultado.put("Otros beneficios", currencyFormatter.format(planilla[9]));
-            resultado.put("Salario+beneficios", currencyFormatter.format(planilla[10]));
+            resultado.put("Salario + beneficios", currencyFormatter.format(planilla[10]));
             resultado.put("ISSS", currencyFormatter.format(planilla[11]));
             resultado.put("AFP",currencyFormatter.format(planilla[12]));
             resultado.put("ISR",currencyFormatter.format(planilla[13]));
@@ -76,6 +77,19 @@ public class contaduriaController {
             e.printStackTrace();
         }
         model.addAttribute("unidades", jsonString);
-        return "contaduria/planilla";
+        model.addAttribute("planilla",planillaList);
+        String fecha1="",fecha2="";
+        fecha1=request.getParameter("fecha1");
+        fecha2=request.getParameter("fecha2");
+
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate fecha1Local = LocalDate.parse(fecha1, inputFormatter);
+        LocalDate fecha2Local = LocalDate.parse(fecha2, inputFormatter);
+        String fecha1Salida = fecha1Local.format(outputFormatter);
+        String fecha2Salida=fecha2Local.format(outputFormatter);
+        model.addAttribute("fecha1",fecha1Salida);
+        model.addAttribute("fecha2",fecha2Salida);
+        return "contaduria/planillaPost";
     }
 }

@@ -2,7 +2,9 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <title>Municipios</title>
 <%@ include file="../base/navbar.jsp" %>
+<a href="/demografia/departamentos" class="btn btn-primary ms-4 mt-1">←</a>
     <div class="container-fluid px-4">
+        
         <div class="d-flex justify-content-center">
             <h1 class="mt-4">Municipios de ${nombreDepartamento}</h1>
 
@@ -53,6 +55,8 @@
                                 noResults: "No se encontraron filas coincidentes",
                             }
             });
+            console.log(simpleDatatables.rows)
         }
+        
   
   </script>

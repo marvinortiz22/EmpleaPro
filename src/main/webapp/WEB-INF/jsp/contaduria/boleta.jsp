@@ -31,6 +31,24 @@
         .td2 {
             text-align: end;
         }
+        @media print {
+            header, footer {
+                display: none;
+            }
+            
+            [title="Imprimir"]{
+                display: none;
+            }
+            .sb-topnav.navbar{
+                display: none;
+            }
+            .sb-sb-sidenav{
+                display: none;
+            }
+            #boletaPago{
+                margin-top: -70px;
+            }
+        }
     </style>
     <%@ include file="../base/navbar.jsp" %>
 </head>
@@ -131,7 +149,7 @@
             document.getElementById("nombreEmpresa").textContent=data["Empresa"];
             document.getElementById("nombreEmpleado").textContent="Empleado: "+data["Nombre"];
             document.getElementById("numeroDoc").textContent="Número de documento: "+data["Número de documento"];
-            document.getElementById("rangoFechas").textContent="del: "+data["fecha1"]+" al: "+data["fecha2"]
+            document.getElementById("rangoFechas").textContent="del: "+'<%= request.getAttribute("fecha1") %>'+" al: "+'<%= request.getAttribute("fecha2") %>'
             document.getElementById("salario-hora").textContent = data["Salario/hora"];
             document.getElementById("horas-normales").textContent = data["Horas normales"];
             document.getElementById("salario-base").textContent = data["Salario*horas normales"];
@@ -156,10 +174,12 @@
 
             let deductionsTable = document.getElementById("deductions-table");
             data["Deducciones"].forEach(deduccion => {
-                let row = deductionsTable.insertRow(deductionsTable.rows.length - 1);
-                row.insertCell(0).textContent = deduccion["nombre"];
-                row.insertCell(1).textContent = deduccion["monto"];
-                row.cells[1].classList.add("td2");
+                if(!deduccion["nombre"].includes("ISSS")&&!deduccion["nombre"].includes("AFP")){
+                    let row = deductionsTable.insertRow(deductionsTable.rows.length - 1);
+                    row.insertCell(0).textContent = deduccion["nombre"];
+                    row.insertCell(1).textContent = deduccion["monto"];
+                    row.cells[1].classList.add("td2");
+                }
             });
 
             document.getElementById("total-deducciones").textContent = data["Total deducciones"];
@@ -168,13 +188,9 @@
 
         function imprimirBoleta() {
             const btnRegresar = document.querySelector('[data-ac="regresar"]'); btnRegresar.style.display = "none";
-            const btnImprimir = document.querySelector('[title="Imprimir"]'); btnImprimir.style.display = "none";
-            const piePagina = document.querySelector('footer'); piePagina.style.display = "none";
-            const nav = document.querySelector('.sb-topnav.navbar'); nav.style.display = "none";
-            const boletaPago = document.querySelector('#boletaDePago'); boletaPago.style.marginTop = "-70px";
+            const boletaPago = document.querySelector('#boletaDePago'); //boletaPago.style.marginTop = "-70px";
             window.print();
-            btnRegresar.style.display = "block"; btnImprimir.style.display = "block"; piePagina.style.display = "block";
-            nav.style.display = "block"; boletaPago.style.marginTop = "0px";
+            btnRegresar.style.display = "block";  //boletaPago.style.marginTop = "0px";
         }
     </script>
 

@@ -91,6 +91,7 @@ class ManejoTabla {
     dibujarTabla() {
         const tabla = this.contenedorTabla.querySelector('table');
         tabla.querySelector('thead').querySelector('tr').innerHTML = Object.keys(this.datos[0]).map(key => {
+            key.
             if (this.ocultarCampos.includes(key)) return '';
             return `<th>${key.toUpperCase()}</th>`
         }).join('') + (this.acciones ? this.tituloColAcciones.map(titulo => `<th>${titulo}</th>`).join('') : '');

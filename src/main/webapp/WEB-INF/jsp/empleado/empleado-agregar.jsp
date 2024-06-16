@@ -170,6 +170,7 @@
                     <div class="p-2">
                         <label for="salario" class="form-label">Salario*</label>
                         <form:input path="salario" class="form-control" id="salario" pattern="^\d{1,8}(\.\d{0,2})?$" title="Debe ser un número de 10 dígitos, ejemplo: 12345678.99" required="true"/>
+                        
                         <form:errors path="salario" class="text-danger small"/>
                     </div>
                     <!--div class="p-2">
@@ -187,13 +188,14 @@
                         <form:select class="form-select" path="supervisor.idEmpleado">
                             <form:option value="0">Sin Jefe Inmediato</form:option>
                             <c:forEach var="empleadoSup" items="${empleados}">
-                                <option value="${empleadoSup.idEmpleado}"
+                                <c:if test="${empleado.idEmpleado!=empleadoSup.idEmpleado}">
+                                    <option value="${empleadoSup.idEmpleado}"
                                     <c:if test="${empleadoSup.idEmpleado == empleado.supervisor.idEmpleado}">
                                         selected
                                     </c:if>
                                 >
                                     ${empleadoSup.nombre1}
-                                    ${empleadoSup.nombre2},
+                                    ${empleadoSup.nombre2}
                                     ${empleadoSup.apellido1}
                                     <c:if test="${empleadoSup.apellidoCasada == null}">
                                         ${empleadoSup.apellido2}
@@ -205,6 +207,8 @@
                                         (${empleadoSup.tipoDocumento.nombreDoc}: ${empleadoSup.numeroDoc})
                                     </c:if>
                                     </option>
+                                </c:if>
+                                
                             </c:forEach>
                         </form:select>
                         <form:errors path="supervisor.idEmpleado" class="text-danger small"/>
@@ -232,23 +236,24 @@
         </div>
     </div>
 </div>
-
 <script>
 $(document).ready(function() {
     function toggleApellidoCasada() {
         var sexo = $('#sexo').val();
         var estadoCivil = $('#estadoCivil').val();
-        if(sexo === 'F' && estadoCivil === '2') {
-            $('#apellidoCasada').show();
-        } else {
-            $('#apellidoCasada').hide();
-        }
+        if (sexo === 'F' && estadoCivil === '2') {
+        $('#apellidoCasada input').prop('disabled', false);  
+    } else {
+        $('#apellidoCasada input').prop('disabled', true);  
+    }
     }
 
     $('#sexo, #estadoCivil').change(toggleApellidoCasada);
 
     // Llamada inicial
     toggleApellidoCasada();
+    
+
 });
 </script>
 

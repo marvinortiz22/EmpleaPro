@@ -34,10 +34,7 @@
                                 <c:if test="${deducBen.deduccionBeneficio.tipo == 'B'}">Beneficio</c:if>
                             </td>
                             <td>
-                                ${deducBen.empleado.nombre1} 
-                                <c:if test="${deducBen.empleado.nombre2 != null}">${deducBen.empleado.nombre2}</c:if>, 
-                                ${deducBen.empleado.apellido1} 
-                                <c:if test="${deducBen.empleado.apellido2 != null}">${deducBen.empleado.apellido2}</c:if>
+                                ${deducBen.empleado.nombreCompleto}
                             </td>
                             <td>
                                 <c:if test="${deducBen.proporcionalAlSueldo}">Si</c:if>

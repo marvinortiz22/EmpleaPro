@@ -330,7 +330,7 @@ public class Empleado {
         String apellido1 = this.apellido1 != null ? this.apellido1 : "";
         String apellido2;
         if(apellidoCasada!=null)
-            apellido2=apellidoCasada;
+            apellido2="de "+apellidoCasada;
         else
             apellido2 = this.apellido2 != null ? this.apellido2 : "";
 
