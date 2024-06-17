@@ -58,7 +58,7 @@ public class UnidadesControlador {
             resultado.put("Unidad Padre", (unidad.getUnidadPadre() == null) ? "N/A" : unidad.getUnidadPadre().getNombreUnidad());
             resultado.put("Nombre", unidad.getNombreUnidad());
             List<PresupuestoAnual> presupuestosUnidad = presupuesto.getPresupuestosUnidad(unidad.getIdUnidad());
-            resultado.put("Presupuesto", presupuestosUnidad.size() == 0 ? "No hay presupuestos" : presupuestosUnidad.getFirst().getMonto()); 
+            resultado.put("Presupuesto", presupuestosUnidad.size() == 0 ? "No hay presupuestos" : presupuestosUnidad.get(0).getMonto());
             resultado.put("Estado", (unidad.isEstado()) ? "Activo" : "Inactivo");
             resultados.add(resultado);
         }
