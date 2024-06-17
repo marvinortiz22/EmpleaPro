@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "DEDUCCIONBENEFICIOGLOBAL")
+@Table(name = "deduccionbeneficioglobal")
 public class DeduccionBeneficioGlobal {
 
     @Id

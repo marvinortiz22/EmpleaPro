@@ -3,7 +3,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "DEDUCCIONBENEFICIO_EMPLEADO")
+@Table(name = "deduccionbeneficio_empleado")
 public class DeduccionBeneficio_Empleado {
 
     @Id

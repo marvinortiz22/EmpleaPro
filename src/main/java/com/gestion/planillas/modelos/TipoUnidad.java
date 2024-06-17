@@ -2,7 +2,7 @@ package com.gestion.planillas.modelos;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="TIPOUNIDAD")
+@Table(name="tipounidad")
 public class TipoUnidad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,7 +3,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "PERLIC_EMPLEADO")
+@Table(name = "perlic_empleado")
 public class Perlic_Empleado {
 
     @Id

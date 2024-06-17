@@ -320,57 +320,34 @@ $(document).ready(function() {
 <script>
     
 
-document.addEventListener('DOMContentLoaded', function () {
-    var numeroDocInput = document.getElementById('numeroDoc');
-    var tipoDocumentoSelect = document.getElementById('tipoDocumento');
+    document.addEventListener('DOMContentLoaded', function () {
+        function applyMasking() {
+            var numeroDocInput = document.getElementById('numeroDoc');
+            var tipoDocumentoSelect = document.getElementById('tipoDocumento');
+            var tipoDocumentoIndex = tipoDocumentoSelect.selectedIndex;
+            var tipoDocumentoText = tipoDocumentoSelect.options[tipoDocumentoIndex].text;
 
-    function applyMasking() {
-        var tipoDocumentoText = tipoDocumentoSelect.options[tipoDocumentoSelect.selectedIndex].text;
+            // Remover evento previo para evitar duplicados
+            numeroDocInput.removeEventListener('input', duiMask);
 
-        // Remover event listeners previos para evitar duplicados
-        numeroDocInput.removeEventListener('input', duiMask);
-        numeroDocInput.removeEventListener('input', licenciaConducirMask);
-        numeroDocInput.removeEventListener('input', pasaporteMask);
-
-        if (tipoDocumentoText === 'DUI') {
-            numeroDocInput.pattern = "\\d{8}-\\d";
-            numeroDocInput.title = "Debe ser en formato XXXXXXXX-X";
-            numeroDocInput.maxLength = 10;
-            numeroDocInput.addEventListener('input', duiMask);
-            // Aplicar máscara inmediatamente
-            numeroDocInput.dispatchEvent(new Event('input'));
-        } else if (tipoDocumentoText === 'Pasaporte') {
-        
-            numeroDocInput.pattern = '^[a-zA-Z0-9]{9}$';
-            numeroDocInput.title = "Deben ser máximo 9 caracteres";
-            numeroDocInput.maxLength = 9;
-            /*numeroDocInput.addEventListener('input', pasaporteMask);
-            // Aplicar máscara inmediatamente
-            numeroDocInput.dispatchEvent(new Event('input'));*/
-        } else if (tipoDocumentoText === 'Licencia de conducir') {
-            numeroDocInput.pattern = "\\d{4}-\\d{6}-\\d{3}-\\d";
-            numeroDocInput.title = "Debe ser en formato XXXX-XXXXXX-XXX-X";
-            numeroDocInput.maxLength = 17;
-            numeroDocInput.addEventListener('input', licenciaConducirMask);
-            // Aplicar máscara inmediatamente
-            numeroDocInput.dispatchEvent(new Event('input'));
-        }
-        function pasaporteMask(e) {
-            //var currentValue = e.target.value.toUpperCase(); // Convertir todo a mayúsculas
-            var maskedValue = currentValue.replace(/[^a-zA-Z0-9]/g, ''); // Eliminar caracteres no permitidos
-            e.target.value = maskedValue;
-            
-        }
-        function licenciaConducirMask(e) {
-            var value = e.target.value.replace(/\D/g, '').match(/(\d{0,4})(\d{0,6})(\d{0,3})(\d{0,1})/);
-            e.target.value = !value[2] ? value[1] : value[1] + '-' + value[2] + '-' + value[3] + '-' + value[4];
+            if (tipoDocumentoText === 'DUI') {
+                numeroDocInput.pattern = "\\d{8}-\\d";
+                numeroDocInput.title = "Debe ser en formato XXXXXXXX-X";
+                numeroDocInput.maxLength = 10;
+                numeroDocInput.addEventListener('input', duiMask);
+                // Aplicar máscara inmediatamente
+                numeroDocInput.dispatchEvent(new Event('input'));
+            } else {
+                numeroDocInput.pattern = '^[a-zA-Z0-9]{9}$';
+                numeroDocInput.title = "Deben ser máximo 9 caracteres";
+                numeroDocInput.maxLength = 9;
+            }
         }
 
         function duiMask(e) {
             var x = e.target.value.replace(/\D/g, '').match(/(\d{0,8})(\d{0,1})/);
             e.target.value = !x[2] ? x[1] : x[1] + '-' + x[2];
         }
-        
 
         // Aplicar la máscara cuando se cambia el tipo de documento
         document.getElementById('tipoDocumento').addEventListener('change', function () {
@@ -380,9 +357,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         // Aplicar la máscara al cargar la página
-        
-    }
-    applyMasking();
+        applyMasking();
     });
     function setMaxDate() {
             const today = new Date();

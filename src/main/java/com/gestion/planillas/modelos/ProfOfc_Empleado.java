@@ -2,7 +2,7 @@ package com.gestion.planillas.modelos;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="PROFOFC_EMPLEADO")
+@Table(name="profofc_empleado")
 public class ProfOfc_Empleado {
     @Id
     @ManyToOne

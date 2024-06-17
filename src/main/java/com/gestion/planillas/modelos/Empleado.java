@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="EMPLEADO")
+@Table(name="empleado")
 public class Empleado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

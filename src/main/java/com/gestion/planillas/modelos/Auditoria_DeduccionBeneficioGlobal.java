@@ -3,7 +3,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "AUDITORIA_DEDUCCIONBENEFICIOGLOBAL")
+@Table(name = "auditoria_deduccionbeneficioglobal")
 public class Auditoria_DeduccionBeneficioGlobal {
 
     @Id
