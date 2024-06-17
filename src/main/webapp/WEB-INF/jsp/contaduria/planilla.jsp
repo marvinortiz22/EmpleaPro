@@ -18,11 +18,11 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="">Desde:</label>
-                        <input type="date" class="form-control" name="fecha1" id="fecha1" value="2024-05-21"/>
+                        <input type="date" class="form-control" name="fecha1" id="fecha1" value="2024-05-01"/>
                     </div>
                     <div class="col-md-6">
                         <label for="">Hasta:</label>
-                        <input type="date" class="form-control" name="fecha2" id="fecha2" value="2024-05-23"/>
+                        <input type="date" class="form-control" name="fecha2" id="fecha2" value="2024-05-31"/>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">

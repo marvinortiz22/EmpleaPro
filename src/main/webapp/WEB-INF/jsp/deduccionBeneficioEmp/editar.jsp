@@ -9,6 +9,7 @@
 <form:form modelAttribute="deducBenefEmp" method="POST" action="/deduccionesBeneficiosEmpleados/editar" class="container mx-2 mt-4">
     <div class="row mb-3">
         <form:hidden path="idDeducBenef_Emp"/>
+        <form:input path="estado" value="true" hidden="true"/>
         <form:hidden path="empleado.idEmpleado"/>
         <div class="col-md-6">
             <label class="form-label">Nombre</label>

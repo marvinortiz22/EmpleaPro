@@ -24,7 +24,7 @@
         <form:hidden path="empleado.idEmpleado"/>
         <div class="col-md-8">
             <label class="form-label">Fecha de inicio</label>
-            <form:input path="fechaInicio" type="date" class="form-control" min="${usuarioPermisos.fecha2}" required="true"/>
+            <form:input path="fechaInicio" type="date" class="form-control" min="" required="true"/>
             <form:errors path="fechaInicio"/>
         </div>
     </div>

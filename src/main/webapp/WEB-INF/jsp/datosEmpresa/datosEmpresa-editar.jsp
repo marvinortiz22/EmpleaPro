@@ -34,8 +34,8 @@
         </div>
         <div class="row mt-5 mb-5">
             <div class="col-1"></div>
-            <div class="col-1">
-                <label class="form-label">Representante Legal</label>
+            <div class="col-1 me-3">
+                <label class="form-label me-1">Representante Legal</label>
             </div>
             <div class="col-4">
                 <form:input path="nombreRepresentante" class="form-control" value="" required="true"/>

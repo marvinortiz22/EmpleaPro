@@ -45,7 +45,7 @@ public class Empleado {
 
     @NotBlank(message = "El campo es obligatorio")
     @Size(max = 20, message = "El campo no puede tener más de 20 caracteres")
-    @Pattern(regexp = "^[a-zA-Z\\s]*$", message = "Solo letras!!!")
+    @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚ\\s]*$", message = "Solo letras!!!")
     private String nombre1;
 
     @Size(max = 20, message = "El campo no puede tener más de 20 caracteres")
