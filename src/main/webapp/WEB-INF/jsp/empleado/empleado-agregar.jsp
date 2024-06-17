@@ -1,6 +1,5 @@
 <%@ include file="../base/head.jsp" %>
 <%@ include file="../base/navbar.jsp" %>
-
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <title>
     <c:if test="${empty empleado.idEmpleado}">
@@ -42,27 +41,27 @@
                 <div class="d-flex flex-wrap justify-content-around mb-4">
                     <div class="p-2">
                         <label for="nombre1" class="form-label">Primer Nombre*</label>
-                        <form:input path="nombre1" class="form-control" maxlength="20" pattern="^[a-zA-Z\s]*$" title="Solo se permiten letras" required="true"/>
+                        <form:input path="nombre1" class="form-control" maxlength="20" pattern="^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$" title="Solo se permiten letras" required="true"/>
                         <form:errors path="nombre1" class="text-danger small"/>
                     </div>
                     <div class="p-2">
                         <label for="nombre2" class="form-label">Segundo Nombre</label>
-                        <form:input path="nombre2" class="form-control" maxlength="20" pattern="^[a-zA-Z\s]*$" title="Solo se permiten letras"/>
+                        <form:input path="nombre2" class="form-control" maxlength="20" pattern="^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$" title="Solo se permiten letras"/>
                         <form:errors path="nombre2" class="text-danger small"/>
                     </div>
                     <div class="p-2">
                         <label for="apellido1" class="form-label">Primer Apellido*</label>
-                        <form:input path="apellido1" class="form-control" maxlength="20" pattern="^[a-zA-Z\s]*$" title="Solo se permiten letras" required="true"/>
+                        <form:input path="apellido1" class="form-control" maxlength="20" pattern="^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$" title="Solo se permiten letras" required="true"/>
                         <form:errors path="apellido1" class="text-danger small"/>
                     </div>
                     <div class="p-2">
                         <label for="apellido2" class="form-label">Segundo Apellido</label>
-                        <form:input path="apellido2" class="form-control" maxlength="20" pattern="^[a-zA-Z\s]*$" title="Solo se permiten letras"/>
+                        <form:input path="apellido2" class="form-control" maxlength="20" pattern="^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$" title="Solo se permiten letras"/>
                         <form:errors path="apellido2" class="text-danger small"/>
                     </div>
                     <div class="p-2" id="apellidoCasada">
                         <label for="apellidoCasada" class="form-label">Apellido de Casada</label>
-                        <form:input path="apellidoCasada" class="form-control" maxlength="25" pattern="^[a-zA-Z\s]*$" title="Solo se permiten letras"/>
+                        <form:input path="apellidoCasada" class="form-control" maxlength="25" pattern="^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$" title="Solo se permiten letras"/>
                         <form:errors path="apellidoCasada" class="text-danger small"/>
                     </div>
                     <div class="p-2">
@@ -84,7 +83,7 @@
                     </div>
                     <div class="p-2">
                         <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento*</label>
-                        <form:input path="fechaNacimiento" type="date" class="form-control"/>
+                        <form:input path="fechaNacimiento" id="birthdate" type="date" class="form-control"/>
                         <form:errors path="fechaNacimiento" class="text-danger small"/>
                     </div>
                     <div class="p-2">
@@ -139,7 +138,7 @@
                     </div>
                     <div class="p-2">
                         <label for="numeroDoc" class="form-label">Número de Documento*</label>
-                        <form:input path="numeroDoc" class="form-control" id="numeroDoc" pattern="^[a-zA-Z0-9]{20}$" disabled="true" title="Deben ser maximo 20 caracteres" maxlength="20" required="true"/>
+                        <form:input path="numeroDoc" class="form-control" id="numeroDoc" disabled="true" maxlength="20" required="true"/>
                         <form:errors path="numeroDoc" class="text-danger small"/>
                     </div>
                     <div class="p-2">
@@ -170,13 +169,14 @@
                     <div class="p-2">
                         <label for="salario" class="form-label">Salario*</label>
                         <form:input path="salario" class="form-control" id="salario" pattern="^\d{1,8}(\.\d{0,2})?$" title="Debe ser un número de 10 dígitos, ejemplo: 12345678.99" required="true"/>
+                        
                         <form:errors path="salario" class="text-danger small"/>
                     </div>
-                    <div class="p-2">
+                    <!--div class="p-2">
                         <label for="fechaIngreso" class="form-label">Fecha de Ingreso*</label>
                         <form:input path="fechaIngreso" type="date" value="${empleado.getFechaIngresoFormateada()}" class="form-control"/>
                         <form:errors path="fechaIngreso" class="text-danger small"/>
-                    </div>
+                    </div-->
                     <div class="p-2">
                         <label for="correoInstitucional" class="form-label">Correo Institucional*</label>
                         <form:input path="correoInstitucional" class="form-control" type="email" maxlength="30" required="true"/>
@@ -187,24 +187,27 @@
                         <form:select class="form-select" path="supervisor.idEmpleado">
                             <form:option value="0">Sin Jefe Inmediato</form:option>
                             <c:forEach var="empleadoSup" items="${empleados}">
-                                <option value="${empleadoSup.idEmpleado}"
+                                <c:if test="${empleado.idEmpleado!=empleadoSup.idEmpleado}">
+                                    <option value="${empleadoSup.idEmpleado}"
                                     <c:if test="${empleadoSup.idEmpleado == empleado.supervisor.idEmpleado}">
                                         selected
                                     </c:if>
                                 >
                                     ${empleadoSup.nombre1}
-                                    ${empleadoSup.nombre2},
+                                    ${empleadoSup.nombre2}
                                     ${empleadoSup.apellido1}
                                     <c:if test="${empleadoSup.apellidoCasada == null}">
                                         ${empleadoSup.apellido2}
                                     </c:if>
                                     <c:if test="${empleadoSup.apellidoCasada != null}">
-                                        De ${empleadoSup.apellidoCasada}
+                                        de ${empleadoSup.apellidoCasada}
                                     </c:if>
                                     <c:if test="${empleadoSup.tipoDocumento != null}">
                                         (${empleadoSup.tipoDocumento.nombreDoc}: ${empleadoSup.numeroDoc})
                                     </c:if>
                                     </option>
+                                </c:if>
+                                
                             </c:forEach>
                         </form:select>
                         <form:errors path="supervisor.idEmpleado" class="text-danger small"/>
@@ -232,23 +235,24 @@
         </div>
     </div>
 </div>
-
 <script>
 $(document).ready(function() {
     function toggleApellidoCasada() {
         var sexo = $('#sexo').val();
         var estadoCivil = $('#estadoCivil').val();
-        if(sexo === 'F' && estadoCivil === '2') {
-            $('#apellidoCasada').show();
-        } else {
-            $('#apellidoCasada').hide();
-        }
+        if (sexo === 'F' && estadoCivil === '2') {
+        $('#apellidoCasada input').prop('disabled', false);  
+    } else {
+        $('#apellidoCasada input').prop('disabled', true);  
+    }
     }
 
     $('#sexo, #estadoCivil').change(toggleApellidoCasada);
 
     // Llamada inicial
     toggleApellidoCasada();
+    
+
 });
 </script>
 
@@ -314,6 +318,8 @@ $(document).ready(function() {
 </script>
 
 <script>
+    
+
     document.addEventListener('DOMContentLoaded', function () {
         function applyMasking() {
             var numeroDocInput = document.getElementById('numeroDoc');
@@ -332,9 +338,9 @@ $(document).ready(function() {
                 // Aplicar máscara inmediatamente
                 numeroDocInput.dispatchEvent(new Event('input'));
             } else {
-                numeroDocInput.pattern = '^[a-zA-Z0-9]{20}$';
-                numeroDocInput.title = "Deben ser máximo 20 caracteres";
-                numeroDocInput.maxLength = 20;
+                numeroDocInput.pattern = '^[a-zA-Z0-9]{9}$';
+                numeroDocInput.title = "Deben ser máximo 9 caracteres";
+                numeroDocInput.maxLength = 9;
             }
         }
 
@@ -353,6 +359,15 @@ $(document).ready(function() {
         // Aplicar la máscara al cargar la página
         applyMasking();
     });
+    function setMaxDate() {
+            const today = new Date();
+            const maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+            const formattedMaxDate = maxDate.toISOString().split('T')[0];
+            document.getElementById('birthdate').max = formattedMaxDate;
+        }
+
+        // Llamar a la función al cargar la página
+        window.onload = setMaxDate;
 </script>
 
 

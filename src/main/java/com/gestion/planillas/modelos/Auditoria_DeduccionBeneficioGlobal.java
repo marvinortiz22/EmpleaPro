@@ -3,7 +3,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "AUDITORIA_DEDUCCIONBENEFICIOGLOBAL")
+@Table(name = "auditoria_deduccionbeneficioglobal")
 public class Auditoria_DeduccionBeneficioGlobal {
 
     @Id
@@ -14,8 +14,6 @@ public class Auditoria_DeduccionBeneficioGlobal {
     @JoinColumn(name = "IDDEDUCBENEF")
     private DeduccionBeneficio deduccionBeneficio;
 
-    private String nombreDeducBenef;
-    private String tipo;
     private boolean proporcionalAlSueldo;
     private double montoOPorcentaje;
     private boolean estado;
@@ -42,22 +40,6 @@ public class Auditoria_DeduccionBeneficioGlobal {
 
     public void setDeduccionBeneficio(DeduccionBeneficio deduccionBeneficio) {
         this.deduccionBeneficio = deduccionBeneficio;
-    }
-
-    public String getNombreDeducBenef() {
-        return nombreDeducBenef;
-    }
-
-    public void setNombreDeducBenef(String nombreDeducBenef) {
-        this.nombreDeducBenef = nombreDeducBenef;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public boolean isProporcionalAlSueldo() {

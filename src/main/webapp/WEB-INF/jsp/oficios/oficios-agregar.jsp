@@ -23,7 +23,7 @@
             <label class="form-label">Nombre de la profesion u oficio</label>
         </div>
         <div class="col-md-3">
-            <form:input path="nombreProfOfc" class="form-control" value="" required="true"/>
+            <form:input path="nombreProfOfc" class="form-control" value="" required="true" maxlength="50"/>
         </div>
         <div class="col-md-3"></div>         
     </div>

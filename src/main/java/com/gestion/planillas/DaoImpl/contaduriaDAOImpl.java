@@ -32,4 +32,15 @@ public class contaduriaDAOImpl implements contaduriaDAO{
         Object[] planilla = query.getResultList().get(0);
         return planilla;
     }
+
+    @Override
+    public Double getSalarioNeto(String fecha1, String fecha2, int id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<Double> query = session.createNativeQuery("{CALL salarioNeto(:fecha1,:fecha2,:idempleado)}", Double.class);
+        query.setParameter("fecha1", fecha1);
+        query.setParameter("fecha2", fecha2);
+        query.setParameter("idempleado", id);
+        Double salarioNeto = query.getResultList().get(0);
+        return salarioNeto;
+    }
 }

@@ -4,11 +4,9 @@
 <%@ include file="../base/navbar.jsp" %>
     <div class="container-fluid px-4">
         <div class="d-flex justify-content-center">
-            <h1 class="mt-4">Usuarios</h1>
+            <h1 class="my-4">Usuarios</h1>
         </div>
-        <div class="d-flex justify-content-center">
-            <p class="mt-4">No usen este de ejemplo, usen el otro</p>
-        </div>
+        
         <div class="card mb-4">
             
             <div class="card-body">

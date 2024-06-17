@@ -3,7 +3,7 @@
 <title>Editar Permiso Empleado</title>
 <%@ include file="../base/navbar.jsp" %>
 <div class="d-flex justify-content-center">
-    <h1 class="mt-5">Editar Permiso de Empleado ${permiso.empleado.nombre1} ${permiso.empleado.nombre2}, ${permiso.empleado.apellido1} ${permiso.empleado.apellido2}</h1>
+    <h1 class="mt-5">Editar Permiso de Empleado ${permiso.empleado.nombre1} ${permiso.empleado.nombre2} ${permiso.empleado.apellido1} ${permiso.empleado.apellido2}</h1>
 </div>
 <div class="row m-auto">
     <div class="col-1"></div>

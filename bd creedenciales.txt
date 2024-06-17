@@ -1,5 +1,0 @@
-nombre: bad_proyecto
-gestor: mariadb
-puerto: 3306
-usuario: root
-password: 

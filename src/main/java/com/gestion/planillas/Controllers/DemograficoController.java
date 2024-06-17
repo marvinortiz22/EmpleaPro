@@ -2,6 +2,7 @@ package com.gestion.planillas.Controllers;
 
 import com.gestion.planillas.DAO.usuarioDAO;
 import com.gestion.planillas.DAO.demograficoDAO;
+import com.gestion.planillas.Otros.AccessControl;
 import com.gestion.planillas.modelos.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ public class DemograficoController {
     private demograficoDAO demograficoDAO;
 
     @GetMapping("/departamentos")
+    @AccessControl(roles="ROLE_Ver_demografía")
     public String departamentos(Model model){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         List<Object> departamentos=demograficoDAO.countEmpleadosPorDep();
@@ -43,6 +45,7 @@ public class DemograficoController {
         return "demografico/demografico-departamentos";
     }
     @GetMapping("/municipios")
+    @AccessControl(roles="ROLE_Ver_demografía")
     public String municipios(Model model,@RequestParam("id")int id){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         List<Object> municipios=demograficoDAO.countEmpleadosPorMun(id);
@@ -54,6 +57,7 @@ public class DemograficoController {
     }
 
     @GetMapping("/estadosCiviles")
+    @AccessControl(roles="ROLE_Ver_estados_civiles")
     public String estadosCiviles(Model model){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
 

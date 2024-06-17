@@ -25,12 +25,12 @@ public class SecurityConfiguration {
                 .permitAll()
                 .defaultSuccessUrl("/home")
                         .failureHandler(authenticationFailureHandler()))
-
                 .logout(logout->logout
-                        .permitAll()
-                        .logoutUrl("/logout"));
-        /*http.exceptionHandling(exception->exception
-                .accessDeniedPage("/error"));*/
+                                .logoutUrl("/logout")
+                                .logoutSuccessUrl("/login")
+                                .permitAll());
+        //http.exceptionHandling(exception->exception
+        //        .accessDeniedPage("/error"));
 
 
 
@@ -55,4 +55,7 @@ public class SecurityConfiguration {
     StringToProfesionConverter stringToProfesionConverterConverter() {
         return new StringToProfesionConverter();
     }
+
+    @Bean
+    StringToSqlTimeConverter stringToSqlTimeConverter(){return new StringToSqlTimeConverter();}
 }

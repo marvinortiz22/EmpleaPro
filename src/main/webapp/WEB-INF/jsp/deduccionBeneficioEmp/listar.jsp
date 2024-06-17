@@ -21,6 +21,7 @@
                             <th>Nombre</th>
                             <th>Proporcional al sueldo</th>
                             <th>Monto/porcentaje</th>
+                            <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -59,9 +60,22 @@
                             </c:if>
                             
                         </td>
-                    
+                        <td>
+                            <c:if test="${deduccionBeneficio.estado}">
+                                Activo
+                            </c:if>
+                            <c:if test="${!deduccionBeneficio.estado}">
+                                Inactivo
+                            </c:if>
+                        </td>
                         <td>
                             <a href="/deduccionesBeneficiosEmpleados/editar?id=${deduccionBeneficio.idDeducBenef_Emp}&empleado=${empleado.idEmpleado}"><button title="Editar" class="btn btn-warning"><i class="fas fa-pen-to-square"></i></button></a>
+                            <c:if test="${deduccionBeneficio.estado}">
+                                <a href="/deduccionesBeneficiosEmpleados/cambiarEstado?id=${deduccionBeneficio.idDeducBenef_Emp}"><button id="x" title="Inhabilitar" class="btn btn-danger"><i class="fas fa-lock"></i></button></a>
+                            </c:if>
+                            <c:if test="${!deduccionBeneficio.estado}">
+                                <a href="/deduccionesBeneficiosEmpleados/cambiarEstado?id=${deduccionBeneficio.idDeducBenef_Emp}"><button title="Habilitar" id="check" class="btn btn-success"><i class="fas fa-lock"></i></button></a>
+                            </c:if>
                         </td>
                         </tr>
                         </c:forEach>

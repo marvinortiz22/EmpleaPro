@@ -5,6 +5,7 @@ import com.gestion.planillas.DAO.rolDAO;
 import com.gestion.planillas.DAO.tipoDocumentoDAO;
 import com.gestion.planillas.DAO.usuarioDAO;
 import com.gestion.planillas.Otros.AccessControl;
+import com.gestion.planillas.Otros.EmailService;
 import com.gestion.planillas.modelos.Otros.Alert;
 import com.gestion.planillas.modelos.Rol;
 import com.gestion.planillas.modelos.Usuario;
@@ -21,7 +22,7 @@ import java.util.List;
 //No usen este de ejemplo, usen el otro
 @Controller
 @RequestMapping("/usuario")
-public class UsuarioControllerFinal {
+public class UsuarioController {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -33,6 +34,8 @@ public class UsuarioControllerFinal {
     private permisoDAO permisoDAO;
     @Autowired
     private rolDAO rolDAO;
+    @Autowired
+    private EmailService emailService;
     @GetMapping("/listar")
     @AccessControl(roles="ROLE_Administrador")
     public String listar(Model model) {
@@ -81,6 +84,7 @@ public class UsuarioControllerFinal {
             /*Usuario usuarioOriginal=usuarioDAO.getUsuario(usuario.getIdUsuario());
             usuario.setPassword(usuarioOriginal.getPassword());*/
             model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
+            notificarAutorizacion(usuario);
             usuarioDAO.guardarUsuario(usuario);
             Alert alert=new Alert("success","Se ha editado el usuario exitosamente");
             redirectAttributes.addFlashAttribute("alert",alert);
@@ -92,14 +96,37 @@ public class UsuarioControllerFinal {
     public String cambiarEstado(@RequestParam("id")int id, RedirectAttributes redirectAttributes){
         Usuario usuario=usuarioDAO.getUsuario(id);
         Alert alert;
-        if(usuario.isEstado())
+        if(usuario.isEstado()){
             alert=new Alert("danger","Se ha bloqueado el usuario "+usuario.getUsername());
-        else
+            usuario.setSolicitoDesbloqueo(false);
+        }
+        else{
             alert=new Alert("success","Se ha desbloqueado el usuario "+usuario.getUsername());
+            usuario.setSolicitoDesbloqueo(false);
+        }
         redirectAttributes.addFlashAttribute("alert",alert);
         usuario.setEstado(!usuario.isEstado());
         usuarioDAO.guardarUsuario(usuario);
         return "redirect:/usuario/listar";
+    }
+    public void notificarAutorizacion(Usuario usuario){
+        Rol rol =rolDAO.getRol(usuario.getRol().getIdRol());
+        if(usuario.getOldRolNombre().equals("Sin permisos")&&!rol.getNombreRol().equals("Sin permisos")){
+
+            new Thread(() -> {
+
+                try{
+                    String email,subject;
+                    email=usuario.getEmail();
+                    subject="Autorización";
+                    String text = "Se le ha asignado un rol, ahora puede hacer uso de nuestro sistema\n\nhttp://localhost:8080";
+                    emailService.sendEmail(email, subject, text);
+                }catch (Exception e){
+
+                }
+            }).start();
+        }
+
     }
 
 }

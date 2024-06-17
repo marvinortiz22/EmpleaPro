@@ -1,9 +1,9 @@
 package com.gestion.planillas.modelos;
 import jakarta.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
-@Table(name = "VACACION")
+@Table(name = "vacacion")
 public class Vacacion {
 
     @Id
@@ -16,11 +16,6 @@ public class Vacacion {
 
     @Temporal(TemporalType.DATE)
     private Date fechaInicio;
-
-    @Temporal(TemporalType.DATE)
-    private Date fechaFin;
-
-    private boolean pendiente;
 
     // Getters and Setters
     public int getIdVacacion() {
@@ -45,21 +40,5 @@ public class Vacacion {
 
     public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
-    }
-
-    public Date getFechaFin() {
-        return fechaFin;
-    }
-
-    public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
-    }
-
-    public boolean isPendiente() {
-        return pendiente;
-    }
-
-    public void setPendiente(boolean pendiente) {
-        this.pendiente = pendiente;
     }
 }

@@ -24,7 +24,7 @@
         <div class="col-md-3 text-end">
             <label class="form-label">Nombre de la profesion/oficio</label>
         </div>
-        <div class="col-md-3"><form:input path="nombreProfOfc" class="form-control" value="" required="true"/></div>      
+        <div class="col-md-3"><form:input path="nombreProfOfc" maxlength="50" class="form-control" value="" required="true"/></div>      
     </div>
     <div class="row d-flex justify-content-center">
         <div class="col-5"></div>

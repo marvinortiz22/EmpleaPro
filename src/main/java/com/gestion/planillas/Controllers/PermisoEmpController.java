@@ -43,6 +43,7 @@ public class PermisoEmpController {
         return "permisos/listar";
     }
     @GetMapping("/agregar")
+    @AccessControl(roles="ROLE_Agregar_permisos_y_licencias")
     public String agregar(Model model){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         Perlic_Empleado permiso = new Perlic_Empleado();
@@ -78,6 +79,7 @@ public class PermisoEmpController {
     }
 
     @GetMapping("/editar")
+    @AccessControl(roles="ROLE_Editar_permisos_y_licencias")
     public String editar(Model model, @RequestParam("id")int id){
         model.addAttribute("usuarioPermisos", usuarioDAO.getUsuarioActual());
         Perlic_Empleado permisoEmpl = permisoEmp.getPermisoEmp(id);

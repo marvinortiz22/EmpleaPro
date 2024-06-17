@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name="PRESUPUESTOANUAL")
+@Table(name="presupuestoanual")
 public class PresupuestoAnual {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +16,17 @@ public class PresupuestoAnual {
 
     private int ano;
     private BigDecimal monto;
+
+    @Transient
+    private double montoSinSalarios;
+
+    public double getMontoSinSalarios() {
+        return montoSinSalarios;
+    }
+
+    public void setMontoSinSalarios(double montoSinSalarios) {
+        this.montoSinSalarios = montoSinSalarios;
+    }
 
     public int getIdPresupuesto() {
         return idPresupuesto;

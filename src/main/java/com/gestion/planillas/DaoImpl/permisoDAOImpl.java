@@ -24,7 +24,7 @@ public class permisoDAOImpl implements permisoDAO{
     @Override
     public List<Permiso> getPermisos() {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("FROM Permiso",Permiso.class);
+        Query query = session.createQuery("FROM Permiso order by nombrePermiso",Permiso.class);
         List<Permiso> permisos = query.list();
         return permisos;
     }

@@ -12,6 +12,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>id</th>
                         <th>Puesto</th>
                         <th>Nombre</th>
                         <th>Estado</th>
@@ -25,6 +26,7 @@
                     <c:forEach var="empleado" items="${empleado}" varStatus="i">
                         <tr>
                             <td>${i.count}</td>
+                            <td>id-${empleado.empleado.idEmpleado}</td>
                             <td>
                                 <c:choose>
                                     <c:when test="${empleado.puesto != null}">

@@ -3,7 +3,7 @@ import jakarta.persistence.*;
 
 
 @Entity
-@Table(name = "USUARIO")
+@Table(name = "usuario")
 public class Usuario {
 
     @Id
@@ -12,7 +12,10 @@ public class Usuario {
 
     @ManyToOne
     @JoinColumn(name = "IDROL")
-    private Rol rol=new Rol(1,"usuario",true);
+    private Rol rol;
+
+	@Transient
+	private String oldRolNombre;
 	private String username;
 	private String email;
 
@@ -61,6 +64,14 @@ public class Usuario {
 	}
 	public void setRol(Rol rol) {
 		this.rol = rol;
+	}
+
+	public String getOldRolNombre() {
+		return oldRolNombre;
+	}
+
+	public void setOldRolNombre(String oldRolNombre) {
+		this.oldRolNombre = oldRolNombre;
 	}
 
 	public String getEmail() {

@@ -2,7 +2,7 @@ const manejarTabla = new ManejoTabla({
     datos: JSON.parse(datos).map(dato => {
         return {
             ...dato,
-            Monto: '$' + dato.Monto.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
+            Monto: '$' + dato.Monto.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
         }
     }),
     idContenedorTabla: 'contenedorTabla',
@@ -16,8 +16,11 @@ const manejarTabla = new ManejoTabla({
         </td>
     `,
     ocultarCampos: ['id'],
-    ordenColumnas: ['id', 'Año', 'Monto'],
-    tituloColAcciones: ['Acciones']
+    ordenColumnas: ['id', 'Año', 'Monto','Monto-Salarios'],
+    tituloColAcciones: ['Acciones'],
+    pdf: true,
+    funcionPdf: presupuestosTablaPdf,
+    parametrosPdf: ['contenedorTabla', { titulo : [nombreEmpresa, 'Presupuestos de la Unidad: ' + document.getElementById('nombreUnidadViendo').innerText, ''] }]
 });
 
 

@@ -23,13 +23,13 @@
                     <div class="p-2">
                         <strong>Nombre:</strong>
                         ${empleado.nombre1}
-                        ${empleado.nombre2},
+                        ${empleado.nombre2}
                         ${empleado.apellido1}
                         <c:if test="${empty empleado.apellidoCasada}">
                             ${empleado.apellido2}
                         </c:if>
                         <c:if test="${!empty empleado.apellidoCasada}">
-                            De ${empleado.apellidoCasada}
+                            de ${empleado.apellidoCasada}
                         </c:if>
                     </div>
                     <div class="p-2">
@@ -111,13 +111,13 @@
                         <strong>Jefe inmediato: </strong>
                         <c:if test="${!empty empleado.supervisor}">
                             ${empleado.supervisor.nombre1}
-                            ${empleado.supervisor.nombre2},
+                            ${empleado.supervisor.nombre2}
                             ${empleado.supervisor.apellido1}
                             <c:if test="${empty empleado.supervisor.apellidoCasada}">
                                 ${empleado.supervisor.apellido2}
                             </c:if>
                             <c:if test="${!empty empleado.supervisor.apellidoCasada}">
-                                De ${empleado.supervisor.apellidoCasada}
+                                de ${empleado.supervisor.apellidoCasada}
                             </c:if>
                             <c:if test="${!empty empleado.supervisor.tipoDocumento}">
                                 (${empleado.supervisor.tipoDocumento.nombreDoc}: ${empleado.supervisor.numeroDoc})
@@ -144,13 +144,13 @@
                         <c:forEach var="subordinado" items="${subordinados}" varStatus="status">
                             <div class="p-2">
                                 ${subordinado.nombre1}
-                                ${subordinado.nombre2},
+                                ${subordinado.nombre2}
                                 ${subordinado.apellido1}
                                 <c:if test="${empty subordinado.apellidoCasada}">
                                     ${subordinado.apellido2}
                                 </c:if>
                                 <c:if test="${!empty subordinado.apellidoCasada}">
-                                    De ${subordinado.apellidoCasada}
+                                    de ${subordinado.apellidoCasada}
                                 </c:if>
                                 <c:if test="${!empty subordinado.tipoDocumento}">
                                     (${subordinado.tipoDocumento.nombreDoc}: ${subordinado.numeroDoc})

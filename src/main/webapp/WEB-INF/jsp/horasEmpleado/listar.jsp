@@ -12,10 +12,10 @@
         </div>
         <div class="d-flex justify-content-end mb-4">
             <c:if test="${param.all}">
-                <a href="/horasEmpleado/listar"><button title="Ver registros de hoy" class="btn btn-primary"><i class="fa-solid fa-clock"></i></button></a>
+                <a href="/horasEmpleado/listar"><button title="" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Ver actuales</button></a>
             </c:if>
             <c:if test="${!param.all}">
-                <a href="/horasEmpleado/listar?all=true"><button title="Ver registros históricos" class="btn btn-primary"><i class="fa-solid fa-clock"></i></button></a>
+                <a href="/horasEmpleado/listar?all=true"><button title="" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Ver todos</button></a>
             </c:if>
         </div> 
         <div class="card mb-4">

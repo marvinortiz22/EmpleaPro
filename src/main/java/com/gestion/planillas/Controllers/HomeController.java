@@ -16,6 +16,7 @@ public class HomeController {
     @Autowired
     private com.gestion.planillas.DAO.usuarioDAO usuarioDAO;
 
+    @AccessControl
     @GetMapping("")
     public String listar(Model model) {
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());

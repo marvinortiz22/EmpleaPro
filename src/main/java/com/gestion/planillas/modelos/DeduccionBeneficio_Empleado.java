@@ -3,7 +3,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "DEDUCCIONBENEFICIO_EMPLEADO")
+@Table(name = "deduccionbeneficio_empleado")
 public class DeduccionBeneficio_Empleado {
 
     @Id
@@ -23,6 +23,9 @@ public class DeduccionBeneficio_Empleado {
 
 
     private BigDecimal montoOPorcentaje;
+
+
+    private boolean estado;
 
     // Getters and Setters
     public int getIdDeducBenef_Emp() {
@@ -63,5 +66,13 @@ public class DeduccionBeneficio_Empleado {
 
     public void setMontoOPorcentaje(BigDecimal montoOPorcentaje) {
         this.montoOPorcentaje = montoOPorcentaje;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

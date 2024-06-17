@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="EMPLEADO")
+@Table(name="empleado")
 public class Empleado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +45,7 @@ public class Empleado {
 
     @NotBlank(message = "El campo es obligatorio")
     @Size(max = 20, message = "El campo no puede tener más de 20 caracteres")
-    @Pattern(regexp = "^[a-zA-Z\\s]*$", message = "Solo letras!!!")
+    @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚ\\s]*$", message = "Solo letras!!!")
     private String nombre1;
 
     @Size(max = 20, message = "El campo no puede tener más de 20 caracteres")
@@ -63,10 +63,10 @@ public class Empleado {
 
     private String sexo;
 
+    @NotNull(message = "La fecha de nacimiento es obligatoria")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaNacimiento;
 
-    @NotNull(message = "La fecha de nacimiento es obligatoria")
     @Past(message = "La fecha no debe ser a futuro")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaIngreso = new Date();
@@ -330,7 +330,7 @@ public class Empleado {
         String apellido1 = this.apellido1 != null ? this.apellido1 : "";
         String apellido2;
         if(apellidoCasada!=null)
-            apellido2=apellidoCasada;
+            apellido2="de "+apellidoCasada;
         else
             apellido2 = this.apellido2 != null ? this.apellido2 : "";
 

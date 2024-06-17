@@ -2,7 +2,7 @@ package com.gestion.planillas.modelos;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "PERMISOLICENCIA")
+@Table(name = "permisolicencia")
 public class PermisoLicencia {
 
     @Id

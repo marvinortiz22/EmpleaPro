@@ -5,7 +5,7 @@
     </head>
     <body>
     <div class="container">
-            <div class="row d-flex justify-content-center">
+            <div class="row d-flex justify-content-center mt-5">
                 <div class="alert alert-danger col-8 mt-5 text-center" role="alert">
                     No tiene los permisos necesarios para acceder a esta funcionalidad
                     <hr>

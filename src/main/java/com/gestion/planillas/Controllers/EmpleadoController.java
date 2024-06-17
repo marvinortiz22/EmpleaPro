@@ -163,7 +163,7 @@ public class EmpleadoController {
         }
 
         // Validar numero de documento
-        if (empleado.getTipoDocumento().getIdTipoDoc() != 0) {
+        /*if (empleado.getTipoDocumento().getIdTipoDoc() != 0) {
 
             TipoDocumento tipoDocumento = tipoDocumentoDAO.getTipoDocumento(empleado.getTipoDocumento().getIdTipoDoc());
 
@@ -176,7 +176,7 @@ public class EmpleadoController {
             if (!tipoDocumento.getNombreDoc().equals("DUI") && !empleado.getNumeroDoc().matches("^[a-zA-Z0-9]{20}$")) {
                 result.rejectValue("numeroDoc", "error.empleado", "Deben ser maximo 20 caracteres");
             }
-        }
+        }*/
 
         // Validar sueldo
         BigDecimal salarioEmpleado = empleado.getSalario();

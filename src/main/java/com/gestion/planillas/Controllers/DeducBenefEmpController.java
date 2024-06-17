@@ -97,4 +97,23 @@ public class DeducBenefEmpController {
         redirectAttributes.addFlashAttribute("alert",alert);
         return "redirect:/deduccionesBeneficiosEmpleados/listar?id="+deduccionBeneficioEmpleado.getEmpleado().getIdEmpleado();
     }
+    @GetMapping("/cambiarEstado")
+    public String cambiarEstado(@RequestParam("id")int id,RedirectAttributes redirectAttributes){
+        DeduccionBeneficio_Empleado deduccionBeneficioEmpleado=deduccionBeneficioDAO.getDeduccionBeneficioEmp(id);
+        String objetoAlerta="";
+        if(deduccionBeneficioEmpleado.getDeduccionBeneficio().getTipo().equals("D"))
+            objetoAlerta="La deducción";
+        else
+            objetoAlerta="El beneficio";
+        Alert alert;
+        if(deduccionBeneficioEmpleado.isEstado())
+            alert=new Alert("danger",objetoAlerta+" se ha deshabilitado correctamente");
+        else
+            alert=new Alert("success",objetoAlerta+" se ha habilitado correctamente");
+        redirectAttributes.addFlashAttribute("alert",alert);
+
+        deduccionBeneficioEmpleado.setEstado(!deduccionBeneficioEmpleado.isEstado());
+        deduccionBeneficioDAO.guardarEmp(deduccionBeneficioEmpleado);
+        return "redirect:/deduccionesBeneficiosEmpleados/listar?id="+deduccionBeneficioEmpleado.getEmpleado().getIdEmpleado();
+    }
 }

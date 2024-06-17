@@ -29,7 +29,7 @@ public class puestoDAOImpl implements puestoDAO {
     @Override
     public List<Puesto> getPuestos() {
         Session session=sessionFactory.getCurrentSession();
-        Query<Puesto> query=session.createQuery("from Puesto",Puesto.class);
+        Query<Puesto> query=session.createQuery("from Puesto order by estado desc",Puesto.class);
         List<Puesto> puestos= query.getResultList();
         return puestos;
 

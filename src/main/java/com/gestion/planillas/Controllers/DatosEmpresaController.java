@@ -1,6 +1,7 @@
 package com.gestion.planillas.Controllers;
 
 import com.gestion.planillas.DAO.usuarioDAO;
+import com.gestion.planillas.Otros.AccessControl;
 import com.gestion.planillas.modelos.ProfesionOficio;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class DatosEmpresaController {
     @Autowired
     private datosEmpresaDAO datosEmpresa;
     @GetMapping("/listar")
+    @AccessControl(roles = "ROLE_Ver_datos_empresa")
     public String listarDatosEmpresa(Model model){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         DatosEmpresa dataEmp =  datosEmpresa.getDatosEmpresa();
@@ -42,6 +44,7 @@ public class DatosEmpresaController {
         return "datosEmpresa/datosEmpresa-ver";
     }
     @GetMapping("/editar")
+    @AccessControl(roles = "ROLE_Editar_datos_empresa")
     public String editar(Model model){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         DatosEmpresa dataEmp = datosEmpresa.getDatosEmpresa();

@@ -31,14 +31,32 @@
         .td2 {
             text-align: end;
         }
+        @media print {
+            header, footer {
+                display: none;
+            }
+            
+            [title="Imprimir"]{
+                display: none;
+            }
+            .sb-topnav.navbar{
+                display: none;
+            }
+            .sb-sb-sidenav{
+                display: none;
+            }
+            #boletaPago{
+                margin-top: -70px;
+            }
+        }
     </style>
     <%@ include file="../base/navbar.jsp" %>
 </head>
 
 <body>
-    <div class="container-fluid px-4">
-        <a href="/contabilidad/listarEmpleados"><button title="Lista principal" class="btn btn-primary ms-4 mt-1">←</button></a>
-        <div class="d-flex flex-column align-items-center">
+    <a href="/contabilidad/listarEmpleados" data-ac="regresar"><button title="Lista principal" class="btn btn-primary ms-4 mt-1">←</button></a>
+    <div class="container-fluid px-4" id="boletaDePago">
+        <div class="d-flex flex-column align-items-center cabezaBoleta">
             <h5 id="nombreEmpresa" class="mt-4 mb-2">Nombre de la empresa</h5>
             <h5 class="mb-2" style="text-align: center;">Boleta de pago correspondiente al período</h5>
             <h5 id="rangoFechas" class="mb-2">del: al: </h5>
@@ -46,7 +64,9 @@
             <h5 id="numeroDoc">Número de documento: 1 </h5>
         </div>
         <div class="d-flex justify-content-end mb-4">
-            <a href="#"><button title="Imprimir" class="btn btn-success me-1"><i class="fa-solid fa-print"></i></button></a>
+            <button title="Imprimir" class="btn btn-success me-1" onclick="imprimirBoleta()">
+                <i class="fa-solid fa-print"></i>
+            </button>
         </div>
         <div class="d-flex justify-content-center">
             <h5 class="mt-4">Beneficios</h5>
@@ -129,7 +149,7 @@
             document.getElementById("nombreEmpresa").textContent=data["Empresa"];
             document.getElementById("nombreEmpleado").textContent="Empleado: "+data["Nombre"];
             document.getElementById("numeroDoc").textContent="Número de documento: "+data["Número de documento"];
-            document.getElementById("rangoFechas").textContent="del: "+data["fecha1"]+" al: "+data["fecha2"]
+            document.getElementById("rangoFechas").textContent="del: "+'<%= request.getAttribute("fecha1") %>'+" al: "+'<%= request.getAttribute("fecha2") %>'
             document.getElementById("salario-hora").textContent = data["Salario/hora"];
             document.getElementById("horas-normales").textContent = data["Horas normales"];
             document.getElementById("salario-base").textContent = data["Salario*horas normales"];
@@ -154,14 +174,23 @@
 
             let deductionsTable = document.getElementById("deductions-table");
             data["Deducciones"].forEach(deduccion => {
-                let row = deductionsTable.insertRow(deductionsTable.rows.length - 1);
-                row.insertCell(0).textContent = deduccion["nombre"];
-                row.insertCell(1).textContent = deduccion["monto"];
-                row.cells[1].classList.add("td2");
+                if(!deduccion["nombre"].includes("ISSS")&&!deduccion["nombre"].includes("AFP")){
+                    let row = deductionsTable.insertRow(deductionsTable.rows.length - 1);
+                    row.insertCell(0).textContent = deduccion["nombre"];
+                    row.insertCell(1).textContent = deduccion["monto"];
+                    row.cells[1].classList.add("td2");
+                }
             });
 
             document.getElementById("total-deducciones").textContent = data["Total deducciones"];
             document.getElementById("salario-neto").textContent = data["Salario neto"];
+        }
+
+        function imprimirBoleta() {
+            const btnRegresar = document.querySelector('[data-ac="regresar"]'); btnRegresar.style.display = "none";
+            const boletaPago = document.querySelector('#boletaDePago'); //boletaPago.style.marginTop = "-70px";
+            window.print();
+            btnRegresar.style.display = "block";  //boletaPago.style.marginTop = "0px";
         }
     </script>
 

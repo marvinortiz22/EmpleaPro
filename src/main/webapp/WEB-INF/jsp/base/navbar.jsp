@@ -19,12 +19,16 @@
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Ver perfil</a></li>
+                        
                         <li><a class="dropdown-item" href="/datosEmpresa/listar">Ver información de empresa</a></li>
                         <li>
                             <hr class="dropdown-divider" />
                         </li>
-                        <li><a class="dropdown-item" href="/logout">Cerrar sesión</a></li>
+                        <li>
+                            <form:form action="/logout" method="POST">
+                                <button class="dropdown-item">Cerrar sesión</button>
+                            </form:form>
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -78,7 +82,7 @@
                                         </c:if>
 
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_vacaciones'}">
-                                            <a class="nav-link" href="#">Vacaciones</a>
+                                            <a class="nav-link" href="/vacaciones/listar">Vacaciones</a>
                                         </c:if>
                                     </nav>
                                 </div>
@@ -102,7 +106,7 @@
                                             <a class="nav-link" href="/contabilidad/listarEmpleados">Boletas de pago</a>
                                         </c:if>
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_deducciones_y_beneficios_globales'}">
-                                            <a class="nav-link" href="#">Deducciones y beneficios generales</a>
+                                            <a class="nav-link" href="/deduccionesBeneficiosGlobales/listar">ISSS y AFP</a>
                                         </c:if>
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Ver_deducciones_y_beneficios_de_empleados'}">
                                             <a class="nav-link" href="/deduccionesBeneficiosEmpleados/listarEmpleados">Deducciones y beneficios por empleados</a>
@@ -169,10 +173,7 @@
                                     data-bs-parent="#sidenavAccordion">
                                     <nav class="sb-sidenav-menu-nested nav">
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Administrador'}">
-                                            <a class="nav-link" href="/usuarioEjemplo/listar">Usuarios Ejemplo</a>
-                                        </c:if>
-                                        <c:if test="${permiso.nombrePermiso=='ROLE_Administrador'}">
-                                            <a class="nav-link" href="/usuario/listar">Usuarios Final</a>
+                                            <a class="nav-link" href="/usuario/listar">Usuarios</a>
                                         </c:if>
                                         <c:if test="${permiso.nombrePermiso=='ROLE_Administrador'}">
                                             <a class="nav-link" href="/rol/listar">Roles</a>

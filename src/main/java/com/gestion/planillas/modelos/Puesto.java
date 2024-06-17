@@ -7,7 +7,7 @@ import org.springframework.data.relational.core.sql.In;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name="PUESTO")
+@Table(name="puesto")
 public class Puesto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
