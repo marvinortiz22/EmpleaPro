@@ -15,6 +15,8 @@ public class UsuarioPermisos {
     private String fecha2;
     private List<Permiso> permisos;
 
+    private int anioActual;
+
     public UsuarioPermisos() {
     }
 
@@ -41,5 +43,11 @@ public class UsuarioPermisos {
         LocalDate fechaActual = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return fechaActual.format(formatter);
+    }
+
+    public int getAnioActual() {
+        LocalDate fechaActual = LocalDate.now();
+        int anioActual = fechaActual.getYear();
+        return anioActual;
     }
 }

@@ -51,20 +51,20 @@
                         <th>N de documento</th>
                         <th id="nombre">Nombre</th>
                         <th>Cargo</th>
-                        <th>Sueldo / hora</th>
-                        <th>Horas normales</th>
-                        <th>Sueldo base</th>
+                        <th>Sueldo bruto</th>
+                        <th>Faltas</th>
+                        <th>Salario</th>
                         <th>Vacaciones</th>
                         <th>Horas extra</th>
-                        <th>Permisos remunerables</th>
+                        
                         <th>Otros beneficios</th>
-                        <th>Sueldo + beneficios</th>
+                        <th>Salario + beneficios</th>
                         <th>ISSS</th>
                         <th>AFP</th>
                         <th>ISR</th>
-                        <th>Otras deducciones</th>
-                        <th>Total deducciones</th>
-                        <th>Sueldo neto</th>
+                        <th>Otros descuentos</th>
+                        <th>Total descuentos</th>
+                        <th>Salario neto</th>
                 </thead>
                 <tbody id="tableBody">
                     <!-- Aquí se llenará la tabla con JavaScript -->
@@ -96,7 +96,7 @@
         'Salario base',
         'Vacaciones',
         'Horas extra',
-        'Permisos remunerables',
+        
         'Otros beneficios',
         'Salario + beneficios',
         'ISSS',

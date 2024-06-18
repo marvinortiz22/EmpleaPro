@@ -54,7 +54,7 @@ public class contaduriaController {
             resultado.put("Nombre", planilla[1]);
             resultado.put("Cargo", planilla[2]);
             resultado.put("Salario / hora", currencyFormatter.format(planilla[3]));
-            resultado.put("Horas normales", planilla[4]);
+            resultado.put("Horas normales", currencyFormatter.format(planilla[4]));
             resultado.put("Salario base",currencyFormatter.format(planilla[5]));
             resultado.put("Vacaciones", currencyFormatter.format(planilla[6]));
             resultado.put("Horas extra",currencyFormatter.format(planilla[7]));

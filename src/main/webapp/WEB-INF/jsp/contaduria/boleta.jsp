@@ -74,15 +74,15 @@
         <div class="row d-flex justify-content-center">
             <table id="benefits-table" class="col-md-8" style="text-align: start;">
                 <tr>
-                    <td>Salario/hora</td>
+                    <td>Sueldo bruto</td>
                     <td class="td2" id="salario-hora"></td>
                 </tr>
                 <tr>
-                    <td>Horas normales</td>
-                    <td class="td2" id="horas-normales"></td>
+                    <td>Faltas</td>
+                    <td class="td2" id="horas-normales" style="color: red;"></td>
                 </tr>
                 <tr>
-                    <td>Salario base</td>
+                    <td>Salario</td>
                     <td class="td2" id="salario-base"></td>
                 </tr>
                 <tr>
@@ -93,10 +93,10 @@
                     <td>Horas extra</td>
                     <td class="td2" id="horas-extra"></td>
                 </tr>
-                <tr>
+                <!--tr>
                     <td>Permisos remunerables</td>
                     <td class="td2" id="permisos-remunerables"></td>
-                </tr>
+                </tr-->
                 <!-- Beneficios adicionales se agregarán aquí -->
                 <tr>
                     <td>Salario+beneficios</td>
@@ -105,7 +105,7 @@
             </table>
 
             <div class="d-flex justify-content-center">
-                <h5>Deducciones</h5>
+                <h5>Descuentos</h5>
             </div>
 
             <table id="deductions-table" class="col-md-8" style="text-align: start;">
@@ -123,7 +123,7 @@
                 </tr>
                 <!-- Deducciones adicionales se agregarán aquí -->
                 <tr class="mb-3">
-                    <td>Total deducciones</td>
+                    <td>Total descuentos</td>
                     <td class="td2" id="total-deducciones"></td>
                 </tr>
             </table>
@@ -155,7 +155,7 @@
             document.getElementById("salario-base").textContent = data["Salario*horas normales"];
             document.getElementById("vacaciones").textContent = data["Vacaciones"];
             document.getElementById("horas-extra").textContent = data["Horas extra"];
-            document.getElementById("permisos-remunerables").textContent = data["Permisos remunerables"];
+            //document.getElementById("permisos-remunerables").textContent = data["Permisos remunerables"];
 
             let benefitsTable = document.getElementById("benefits-table");
             data["Beneficios"].forEach(beneficio => {

@@ -30,7 +30,7 @@
                             <th>#</th>
                             <th>Empleado</th>
                             <th>Fecha de inicio</th>
-                            <th>Estado</th>   
+                            <!--th>Estado</th-->   
                             <th>Acciones</th>                       
                         </tr>
                     </thead>
@@ -48,14 +48,14 @@
                                --/--/----
                             </c:if>
                         </td>
-                        <td>
+                        <!--td>
                             <c:if test="${not empty vacacion.fechaInicio}">
                                 Dada
                             </c:if>
-                            <c:if test="${empty vacacion.fechaInicio}">
+                            <c:if test="${empty vacacion.fechaInicio && vacacion.fechaInicio ge usuarioPermisos.fecha2 }">
                                Pendiente
                             </c:if>
-                        </td>
+                        </td-->
                         <td>
                             <c:if test="${!param.all}">
                                 <c:if test="${vacacion.idVacacion==0}">

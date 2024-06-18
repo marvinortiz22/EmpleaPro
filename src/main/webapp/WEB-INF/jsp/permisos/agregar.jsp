@@ -63,7 +63,7 @@
             <label class="form-label">Estado</label>
         </div>
         <div class="col-md-3">
-            <form:select path="aprobada" class="form-control">
+            <form:select path="aprobada" class="form-control" id="estado">
                 <form:option value="1">Aprobado</form:option>
                 <form:option value="0">Reprobado</form:option>
             </form:select>
@@ -77,7 +77,7 @@
             <label class="form-label">Descontable</label>
         </div>
         <div class="col-md-3">
-            <form:select path="descontable" class="form-control">
+            <form:select path="descontable" class="form-control" id="descontable">
                 <form:option value="1">SI</form:option>
                 <form:option value="0">NO</form:option>
             </form:select>
@@ -115,7 +115,27 @@
         <div class="col-4"></div>
     </div>
 </form:form>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var estadoSelect = document.getElementById('estado');
+        var descontableSelect = document.getElementById('descontable');
 
+        function updateDescontable() {
+            if (estadoSelect.value == '1') { // Aprobado
+                descontableSelect.disabled = false;
+            } else { // Reprobado
+                descontableSelect.value = '1'; // Selecciona NO
+                descontableSelect.disabled = true;
+            }
+        }
+
+        // Actualizar el estado al cargar la página
+        updateDescontable();
+
+        // Agregar un event listener para actualizar cuando se cambie el estado
+        estadoSelect.addEventListener('change', updateDescontable);
+    });
+</script>
 <%@ include file="../base/footer.jsp" %>
 
 

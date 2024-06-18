@@ -76,7 +76,7 @@ public class SecurityController {
                 for (String email : emails) {
                     try {
                         String text = "Se ha registrado un nuevo usuario con username '" + usuario.getUsername() +
-                                "'. Acceda a este link para asignarle un rol:\n\nhttp://localhost:8080/usuario/editar?id=" + usuario.getIdUsuario();
+                                "'. Acceda a este link para asignarle un rol:\n\nhttp://sistema-de-planillas-production.up.railway.app/usuario/editar?id=" + usuario.getIdUsuario();
                         emailService.sendEmail(email, subject, text);
                     } catch (Exception e) {
 
@@ -111,7 +111,7 @@ public class SecurityController {
             String subject = "Solicitud de desbloqueo";
             for(String email:emails){
                 try{
-                    String text = "El usuario '"+usuario.getUsername()+"' ha realizado una solicitud de desbloqueo, si desea desbloquearlo haga click en el siguiente enlace:\n\nhttp://localhost:8080/usuario/cambiarEstado?id="+usuario.getIdUsuario();
+                    String text = "El usuario '"+usuario.getUsername()+"' ha realizado una solicitud de desbloqueo, si desea desbloquearlo haga click en el siguiente enlace:\n\nhttp://sistema-de-planillas-production.up.railway.app/usuario/cambiarEstado?id="+usuario.getIdUsuario();
                     emailService.sendEmail(email, subject, text);
                 }catch (Exception e){
 

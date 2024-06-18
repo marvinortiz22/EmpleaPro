@@ -119,7 +119,7 @@ public class UsuarioController {
                     String email,subject;
                     email=usuario.getEmail();
                     subject="Autorización";
-                    String text = "Se le ha asignado un rol, ahora puede hacer uso de nuestro sistema\n\nhttp://localhost:8080";
+                    String text = "Se le ha asignado un rol, ahora puede hacer uso de nuestro sistema\n\nhttp://sistema-de-planillas-production.up.railway.app";
                     emailService.sendEmail(email, subject, text);
                 }catch (Exception e){
 

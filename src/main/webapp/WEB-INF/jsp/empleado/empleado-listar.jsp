@@ -19,7 +19,7 @@
                             <th>Puesto</th>
                             <th>Nombre</th>
                             <th>Documento</th>
-                            <th>Fecha Nacimiento</th>
+                            <th>Jefe</th>
                             <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
@@ -41,7 +41,7 @@
                             </c:if>
                         </td>
                         <td>
-                            <fmt:formatDate value="${empleado.fechaNacimiento}" pattern="dd/MM/yyyy" />
+                            ${empleado.supervisor.nombreCompleto}
                         </td>
                         <td>
                             <c:if test="${empleado.estado}">

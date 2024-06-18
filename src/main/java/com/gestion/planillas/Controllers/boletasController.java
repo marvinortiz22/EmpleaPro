@@ -92,7 +92,7 @@ public class boletasController {
         resultado.put("Nombre", boleta[1]);
         resultado.put("Cargo", boleta[2]);
         resultado.put("Salario/hora", currencyFormatter.format(boleta[3]));
-        resultado.put("Horas normales", boleta[4]);
+        resultado.put("Horas normales", currencyFormatter.format(boleta[4]));
         resultado.put("Salario*horas normales", currencyFormatter.format(boleta[5]));
         resultado.put("Vacaciones", currencyFormatter.format(boleta[6]));
         resultado.put("Horas extra", currencyFormatter.format(boleta[7]));

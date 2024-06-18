@@ -1,5 +1,7 @@
 package com.gestion.planillas.modelos;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 
 @Entity
@@ -19,14 +21,14 @@ public class Usuario {
 	private String username;
 	private String email;
 
-	/*Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres")
+	@Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres")
 	@Pattern.List({
 			@Pattern(regexp = "(?=.*[0-9]).+", message = "La contraseña debe contener al menos un número"),
-			@Pattern(regexp = "(?=.*[a-z]).+", message = "La contraseña debe contener al menos una letra minúscula"),
+			@Pattern(regexp = "(?=.*[a-zA-Z]).+", message = "La contraseña debe contener al menos una letra"),
 			//@Pattern(regexp = "(?=.*[A-Z]).+", message = "La contraseña debe contener al menos una letra mayúscula"),
 			@Pattern(regexp = "(?=.*[@#$%^&+=*_/]).+", message = "La contraseña debe contener al menos un símbolo especial"),
 		}
-	)*/
+	)
     private String password;
 	@Transient
 	private String password2;

@@ -1,5 +1,6 @@
 package com.gestion.planillas.Controllers;
 
+import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.*;
 
@@ -140,8 +141,10 @@ public class UnidadesControlador {
             List<Empleado> empleados=empleadoDAO.getEmpleadosUnidad(id, presupuesto.getAno());
             Double sumaSalarios=0.00;
             for(Empleado empleado:empleados){
-                Double salarioNeto=(Double) contaduriaDAO.planillaEmpleado(empleado.getFechaIngreso().toString(),presupuesto.getAno()+"-12-31",empleado.getIdEmpleado())[16];
-                sumaSalarios+=salarioNeto;
+                //Double salarioNeto=(Double) contaduriaDAO.planillaEmpleado(empleado.getFechaIngreso().toString(),presupuesto.getAno()+"-12-31",empleado.getIdEmpleado())[16];
+                Object[] planilla = contaduriaDAO.planillaEmpleado("2024-05-01", "2024-05-31", empleado.getIdEmpleado());
+                Double salarioNeto = ((BigDecimal) planilla[16]).doubleValue(); // Suponiendo que el salario neto está en la posición 16
+                sumaSalarios += salarioNeto;
             }
             sumaSalarios=Double.parseDouble(presupuesto.getMonto().toString())-sumaSalarios;
             NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.US);

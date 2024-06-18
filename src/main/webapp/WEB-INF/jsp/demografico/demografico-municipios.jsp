@@ -6,11 +6,11 @@
     <div class="container-fluid px-4">
         
         <div class="d-flex justify-content-center">
-            <h1 class="mt-4">Municipios de ${nombreDepartamento}</h1>
+            <!--h1 class="mt-4">Municipios de ${nombreDepartamento}</h1-->
 
         </div>
         <div class="d-flex justify-content-end mb-4">
-           <a href="#"><button title="Imprimir" class="btn btn-success me-1"><i class="fa-solid fa-print"></i></button></a>
+           <!--a href="#"><button title="Imprimir" class="btn btn-success me-1"><i class="fa-solid fa-print"></i></button></a-->
 
         </div>
 

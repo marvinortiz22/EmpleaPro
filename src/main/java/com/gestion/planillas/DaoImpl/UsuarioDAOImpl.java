@@ -153,7 +153,7 @@ public class UsuarioDAOImpl implements usuarioDAO {
 		Query<String> query = session.createQuery("SELECT email FROM Usuario u " +
 				"JOIN Rol_Permiso rp ON rp.rol.idRol=u.rol.idRol " +
 				"JOIN Permiso p ON p.idPermiso=rp.permiso.idPermiso " +
-				"WHERE p.nombrePermiso='ROLE_Administrador'", String.class);
+				"WHERE p.nombrePermiso='ROLE_Autorizar_nuevos_usuarios'", String.class);
 		List<String> resultados = query.getResultList();
 		return resultados;
 	}

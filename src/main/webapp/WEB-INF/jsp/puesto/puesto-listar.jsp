@@ -53,30 +53,32 @@
                             </c:if>
                         </td>
                         <td>
-                            <a href="/puesto/detalles?id=${puesto.idPuesto}">
-                                <button title="Ver detalles" class="btn btn-primary btn-sm">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </a>
-                            <a href="/puesto/editar?id=${puesto.idPuesto}">
-                                <button title="Editar" class="btn btn-warning btn-sm">
-                                    <i class="fas fa-pen-to-square"></i>
-                                </button>
-                            </a>
-                            <c:if test="${puesto.estado}">
-                                <a href="/puesto/cambiarEstado?id=${puesto.idPuesto}">
-                                    <button id="x" title="Inhabilitar" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-lock"></i>
+                            <div class="d-flex">
+                                <a href="/puesto/detalles?id=${puesto.idPuesto}">
+                                    <button title="Ver detalles" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-eye"></i>
                                     </button>
                                 </a>
-                            </c:if>
-                            <c:if test="${!puesto.estado}">
-                                <a href="/puesto/cambiarEstado?id=${puesto.idPuesto}">
-                                    <button title="Habilitar" id="check" class="btn btn-success btn-sm">
-                                        <i class="fas fa-lock"></i>
+                                <a href="/puesto/editar?id=${puesto.idPuesto}">
+                                    <button title="Editar" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-pen-to-square"></i>
                                     </button>
                                 </a>
-                            </c:if>
+                                <c:if test="${puesto.estado}">
+                                    <a href="/puesto/cambiarEstado?id=${puesto.idPuesto}">
+                                        <button id="x" title="Inhabilitar" class="btn btn-danger btn-sm">
+                                            <i class="fas fa-lock"></i>
+                                        </button>
+                                    </a>
+                                </c:if>
+                                <c:if test="${!puesto.estado}">
+                                    <a href="/puesto/cambiarEstado?id=${puesto.idPuesto}">
+                                        <button title="Habilitar" id="check" class="btn btn-success btn-sm">
+                                            <i class="fas fa-lock"></i>
+                                        </button>
+                                    </a>
+                                </c:if>
+                            </div>
                         </td>
                         </tr>
                         </c:forEach>

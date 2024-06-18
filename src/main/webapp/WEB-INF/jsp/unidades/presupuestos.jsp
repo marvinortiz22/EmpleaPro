@@ -81,6 +81,11 @@
         let datos = '<%= request.getAttribute("presupuestos") %>';
         let permisoEditar = '<%= request.getAttribute("permisoEditar") %>';
         let nombreEmpresa = '<%= request.getAttribute("nombreEmpresa") %>';
+        
+        let usuario = {
+            anio: "${usuarioPermisos.anioActual}",   
+        };
+        
     </script>
     <script src="${pageContext.request.contextPath}/js/jspdf.js"></script>
     <script src="${pageContext.request.contextPath}/js/pdfs/presupuestosTabla.js"></script>
