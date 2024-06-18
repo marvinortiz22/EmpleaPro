@@ -103,6 +103,7 @@ public class UsuarioController {
         else{
             alert=new Alert("success","Se ha desbloqueado el usuario "+usuario.getUsername());
             usuario.setSolicitoDesbloqueo(false);
+            usuario.setIntentosLogin(0);
         }
         redirectAttributes.addFlashAttribute("alert",alert);
         usuario.setEstado(!usuario.isEstado());
