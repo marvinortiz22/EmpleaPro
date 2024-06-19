@@ -22,7 +22,7 @@ public class demograficoDAOImpl implements demograficoDAO{
         Query<Object[]> query = session.createQuery(
                 "SELECT nombreDepartamento, COUNT(idEmpleado),idDepartamento FROM Departamento d " +
                         "JOIN Municipio m ON m.departamento.idDepartamento=d.idDepartamento " +
-                        "LEFT JOIN Empleado e ON e.municipio.idMunicipio=m.idMunicipio where e.estado=true " +
+                        "LEFT JOIN Empleado e ON e.municipio.idMunicipio=m.idMunicipio " +
                         "GROUP BY idDepartamento", Object[].class
         );
 
