@@ -31,7 +31,7 @@ public class DeducBenefEmpController {
     @AccessControl(roles = "ROLE_Ver_deducciones_y_beneficios_de_empleados")
     public String listarEmpleados(Model model){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
-        List<Empleado> empleados = empleadoDAO.getEmpleados();
+        List<Empleado> empleados = empleadoDAO.getEmpleadosActivados();
         model.addAttribute("empleados", empleados);
         return "deduccionBeneficioEmp/empleados-listar";
     }

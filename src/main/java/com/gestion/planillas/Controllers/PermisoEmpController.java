@@ -47,7 +47,7 @@ public class PermisoEmpController {
     public String agregar(Model model){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
         Perlic_Empleado permiso = new Perlic_Empleado();
-        List<Empleado> empleados = empDAO.getEmpleados();
+        List<Empleado> empleados = empDAO.getEmpleadosActivados();
         List<PermisoLicencia> listaCausas = permisoEmp.getPermLic();
         model.addAttribute("permiso", permiso);
         model.addAttribute("empleados", empleados);
@@ -83,7 +83,7 @@ public class PermisoEmpController {
     public String editar(Model model, @RequestParam("id")int id){
         model.addAttribute("usuarioPermisos", usuarioDAO.getUsuarioActual());
         Perlic_Empleado permisoEmpl = permisoEmp.getPermisoEmp(id);
-        List<Empleado> empleados = empDAO.getEmpleados();
+        List<Empleado> empleados = empDAO.getEmpleadosActivados();
         List<PermisoLicencia> listaCausas = permisoEmp.getPermLic();
         model.addAttribute("permiso", permisoEmpl);
         model.addAttribute("causas", listaCausas);

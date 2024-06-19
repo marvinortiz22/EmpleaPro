@@ -43,7 +43,7 @@ public class boletasController {
     @AccessControl(roles = "ROLE_Ver_boletas_de_pago")
     public String listarEmpleados(Model model){
         model.addAttribute("usuarioPermisos",usuarioDAO.getUsuarioActual());
-        List<Empleado> empleados = empleadoDAO.getEmpleados();
+        List<Empleado> empleados = empleadoDAO.getEmpleadosActivados();
         model.addAttribute("empleados", empleados);
         return "contaduria/empleados-listar";
     }

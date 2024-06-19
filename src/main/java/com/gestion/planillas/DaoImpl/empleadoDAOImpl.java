@@ -84,4 +84,14 @@ public class empleadoDAOImpl implements empleadoDAO {
         List<Empleado> empleados= query.getResultList();
         return empleados;
     }
+
+    @Override
+    public List<Empleado> getEmpleadosUnidadSuperior(int id, int idempleado) {
+        Session session=sessionFactory.getCurrentSession();
+        Query<Empleado> query=session.createNativeQuery("{CALL ObtenerEmpleadosPorUnidadSuperiorInmediata(:id, :idEmpleado)}", Empleado.class);
+        query.setParameter("id",id);
+        query.setParameter("idEmpleado",idempleado);
+        List<Empleado> empleados= query.getResultList();
+        return empleados;
+    }
 }

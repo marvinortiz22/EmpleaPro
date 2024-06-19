@@ -19,4 +19,6 @@ public interface empleadoDAO {
 	public List<ProfesionOficio> getProfesionesOficios(Integer id);
 	public List<Empleado> getEmpleadosUnidad(int id,int anio);
 
+	public List<Empleado> getEmpleadosUnidadSuperior(int id,int idempleado);
+
 }

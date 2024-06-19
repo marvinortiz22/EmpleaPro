@@ -22,7 +22,7 @@ public class demograficoDAOImpl implements demograficoDAO{
         Query<Object[]> query = session.createQuery(
                 "SELECT nombreDepartamento, COUNT(idEmpleado),idDepartamento FROM Departamento d " +
                         "JOIN Municipio m ON m.departamento.idDepartamento=d.idDepartamento " +
-                        "LEFT JOIN Empleado e ON e.municipio.idMunicipio=m.idMunicipio " +
+                        "LEFT JOIN Empleado e ON e.municipio.idMunicipio=m.idMunicipio where e.estado=true " +
                         "GROUP BY idDepartamento", Object[].class
         );
 
@@ -45,7 +45,7 @@ public class demograficoDAOImpl implements demograficoDAO{
                 "SELECT m.idMunicipio, m.nombreMunicipio, COALESCE(COUNT(e.idEmpleado), 0) AS cantidad_empleados " +
                         "FROM Municipio m " +
                         "LEFT JOIN Empleado e ON m.idMunicipio = e.municipio.idMunicipio " +
-                        "WHERE m.departamento.idDepartamento = :idDepartamento " +
+                        "WHERE m.departamento.idDepartamento = :idDepartamento and e.estado=true " +
                         "GROUP BY m.idMunicipio, m.nombreMunicipio", Object[].class
         );
         query.setParameter("idDepartamento", idDepartamento);
@@ -64,7 +64,7 @@ public class demograficoDAOImpl implements demograficoDAO{
     @Override
     public List<Object[]> countEmpleadosPorEstadoCivil() {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "SELECT e.estadoCivil.nombreEstado, COUNT(e) FROM Empleado e GROUP BY e.estadoCivil.nombreEstado";
+        String hql = "SELECT e.estadoCivil.nombreEstado, COUNT(e) FROM Empleado e where e.estado=true GROUP BY e.estadoCivil.nombreEstado";
         Query<Object[]> query = session.createQuery(hql, Object[].class);
         return query.getResultList();
     }
@@ -86,7 +86,7 @@ public class demograficoDAOImpl implements demograficoDAO{
     public long getNumEmpleados(){
         long nDeEmpleados = 0;
         Session session = sessionFactory.getCurrentSession();
-        Query<Long> query = session.createQuery("SELECT COUNT(idEmpleado) FROM Empleado", Long.class);
+        Query<Long> query = session.createQuery("SELECT COUNT(idEmpleado) FROM Empleado where estado=true ", Long.class);
 
         List<Long> resultados = query.getResultList();
         if (!resultados.isEmpty()) {

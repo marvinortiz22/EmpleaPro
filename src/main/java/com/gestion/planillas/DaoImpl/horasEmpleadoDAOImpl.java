@@ -34,7 +34,7 @@ public class horasEmpleadoDAOImpl implements horasEmpleadoDAO{
     @Override
     public List<HorasEmpleado> getHorasEmpleadoHoy() {
         Session session=sessionFactory.getCurrentSession();
-        Query<Object[]> query=session.createNativeQuery("SELECT idhorasempleado,e.idempleado,IFNULL(fecha,CURDATE()) as fecha,horaingreso,horasalida FROM empleado e LEFT JOIN horasempleado he ON e.IDEMPLEADO = he.IDEMPLEADO AND he.FECHA = CURDATE()",Object[].class);
+        Query<Object[]> query=session.createNativeQuery("SELECT idhorasempleado,e.idempleado,IFNULL(fecha,CURDATE()) as fecha,horaingreso,horasalida FROM empleado e LEFT JOIN horasempleado he ON e.IDEMPLEADO = he.IDEMPLEADO AND he.FECHA = CURDATE() where e.estado=1",Object[].class);
         List<Object[]> horasEmpleadoListObject= query.getResultList();
         List<HorasEmpleado> horasEmpleadoList=new ArrayList<>();
         for(Object[] object:horasEmpleadoListObject){

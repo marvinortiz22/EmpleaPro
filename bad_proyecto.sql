@@ -127,9 +127,9 @@ CREATE TABLE IF NOT EXISTS `auditoria_empleado` (
   CONSTRAINT `fk_idpuestoaudiemp` FOREIGN KEY (`IDPUESTO`) REFERENCES `puesto` (`IDPUESTO`),
   CONSTRAINT `fk_idtipodocaudiemp` FOREIGN KEY (`IDTIPODOC`) REFERENCES `tipodocumento` (`IDTIPODOC`),
   CONSTRAINT `FK_USUARIOMODIFICAEMPLEADO` FOREIGN KEY (`USUARIOREGISTRA`) REFERENCES `usuario` (`IDUSUARIO`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla bad_proyecto.auditoria_empleado: ~16 rows (aproximadamente)
+-- Volcando datos para la tabla bad_proyecto.auditoria_empleado: ~32 rows (aproximadamente)
 DELETE FROM `auditoria_empleado`;
 INSERT INTO `auditoria_empleado` (`IDAUDITORIA_EMPLEADO`, `IDEMPLEADO`, `IDPUESTO`, `IDMUNICIPIO`, `IDESTADOCIVIL`, `EMP_IDEMPLEADO`, `IDTIPODOC`, `NOMBRE1`, `NOMBRE2`, `APELLIDO1`, `APELLIDO2`, `APELLIDOCASADA`, `SEXO`, `FECHANACIMIENTO`, `FECHAINGRESO`, `NUMERODOC`, `NIT`, `ISSS`, `NUP`, `SALARIO`, `CORREOINSTITUCIONAL`, `CORREOPERSONAL`, `ESTADO`, `FECHAMODIFICACION`, `TIPODEOPERACION`, `USUARIOREGISTRA`) VALUES
 	(16, 1, NULL, 83, 1, NULL, 1, 'Juan', 'Fernando', 'Perez', 'del Coral', NULL, 'M', '2000-02-20', '2024-06-16 16:05:56', '12981278-1', '1298-192819-821-2', '129812981', '121892819281', 600.00, 'juan@digitalbox.sv', 'juan@gmail.com', 1, '2024-06-17 17:09:03', 'Actualización', NULL),
@@ -147,7 +147,23 @@ INSERT INTO `auditoria_empleado` (`IDAUDITORIA_EMPLEADO`, `IDEMPLEADO`, `IDPUEST
 	(28, 2, 2, 82, 2, 1, 1, 'Óscar', '', 'de la Renta', '', NULL, 'M', '1995-12-05', '2024-06-16 15:31:54', '29129817-8', '1092-898732-893-8', '129817287', '219827187211', 4000.00, 'oscar@digitalbox.sv', 'oscar@gmail.com', 1, '2024-06-17 17:15:02', 'Actualización', NULL),
 	(29, 3, 3, 59, 2, 1, 2, 'Nohemí', '', 'Sierra', 'Ramírez', 'Fernández', 'F', '1999-06-12', '2024-06-16 15:37:48', 'AJ1272831', '2983-629836-827-7', '238273982', '239283827273', 7000.00, 'nohemi@digitalbox.sv', 'nohemi@gmail.com', 1, '2024-06-17 17:15:09', 'Actualización', NULL),
 	(30, 4, 4, 252, 3, 1, 2, 'Lina', 'Marcela', 'Jaramillo', 'Jaramillo', NULL, 'F', '2000-12-02', '2024-06-16 16:05:13', 'AS1982718', '2928-387293-691-8', '121027382', '128172918279', 3000.00, 'lina@digitalbox.sv', 'lina@gmail.com', 1, '2024-06-17 17:15:17', 'Actualización', NULL),
-	(31, 5, 5, 257, 4, 1, 1, 'Luis', 'Fernando', 'Robio', 'Jaramillo', NULL, 'M', '1999-08-02', '2024-06-16 16:08:31', '19821987-2', '3283-232873-982-6', '293823981', '102972984092', 4000.00, 'luis@digitalbox.sv', 'luis@gmail.com', 1, '2024-06-17 17:15:23', 'Actualización', NULL);
+	(31, 5, 5, 257, 4, 1, 1, 'Luis', 'Fernando', 'Robio', 'Jaramillo', NULL, 'M', '1999-08-02', '2024-06-16 16:08:31', '19821987-2', '3283-232873-982-6', '293823981', '102972984092', 4000.00, 'luis@digitalbox.sv', 'luis@gmail.com', 1, '2024-06-17 17:15:23', 'Actualización', NULL),
+	(32, 1, 1, 83, 1, NULL, 1, 'Juan', 'Fernando', 'Perez', 'del Coral', NULL, 'M', '2000-02-20', '2024-04-16 16:05:56', '12981278-1', '1298-192819-821-2', '129812981', '121892819281', 9000.00, 'juan@digitalbox.sv', 'juan@gmail.com', 1, '2024-06-17 21:54:51', 'Actualización', NULL),
+	(33, 2, 2, 82, 2, 1, 1, 'Óscar', '', 'de la Renta', '', NULL, 'M', '1995-12-05', '2024-04-16 15:31:54', '29129817-8', '1092-898732-893-8', '129817287', '219827187211', 4000.00, 'oscar@digitalbox.sv', 'oscar@gmail.com', 1, '2024-06-17 21:54:54', 'Actualización', NULL),
+	(34, 3, 3, 59, 2, 1, 2, 'Nohemí', '', 'Sierra', 'Ramírez', 'Fernández', 'F', '1999-06-12', '2024-04-16 15:37:48', 'AJ1272831', '2983-629836-827-7', '238273982', '239283827273', 7000.00, 'nohemi@digitalbox.sv', 'nohemi@gmail.com', 1, '2024-06-17 21:54:56', 'Actualización', NULL),
+	(35, 4, 4, 252, 3, 1, 2, 'Lina', 'Marcela', 'Jaramillo', 'Jaramillo', NULL, 'F', '2000-12-02', '2024-04-16 16:05:13', 'AS1982718', '2928-387293-691-8', '121027382', '128172918279', 3000.00, 'lina@digitalbox.sv', 'lina@gmail.com', 1, '2024-06-17 21:54:59', 'Actualización', NULL),
+	(36, 5, 5, 257, 4, 1, 1, 'Luis', 'Fernando', 'Robio', 'Jaramillo', NULL, 'M', '1999-08-02', '2024-04-16 16:08:31', '19821987-2', '3283-232873-982-6', '293823981', '102972984092', 4000.00, 'luis@digitalbox.sv', 'luis@gmail.com', 1, '2024-06-17 21:55:15', 'Actualización', NULL),
+	(37, 1, 1, 83, 1, NULL, 1, 'Juan', 'Fernando', 'Perez', 'del Coral', NULL, 'M', '2000-02-20', '2024-04-01 16:05:56', '12981278-1', '1298-192819-821-2', '129812981', '121892819281', 9000.00, 'juan@digitalbox.sv', 'juan@gmail.com', 1, '2024-06-17 21:56:40', 'Actualización', NULL),
+	(38, 2, 2, 82, 2, 1, 1, 'Óscar', '', 'de la Renta', '', NULL, 'M', '1995-12-05', '2024-04-01 15:31:54', '29129817-8', '1092-898732-893-8', '129817287', '219827187211', 4000.00, 'oscar@digitalbox.sv', 'oscar@gmail.com', 1, '2024-06-17 21:56:45', 'Actualización', NULL),
+	(39, 3, 3, 59, 2, 1, 2, 'Nohemí', '', 'Sierra', 'Ramírez', 'Fernández', 'F', '1999-06-12', '2024-04-01 15:37:48', 'AJ1272831', '2983-629836-827-7', '238273982', '239283827273', 7000.00, 'nohemi@digitalbox.sv', 'nohemi@gmail.com', 1, '2024-06-17 21:56:48', 'Actualización', NULL),
+	(40, 4, 4, 252, 3, 1, 2, 'Lina', 'Marcela', 'Jaramillo', 'Jaramillo', NULL, 'F', '2000-12-02', '2024-04-01 16:05:13', 'AS1982718', '2928-387293-691-8', '121027382', '128172918279', 3000.00, 'lina@digitalbox.sv', 'lina@gmail.com', 1, '2024-06-17 21:56:51', 'Actualización', NULL),
+	(41, 5, 5, 257, 4, 1, 1, 'Luis', 'Fernando', 'Robio', 'Jaramillo', NULL, 'M', '1999-08-02', '2024-04-01 16:08:31', '19821987-2', '3283-232873-982-6', '293823981', '102972984092', 4000.00, 'luis@digitalbox.sv', 'luis@gmail.com', 1, '2024-06-17 21:56:55', 'Actualización', NULL),
+	(42, 5, 5, 257, 4, 1, 1, 'Luis', 'Fernando', 'Robio', 'Jaramillo', NULL, 'M', '1999-08-02', '2024-05-15 16:08:31', '19821987-2', '3283-232873-982-6', '293823981', '102972984092', 4000.00, 'luis@digitalbox.sv', 'luis@gmail.com', 1, '2024-06-17 22:01:03', 'Actualización', NULL),
+	(43, 1, 1, 83, 1, NULL, 1, 'Juan', 'Fernando', 'Perez', 'del Coral', NULL, 'M', '2000-02-20', '2024-05-01 16:05:56', '12981278-1', '1298-192819-821-2', '129812981', '121892819281', 9000.00, 'juan@digitalbox.sv', 'juan@gmail.com', 1, '2024-06-17 22:01:39', 'Actualización', NULL),
+	(44, 2, 2, 82, 2, 1, 1, 'Óscar', '', 'de la Renta', '', NULL, 'M', '1995-12-05', '2024-05-01 15:31:54', '29129817-8', '1092-898732-893-8', '129817287', '219827187211', 4000.00, 'oscar@digitalbox.sv', 'oscar@gmail.com', 1, '2024-06-17 22:01:44', 'Actualización', NULL),
+	(45, 3, 3, 59, 2, 1, 2, 'Nohemí', '', 'Sierra', 'Ramírez', 'Fernández', 'F', '1999-06-12', '2024-05-01 15:37:48', 'AJ1272831', '2983-629836-827-7', '238273982', '239283827273', 7000.00, 'nohemi@digitalbox.sv', 'nohemi@gmail.com', 1, '2024-06-17 22:01:49', 'Actualización', NULL),
+	(46, 4, 4, 252, 3, 1, 2, 'Lina', 'Marcela', 'Jaramillo', 'Jaramillo', NULL, 'F', '2000-12-02', '2024-05-01 16:05:13', 'AS1982718', '2928-387293-691-8', '121027382', '128172918279', 3000.00, 'lina@digitalbox.sv', 'lina@gmail.com', 1, '2024-06-17 22:01:53', 'Actualización', NULL),
+	(47, 5, 5, 257, 4, 1, 1, 'Luis', 'Fernando', 'Robio', 'Jaramillo', NULL, 'M', '1999-08-02', '2024-05-01 16:08:31', '19821987-2', '3283-232873-982-6', '293823981', '102972984092', 4000.00, 'luis@digitalbox.sv', 'luis@gmail.com', 1, '2024-06-17 22:02:07', 'Actualización', NULL);
 
 -- Volcando estructura para función bad_proyecto.calcularDeducBenef
 DROP FUNCTION IF EXISTS `calcularDeducBenef`;
@@ -629,11 +645,11 @@ CREATE TABLE IF NOT EXISTS `empleado` (
 -- Volcando datos para la tabla bad_proyecto.empleado: ~5 rows (aproximadamente)
 DELETE FROM `empleado`;
 INSERT INTO `empleado` (`IDEMPLEADO`, `IDPUESTO`, `IDMUNICIPIO`, `IDESTADOCIVIL`, `EMP_IDEMPLEADO`, `IDTIPODOC`, `NOMBRE1`, `NOMBRE2`, `APELLIDO1`, `APELLIDO2`, `APELLIDOCASADA`, `SEXO`, `FECHANACIMIENTO`, `FECHAINGRESO`, `NUMERODOC`, `NIT`, `ISSS`, `NUP`, `SALARIO`, `CORREOINSTITUCIONAL`, `CORREOPERSONAL`, `ESTADO`) VALUES
-	(1, 1, 83, 1, NULL, 1, 'Juan', 'Fernando', 'Perez', 'del Coral', NULL, 'M', '2000-02-20', '2024-06-16 16:05:56', '12981278-1', '1298-192819-821-2', '129812981', '121892819281', 9000.00, 'juan@digitalbox.sv', 'juan@gmail.com', 1),
-	(2, 2, 82, 2, 1, 1, 'Óscar', '', 'de la Renta', '', NULL, 'M', '1995-12-05', '2024-06-16 15:31:54', '29129817-8', '1092-898732-893-8', '129817287', '219827187211', 4000.00, 'oscar@digitalbox.sv', 'oscar@gmail.com', 1),
-	(3, 3, 59, 2, 1, 2, 'Nohemí', '', 'Sierra', 'Ramírez', 'Fernández', 'F', '1999-06-12', '2024-06-16 15:37:48', 'AJ1272831', '2983-629836-827-7', '238273982', '239283827273', 7000.00, 'nohemi@digitalbox.sv', 'nohemi@gmail.com', 1),
-	(4, 4, 252, 3, 1, 2, 'Lina', 'Marcela', 'Jaramillo', 'Jaramillo', NULL, 'F', '2000-12-02', '2024-06-16 16:05:13', 'AS1982718', '2928-387293-691-8', '121027382', '128172918279', 3000.00, 'lina@digitalbox.sv', 'lina@gmail.com', 1),
-	(5, 5, 257, 4, 1, 1, 'Luis', 'Fernando', 'Robio', 'Jaramillo', NULL, 'M', '1999-08-02', '2024-06-16 16:08:31', '19821987-2', '3283-232873-982-6', '293823981', '102972984092', 4000.00, 'luis@digitalbox.sv', 'luis@gmail.com', 1);
+	(1, 1, 83, 1, NULL, 1, 'Juan', 'Fernando', 'Perez', 'del Coral', NULL, 'M', '2000-02-20', '2024-05-01 16:05:56', '12981278-1', '1298-192819-821-2', '129812981', '121892819281', 9000.00, 'juan@digitalbox.sv', 'juan@gmail.com', 1),
+	(2, 2, 82, 2, 1, 1, 'Óscar', '', 'de la Renta', '', NULL, 'M', '1995-12-05', '2024-05-01 15:31:54', '29129817-8', '1092-898732-893-8', '129817287', '219827187211', 4000.00, 'oscar@digitalbox.sv', 'oscar@gmail.com', 1),
+	(3, 3, 59, 2, 1, 2, 'Nohemí', '', 'Sierra', 'Ramírez', 'Fernández', 'F', '1999-06-12', '2024-05-01 15:37:48', 'AJ1272831', '2983-629836-827-7', '238273982', '239283827273', 7000.00, 'nohemi@digitalbox.sv', 'nohemi@gmail.com', 1),
+	(4, 4, 252, 3, 1, 2, 'Lina', 'Marcela', 'Jaramillo', 'Jaramillo', NULL, 'F', '2000-12-02', '2024-05-01 16:05:13', 'AS1982718', '2928-387293-691-8', '121027382', '128172918279', 3000.00, 'lina@digitalbox.sv', 'lina@gmail.com', 1),
+	(5, 5, 257, 4, 1, 1, 'Luis', 'Fernando', 'Robio', 'Jaramillo', NULL, 'M', '1999-08-02', '2024-05-01 16:08:31', '19821987-2', '3283-232873-982-6', '293823981', '102972984092', 4000.00, 'luis@digitalbox.sv', 'luis@gmail.com', 1);
 
 -- Volcando estructura para tabla bad_proyecto.estadocivil
 DROP TABLE IF EXISTS `estadocivil`;
@@ -1066,6 +1082,32 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Volcando estructura para procedimiento bad_proyecto.ObtenerEmpleadosPorUnidadSuperiorInmediata
+DROP PROCEDURE IF EXISTS `ObtenerEmpleadosPorUnidadSuperiorInmediata`;
+DELIMITER //
+CREATE PROCEDURE `ObtenerEmpleadosPorUnidadSuperiorInmediata`(
+    IN idpuesto_recibido INT, IN idempleadop int
+)
+BEGIN
+     SELECT e.*
+    FROM empleado e
+    JOIN puesto p ON e.idpuesto = p.idpuesto
+    JOIN unidad u ON p.idunidad = u.idunidad
+    WHERE (u.idunidad = (
+        SELECT uni_idunidad
+        FROM unidad
+        JOIN puesto ON unidad.idunidad = puesto.idunidad
+        WHERE puesto.idpuesto = idpuesto_recibido
+    )
+    OR u.idunidad = (
+        SELECT unidad.idunidad
+        FROM unidad
+        JOIN puesto ON unidad.idunidad = puesto.idunidad
+        WHERE puesto.idpuesto = idpuesto_recibido
+    )) AND idempleado!=idempleadop;
+END//
+DELIMITER ;
+
 -- Volcando estructura para tabla bad_proyecto.perlic_empleado
 DROP TABLE IF EXISTS `perlic_empleado`;
 CREATE TABLE IF NOT EXISTS `perlic_empleado` (
@@ -1336,7 +1378,7 @@ BEGIN
 	),idempleado,"D")
 	) AS salarioneto
 	FROM empleado e JOIN puesto p ON e.idpuesto=p.idpuesto
-	WHERE e.fechaingreso>=fecha1 AND e.ESTADO=1;
+	WHERE e.fechaingreso<=fecha1 OR e.fechaingreso BETWEEN fecha1 AND fecha2 AND e.ESTADO=1;
 	END//
 DELIMITER ;
 
@@ -2071,6 +2113,32 @@ CREATE TRIGGER `after_update_empleado` AFTER UPDATE ON `empleado` FOR EACH ROW B
 
 INSERT INTO auditoria_empleado (IDEMPLEADO, IDPUESTO, IDMUNICIPIO, IDESTADOCIVIL, EMP_IDEMPLEADO, IDTIPODOC, NOMBRE1, NOMBRE2, APELLIDO1, APELLIDO2, APELLIDOCASADA, SEXO, FECHANACIMIENTO, FECHAINGRESO, NUMERODOC, NIT, ISSS, NUP, SALARIO, CORREOINSTITUCIONAL, CORREOPERSONAL, ESTADO, FECHAMODIFICACION, TIPODEOPERACION, USUARIOREGISTRA)
     VALUES (NEW.IDEMPLEADO, NEW.IDPUESTO, NEW.IDMUNICIPIO, NEW.IDESTADOCIVIL, NEW.EMP_IDEMPLEADO, NEW.IDTIPODOC, NEW.NOMBRE1, NEW.NOMBRE2, NEW.APELLIDO1, NEW.APELLIDO2, NEW.APELLIDOCASADA, NEW.SEXO, NEW.FECHANACIMIENTO, NEW.FECHAINGRESO, NEW.NUMERODOC, NEW.NIT, NEW.ISSS, NEW.NUP, NEW.SALARIO, NEW.CORREOINSTITUCIONAL, NEW.CORREOPERSONAL, NEW.ESTADO, NOW(), 'Actualización', user_id);
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+-- Volcando estructura para disparador bad_proyecto.VALIDAR_FECHAS_PERM_INSERT
+DROP TRIGGER IF EXISTS `VALIDAR_FECHAS_PERM_INSERT`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `VALIDAR_FECHAS_PERM_INSERT` BEFORE INSERT ON `perlic_empleado` FOR EACH ROW BEGIN
+    IF NEW.FECHAINICIO >= NEW.FECHAFIN THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'La fecha de inicio debe ser menor que la fecha de fin';
+    END IF;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+-- Volcando estructura para disparador bad_proyecto.VALIDAR_FECHAS_PERM_UPDATE
+DROP TRIGGER IF EXISTS `VALIDAR_FECHAS_PERM_UPDATE`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `VALIDAR_FECHAS_PERM_UPDATE` BEFORE UPDATE ON `perlic_empleado` FOR EACH ROW BEGIN
+    IF NEW.FECHAINICIO >= NEW.FECHAFIN THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'La fecha de inicio debe ser menor que la fecha de fin';
+    END IF;
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
