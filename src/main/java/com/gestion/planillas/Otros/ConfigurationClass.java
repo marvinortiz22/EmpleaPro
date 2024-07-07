@@ -37,9 +37,9 @@ public class ConfigurationClass implements WebMvcConfigurer {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
-        dataSource.setUrl("jdbc:mariadb://viaduct.proxy.rlwy.net:27100/railway");
+        dataSource.setUrl("jdbc:mariadb://viaduct.proxy.rlwy.net:54977/railway");
         dataSource.setUsername("root");
-        dataSource.setPassword("nOmPrRmCNNlNVaZaYkkdMfkOLIdErGjl");
+        dataSource.setPassword("ZSAedWctGffHguMZSTmnzNmYVZKHantf");
 
         return dataSource;
     }
