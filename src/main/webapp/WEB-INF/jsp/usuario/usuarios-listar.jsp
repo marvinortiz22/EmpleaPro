@@ -40,11 +40,13 @@
                         <td>
 
                             <a href="/usuario/editar?id=${usuario.idUsuario}"><button title="Editar" class="btn btn-warning"><i class="fas fa-pen-to-square"></i></button></a>
-                            <c:if test="${usuario.estado}">
+                            <c:if test="${usuarioPermisos.username!=usuario.username}">
+                                <c:if test="${usuario.estado}">
                                 <a href="/usuario/cambiarEstado?id=${usuario.idUsuario}"><button id="x" title="Inhabilitar" class="btn btn-danger"><i class="fas fa-lock"></i></button></a>
-                            </c:if>
-                            <c:if test="${!usuario.estado}">
-                                <a href="/usuario/cambiarEstado?id=${usuario.idUsuario}"><button title="Habilitar" id="check" class="btn btn-success"><i class="fas fa-lock"></i></button></a>
+                                </c:if>
+                                <c:if test="${!usuario.estado}">
+                                    <a href="/usuario/cambiarEstado?id=${usuario.idUsuario}"><button title="Habilitar" id="check" class="btn btn-success"><i class="fas fa-lock"></i></button></a>
+                                </c:if>
                             </c:if>
                         </td>
                         </tr>
