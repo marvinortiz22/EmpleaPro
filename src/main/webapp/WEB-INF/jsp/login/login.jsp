@@ -16,11 +16,11 @@
                                     <p class="span mb-3 text-center">${errorMessage}</p>
                                         <form:form action="/login" method="post">
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="username" name="username" required/>
+                                                <input class="form-control" id="username" name="username" required value="marvin"/>
                                                 <label for="username">Nombre de usuario</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputPassword" type="password" name="password" required/>
+                                                <input class="form-control" id="inputPassword" type="password" name="password" required value="marvin1234*"/>
                                                 <label for="inputPassword">Contraseña</label>
                                             </div>
 
