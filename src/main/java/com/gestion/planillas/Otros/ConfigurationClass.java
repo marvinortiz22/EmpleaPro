@@ -1,6 +1,7 @@
 package com.gestion.planillas.Otros;
 
 import jakarta.persistence.EntityManagerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -17,6 +18,12 @@ import java.util.Properties;
 @Configuration
 @EnableAspectJAutoProxy
 public class ConfigurationClass implements WebMvcConfigurer {
+    @Value("${spring.datasource.url}")
+    private String dbHost;
+    @Value("${spring.datasource.username}")
+    private String dbUser;
+    @Value("${spring.datasource.password}")
+    private String dbPassword;
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/static/");
@@ -37,9 +44,9 @@ public class ConfigurationClass implements WebMvcConfigurer {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
-        dataSource.setUrl("jdbc:mariadb://viaduct.proxy.rlwy.net:54977/railway");
-        dataSource.setUsername("root");
-        dataSource.setPassword("ZSAedWctGffHguMZSTmnzNmYVZKHantf");
+        dataSource.setUrl(dbHost);
+        dataSource.setUsername(dbUser);
+        dataSource.setPassword(dbPassword);
 
         return dataSource;
     }
