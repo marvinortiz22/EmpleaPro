@@ -17,8 +17,10 @@
 
 -- Volcando estructura de base de datos para bad_proyecto
 DROP DATABASE IF EXISTS `bad_proyecto`;
-CREATE DATABASE IF NOT EXISTS `bad_proyecto` /*!40100 DEFAULT CHARACTER SET latin1 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `bad_proyecto`;
+-- CREATE DATABASE IF NOT EXISTS `bad_proyecto` /*!40100 DEFAULT CHARACTER SET latin1 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+DROP DATABASE IF EXISTS `railway`;
+CREATE DATABASE IF NOT EXISTS `railway` /*!40100 DEFAULT CHARACTER SET latin1 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `railway`;
 
 -- Volcando estructura para tabla bad_proyecto.auditoria_deduccionbeneficioempleado
 DROP TABLE IF EXISTS `auditoria_deduccionbeneficioempleado`;
@@ -120,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `auditoria_empleado` (
   KEY `fk_emp_idempleadoaudiemp` (`EMP_IDEMPLEADO`),
   KEY `fk_idtipodocaudiemp` (`IDTIPODOC`),
   KEY `fk_idpuestoaudiemp` (`IDPUESTO`),
-  CONSTRAINT `fk_emp_idempleadoaudiemp` FOREIGN KEY (`EMP_IDEMPLEADO`) REFERENCES `empleado` (`EMP_IDEMPLEADO`),
+  CONSTRAINT `fk_emp_idempleadoaudiemp` FOREIGN KEY (`EMP_IDEMPLEADO`) REFERENCES `empleado` (`IDEMPLEADO`),
   CONSTRAINT `FK_EMPLEADO` FOREIGN KEY (`IDEMPLEADO`) REFERENCES `empleado` (`IDEMPLEADO`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_idestadocivilaudiemp` FOREIGN KEY (`IDESTADOCIVIL`) REFERENCES `estadocivil` (`IDESTADOCIVIL`),
   CONSTRAINT `fk_idmunicipioaudiemp` FOREIGN KEY (`IDMUNICIPIO`) REFERENCES `municipio` (`IDMUNICIPIO`),
