@@ -44,9 +44,9 @@ public class ConfigurationClass implements WebMvcConfigurer {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
-        dataSource.setUrl(dbHost);
-        dataSource.setUsername(dbUser);
-        dataSource.setPassword(dbPassword);
+        dataSource.setUrl(dbHost.replace("\"", ""));
+        dataSource.setUsername(dbUser.replace("\"", ""));
+        dataSource.setPassword(dbPassword.replace("\"", ""));
 
         return dataSource;
     }
