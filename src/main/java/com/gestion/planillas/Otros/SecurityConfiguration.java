@@ -1,5 +1,6 @@
 package com.gestion.planillas.Otros;
 
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,8 +17,10 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManagerBuilder auth) throws Exception {
 
-        http.authorizeHttpRequests(request -> request
-                        .requestMatchers("/images/**", "/css/**", "/js/**", "/WEB-INF/jsp/**","/registro","/login/**","/error/**").permitAll()
+        http.
+                csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(request -> request
+                        .requestMatchers("/images/**", "/css/**", "/js/**", "/WEB-INF/jsp/**","/registro","/login/**","/error/**","/api/**").permitAll()
                         //.requestMatchers("/usuarioEjemplo/rolusuario").hasAuthority("ROLE_Ver_usuarios")
                         .anyRequest().authenticated())
                 .formLogin(form->form
