@@ -29,6 +29,9 @@ public class contaduriaDAOImpl implements contaduriaDAO{
         query.setParameter("fecha1", fecha1);
         query.setParameter("fecha2", fecha2);
         query.setParameter("idempleado", id);
+        if(query.getResultList().isEmpty()){
+            return null;
+        }
         Object[] planilla = query.getResultList().get(0);
         return planilla;
     }
