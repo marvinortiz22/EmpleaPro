@@ -8,6 +8,8 @@ import com.gestion.planillas.modelos.Permiso;
 import com.gestion.planillas.modelos.Usuario;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+
+import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 
 @RestController
@@ -76,7 +79,28 @@ public class ApiRestController {
     }
 
     @PostMapping("/planilla")
-    public ResponseEntity<?> planillaPost(@RequestBody(required = false) Map<String, String> body){
+    public ResponseEntity<?> planillaPost(@RequestBody(required = false) Map<String, String> body,
+                                          @RequestHeader(value = "Authorization", required = false) String authHeader){
+            /*if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+                        "error", "Token no proporcionado o formato inválido"
+                ));
+            }
+
+            String token = authHeader.substring(7); // quitar "Bearer "
+            Claims claims;
+
+            try {
+                claims = Jwts.parserBuilder()
+                        .setSigningKey(Keys.hmacShaKeyFor(ACCES_TOKEN_SECRET.getBytes()))
+                        .build()
+                        .parseClaimsJws(token)
+                        .getBody();
+            } catch (JwtException e) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+                        "error", "Token inválido: " + e.getMessage()
+                ));
+            }*/
         if (body == null || body.isEmpty()) {
             return ResponseEntity.badRequest().body(Map.of(
                     "Error", "El cuerpo de la solicitud no puede estar vacío"
@@ -167,5 +191,59 @@ public class ApiRestController {
         }
 
         return ResponseEntity.ok(jsonString);
+    }
+
+    @PostMapping("registro")
+    public ResponseEntity<?> registroPost(@RequestBody(required = false) Map<String, String> body) {
+        if (body == null || body.isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "Error", "El cuerpo de la solicitud no puede estar vacío"
+            ));
+        }
+
+        String username = body.get("username");
+        String email = body.get("email");
+        String password = body.get("password");
+
+        if (usuarioDAO.getUsuarioPorCampo("username", username) != null)
+            return ResponseEntity
+                    .badRequest()
+                    .body(Map.of("Error", "Ya existe un usuario con este nombre de usuario"));
+        if (usuarioDAO.getUsuarioPorCampo("email", email) != null)
+            return ResponseEntity
+                    .badRequest()
+                    .body(Map.of("Error", "Ya existe un usuario con este correo electrónico"));
+
+        Pattern pattern = Pattern.compile("(?=.*[0-9]).+");//al menos un numero
+        Matcher matcher = pattern.matcher(password);
+
+        List<String> Errores=new ArrayList<>();
+        if(!matcher.matches())
+            Errores.add("La contraseña debe tener al menos un número");
+
+        pattern = Pattern.compile("(?=.*[a-zA-Z]).+");//al menos una letra
+        matcher = pattern.matcher(password);
+        if(!matcher.matches())
+            Errores.add("La contraseña debe tener al menos una letra");
+
+        pattern = Pattern.compile("(?=.*[@#$%^&+=*_/]).+");//al menos un simbolo
+        matcher = pattern.matcher(password);
+        if(!matcher.matches())
+            Errores.add("La contraseña debe tener al menos un símbolo especial");
+
+        if(password.length()<8)
+            Errores.add("La contraseña debe tener al menos 8 caracteres");
+
+        if (!Errores.isEmpty())
+            return ResponseEntity.badRequest().body(Map.of("Errores",Errores));
+
+        Usuario usuario=new Usuario();
+        usuario.setUsername(username);
+        usuario.setEmail(email);
+        usuario.setPassword(passwordEncoder.encode(password));
+
+        usuarioDAO.guardarUsuario(usuario);
+
+        return ResponseEntity.ok().body(Map.of("Message","Usuario creado exitosamente"));
     }
 }
