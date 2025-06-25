@@ -1,10 +1,13 @@
 package com.gestion.planillas.Controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gestion.planillas.DAO.demograficoDAO;
 import com.gestion.planillas.DAO.usuarioDAO;
+import com.gestion.planillas.DAO.rolDAO;
 import com.gestion.planillas.DAO.contaduriaDAO;
 import com.gestion.planillas.modelos.Permiso;
+import com.gestion.planillas.modelos.Rol;
 import com.gestion.planillas.modelos.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -42,6 +45,9 @@ public class ApiRestController {
 
     @Autowired
     private contaduriaDAO contaduriaDAO;
+
+    @Autowired
+    private rolDAO rolDAO;
 
     Long ACCES_TOKEN_VALIDITY_SECONDS = 21_600L;
     String ACCES_TOKEN_SECRET = "7WK5T79u5mIzjIXXi2oI9Fglmgivv7RAJ7izyj9tUyQ";
@@ -94,44 +100,10 @@ public class ApiRestController {
     @PostMapping("/planilla")
     public ResponseEntity<?> planillaPost(@RequestBody(required = false) Map<String, String> body,
                                           @RequestHeader(value = "Authorization", required = false) String authHeader) {
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
-                    "error", "No se proporcionó el token"
-            ));
-        }
 
-        String token = authHeader.substring(7); // quitar "Bearer "
-        Claims claims;
-
-        try {
-            claims = Jwts.parserBuilder()
-                    .setSigningKey(Keys.hmacShaKeyFor(ACCES_TOKEN_SECRET.getBytes()))
-                    .build()
-                    .parseClaimsJws(token)
-                    .getBody();
-        }
-        catch (ExpiredJwtException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
-                    "Error", "El token está expirado"
-            ));
-        }
-        catch (JwtException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
-                    "Error", "El token proporcionado no es válido"
-            ));
-        }
-
-        String[] permisos= (String[]) claims.get("permisos");
-        if (!Arrays.asList(permisos).contains("ROLE_Ver_planilla")){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
-                    "Error", "No tiene el permiso necesario para ver la planilla"
-            ));
-        }
-
-        if (body == null || body.isEmpty()) {
-            return ResponseEntity.badRequest().body(Map.of(
-                    "Error", "El cuerpo de la solicitud no puede estar vacío"
-            ));
+        ResponseEntity<?> errores=hayErrores(body,authHeader,"ROLE_Ver_planilla");
+        if (errores!=null){
+            return errores;
         }
 
         String fecha_inicio = body.get("fecha_inicio");
@@ -221,12 +193,13 @@ public class ApiRestController {
     }
 
     @PostMapping("registro")
-    public ResponseEntity<?> registroPost(@RequestBody(required = false) Map<String, String> body) {
-        if (body == null || body.isEmpty()) {
-            return ResponseEntity.badRequest().body(Map.of(
-                    "Error", "El cuerpo de la solicitud no puede estar vacío"
-            ));
-        }
+    public ResponseEntity<?> registroPost(@RequestBody(required = false) Map<String, String> body,
+                                          @RequestHeader(value = "Authorization", required = false) String authHeader) {
+
+        /*ResponseEntity<?> errores=hayErrores(body,authHeader,"ROLE_Ver_planilla");
+        if (errores!=null){
+            return errores;
+        }*/
 
         String username = body.get("username");
         String email = body.get("email");
@@ -272,5 +245,78 @@ public class ApiRestController {
         usuarioDAO.guardarUsuario(usuario);
 
         return ResponseEntity.ok().body(Map.of("Message", "Usuario creado exitosamente"));
+    }
+
+    @PostMapping("cambiar_rol")
+    public ResponseEntity<?> cambiarRol(@RequestBody(required = false) Map<String, String> body, @RequestHeader(value = "Authorization", required = false) String authHeader) throws JsonProcessingException {
+        /*ResponseEntity<?> errores=hayErrores(body,authHeader,"ROLE_Ver_planilla");
+        if (errores!=null){
+            return errores;
+        }*/
+        String rol=body.get("roles");
+        String usuarioDoc=body.get("usuarioDoc");
+
+        Rol rolObject = rolDAO.getByNombre(rol);
+
+        Usuario usuario = usuarioDAO.getUsuarioPorCampo("documento",usuarioDoc);
+        usuario.setRol(rolObject);
+        usuarioDAO.guardarUsuario(usuario);
+
+        return null;
+    }
+
+    @PostMapping("cambiar_contrasena")
+    public ResponseEntity<?> cambiarContrasena(@RequestBody(required = false) Map<String, String> body, @RequestHeader(value = "Authorization", required = false) String authHeader){
+        /*ResponseEntity<?> errores=hayErrores(body,authHeader,"ROLE_Ver_planilla");
+        if (errores!=null){
+            return errores;
+        }*/
+        return null;
+    }
+
+    public ResponseEntity<?> hayErrores(@RequestBody(required = false) Map<String, String> body,
+                                        @RequestHeader(value = "Authorization", required = false) String authHeader,
+                                        String permiso){
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+                    "error", "No se proporcionó el token"
+            ));
+        }
+
+        String token = authHeader.substring(7); // quitar "Bearer "
+        Claims claims;
+
+        try {
+            claims = Jwts.parserBuilder()
+                    .setSigningKey(Keys.hmacShaKeyFor(ACCES_TOKEN_SECRET.getBytes()))
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        }
+        catch (ExpiredJwtException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+                    "Error", "El token está expirado"
+            ));
+        }
+        catch (JwtException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+                    "Error", "El token proporcionado no es válido"
+            ));
+        }
+
+        String[] permisos= (String[]) claims.get("permisos");
+        if (!Arrays.asList(permisos).contains(permiso)){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+                    "Error", "No tiene el permiso necesario para realizar dicha acción"
+            ));
+        }
+
+        if (body == null || body.isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "Error", "El cuerpo de la solicitud no puede estar vacío"
+            ));
+        }
+
+        return null;
     }
 }

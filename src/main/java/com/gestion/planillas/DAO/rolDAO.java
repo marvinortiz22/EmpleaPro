@@ -8,4 +8,5 @@ public interface rolDAO {
     public Rol getRol(int id);
     public List<Object[]> getRolConJoin();
     public void guardarRol(Rol rol);
+    public Rol getByNombre(String nombre);
 }

@@ -43,4 +43,16 @@ public class rolDAOImpl implements rolDAO {
         Session session=sessionFactory.getCurrentSession();
         session.saveOrUpdate(rol);
     }
+
+    @Override
+    public Rol getByNombre(String nombre) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<Rol> query = session.createQuery("FROM Rol WHERE nombre=:nombre", Rol.class);
+        query.setParameter("nombre", nombre);
+        if(query.getResultList().isEmpty()){
+            return null;
+        }
+        return query.getResultList().get(0);
+    }
+
 }
