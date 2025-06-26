@@ -241,7 +241,7 @@ public class ApiRestController {
         if (errores!=null){
             return errores;
         }*/
-        String rol=body.get("roles");
+        String rol=body.get("rol");
         String username=body.get("username");
 
         if(username==null||rol==null){
@@ -299,12 +299,19 @@ public class ApiRestController {
                     .body(Map.of("Error","Contraseña incorrecta"));
         }
 
+        if(password.equals(newPassword)){
+            return ResponseEntity
+                    .badRequest()
+                    .body(Map.of("Error", "La contraseña nueva no puede ser igual a la anterior"));
+        }
+
         ResponseEntity<?> contrasenaErrores=contrasenaInvalida(password);
         if(contrasenaErrores!=null){
             return contrasenaErrores;
         }
 
         usuario.setPassword(passwordEncoder.encode(newPassword));
+        usuarioDAO.guardarUsuario(usuario);
 
         return ResponseEntity
                 .ok(Map.of("Message","La contraseña se modificó exitosamente"));
