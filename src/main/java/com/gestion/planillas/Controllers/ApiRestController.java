@@ -196,50 +196,38 @@ public class ApiRestController {
     public ResponseEntity<?> registroPost(@RequestBody(required = false) Map<String, String> body,
                                           @RequestHeader(value = "Authorization", required = false) String authHeader) {
 
-        /*ResponseEntity<?> errores=hayErrores(body,authHeader,"ROLE_Ver_planilla");
+        /*ResponseEntity<?> errores=hayErrores(body,authHeader,"ROLE_Crear_usuarios");
         if (errores!=null){
             return errores;
         }*/
 
         String username = body.get("username");
-        String email = body.get("email");
+        //String email = body.get("email");
         String password = body.get("password");
+
+        if(username==null||password==null){
+            return ResponseEntity
+                    .badRequest()
+                    .body(Map.of("Error", "Debe proveer un usuario y una contraseña"));
+        }
 
         if (usuarioDAO.getUsuarioPorCampo("username", username) != null)
             return ResponseEntity
                     .badRequest()
                     .body(Map.of("Error", "Ya existe un usuario con este nombre de usuario"));
-        if (usuarioDAO.getUsuarioPorCampo("email", email) != null)
+        /*if (usuarioDAO.getUsuarioPorCampo("email", email) != null)
             return ResponseEntity
                     .badRequest()
-                    .body(Map.of("Error", "Ya existe un usuario con este correo electrónico"));
+                    .body(Map.of("Error", "Ya existe un usuario con este correo electrónico"));*/
 
-        Pattern pattern = Pattern.compile("(?=.*[0-9]).+");//al menos un numero
-        Matcher matcher = pattern.matcher(password);
-
-        List<String> Errores = new ArrayList<>();
-        if (!matcher.matches())
-            Errores.add("La contraseña debe tener al menos un número");
-
-        pattern = Pattern.compile("(?=.*[a-zA-Z]).+");//al menos una letra
-        matcher = pattern.matcher(password);
-        if (!matcher.matches())
-            Errores.add("La contraseña debe tener al menos una letra");
-
-        pattern = Pattern.compile("(?=.*[@#$%^&+=*_/]).+");//al menos un simbolo
-        matcher = pattern.matcher(password);
-        if (!matcher.matches())
-            Errores.add("La contraseña debe tener al menos un símbolo especial");
-
-        if (password.length() < 8)
-            Errores.add("La contraseña debe tener al menos 8 caracteres");
-
-        if (!Errores.isEmpty())
-            return ResponseEntity.badRequest().body(Map.of("Errores", Errores));
+        ResponseEntity<?> contrasenaErrores=contrasenaInvalida(password);
+        if(contrasenaErrores!=null){
+            return contrasenaErrores;
+        }
 
         Usuario usuario = new Usuario();
         usuario.setUsername(username);
-        usuario.setEmail(email);
+        //usuario.setEmail(email);
         usuario.setPassword(passwordEncoder.encode(password));
 
         usuarioDAO.guardarUsuario(usuario);
@@ -249,29 +237,77 @@ public class ApiRestController {
 
     @PostMapping("cambiar_rol")
     public ResponseEntity<?> cambiarRol(@RequestBody(required = false) Map<String, String> body, @RequestHeader(value = "Authorization", required = false) String authHeader) throws JsonProcessingException {
-        /*ResponseEntity<?> errores=hayErrores(body,authHeader,"ROLE_Ver_planilla");
+        /*ResponseEntity<?> errores=hayErrores(body,authHeader,"ROLE_Cambiar_roles");
         if (errores!=null){
             return errores;
         }*/
         String rol=body.get("roles");
-        String usuarioDoc=body.get("usuarioDoc");
+        String username=body.get("username");
+
+        if(username==null||rol==null){
+            return ResponseEntity
+                    .badRequest()
+                    .body(Map.of("Error", "Se debe proveer un nombre de usuario y un rol válido"));
+        }
 
         Rol rolObject = rolDAO.getByNombre(rol);
 
-        Usuario usuario = usuarioDAO.getUsuarioPorCampo("documento",usuarioDoc);
+        if(rolObject==null){
+            return ResponseEntity
+                    .badRequest()
+                    .body(Map.of("Error", "No existe el rol ingresado"));
+        }
+
+        Usuario usuario = usuarioDAO.getUsuarioPorCampo("username",username);
+
+        if(usuario==null){
+            return ResponseEntity
+                    .badRequest()
+                    .body(Map.of("Error", "No existe un usuario con el username ingresado"));
+        }
+
         usuario.setRol(rolObject);
         usuarioDAO.guardarUsuario(usuario);
 
-        return null;
+        return ResponseEntity
+                .ok(Map.of("Message", "El rol se cambió exitosamente"));
     }
 
     @PostMapping("cambiar_contrasena")
-    public ResponseEntity<?> cambiarContrasena(@RequestBody(required = false) Map<String, String> body, @RequestHeader(value = "Authorization", required = false) String authHeader){
-        /*ResponseEntity<?> errores=hayErrores(body,authHeader,"ROLE_Ver_planilla");
-        if (errores!=null){
-            return errores;
-        }*/
-        return null;
+    public ResponseEntity<?> cambiarContrasena(@RequestBody(required = false) Map<String, String> body){
+        String username=body.get("username");
+        String password=body.get("password");
+        String newPassword=body.get("newPassword");
+
+        if(username==null||password==null||newPassword==null){
+            return ResponseEntity
+                    .badRequest()
+                    .body(Map.of("Error","Debe proveer el nombre de usuario, su contraseña y la nueva contraseñá"));
+        }
+
+        Usuario usuario = usuarioDAO.getUsuarioPorCampo("username",username);
+
+        if(usuario==null){
+            return ResponseEntity
+                    .badRequest()
+                    .body(Map.of("Error", "No existe un usuario con el username ingresado"));
+        }
+
+        if (!passwordEncoder.matches(password, usuario.getPassword())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(Map.of("Error","Contraseña incorrecta"));
+        }
+
+        ResponseEntity<?> contrasenaErrores=contrasenaInvalida(password);
+        if(contrasenaErrores!=null){
+            return contrasenaErrores;
+        }
+
+        usuario.setPassword(passwordEncoder.encode(newPassword));
+
+        return ResponseEntity
+                .ok(Map.of("Message","La contraseña se modificó exitosamente"));
     }
 
     public ResponseEntity<?> hayErrores(@RequestBody(required = false) Map<String, String> body,
@@ -316,6 +352,33 @@ public class ApiRestController {
                     "Error", "El cuerpo de la solicitud no puede estar vacío"
             ));
         }
+
+        return null;
+    }
+
+    public ResponseEntity<?> contrasenaInvalida(String password){
+        Pattern pattern = Pattern.compile("(?=.*[0-9]).+");//al menos un numero
+        Matcher matcher = pattern.matcher(password);
+
+        List<String> Errores = new ArrayList<>();
+        if (!matcher.matches())
+            Errores.add("La contraseña debe tener al menos un número");
+
+        pattern = Pattern.compile("(?=.*[a-zA-Z]).+");//al menos una letra
+        matcher = pattern.matcher(password);
+        if (!matcher.matches())
+            Errores.add("La contraseña debe tener al menos una letra");
+
+        pattern = Pattern.compile("(?=.*[@#$%^&+=*_/]).+");//al menos un simbolo
+        matcher = pattern.matcher(password);
+        if (!matcher.matches())
+            Errores.add("La contraseña debe tener al menos un símbolo especial");
+
+        if (password.length() < 8)
+            Errores.add("La contraseña debe tener al menos 8 caracteres");
+
+        if (!Errores.isEmpty())
+            return ResponseEntity.badRequest().body(Map.of("Errores", Errores));
 
         return null;
     }
