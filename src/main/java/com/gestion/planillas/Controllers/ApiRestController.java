@@ -347,7 +347,8 @@ public class ApiRestController {
             ));
         }
 
-        String[] permisos= (String[]) claims.get("permisos");
+        List<String> permisosList = (List<String>) claims.get("permisos");
+        String[] permisos = permisosList.toArray(new String[0]);
         if (!Arrays.asList(permisos).contains(permiso)){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
                     "Error", "No tiene el permiso necesario para realizar dicha acción"
