@@ -2,7 +2,6 @@ package com.gestion.planillas.Controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gestion.planillas.DAO.demograficoDAO;
 import com.gestion.planillas.DAO.usuarioDAO;
 import com.gestion.planillas.DAO.rolDAO;
 import com.gestion.planillas.DAO.contaduriaDAO;
@@ -33,9 +32,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api")
 public class ApiRestController {
-
-    @Autowired
-    private demograficoDAO demograficoDAO;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
