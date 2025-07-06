@@ -1189,7 +1189,9 @@ INSERT INTO `permiso` (`IDPERMISO`, `NOMBREPERMISO`) VALUES
 	(43, 'ROLE_Agregar_deducciones_y_beneficios_de_empleados'),
 	(44, 'ROLE_Agregar_deducciones_y_beneficios_de_empleados'),
 	(45, 'ROLE_Agregar_presupuesto_de_unidades'),
-	(46, 'ROLE_Autorizar_nuevos_usuarios');
+	(46, 'ROLE_Autorizar_nuevos_usuarios'),
+	(47, 'ROLE_Crear_usuarios'),
+	(48, 'ROLE_Cambiar_rol');
 
 -- Volcando estructura para tabla bad_proyecto.permisolicencia
 DROP TABLE IF EXISTS `permisolicencia`;
@@ -1555,6 +1557,178 @@ BEGIN
 	FROM empleado e JOIN puesto p ON e.idpuesto=p.idpuesto
 	WHERE e.idempleado=idempleadop;
 	END//
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `planillaEmpleado2`;
+DELIMITER $$
+CREATE DEFINER=`root`@`%` PROCEDURE `planillaEmpleado2`(
+	IN `fecha1` DATE,
+	IN `fecha2` DATE,
+	IN `numerodocp` text
+)
+BEGIN
+	DECLARE mensual INT DEFAULT 1;
+	if DATEDIFF(fecha2, fecha1)<=15 then set mensual=2; END if;
+	SELECT
+	numerodoc,
+	 TRIM(CONCAT_WS(' ',
+	        nombre1,
+	        nombre2,
+	        apellido1,
+	        IF(apellidocasada IS NOT NULL AND apellidocasada != '', CONCAT('de ', apellidocasada), apellido2)
+	    )) AS Nombre,
+	p.nombrepuesto as cargo,
+	salario AS salariobase,
+	calcular_descuento(idempleado,fecha1,fecha2) AS faltas,
+	salario-calcular_descuento(idempleado,fecha1,fecha2) AS "salario-faltas",
+	verificarVacacion(idempleado,fecha1,fecha2)*(salario/2)*0.3 as vacaciones,
+	calcularHorasExtra(idempleado,fecha1,fecha2)*(salario/30/8)*2 AS "horas_extra",
+	calcularDeducBenef((salario-calcular_descuento(idempleado,fecha1,fecha2)),idempleado,"B") AS otrosbeneficios,
+	(
+	verificarVacacion(idempleado,fecha1,fecha2)*(salario/2)*0.3+
+	calcularHorasExtra(idempleado,fecha1,fecha2)*(salario/30/8)*2+
+	calcularDeducBenef((salario-calcular_descuento(idempleado,fecha1,fecha2)),idempleado,"B")
+	) AS totalbeneficios,
+	((salario-calcular_descuento(idempleado,fecha1,fecha2))+
+	(verificarVacacion(idempleado,fecha1,fecha2)*(salario/2)*0.3+
+	calcularHorasExtra(idempleado,fecha1,fecha2)*(salario/30/8)*2+
+	calcularDeducBenef((salario-calcular_descuento(idempleado,fecha1,fecha2)),idempleado,"B"))) AS "salario-faltas+beneficios",
+	calcularISSS(
+	(salario-calcular_descuento(idempleado,fecha1,fecha2))+
+	(verificarVacacion(idempleado,fecha1,fecha2)*(salario/2)*0.3+
+	calcularHorasExtra(idempleado,fecha1,fecha2)*(salario/30/8)*2+
+	calcularDeducBenef((salario-calcular_descuento(idempleado,fecha1,fecha2)),idempleado,"B"))
+	) AS isss,
+	(
+	(salario-calcular_descuento(idempleado,fecha1,fecha2))+
+	(verificarVacacion(idempleado,fecha1,fecha2)*(salario/2)*0.3+
+	calcularHorasExtra(idempleado,fecha1,fecha2)*(salario/30/8)*2+
+	calcularDeducBenef((salario-calcular_descuento(idempleado,fecha1,fecha2)),idempleado,"B"))
+	)*obtenerAFP() AS afp,
+	calcularRenta(
+	
+	((salario-calcular_descuento(idempleado,fecha1,fecha2))+
+	(verificarVacacion(idempleado,fecha1,fecha2)*(salario/2)*0.3+
+	calcularHorasExtra(idempleado,fecha1,fecha2)*(salario/30/8)*2+
+	calcularDeducBenef((salario-calcular_descuento(idempleado,fecha1,fecha2)),idempleado,"B")))-
+	
+	calcularISSS(
+	(salario-calcular_descuento(idempleado,fecha1,fecha2))+
+	(verificarVacacion(idempleado,fecha1,fecha2)*(salario/2)*0.3+
+	calcularHorasExtra(idempleado,fecha1,fecha2)*(salario/30/8)*2+
+	calcularDeducBenef((salario-calcular_descuento(idempleado,fecha1,fecha2)),idempleado,"B"))
+	)-
+	
+	(
+	(salario-calcular_descuento(idempleado,fecha1,fecha2))+
+	(verificarVacacion(idempleado,fecha1,fecha2)*(salario/2)*0.3+
+	calcularHorasExtra(idempleado,fecha1,fecha2)*(salario/30/8)*2+
+	calcularDeducBenef((salario-calcular_descuento(idempleado,fecha1,fecha2)),idempleado,"B"))
+	)*obtenerAFP()
+	,mensual) AS renta,
+	calcularDeducBenef(
+	
+	(
+	(salario-calcular_descuento(idempleado,fecha1,fecha2))+
+	(verificarVacacion(idempleado,fecha1,fecha2)*(salario/2)*0.3+
+	calcularHorasExtra(idempleado,fecha1,fecha2)*(salario/30/8)*2+
+	calcularDeducBenef((salario-calcular_descuento(idempleado,fecha1,fecha2)),idempleado,"B"))
+	),idempleado,"D") AS "otrasdeducciones",
+	(
+	calcularISSS(
+	(salario-calcular_descuento(idempleado,fecha1,fecha2))+
+	(verificarVacacion(idempleado,fecha1,fecha2)*(salario/2)*0.3+
+	calcularHorasExtra(idempleado,fecha1,fecha2)*(salario/30/8)*2+
+	calcularDeducBenef((salario-calcular_descuento(idempleado,fecha1,fecha2)),idempleado,"B"))
+	) +
+	(
+	(salario-calcular_descuento(idempleado,fecha1,fecha2))+
+	(verificarVacacion(idempleado,fecha1,fecha2)*(salario/2)*0.3+
+	calcularHorasExtra(idempleado,fecha1,fecha2)*(salario/30/8)*2+
+	calcularDeducBenef((salario-calcular_descuento(idempleado,fecha1,fecha2)),idempleado,"B"))
+	)*obtenerAFP() +
+	calcularRenta(
+	
+	((salario-calcular_descuento(idempleado,fecha1,fecha2))+
+	(verificarVacacion(idempleado,fecha1,fecha2)*(salario/2)*0.3+
+	calcularHorasExtra(idempleado,fecha1,fecha2)*(salario/30/8)*2+
+	calcularDeducBenef((salario-calcular_descuento(idempleado,fecha1,fecha2)),idempleado,"B")))-
+	
+	calcularISSS(
+	(salario-calcular_descuento(idempleado,fecha1,fecha2))+
+	(verificarVacacion(idempleado,fecha1,fecha2)*(salario/2)*0.3+
+	calcularHorasExtra(idempleado,fecha1,fecha2)*(salario/30/8)*2+
+	calcularDeducBenef((salario-calcular_descuento(idempleado,fecha1,fecha2)),idempleado,"B"))
+	)-
+	
+	(
+	(salario-calcular_descuento(idempleado,fecha1,fecha2))+
+	(verificarVacacion(idempleado,fecha1,fecha2)*(salario/2)*0.3+
+	calcularHorasExtra(idempleado,fecha1,fecha2)*(salario/30/8)*2+
+	calcularDeducBenef((salario-calcular_descuento(idempleado,fecha1,fecha2)),idempleado,"B"))
+	)*obtenerAFP()
+	,mensual) +
+	calcularDeducBenef(
+	
+	(
+	(salario-calcular_descuento(idempleado,fecha1,fecha2))+
+	(verificarVacacion(idempleado,fecha1,fecha2)*(salario/2)*0.3+
+	calcularHorasExtra(idempleado,fecha1,fecha2)*(salario/30/8)*2+
+	calcularDeducBenef((salario-calcular_descuento(idempleado,fecha1,fecha2)),idempleado,"B"))
+	),idempleado,"D")
+	) AS totaldeducciones,
+	(
+	(salario-calcular_descuento(idempleado,fecha1,fecha2))+
+	(verificarVacacion(idempleado,fecha1,fecha2)*(salario/2)*0.3+
+	calcularHorasExtra(idempleado,fecha1,fecha2)*(salario/30/8)*2+
+	calcularDeducBenef((salario-calcular_descuento(idempleado,fecha1,fecha2)),idempleado,"B"))
+	)-
+	(
+	calcularISSS(
+	(salario-calcular_descuento(idempleado,fecha1,fecha2))+
+	(verificarVacacion(idempleado,fecha1,fecha2)*(salario/2)*0.3+
+	calcularHorasExtra(idempleado,fecha1,fecha2)*(salario/30/8)*2+
+	calcularDeducBenef((salario-calcular_descuento(idempleado,fecha1,fecha2)),idempleado,"B"))
+	) +
+	(
+	(salario-calcular_descuento(idempleado,fecha1,fecha2))+
+	(verificarVacacion(idempleado,fecha1,fecha2)*(salario/2)*0.3+
+	calcularHorasExtra(idempleado,fecha1,fecha2)*(salario/30/8)*2+
+	calcularDeducBenef((salario-calcular_descuento(idempleado,fecha1,fecha2)),idempleado,"B"))
+	)*obtenerAFP() +
+	calcularRenta(
+	
+	((salario-calcular_descuento(idempleado,fecha1,fecha2))+
+	(verificarVacacion(idempleado,fecha1,fecha2)*(salario/2)*0.3+
+	calcularHorasExtra(idempleado,fecha1,fecha2)*(salario/30/8)*2+
+	calcularDeducBenef((salario-calcular_descuento(idempleado,fecha1,fecha2)),idempleado,"B")))-
+	
+	calcularISSS(
+	(salario-calcular_descuento(idempleado,fecha1,fecha2))+
+	(verificarVacacion(idempleado,fecha1,fecha2)*(salario/2)*0.3+
+	calcularHorasExtra(idempleado,fecha1,fecha2)*(salario/30/8)*2+
+	calcularDeducBenef((salario-calcular_descuento(idempleado,fecha1,fecha2)),idempleado,"B"))
+	)-
+	
+	(
+	(salario-calcular_descuento(idempleado,fecha1,fecha2))+
+	(verificarVacacion(idempleado,fecha1,fecha2)*(salario/2)*0.3+
+	calcularHorasExtra(idempleado,fecha1,fecha2)*(salario/30/8)*2+
+	calcularDeducBenef((salario-calcular_descuento(idempleado,fecha1,fecha2)),idempleado,"B"))
+	)*obtenerAFP()
+	,mensual) +
+	calcularDeducBenef(
+	
+	(
+	(salario-calcular_descuento(idempleado,fecha1,fecha2))+
+	(verificarVacacion(idempleado,fecha1,fecha2)*(salario/2)*0.3+
+	calcularHorasExtra(idempleado,fecha1,fecha2)*(salario/30/8)*2+
+	calcularDeducBenef((salario-calcular_descuento(idempleado,fecha1,fecha2)),idempleado,"B"))
+	),idempleado,"D")
+	) AS salarioneto
+	FROM empleado e JOIN puesto p ON e.idpuesto=p.idpuesto
+	WHERE e.numerodoc=numerodocp;
+	END$$
 DELIMITER ;
 
 -- Volcando estructura para tabla bad_proyecto.presupuestoanual
@@ -1967,7 +2141,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `IDUSUARIO` int NOT NULL AUTO_INCREMENT,
   `IDROL` int DEFAULT NULL,
   `USERNAME` varchar(50) DEFAULT NULL,
-  `EMAIL` varchar(50) NOT NULL,
+  `EMAIL` varchar(50) DEFAULT NULL,
   `PASSWORD` varchar(255) DEFAULT NULL,
   `ESTADO` tinyint(1) DEFAULT '1',
   `INTENTOSLOGIN` int DEFAULT '0',

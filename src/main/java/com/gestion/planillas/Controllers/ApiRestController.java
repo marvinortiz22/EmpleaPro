@@ -108,7 +108,7 @@ public class ApiRestController {
 
         String fecha_inicio = body.get("fecha_inicio");
         String fecha_fin = body.get("fecha_fin");
-        int empleado_id;
+        String numerodoc;
 
         if (fecha_inicio == null || fecha_fin == null) {
             return ResponseEntity
@@ -134,15 +134,9 @@ public class ApiRestController {
 
         List<Object[]> planillaList = new ArrayList<>();
 
-        if (body.get("empleado_id") != null) {
-            try {
-                empleado_id = Integer.parseInt(body.get("empleado_id"));
-            } catch (Exception e) {
-                return ResponseEntity
-                        .badRequest()
-                        .body(Map.of("Error", "El id del empleado debe ser un número o una cadena"));
-            }
-            Object[] boleta = contaduriaDAO.planillaEmpleado(fecha_inicio, fecha_fin, empleado_id);
+        if (body.get("numerodoc") != null) {
+            numerodoc = body.get("numerodoc");
+            Object[] boleta = contaduriaDAO.planillaEmpleado2(fecha_inicio, fecha_fin, numerodoc);
             if (boleta == null) {
                 return ResponseEntity
                         .status(HttpStatus.NOT_FOUND)
@@ -196,13 +190,12 @@ public class ApiRestController {
     public ResponseEntity<?> registroPost(@RequestBody(required = false) Map<String, String> body,
                                           @RequestHeader(value = "Authorization", required = false) String authHeader) {
 
-        /*ResponseEntity<?> errores=hayErrores(body,authHeader,"ROLE_Crear_usuarios");
+        ResponseEntity<?> errores=hayErrores(body,authHeader,"ROLE_Crear_usuarios");
         if (errores!=null){
             return errores;
-        }*/
+        }
 
         String username = body.get("username");
-        //String email = body.get("email");
         String password = body.get("password");
 
         if(username==null||password==null){
@@ -215,10 +208,6 @@ public class ApiRestController {
             return ResponseEntity
                     .badRequest()
                     .body(Map.of("Error", "Ya existe un usuario con este nombre de usuario"));
-        /*if (usuarioDAO.getUsuarioPorCampo("email", email) != null)
-            return ResponseEntity
-                    .badRequest()
-                    .body(Map.of("Error", "Ya existe un usuario con este correo electrónico"));*/
 
         ResponseEntity<?> contrasenaErrores=contrasenaInvalida(password);
         if(contrasenaErrores!=null){
@@ -227,7 +216,6 @@ public class ApiRestController {
 
         Usuario usuario = new Usuario();
         usuario.setUsername(username);
-        //usuario.setEmail(email);
         usuario.setPassword(passwordEncoder.encode(password));
 
         usuarioDAO.guardarUsuario(usuario);
@@ -237,20 +225,44 @@ public class ApiRestController {
 
     @PostMapping("cambiar_rol")
     public ResponseEntity<?> cambiarRol(@RequestBody(required = false) Map<String, String> body, @RequestHeader(value = "Authorization", required = false) String authHeader) throws JsonProcessingException {
-        /*ResponseEntity<?> errores=hayErrores(body,authHeader,"ROLE_Cambiar_roles");
+        ResponseEntity<?> errores=hayErrores(body,authHeader,"ROLE_Cambiar_rol");
         if (errores!=null){
             return errores;
-        }*/
-        String rol=body.get("rol");
+        }
+        String idRolStr=body.get("idrol");
         String username=body.get("username");
 
-        if(username==null||rol==null){
+        if(username==null||idRolStr==null){
             return ResponseEntity
                     .badRequest()
                     .body(Map.of("Error", "Se debe proveer un nombre de usuario y un rol válido"));
         }
 
-        Rol rolObject = rolDAO.getByNombre(rol);
+        int idRol;
+        try {
+            idRol = Integer.parseInt(idRolStr);
+        } catch (NumberFormatException e) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(Map.of("Error", "el idrol debe ser un número"));
+        }
+
+        String token = authHeader.substring(7); // quitar "Bearer "
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(Keys.hmacShaKeyFor(ACCES_TOKEN_SECRET.getBytes()))
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        String usernameToken = claims.get("sub").toString();
+
+        if(usernameToken.equals(username)){
+            return ResponseEntity
+                    .badRequest()
+                    .body(Map.of("Error", "Un usuario no puede cambiarse su propio rol"));
+        }
+
+        Rol rolObject = rolDAO.getRol(idRol);
 
         if(rolObject==null){
             return ResponseEntity

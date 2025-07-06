@@ -37,6 +37,20 @@ public class contaduriaDAOImpl implements contaduriaDAO{
     }
 
     @Override
+    public Object[] planillaEmpleado2(String fecha1,String fecha2, String numerodoc){
+        Session session = sessionFactory.getCurrentSession();
+        Query<Object[]> query = session.createNativeQuery("{CALL planillaEmpleado2(:fecha1,:fecha2,:numerodoc)}", Object[].class);
+        query.setParameter("fecha1", fecha1);
+        query.setParameter("fecha2", fecha2);
+        query.setParameter("numerodoc", numerodoc);
+        if(query.getResultList().isEmpty()){
+            return null;
+        }
+        Object[] planilla = query.getResultList().get(0);
+        return planilla;
+    }
+
+    @Override
     public Double getSalarioNeto(String fecha1, String fecha2, int id) {
         Session session = sessionFactory.getCurrentSession();
         Query<Double> query = session.createNativeQuery("{CALL salarioNeto(:fecha1,:fecha2,:idempleado)}", Double.class);
