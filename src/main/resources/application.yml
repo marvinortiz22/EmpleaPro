@@ -28,6 +28,7 @@ spring:
   security:
     user:
       password: ${SPRING_SECURITY_PASSWORD}
+      access_token_secret: ${ACCESS_TOKEN_SECRET}
 
   mail:
     host: smtp.gmail.com
