@@ -304,7 +304,7 @@ public class ApiRestController {
 
             Rol rolObject = rolDAO.getRol(idRol);
 
-            if(rolObject==null){
+            if(rolObject==null||idRol==1||idRol==3||idRol==4){//si es nulo o si es uno de los roles de la app principal
                 return ResponseEntity
                         .status(HttpStatus.NOT_FOUND)
                         .body(Map.of("Error", "No existe el rol ingresado"));
@@ -364,7 +364,7 @@ public class ApiRestController {
                         .body(Map.of("Error", "La contraseña nueva no puede ser igual a la anterior"));
             }
 
-            ResponseEntity<?> contrasenaErrores=contrasenaInvalida(password);
+            ResponseEntity<?> contrasenaErrores=contrasenaInvalida(newPassword);
             if(contrasenaErrores!=null){
                 return contrasenaErrores;
             }
@@ -442,7 +442,7 @@ public class ApiRestController {
         if (!matcher.matches())
             Errores.add("La contraseña debe tener al menos una letra");
 
-        pattern = Pattern.compile("(?=.*[@#$%^&+=*_/]).+");//al menos un simbolo
+        pattern = Pattern.compile("(?=.*[@#$%^&+=*_/\\-]).+");//al menos un simbolo
         matcher = pattern.matcher(password);
         if (!matcher.matches())
             Errores.add("La contraseña debe tener al menos un símbolo especial");
